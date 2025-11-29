@@ -1,0 +1,2 @@
+module jfxplace.core.registry {
+}

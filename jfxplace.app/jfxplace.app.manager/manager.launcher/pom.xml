@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.treilhes.jfxplace</groupId>
+		<artifactId>jfxplace.app.manager</artifactId>
+		<version>${manager.version}</version>
+	</parent>
+	<artifactId>manager.launcher</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.treilhes.emc4j</groupId>
+			<artifactId>emc4j.boot.main</artifactId>
+			<version>${jfxplace.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.treilhes.jfxplace</groupId>
+				<artifactId>emc4j-maven-plugin</artifactId>
+				<version>${jfxplace.version}</version>
+				<configuration>
+					<emc4jVersion>${jfxplace.version}</emc4jVersion>
+					<!--<debug>true</debug>-->
+					<profile>manager</profile>
+					<profileFile>${basedir}/src/main/resources/application-manager.yaml</profileFile>
+					<applicationId>00000000-0000-0000-0000-000000000002</applicationId>
+					<javaOptions>
+						<!--
+						<javaOption>-Dlogging.level.org.springframework.beans.factory.support=DEBUG</javaOption>
+						<javaOption>-Dlogging.level.org.springframework.beans.factory=DEBUG</javaOption>
+						<javaOption>-Dlogging.level.org.springframework.context.annotation=DEBUG</javaOption>
+				      -->
+
+					</javaOptions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

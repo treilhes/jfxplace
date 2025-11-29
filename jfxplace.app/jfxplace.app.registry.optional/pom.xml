@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.treilhes.jfxplace</groupId>
+		<artifactId>jfxplace.app</artifactId>
+		<version>${jfxplace.version}</version>
+	</parent>
+	<artifactId>jfxplace.app.registry.optional</artifactId>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.treilhes.emc4j</groupId>
+				<artifactId>emc4j-registry-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>generate-registry-resources</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>emc4jRegistry</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<format>json</format>
+					<registry>
+						<uuid>874c70a3-d6d1-439c-8cfb-2a7dfd6d55ed</uuid>
+						<description>
+							<image>fxmlRunner_64x64.png</image>
+							<title>FXML Runner</title>
+							<text>App that run fxml files</text>
+						</description>
+						<applications>
+							<application>
+								<uuid>feda298c-4a63-450d-8c59-8cb43241ba3d</uuid>
+								<splash>fxmlRunner_256x256.jpeg</splash>
+								<dependency>
+									<groupId>com.treilhes.jfxplace</groupId>
+									<version>${project.version}</version>
+									<artifactId>jfxplace.app.fxmlrunner</artifactId>
+								</dependency>
+								<description>
+									<image>fxmlRunner_64x64.png</image>
+									<title>FXML Runner</title>
+									<text>App that run fxml files</text>
+								</description>
+							</application>
+						</applications>
+					</registry>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

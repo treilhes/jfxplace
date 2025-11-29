@@ -1,0 +1,23 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.treilhes.jfxplace</groupId>
+    <artifactId>jfxplace-parent</artifactId>
+    <version>${jfxplace.version}</version>
+  </parent>
+  <artifactId>jfxplace.ext</artifactId>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>jfxplace.ext.menu</module>
+    <module>jfxplace.ext.about</module>
+    <module>jfxplace.ext.about.api</module>
+    <module>jfxplace.ext.certificate.manager</module>
+    <module>jfxplace.ext.log.viewer</module>
+    <module>jfxplace.ext.scenicview</module>
+    <module>jfxplace.ext.scenicview.api</module>
+    <module>jfxplace.ext.update.manager</module>
+    <module>jfxplace.ext.container</module>
+
+  </modules>
+</project>

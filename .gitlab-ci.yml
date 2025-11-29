@@ -1,0 +1,8 @@
+stages:          # List of stages for jobs, and their order of execution
+  - build
+  - test
+  - deploy
+
+include:
+#  - local: '.gitlab/build-linux.yml'
+  - local: '.gitlab/build-windows.yml'

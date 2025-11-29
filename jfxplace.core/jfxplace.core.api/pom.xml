@@ -1,0 +1,100 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>jfxplace.core.api</artifactId>
+
+    <parent>
+        <groupId>com.treilhes.jfxplace</groupId>
+        <artifactId>jfxplace.core</artifactId>
+        <version>${jfxplace.version}</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+            <artifactId>jfxplace.javafx.starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+            <artifactId>jfxplace.core.controls</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+            <artifactId>jfxplace.core.fxom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+            <artifactId>jfxplace.core.metadata</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+            <artifactId>jfxplace.core.utils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+            <artifactId>javafx.fxml.patch</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.pdfsam.rxjava3/rxjavafx -->
+        <dependency>
+            <groupId>org.pdfsam.rxjava3</groupId>
+            <artifactId>rxjavafx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+            <artifactId>jfxplace.core.starter</artifactId>
+            <exclusions>
+                <!-- we want the jfxplace.core.starter module jar to be loaded here but not
+                the dependencies which are already present in the boot classpath -->
+                <exclusion>
+                  <groupId>*</groupId>
+                  <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.emc4j</groupId>
+            <artifactId>emc4j.boot.loader</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.emc4j</groupId>
+            <artifactId>emc4j.boot.platform</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.emc4j</groupId>
+            <artifactId>emc4j.boot.maven</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.emc4j</groupId>
+            <artifactId>emc4j.boot.starter.test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!--<dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+            <artifactId>jfxplace.core.extension.api</artifactId>
+        </dependency>-->
+        <!-- JavaFX -->
+
+
+        <!-- TODELETE
+        <dependency>
+        <groupId>com.treilhes.jfxplace</groupId>
+        <artifactId>jfxplace.core.fxom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+        <artifactId>jfxplace.core.metadata</artifactId>
+        </dependency> -->
+        <!-- TODELETE -->
+        <!--<dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+            <artifactId>jfxplace.starter</artifactId>
+        </dependency>-->
+
+    </dependencies>
+</project>

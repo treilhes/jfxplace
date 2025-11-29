@@ -1,0 +1,17 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+        <groupId>com.treilhes.jfxplace</groupId>
+        <artifactId>jfxplace.app</artifactId>
+        <version>${jfxplace.version}</version>
+    </parent>
+	<artifactId>jfxplace.app.sample</artifactId>
+	<version>${sample.version}</version>
+	<packaging>pom</packaging>
+	<modules>
+		<module>jfxplace.app.sample.registry</module>
+		<module>jfxplace.app.sample.app</module>
+	</modules>
+</project>

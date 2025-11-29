@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.treilhes.jfxplace</groupId>
+        <artifactId>jfxplace-parent</artifactId>
+        <version>${jfxplace.version}</version>
+    </parent>
+    <artifactId>jfxplace.core</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>jfxplace.core.fxom</module>
+
+        <module>jfxplace.core.api</module>
+        <module>jfxplace.core.metadata</module>
+        <module>jfxplace.core.ui</module>
+        <module>jfxplace.core.preferences</module>
+
+        <module>jfxplace.core.clipboard</module>
+        <module>jfxplace.core.drag.and.drop</module>
+        <module>jfxplace.core.error</module>
+        <module>jfxplace.core.extension.store</module>
+        <module>jfxplace.core.filesystem</module>
+        <module>jfxplace.core.jobs</module>
+        <module>jfxplace.core.library</module>
+        <module>jfxplace.core.selection</module>
+        <!--<module>jfxplace.core.splash</module>-->
+        <module>jfxplace.core.utils</module>
+        <module>jfxplace.core.accelerators</module>
+        <module>jfxplace.core.menu</module>
+        <module>jfxplace.core.guides</module>
+        <module>jfxplace.core.starter.test</module>
+        <module>jfxplace.core.starter</module>
+        <module>jfxplace.core.maven</module>
+
+        <module>jfxplace.core.appmngr</module>
+        <module>jfxplace.core.registry</module>
+        <module>jfxplace.javafx.starter</module>
+        <module>jfxplace.core.controls</module>
+
+        <module>jfxplace.core.jpms.patches</module>
+        <module>jfxplace.core.metadefault</module>
+        <module>jfxplace.core.document</module>
+    </modules>
+</project>
