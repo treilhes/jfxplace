@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.treilhes.jfxplace</groupId>
+        <artifactId>jfxplace.starters</artifactId>
+        <version>${jfxplace.version}</version>
+    </parent>
+    <artifactId>jfxplace.core.starter</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.treilhes.emc4j</groupId>
+            <artifactId>emc4j.boot.loader</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.emc4j</groupId>
+            <artifactId>emc4j.boot.platform</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.emc4j</groupId>
+            <artifactId>emc4j.boot.maven</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.emc4j</groupId>
+            <artifactId>emc4j.boot.starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+            <artifactId>jfxplace.javafx.starter</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.pdfsam.rxjava3/rxjavafx -->
+        <dependency>
+            <groupId>org.pdfsam.rxjava3</groupId>
+            <artifactId>rxjavafx</artifactId>
+        </dependency>
+    </dependencies>
+</project>

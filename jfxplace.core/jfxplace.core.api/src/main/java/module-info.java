@@ -83,29 +83,7 @@ open module jfxplace.core.api {
     exports com.gluonhq.jfxapps.core.api.job.base;
     exports com.gluonhq.jfxapps.core.api.util;
 
-    exports com.gluonhq.jfxapps.core.api.fxom.clipboard;
-    exports com.gluonhq.jfxapps.core.api.fxom.content.decoration;
-    exports com.gluonhq.jfxapps.core.api.fxom.content.mode;
-    exports com.gluonhq.jfxapps.core.api.fxom.content.mode.annotation;
-    exports com.gluonhq.jfxapps.core.api.fxom.css;
-    exports com.gluonhq.jfxapps.core.api.fxom.dnd;
     exports com.gluonhq.jfxapps.core.api.document;
-    exports com.gluonhq.jfxapps.core.api.fxom.editor.selection;
-    exports com.gluonhq.jfxapps.core.api.fxom.error;
-    exports com.gluonhq.jfxapps.core.api.fxom.gesture;
-    exports com.gluonhq.jfxapps.core.api.fxom.jobs;
-    exports com.gluonhq.jfxapps.core.api.fxom.job;
-    exports com.gluonhq.jfxapps.core.api.fxom.job.base;
-    exports com.gluonhq.jfxapps.core.api.fxom.library;
-    exports com.gluonhq.jfxapps.core.api.fxom.mask;
-    exports com.gluonhq.jfxapps.core.api.fxom.subjects;
-    exports com.gluonhq.jfxapps.core.api.fxom.ui.controller.misc;
-    exports com.gluonhq.jfxapps.core.api.fxom.ui.controller.selbar;
-    exports com.gluonhq.jfxapps.core.api.fxom.ui.controller.ctxmenu;
-    exports com.gluonhq.jfxapps.core.api.fxom.ui.controller.ctxmenu.annotation;
-    exports com.gluonhq.jfxapps.core.api.fxom.ui.tool;
-    exports com.gluonhq.jfxapps.core.api.fxom.util;
-
 
     requires transitive jfxplace.javafx.starter;
 
@@ -118,7 +96,7 @@ open module jfxplace.core.api {
 
     requires transitive jfxplace.core.utils;
     requires transitive jfxplace.core.fxom;
-    requires transitive jfxplace.core.metadata;
+    //requires transitive jfxplace.core.metadata;
     // required to allow class access from JavafxThreadClassloader
     requires transitive jfxplace.core.controls;
 

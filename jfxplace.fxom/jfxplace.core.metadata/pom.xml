@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>jfxplace.fxom</artifactId>
+        <groupId>com.treilhes.jfxplace</groupId>
+        <version>${jfxplace.version}</version>
+    </parent>
+
+    <artifactId>jfxplace.core.metadata</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+            <artifactId>jfxplace.core.fxom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+            <artifactId>jfxplace.core.utils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+            <artifactId>jfxplace.core.starter</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+            <artifactId>jfxplace.javafx.starter</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>

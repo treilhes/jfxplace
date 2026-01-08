@@ -37,18 +37,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-import com.treilhes.emc4j.boot.api.layer.Layer;
-import com.treilhes.emc4j.boot.api.loader.extension.RootExtension;
-import com.treilhes.emc4j.boot.api.loader.extension.SealedExtension;
 import com.gluonhq.jfxapps.core.api.action.ActionExtensionFactory;
 import com.gluonhq.jfxapps.core.api.action.ActionFactory;
 import com.gluonhq.jfxapps.core.api.application.ApplicationClassloader;
-import com.gluonhq.jfxapps.core.api.fxom.editor.selection.DefaultSelectionGroupFactory;
-import com.gluonhq.jfxapps.core.api.fxom.editor.selection.ObjectSelectionGroup;
-import com.gluonhq.jfxapps.core.api.fxom.editor.selection.SelectionGroupFactoryRegistry;
-import com.gluonhq.jfxapps.core.api.fxom.gesture.DiscardGesture;
-import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
-import com.gluonhq.jfxapps.core.api.fxom.ui.controller.dock.SearchController;
 import com.gluonhq.jfxapps.core.api.i18n.I18N;
 import com.gluonhq.jfxapps.core.api.javafx.internal.FxmlControllerBeanPostProcessor;
 import com.gluonhq.jfxapps.core.api.javafx.internal.JavafxThreadBootstrapper;
@@ -67,22 +58,13 @@ import com.gluonhq.jfxapps.core.api.ui.controller.dock.DockFactory;
 import com.gluonhq.jfxapps.core.api.ui.controller.dock.DockNameHelper;
 import com.gluonhq.jfxapps.core.api.ui.controller.dock.ViewController;
 import com.gluonhq.jfxapps.core.api.ui.controller.menu.MenuBuilder;
+import com.treilhes.emc4j.boot.api.loader.extension.RootExtension;
+import com.treilhes.emc4j.boot.api.loader.extension.SealedExtension;
 
 
 public class ApiExtension implements RootExtension {
 
     public final static UUID ID = ROOT_ID;
-
-
-    @Override
-    public void initializeModule(Layer layer) {
-        RootExtension.super.initializeModule(layer);
-
-        var module = this.getClass().getModule();
-        var fxomModule = module.getLayer().findModule("jfxapps.core.fxom").get();
-
-        com.gluonhq.jfxapps.javafx.fxml.patch.PatchLink.addOpen(fxomModule, "com.sun.javafx.fxml");
-    }
 
     @Override
     public UUID getParentId() {
@@ -102,10 +84,6 @@ public class ApiExtension implements RootExtension {
                 ActionFactory.class,
                 ApplicationEvents.ApplicationEventsImpl.class,
                 ApplicationInstanceEvents.ApplicationInstanceEventsImpl.class,
-                FxomEvents.FxomEventsImpl.class,
-                DefaultSelectionGroupFactory.class,
-                DiscardGesture.Factory.class,
-                DiscardGesture.class,
                 DockFactory.class,
                 DockManager.DockManagerImpl.class,
                 DockNameHelper.class,
@@ -120,9 +98,6 @@ public class ApiExtension implements RootExtension {
                 MavenSetting.class,
                 MenuBuilder.class,
                 NetworkManager.NetworkManagerImpl.class,
-                ObjectSelectionGroup.Factory.class,
-                SearchController.class,
-                SelectionGroupFactoryRegistry.class,
                 TaskService.class,
                 ViewController.class,
                 ViewManager.ViewManagerImpl.class
