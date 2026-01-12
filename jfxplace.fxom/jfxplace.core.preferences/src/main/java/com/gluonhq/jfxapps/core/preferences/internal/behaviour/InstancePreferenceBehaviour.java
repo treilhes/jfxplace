@@ -33,39 +33,35 @@
  */
 package com.gluonhq.jfxapps.core.preferences.internal.behaviour;
 
-import java.net.URL;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
 import com.gluonhq.jfxapps.core.api.subjects.ApplicationEvents;
+import com.gluonhq.jfxapps.core.api.subjects.ApplicationInstanceEvents;
 import com.gluonhq.jfxapps.core.preferences.internal.aop.PreferenceAopContext.BasePreference;
 import com.gluonhq.jfxapps.core.preferences.internal.aop.PreferenceAopContext.PreferenceMetadata;
 import com.gluonhq.jfxapps.core.preferences.model.PreferenceEntity;
 import com.gluonhq.jfxapps.core.preferences.model.PreferenceEntity.PreferenceEntityId;
 import com.gluonhq.jfxapps.core.preferences.repository.PreferenceRepository;
 
-import javafx.beans.property.ObjectProperty;
-
 public class InstancePreferenceBehaviour extends AbstractPreferenceBehaviour {
 
     private static final Logger logger = LoggerFactory.getLogger(InstancePreferenceBehaviour.class);
 
-    private ObjectProperty<URL> location;
+    private Object uniqueId;
     private String applicationId;
 
     public InstancePreferenceBehaviour(
             PreferenceMetadata metadata, PreferenceRepository repository,
             ApplicationEvents applicationEvents,
-            FxomEvents applicationInstanceEvents) {
+            ApplicationInstanceEvents instanceEvents) {
         super(metadata, repository);
         applicationEvents.opened().subscribe(app -> {
             applicationId = app != null ? app.getClass().getName() : null;
         });
-        applicationInstanceEvents.fxomDocument().subscribe(fd -> {
-            location = fd.locationProperty();
+        instanceEvents.uniqueId().subscribe(uid -> {
+            uniqueId = uid;
         });
     }
 
@@ -73,14 +69,13 @@ public class InstancePreferenceBehaviour extends AbstractPreferenceBehaviour {
     public void write(BasePreference<?> preference) {
 
         try {
-            var url = location != null && location.get() != null ? location.get() : null;
             var id = preference.getId();
 
-            if (url != null && applicationId  != null) {
+            if (uniqueId != null && applicationId  != null) {
                 var entity = new PreferenceEntity();
                 entity.setId(id);
                 entity.setApplication(applicationId);
-                entity.setInstance(location.get().toString());
+                entity.setInstance(uniqueId.toString());
                 entity.setJsonValue(preference.toJson());
                 getRepository().saveAndFlush(entity);
             }
@@ -94,15 +89,14 @@ public class InstancePreferenceBehaviour extends AbstractPreferenceBehaviour {
     public void read(BasePreference<?> preference) {
 
         try {
-            var url = location != null && location.get() != null ? location.get() : null;
             var id = preference.getId();
 
             PreferenceEntity entity = null;
-            if (url != null && applicationId  != null) {
+            if (uniqueId != null && applicationId  != null) {
                 var entityId = new PreferenceEntityId();
                 entityId.setId(id);
                 entityId.setApplication(applicationId);
-                entityId.setInstance(location.get().toString());
+                entityId.setInstance(uniqueId.toString());
 
                 entity = getRepository().findById(entityId).orElse(null);
             }

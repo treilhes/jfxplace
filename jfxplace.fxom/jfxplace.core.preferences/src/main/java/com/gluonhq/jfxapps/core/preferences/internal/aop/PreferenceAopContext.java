@@ -43,7 +43,6 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
-import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
 import com.gluonhq.jfxapps.core.api.i18n.I18N;
 import com.gluonhq.jfxapps.core.api.preference.DefaultPreferenceGroups.PreferenceGroup;
 import com.gluonhq.jfxapps.core.api.preference.DefaultValueProvider;
@@ -55,6 +54,7 @@ import com.gluonhq.jfxapps.core.api.preference.PreferenceEditorFactory;
 import com.gluonhq.jfxapps.core.api.preference.UserPreference;
 import com.gluonhq.jfxapps.core.api.preference.ValueValidator;
 import com.gluonhq.jfxapps.core.api.subjects.ApplicationEvents;
+import com.gluonhq.jfxapps.core.api.subjects.ApplicationInstanceEvents;
 import com.gluonhq.jfxapps.core.preferences.internal.behaviour.ApplicationPreferenceBehaviour;
 import com.gluonhq.jfxapps.core.preferences.internal.behaviour.GlobalPreferenceBehaviour;
 import com.gluonhq.jfxapps.core.preferences.internal.behaviour.InstancePreferenceBehaviour;
@@ -143,7 +143,7 @@ public class PreferenceAopContext extends AopContext<Preference, PreferenceConte
                 context.getBean(ApplicationEvents.class));
 
         case ApplicationInstanceSingleton.SCOPE_NAME -> new InstancePreferenceBehaviour(metadata, preferenceRepository,
-                context.getBean(ApplicationEvents.class), context.getBean(FxomEvents.class));
+                context.getBean(ApplicationEvents.class), context.getBean(ApplicationInstanceEvents.class));
 
         default -> throw new IllegalArgumentException("Unexpected value: " + scope);
         };

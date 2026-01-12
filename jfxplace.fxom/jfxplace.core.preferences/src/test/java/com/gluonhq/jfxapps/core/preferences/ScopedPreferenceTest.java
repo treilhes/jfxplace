@@ -51,21 +51,20 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 
-import com.treilhes.emc4j.boot.api.context.EmContext;
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
-import com.treilhes.emc4j.boot.api.context.annotation.Singleton;
-import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
 import com.gluonhq.jfxapps.core.api.preference.DefaultValueProvider;
 import com.gluonhq.jfxapps.core.api.preference.Preference;
 import com.gluonhq.jfxapps.core.api.preference.PreferenceContext;
 import com.gluonhq.jfxapps.core.api.preference.ValueValidator;
-import com.gluonhq.jfxapps.core.fxom.FXOMDocumentFactory;
+import com.gluonhq.jfxapps.core.api.subjects.ApplicationInstanceEvents;
 import com.gluonhq.jfxapps.core.preferences.internal.aop.PreferenceBeanPostProcessor;
 import com.gluonhq.jfxapps.core.preferences.model.PreferenceEntity;
 import com.gluonhq.jfxapps.core.preferences.model.PreferenceEntity.PreferenceEntityId;
 import com.gluonhq.jfxapps.core.preferences.repository.PreferenceRepository;
 import com.gluonhq.jfxapps.test.JfxAppsTest;
+import com.treilhes.emc4j.boot.api.context.EmContext;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
+import com.treilhes.emc4j.boot.api.context.annotation.Singleton;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -188,14 +187,14 @@ public class ScopedPreferenceTest {
         final String INST3_VALUE = "val3";
         final String INST4_VALUE = "val4";
 
-        var instance1Events = context.getBean(FxomEvents.class);
+        var instance1Events = context.getBean(ApplicationInstanceEvents.class);
         var prefInst1 = context.getBean(TestAppInstancePreference.class);
         assertTrue("should have default value", DEFAULT_VALUE.equals(prefInst1.getValue()));
 
         context.getApplicationInstanceExecutor().unbindScope();
         context.getBean(JfxAppsTest.Application1InstanceBean.class);
 
-        var instance2Events = context.getBean(FxomEvents.class);
+        var instance2Events = context.getBean(ApplicationInstanceEvents.class);
         var prefInst2 = context.getBean(TestAppInstancePreference.class);
         assertTrue("should have default value", DEFAULT_VALUE.equals(prefInst2.getValue()));
 
@@ -204,14 +203,14 @@ public class ScopedPreferenceTest {
         context.getBean(JfxAppsTest.Application2Bean.class);
         context.getBean(JfxAppsTest.Application2InstanceBean.class);
 
-        var instance3Events = context.getBean(FxomEvents.class);
+        var instance3Events = context.getBean(ApplicationInstanceEvents.class);
         var prefInst3 = context.getBean(TestAppInstancePreference.class);
         assertTrue("should have default value", DEFAULT_VALUE.equals(prefInst3.getValue()));
 
         context.getApplicationInstanceExecutor().unbindScope();
         context.getBean(JfxAppsTest.Application2InstanceBean.class);
 
-        var instance4Events = context.getBean(FxomEvents.class);
+        var instance4Events = context.getBean(ApplicationInstanceEvents.class);
         var prefInst4 = context.getBean(TestAppInstancePreference.class);
         assertTrue("should have default value", DEFAULT_VALUE.equals(prefInst4.getValue()));
 
@@ -235,23 +234,14 @@ public class ScopedPreferenceTest {
         prefInst3.save();
         prefInst4.save();
 
-        // here no fxomDocuments for any instance, so nothing should be saved in db
+        // here no uniqueId for any instance, so nothing should be saved in db
         var all = preferenceRepository.findAll();
         assertTrue(all.size() == 0);
 
-        instance1Events.fxomDocument().set(FXOMDocumentFactory.DEFAULT.newDocument(""));
-        instance2Events.fxomDocument().set(FXOMDocumentFactory.DEFAULT.newDocument(""));
-        instance3Events.fxomDocument().set(FXOMDocumentFactory.DEFAULT.newDocument(""));
-        instance4Events.fxomDocument().set(FXOMDocumentFactory.DEFAULT.newDocument(""));
-
-        // here we have fxomDocuments for all instance, but no locations set so nothing should be saved in db
-        all = preferenceRepository.findAll();
-        assertTrue(all.size() == 0);
-
-        instance1Events.fxomDocument().get().setLocation(INST1_LOC);
-        instance2Events.fxomDocument().get().setLocation(INST2_LOC);
-        instance3Events.fxomDocument().get().setLocation(INST3_LOC);
-        instance4Events.fxomDocument().get().setLocation(INST4_LOC);
+        instance1Events.uniqueId().set(INST1_LOC);
+        instance2Events.uniqueId().set(INST2_LOC);
+        instance3Events.uniqueId().set(INST3_LOC);
+        instance4Events.uniqueId().set(INST4_LOC);
 
         prefInst1.save();
         prefInst2.save();

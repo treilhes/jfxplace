@@ -33,9 +33,9 @@
  */
 package com.gluonhq.jfxapps.core.api.subjects;
 
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
-import com.gluonhq.jfxapps.core.api.ui.controller.AbstractInstanceUiController;
 import com.gluonhq.jfxapps.core.api.ui.controller.AbstractFxmlViewController;
+import com.gluonhq.jfxapps.core.api.ui.controller.AbstractInstanceUiController;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 
 import io.reactivex.rxjava3.subjects.ReplaySubject;
 
@@ -61,7 +61,14 @@ public interface ApplicationInstanceEvents {
     SubjectItem<Boolean> dependenciesLoaded();
 
     SubjectItem<AbstractInstanceUiController> focused();
+
     SubjectItem<AbstractFxmlViewController> focusedView();
+
+    /**
+     * The unique ID of the application instance
+     * @return the unique ID
+     */
+    SubjectItem<Object> uniqueId();
 
     @ApplicationInstanceSingleton
     public class ApplicationInstanceEventsImpl implements ApplicationInstanceEvents {
@@ -73,7 +80,7 @@ public interface ApplicationInstanceEvents {
         private final SubjectItem<ClassLoader> classLoaderDidChange;
         private final SubjectItem<AbstractInstanceUiController> focused;
         private final SubjectItem<AbstractFxmlViewController> focusedView;
-
+        private final SubjectItem<Object> uniqueId;
 
         public ApplicationInstanceEventsImpl() {
             subjects = new ApplicationInstanceSubjects();
@@ -83,7 +90,7 @@ public interface ApplicationInstanceEvents {
             classLoaderDidChange = new SubjectItem<>(subjects.getClassLoaderDidChange());
             focused = new SubjectItem<>(subjects.getFocused());
             focusedView = new SubjectItem<>(subjects.getFocusedView());
-
+            uniqueId = new SubjectItem<>(subjects.getUniqueId());
         }
 
         @Override
@@ -111,7 +118,10 @@ public interface ApplicationInstanceEvents {
             return focusedView;
         }
 
-
+        @Override
+        public SubjectItem<Object> uniqueId() {
+            return uniqueId;
+        }
     }
 
     public class ApplicationInstanceSubjects extends SubjectManager {
@@ -122,7 +132,7 @@ public interface ApplicationInstanceEvents {
 
         private ReplaySubject<AbstractInstanceUiController> focused;
         private ReplaySubject<AbstractFxmlViewController> focusedView;
-
+        private ReplaySubject<Object> uniqueId;;
 
         public ApplicationInstanceSubjects() {
             closed = wrap(ApplicationInstanceSubjects.class, "closed", ReplaySubject.create(1)); // NOI18N
@@ -130,7 +140,7 @@ public interface ApplicationInstanceEvents {
             classLoaderDidChange = wrap(ApplicationInstanceSubjects.class, "classLoaderDidChange", ReplaySubject.create(1)); // NOI18N
             focused = wrap(ApplicationInstanceSubjects.class, "focused", ReplaySubject.create(1)); // NOI18N
             focusedView = wrap(ApplicationInstanceSubjects.class, "focusedView", ReplaySubject.create(1)); // NOI18N
-
+            uniqueId = wrap(ApplicationInstanceSubjects.class, "uniqueId", ReplaySubject.create(1)); // NOI18N
         }
 
         public ReplaySubject<Boolean> getClosed() {
@@ -153,6 +163,8 @@ public interface ApplicationInstanceEvents {
             return focusedView;
         }
 
-
+        public ReplaySubject<Object> getUniqueId() {
+            return uniqueId;
+        }
     }
 }

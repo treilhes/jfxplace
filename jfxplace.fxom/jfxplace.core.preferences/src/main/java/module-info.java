@@ -41,7 +41,6 @@ open module jfxplace.core.preferences {
     exports com.gluonhq.jfxapps.core.preferences.repository;
 
     requires jfxplace.core.api;
-    requires transitive jfxplace.fxom.api;
 
     requires jfxplace.core.starter;
     requires jfxplace.core.controls;
