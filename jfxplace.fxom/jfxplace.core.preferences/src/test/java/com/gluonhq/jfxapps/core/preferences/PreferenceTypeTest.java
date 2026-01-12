@@ -46,44 +46,44 @@ import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.boot.persistence.autoconfigure.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.test.context.ContextConfiguration;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
-import com.treilhes.emc4j.boot.api.context.EmContext;
-import com.treilhes.emc4j.boot.api.context.annotation.Singleton;
 import com.gluonhq.jfxapps.core.api.preference.JsonMapper;
 import com.gluonhq.jfxapps.core.api.preference.Preference;
 import com.gluonhq.jfxapps.core.api.preference.PreferenceContext;
 import com.gluonhq.jfxapps.core.preferences.internal.aop.PreferenceBeanPostProcessor;
 import com.gluonhq.jfxapps.core.preferences.model.PreferenceEntity;
 import com.gluonhq.jfxapps.core.preferences.repository.PreferenceRepository;
-import com.gluonhq.jfxapps.test.JfxAppsTest;
+import com.treilhes.emc4j.boot.api.context.EmContext;
+import com.treilhes.emc4j.boot.api.context.annotation.Singleton;
+import com.treilhes.jfxplace.test.JfxPlaceTest;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.paint.Color;
 
-@JfxAppsTest(properties = {
-        "spring.jpa.show-sql=true",
-})
-//@formatter:off
-@ContextConfiguration(classes = {
-        PreferenceTypeTest.Config.class,
-        PreferenceBeanPostProcessor.class,
-        PreferenceTypeTest.ObjectMapPreference.class,
-        PreferenceTypeTest.ClassListPreference.class,
-        PreferenceTypeTest.NestedMapPreference.class,
-        PreferenceTypeTest.ColorPreference.class,
-        PreferenceTypeTest.SimpleTypePreference.class,
-        PreferenceTypeTest.EnumTypePreference.class,
-        PreferenceTypeTest.FilePreference.class,
-        PreferenceTypeTest.UuidPreference.class
-
-})
-//@formatter:on
+@JfxPlaceTest(
+        enableJpa = true,
+        properties = {
+                "spring.jpa.show-sql=true",
+        },
+        classes = {
+                PreferenceRepository.class,
+                PreferenceEntity.class,
+                PreferenceBeanPostProcessor.class,
+                PreferenceTypeTest.ObjectMapPreference.class,
+                PreferenceTypeTest.ClassListPreference.class,
+                PreferenceTypeTest.NestedMapPreference.class,
+                PreferenceTypeTest.ColorPreference.class,
+                PreferenceTypeTest.SimpleTypePreference.class,
+                PreferenceTypeTest.EnumTypePreference.class,
+                PreferenceTypeTest.FilePreference.class,
+                PreferenceTypeTest.UuidPreference.class
+        }
+)
 public class PreferenceTypeTest {
     @SpringBootConfiguration
     @EnableJpaRepositories(basePackageClasses = { PreferenceRepository.class })

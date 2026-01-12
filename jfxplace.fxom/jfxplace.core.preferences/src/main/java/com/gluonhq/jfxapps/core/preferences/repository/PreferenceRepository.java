@@ -41,5 +41,4 @@ import com.gluonhq.jfxapps.core.preferences.model.PreferenceEntity.PreferenceEnt
 
 @Repository
 public interface PreferenceRepository extends JpaRepository<PreferenceEntity, PreferenceEntityId> {
-
 }

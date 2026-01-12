@@ -43,12 +43,6 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
-import com.treilhes.emc4j.boot.api.aop.AopContext;
-import com.treilhes.emc4j.boot.api.aop.AopFactoryBean;
-import com.treilhes.emc4j.boot.api.aop.AopMetadata;
-import com.treilhes.emc4j.boot.api.context.EmContext;
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
 import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
 import com.gluonhq.jfxapps.core.api.i18n.I18N;
 import com.gluonhq.jfxapps.core.api.preference.DefaultPreferenceGroups.PreferenceGroup;
@@ -66,6 +60,12 @@ import com.gluonhq.jfxapps.core.preferences.internal.behaviour.GlobalPreferenceB
 import com.gluonhq.jfxapps.core.preferences.internal.behaviour.InstancePreferenceBehaviour;
 import com.gluonhq.jfxapps.core.preferences.internal.behaviour.PreferenceBehaviour;
 import com.gluonhq.jfxapps.core.preferences.repository.PreferenceRepository;
+import com.treilhes.emc4j.boot.api.aop.AopContext;
+import com.treilhes.emc4j.boot.api.aop.AopFactoryBean;
+import com.treilhes.emc4j.boot.api.aop.AopMetadata;
+import com.treilhes.emc4j.boot.api.context.EmContext;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
 
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
@@ -148,7 +148,7 @@ public class PreferenceAopContext extends AopContext<Preference, PreferenceConte
         default -> throw new IllegalArgumentException("Unexpected value: " + scope);
         };
 
-        var preference = new BasePreference(jfxAppContext, i18n, id, name, dataClass, defaultValueProvider, valueValidator,
+        var preference = new BasePreference(preferenceInterface, jfxAppContext, i18n, id, name, dataClass, defaultValueProvider, valueValidator,
                 behaviourClass, defaultEditorFactory, jsonMapper);
 
         return preference;
@@ -200,8 +200,11 @@ public class PreferenceAopContext extends AopContext<Preference, PreferenceConte
         private final PreferenceEditorFactory preferenceEditorFactory;
         private final JsonMapper jsonMapper;
 
+        private final Class<?> declaringInterface;
+
         //@formatter:off
         public BasePreference(
+                Class<?> declaringInterface,
                 EmContext context,
                 I18N i18n,
                 UUID id,
@@ -213,6 +216,7 @@ public class PreferenceAopContext extends AopContext<Preference, PreferenceConte
                 PreferenceEditorFactory preferenceEditorFactory,
                 JsonMapper<?> jsonMapper) {
             //@formatter:on
+            this.declaringInterface = declaringInterface;
             this.context = context;
             this.i18n = i18n;
             this.id = id;
@@ -225,6 +229,10 @@ public class PreferenceAopContext extends AopContext<Preference, PreferenceConte
             this.preferenceEditorFactory = preferenceEditorFactory;
             this.jsonMapper = jsonMapper;
             this.load();
+        }
+
+        public Class<?> getDeclaringInterface() {
+            return declaringInterface;
         }
 
         @Override
