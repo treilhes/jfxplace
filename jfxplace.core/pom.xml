@@ -19,7 +19,7 @@
         <module>jfxplace.core.accelerators</module>
         <module>jfxplace.core.guides</module>
         <module>jfxplace.core.maven</module>
-
+        <module>jfxplace.core.preferences</module>
         <module>jfxplace.core.registry</module>
         
         <module>jfxplace.core.controls</module>

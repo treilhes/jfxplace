@@ -22,7 +22,7 @@
         <module>jfxplace.core.menu</module>
         <module>jfxplace.core.metadata</module>
         <module>jfxplace.core.metadefault</module>
-        <module>jfxplace.core.preferences</module>
+        
         <module>jfxplace.core.selection</module>
 
         <module>jfxplace.core.ui</module>
