@@ -37,7 +37,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-import com.treilhes.emc4j.boot.api.loader.extension.OpenExtension;
+import com.gluonhq.jfxapps.core.api.fxom.ui.tool.NoPickRefiner;
 import com.gluonhq.jfxapps.core.ui.controller.ApplicationInstanceController;
 import com.gluonhq.jfxapps.core.ui.controller.ApplicationWindowTracker;
 import com.gluonhq.jfxapps.core.ui.controller.ContentPanelController;
@@ -88,8 +88,8 @@ import com.gluonhq.jfxapps.core.ui.preference.YPosPreference;
 import com.gluonhq.jfxapps.core.ui.selectionbar.SelectionBarController;
 import com.gluonhq.jfxapps.core.ui.tool.DriverExtensionRegistryImpl;
 import com.gluonhq.jfxapps.core.ui.tool.GenericDriver;
-import com.gluonhq.jfxapps.core.ui.tool.NoPickRefiner;
 import com.gluonhq.jfxapps.core.ui.viewlinks.ViewLinksController;
+import com.treilhes.emc4j.boot.api.loader.extension.OpenExtension;
 
 public class BaseUiExtension implements OpenExtension {
 

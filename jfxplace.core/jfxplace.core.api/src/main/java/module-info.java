@@ -31,8 +31,8 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import com.treilhes.emc4j.boot.api.loader.extension.Extension;
 import com.gluonhq.jfxapps.core.api.ApiExtension;
+import com.treilhes.emc4j.boot.api.loader.extension.Extension;
 
 open module jfxplace.core.api {
 
@@ -54,7 +54,7 @@ open module jfxplace.core.api {
     exports com.gluonhq.jfxapps.core.api.fs;
     exports com.gluonhq.jfxapps.core.api.fs.content;
     exports com.gluonhq.jfxapps.core.api.fs.watcher;
-
+    exports com.gluonhq.jfxapps.core.api.glossary;
     exports com.gluonhq.jfxapps.core.api.guide;
     exports com.gluonhq.jfxapps.core.api.i18n;
 
