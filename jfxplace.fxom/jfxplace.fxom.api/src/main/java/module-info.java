@@ -32,11 +32,12 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import com.treilhes.emc4j.boot.api.loader.extension.Extension;
 import com.gluonhq.jfxapps.fxom.api.FxomExtension;
+import com.treilhes.emc4j.boot.api.loader.extension.Extension;
 
 open module jfxplace.fxom.api {
 
+    exports com.gluonhq.jfxapps.core.api.fxom.action;
     exports com.gluonhq.jfxapps.core.api.fxom.clipboard;
     exports com.gluonhq.jfxapps.core.api.fxom.content.decoration;
     exports com.gluonhq.jfxapps.core.api.fxom.content.mode;

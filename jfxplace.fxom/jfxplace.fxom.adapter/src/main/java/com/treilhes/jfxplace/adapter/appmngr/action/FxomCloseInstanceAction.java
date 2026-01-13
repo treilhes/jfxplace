@@ -31,35 +31,61 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.gluonhq.jfxapps.core.appmngr.action.impl;
+package com.treilhes.jfxplace.adapter.appmngr.action;
 
 import com.gluonhq.jfxapps.core.api.action.AbstractAction;
 import com.gluonhq.jfxapps.core.api.action.ActionExtensionFactory;
 import com.gluonhq.jfxapps.core.api.action.ActionMeta;
+import com.gluonhq.jfxapps.core.api.application.ApplicationActionFactory;
 import com.gluonhq.jfxapps.core.api.application.ApplicationInstance;
+import com.gluonhq.jfxapps.core.api.document.DocumentActionFactory;
+import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
 import com.gluonhq.jfxapps.core.api.i18n.I18N;
 import com.gluonhq.jfxapps.core.api.ui.MainInstanceWindow;
+import com.gluonhq.jfxapps.core.api.ui.controller.misc.InlineEdit;
+import com.gluonhq.jfxapps.core.api.ui.dialog.Alert;
+import com.gluonhq.jfxapps.core.api.ui.dialog.Dialog;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
 
 @ApplicationInstancePrototype("com.gluonhq.jfxapps.core.appmngr.action.impl.CloseInstanceAction")
 @ActionMeta(
         nameKey = "action.name.save",
         descriptionKey = "action.description.save")
-public class CloseInstanceAction extends AbstractAction {
+public class FxomCloseInstanceAction extends AbstractAction {
 
+    private final ApplicationActionFactory applicationActionFactory;
+    private final FxomEvents fxomEvents;
+    private final InlineEdit inlineEdit;
+    private final Dialog dialog;
     private final MainInstanceWindow documentWindow;
+    private final DocumentActionFactory documentActionFactory;
     private final ApplicationInstance document;
+    private boolean force = false;
 
-    public CloseInstanceAction(
+
+    public FxomCloseInstanceAction(
             I18N i18n,
             ActionExtensionFactory extensionFactory,
+            ApplicationActionFactory applicationActionFactory,
+            FxomEvents fxomEvents,
             ApplicationInstance document,
-            MainInstanceWindow documentWindow) {
+            MainInstanceWindow documentWindow,
+            InlineEdit inlineEdit,
+            Dialog dialog,
+            DocumentActionFactory documentActionFactory) {
         super(i18n, extensionFactory);
         this.document = document;
+        this.applicationActionFactory = applicationActionFactory;
+        this.fxomEvents = fxomEvents;
+        this.inlineEdit = inlineEdit;
+        this.dialog = dialog;
         this.documentWindow = documentWindow;
+        this.documentActionFactory = documentActionFactory;
     }
 
+    public void setForce(boolean force) {
+        this.force  = force;
+    }
     @Override
     public boolean canPerform() {
         return true;
@@ -70,10 +96,49 @@ public class CloseInstanceAction extends AbstractAction {
 
         // Makes sure that our window is front
         documentWindow.getStage().toFront();
-        document.close();
 
+        // Check if an editing session is on going
+        if (inlineEdit.isTextEditingSessionOnGoing()) {
+            // Check if we can commit the editing session
+            if (!inlineEdit.canGetFxmlText()) {
+                // Commit failed
+                return ActionStatus.CANCELLED;
+            }
+        }
 
-        return ActionStatus.DONE;
+        // Checks if there are some pending changes
+        final boolean closeConfirmed;
+        if (!force && fxomEvents.dirty().get()) {
+
+            final Alert d = dialog.customAlert(documentWindow.getStage());
+            d.setMessage(getI18n().getString("alert.save.question.message", documentWindow.getStage().getTitle()));
+            d.setDetails(getI18n().getString("alert.save.question.details"));
+
+            var modalWindow = d.getModalWindow();
+            modalWindow.setOKButtonTitle(getI18n().getString("label.save"));
+            modalWindow.setActionButtonTitle(getI18n().getString("label.do.not.save"));
+            modalWindow.setActionButtonVisible(true);
+
+            closeConfirmed = switch (d.showAndWait()) {
+            default:
+            case OK:
+                yield documentActionFactory.saveOrSaveAs().checkAndPerform() == ActionStatus.DONE;
+            case CANCEL:
+                yield false;
+            case ACTION: // Do not save
+                yield true;
+            };
+
+        } else {
+            // No pending changes
+            closeConfirmed = true;
+        }
+
+        if (closeConfirmed) {
+            return applicationActionFactory.closeInstance().perform();
+        }
+
+        return ActionStatus.CANCELLED;
     }
 
 }

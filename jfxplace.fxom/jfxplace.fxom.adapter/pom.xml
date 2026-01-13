@@ -7,9 +7,14 @@
         <artifactId>jfxplace.fxom</artifactId>
         <version>${jfxplace.version}</version>
     </parent>
-    <artifactId>jfxplace.core.appmngr</artifactId>
+    <artifactId>jfxplace.fxom.adapter</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+            <artifactId>jfxplace.fxom.api</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>com.treilhes.jfxplace</groupId>
             <artifactId>jfxplace.core.api</artifactId>

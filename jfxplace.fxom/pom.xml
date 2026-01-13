@@ -27,5 +27,6 @@
 
         <module>jfxplace.core.ui</module>
         <module>jfxplace.fxom.api</module>
+        <module>jfxplace.fxom.adapter</module>
     </modules>
 </project>

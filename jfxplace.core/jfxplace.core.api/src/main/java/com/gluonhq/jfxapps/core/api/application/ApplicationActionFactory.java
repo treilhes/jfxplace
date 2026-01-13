@@ -56,7 +56,7 @@ public interface ApplicationActionFactory {
     Action newInstance(Consumer<ApplicationInstance> consumer);
     Action lookupUnusedInstance(URL lookup, Consumer<ApplicationInstance> consumer);
 
-    Action closeInstance(boolean force);
+    Action closeInstance();
 
     Action closeAllInstances();
 

@@ -36,7 +36,6 @@ package com.gluonhq.jfxapps.core.appmngr.action;
 import java.net.URL;
 import java.util.function.Consumer;
 
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
 import com.gluonhq.jfxapps.core.api.action.Action;
 import com.gluonhq.jfxapps.core.api.action.ActionFactory;
 import com.gluonhq.jfxapps.core.api.application.ApplicationActionFactory;
@@ -45,6 +44,7 @@ import com.gluonhq.jfxapps.core.appmngr.action.impl.CloseAllInstancesAction;
 import com.gluonhq.jfxapps.core.appmngr.action.impl.CloseInstanceAction;
 import com.gluonhq.jfxapps.core.appmngr.action.impl.LookupUnusedInstanceAction;
 import com.gluonhq.jfxapps.core.appmngr.action.impl.NewInstanceAction;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
 
 @ApplicationSingleton
 public class ApplicationActionFactoryImpl implements ApplicationActionFactory {
@@ -71,8 +71,8 @@ public class ApplicationActionFactoryImpl implements ApplicationActionFactory {
     }
 
     @Override
-    public Action closeInstance(boolean force) {
-        return actionFactory.create(CloseInstanceAction.class, a -> a.setForce(force));
+    public Action closeInstance() {
+        return actionFactory.create(CloseInstanceAction.class);
     }
 
     @Override

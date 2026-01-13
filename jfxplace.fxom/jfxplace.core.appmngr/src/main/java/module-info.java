@@ -29,17 +29,16 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-import com.treilhes.emc4j.boot.api.loader.extension.Extension;
 import com.gluonhq.jfxapps.core.appmngr.AppManagerExtension;
+import com.treilhes.emc4j.boot.api.loader.extension.Extension;
 
 open module jfxplace.core.appmngr {
     exports com.gluonhq.jfxapps.core.appmngr.impl;
     exports com.gluonhq.jfxapps.core.appmngr;
 
     requires transitive jfxplace.core.api;
-    requires transitive jfxplace.fxom.api;
     requires jakarta.inject;
-    
+
 
     provides Extension with AppManagerExtension;
 }
