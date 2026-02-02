@@ -79,8 +79,6 @@ public interface Selection {
      */
     ReadOnlyIntegerProperty revisionProperty();
 
-    public Map<String, FXOMObject> collectSelectedFxIds();
-
     /**
      * Returns the revision number of this selection.
      *
@@ -101,17 +99,7 @@ public interface Selection {
 
     boolean isSelected(SelectionGroup selectedGroup);
 
-    FXOMObject getHitItem();
-
     void toggleSelection(SelectionGroup toggleGroup);
-
-    /**
-     * Returns null or the first selected ancestor of the specified fxom object.
-     *
-     * @param fxomObject an fxom object
-     * @return null or the first selected ancestor of the specified fxom object.
-     */
-    FXOMObject lookupSelectedAncestor(FXOMObject fxomObject);
 
     /**
      * Empties this selection.
@@ -152,6 +140,24 @@ public interface Selection {
      * Ends an update sequence. Revision is incremented.
      */
     void endUpdate();
+
+    void selectNext();
+    void selectPrevious();
+    void selectAll();
+
+    boolean isSelected(FXOMObject fxomObject);
+
+    public Map<String, FXOMObject> collectSelectedFxIds();
+
+    FXOMObject getHitItem();
+
+    /**
+     * Returns null or the first selected ancestor of the specified fxom object.
+     *
+     * @param fxomObject an fxom object
+     * @return null or the first selected ancestor of the specified fxom object.
+     */
+    FXOMObject lookupSelectedAncestor(FXOMObject fxomObject);
 
     /**
      * Returns the common ancestor of the selected items or null if selection
@@ -218,12 +224,4 @@ public interface Selection {
      * @param hitObject
      */
     void toggleSelection(FXOMObject hitObject);
-
-    void selectNext();
-    void selectPrevious();
-    void selectAll();
-
-    boolean isSelected(FXOMObject fxomObject);
-
-
 }

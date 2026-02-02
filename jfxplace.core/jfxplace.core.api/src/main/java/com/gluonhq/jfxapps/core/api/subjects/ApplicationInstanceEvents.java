@@ -33,6 +33,9 @@
  */
 package com.gluonhq.jfxapps.core.api.subjects;
 
+import java.net.URI;
+import java.net.URL;
+
 import com.gluonhq.jfxapps.core.api.ui.controller.AbstractFxmlViewController;
 import com.gluonhq.jfxapps.core.api.ui.controller.AbstractInstanceUiController;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
@@ -49,6 +52,18 @@ public interface ApplicationInstanceEvents {
      * The document has been closed if true
      */
     SubjectItem<Boolean> closed();
+    
+    /**
+     * The current "dirty" state has changed.
+     * The instance contains unsaved changes if true
+     */
+    SubjectItem<Boolean> dirty();
+    
+    /**
+     * The current "hasContent" state has changed.
+     * The instance contains data which isn't the initial data if true
+     */
+    SubjectItem<Boolean> hasContent();
 
     /**
      * The current classloader has changed.
@@ -68,7 +83,7 @@ public interface ApplicationInstanceEvents {
      * The unique ID of the application instance
      * @return the unique ID
      */
-    SubjectItem<Object> uniqueId();
+    SubjectItem<URL> uniqueId();
 
     @ApplicationInstanceSingleton
     public class ApplicationInstanceEventsImpl implements ApplicationInstanceEvents {
@@ -76,16 +91,20 @@ public interface ApplicationInstanceEvents {
         private ApplicationInstanceSubjects subjects;
 
         private final SubjectItem<Boolean> closed;
+        private final SubjectItem<Boolean> hasContent;
+        private final SubjectItem<Boolean> dirty;
         private final SubjectItem<Boolean> dependenciesLoaded;
         private final SubjectItem<ClassLoader> classLoaderDidChange;
         private final SubjectItem<AbstractInstanceUiController> focused;
         private final SubjectItem<AbstractFxmlViewController> focusedView;
-        private final SubjectItem<Object> uniqueId;
+        private final SubjectItem<URL> uniqueId;
 
         public ApplicationInstanceEventsImpl() {
             subjects = new ApplicationInstanceSubjects();
 
             closed = new SubjectItem<>(subjects.getClosed());
+            hasContent = new SubjectItem<>(subjects.getHasContent());
+            dirty = new SubjectItem<>(subjects.getDirty());
             dependenciesLoaded = new SubjectItem<>(subjects.getDependenciesLoaded()).set(false);
             classLoaderDidChange = new SubjectItem<>(subjects.getClassLoaderDidChange());
             focused = new SubjectItem<>(subjects.getFocused());
@@ -96,6 +115,16 @@ public interface ApplicationInstanceEvents {
         @Override
         public SubjectItem<Boolean> closed() {
             return closed;
+        }
+        
+        @Override
+        public SubjectItem<Boolean> hasContent() {
+            return hasContent;
+        }
+        
+        @Override
+        public SubjectItem<Boolean> dirty() {
+            return dirty;
         }
 
         @Override
@@ -119,7 +148,7 @@ public interface ApplicationInstanceEvents {
         }
 
         @Override
-        public SubjectItem<Object> uniqueId() {
+        public SubjectItem<URL> uniqueId() {
             return uniqueId;
         }
     }
@@ -127,15 +156,20 @@ public interface ApplicationInstanceEvents {
     public class ApplicationInstanceSubjects extends SubjectManager {
 
         private ReplaySubject<Boolean> closed;
+        private ReplaySubject<Boolean> hasContent;
+        private ReplaySubject<Boolean> dirty;
         private ReplaySubject<Boolean> dependenciesLoaded;
         private ReplaySubject<ClassLoader> classLoaderDidChange;
 
         private ReplaySubject<AbstractInstanceUiController> focused;
         private ReplaySubject<AbstractFxmlViewController> focusedView;
-        private ReplaySubject<Object> uniqueId;;
+        private ReplaySubject<URL> uniqueId;;
 
         public ApplicationInstanceSubjects() {
             closed = wrap(ApplicationInstanceSubjects.class, "closed", ReplaySubject.create(1)); // NOI18N
+            hasContent = wrap(ApplicationInstanceSubjects.class, "hasContent", ReplaySubject.create(1)); // NOI18N
+            dirty = wrap(ApplicationInstanceSubjects.class, "dirty", ReplaySubject.create(1)); // NOI18N
+            
             dependenciesLoaded = wrap(ApplicationInstanceSubjects.class, "dependenciesLoaded", ReplaySubject.create(1)); // NOI18N
             classLoaderDidChange = wrap(ApplicationInstanceSubjects.class, "classLoaderDidChange", ReplaySubject.create(1)); // NOI18N
             focused = wrap(ApplicationInstanceSubjects.class, "focused", ReplaySubject.create(1)); // NOI18N
@@ -145,6 +179,14 @@ public interface ApplicationInstanceEvents {
 
         public ReplaySubject<Boolean> getClosed() {
             return closed;
+        }
+        
+        public ReplaySubject<Boolean> getHasContent() {
+            return hasContent;
+        }
+        
+        public ReplaySubject<Boolean> getDirty() {
+            return dirty;
         }
 
         public ReplaySubject<Boolean> getDependenciesLoaded() {
@@ -163,7 +205,7 @@ public interface ApplicationInstanceEvents {
             return focusedView;
         }
 
-        public ReplaySubject<Object> getUniqueId() {
+        public ReplaySubject<URL> getUniqueId() {
             return uniqueId;
         }
     }

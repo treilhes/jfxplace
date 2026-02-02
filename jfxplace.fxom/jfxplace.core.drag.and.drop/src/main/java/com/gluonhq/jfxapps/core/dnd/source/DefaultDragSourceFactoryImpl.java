@@ -64,6 +64,6 @@ public class DefaultDragSourceFactoryImpl extends DragSourceFactory<DragSource> 
 
     @Override
     public DragSource external(Dragboard clipboardContent) {
-        return create(ExternalDragSource.class, j -> j.setDragSourceParameters(clipboardContent));
+        return create(ExternalDragSourceImpl.class, j -> j.setDragSourceParameters(clipboardContent));
     }
 }

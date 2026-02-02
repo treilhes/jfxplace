@@ -63,6 +63,7 @@ public class EditCurveGuideController implements EditCurveGuide{
     public EditCurveGuideController() {
     }
 
+    @Override
     public void addCurvePoint(Point2D pointInScene) {
         assert pointInScene != null;
         curvePoints.add(pointInScene);

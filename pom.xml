@@ -103,6 +103,11 @@
 
     <dependencyManagement>
         <dependencies>
+        	<dependency>
+                <groupId>com.treilhes.emc4j</groupId>
+                <artifactId>emc4j.boot.api</artifactId>
+                <version>${emc4j.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.treilhes.emc4j</groupId>
                 <artifactId>emc4j.boot.loader</artifactId>
@@ -380,8 +385,8 @@
                                     <goal>jar</goal>
                                 </goals>
                                 <configuration>
-                                    <!-- FIXME allow missing javadoc comments, TEMPORARY
-                                    <failOnError>false</failOnError>-->
+                                    <!-- FIXME allow missing javadoc comments, TEMPORARY-->
+                                    <failOnError>false</failOnError>
                                 </configuration>
                             </execution>
                         </executions>

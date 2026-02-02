@@ -36,13 +36,10 @@ import com.treilhes.emc4j.boot.api.loader.extension.Extension;
 
 open module jfxplace.core.ui {
 
-    exports com.gluonhq.jfxapps.core.ui.editor.messagelog;
     exports com.gluonhq.jfxapps.core.ui.controller;
     exports com.gluonhq.jfxapps.core.ui.dialog.application;
     exports com.gluonhq.jfxapps.core.ui.dialog.instance;
     exports com.gluonhq.jfxapps.core.ui.i18n;
-    exports com.gluonhq.jfxapps.core.ui.message;
-    exports com.gluonhq.jfxapps.core.ui.selectionbar;
     exports com.gluonhq.jfxapps.core.ui.viewlinks;
 
     exports com.gluonhq.jfxapps.core.ui.dock;
@@ -51,7 +48,6 @@ open module jfxplace.core.ui {
     exports com.gluonhq.jfxapps.core.ui.preference;
 
     requires transitive jfxplace.core.api;
-    requires transitive jfxplace.fxom.api;
 
     requires jakarta.inject;
     requires jakarta.annotation;

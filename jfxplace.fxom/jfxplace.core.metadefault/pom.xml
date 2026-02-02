@@ -12,7 +12,7 @@
     <dependencies>
         <dependency>
             <groupId>com.treilhes.jfxplace</groupId>
-            <artifactId>jfxplace.core.api</artifactId>
+            <artifactId>jfxplace.fxom.api</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>

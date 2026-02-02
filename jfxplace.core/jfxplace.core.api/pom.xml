@@ -19,10 +19,7 @@
             <groupId>com.treilhes.jfxplace</groupId>
             <artifactId>jfxplace.core.controls</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.treilhes.jfxplace</groupId>
-            <artifactId>jfxplace.core.metadata</artifactId>
-        </dependency>
+        
         <dependency>
             <groupId>com.treilhes.jfxplace</groupId>
             <artifactId>jfxplace.core.utils</artifactId>

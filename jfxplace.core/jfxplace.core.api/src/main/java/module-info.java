@@ -83,7 +83,7 @@ open module jfxplace.core.api {
     exports com.gluonhq.jfxapps.core.api.job.base;
     exports com.gluonhq.jfxapps.core.api.util;
 
-    exports com.gluonhq.jfxapps.core.api.document;
+    
 
     requires transitive jfxplace.javafx.starter;
 
@@ -95,7 +95,7 @@ open module jfxplace.core.api {
     requires transitive emc4j.boot.starter;
 
     requires transitive jfxplace.core.utils;
-    requires transitive jfxplace.core.fxom;
+    //requires transitive jfxplace.core.fxom;
     //requires transitive jfxplace.core.metadata;
     // required to allow class access from JavafxThreadClassloader
     requires transitive jfxplace.core.controls;
@@ -103,7 +103,7 @@ open module jfxplace.core.api {
     requires transitive io.reactivex.rxjava3;
     requires transitive org.reactivestreams;
     requires transitive org.pdfsam.rxjavafx;
-    requires jfxplace.javafx.fxml.patch.link;
+    //requires jfxplace.javafx.fxml.patch.link;
 
     provides Extension with ApiExtension;
 }

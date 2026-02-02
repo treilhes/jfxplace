@@ -32,6 +32,12 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+import com.gluonhq.jfxapps.core.fxom.ext.FXOMNormalizer;
+import com.gluonhq.jfxapps.core.fxom.ext.FXOMRefresher;
+import com.gluonhq.jfxapps.core.fxom.ext.FileLoader;
+import com.gluonhq.jfxapps.core.fxom.ext.LoaderCapabilitiesManager;
+import com.gluonhq.jfxapps.core.fxom.ext.TransientStateBackup;
+import com.gluonhq.jfxapps.core.fxom.ext.WeakProperty;
 import com.gluonhq.jfxapps.fxom.api.FxomExtension;
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
 
@@ -59,6 +65,28 @@ open module jfxplace.fxom.api {
     exports com.gluonhq.jfxapps.core.api.fxom.ui.controller.ctxmenu.annotation;
     exports com.gluonhq.jfxapps.core.api.fxom.ui.tool;
     exports com.gluonhq.jfxapps.core.api.fxom.util;
+    
+
+    exports com.gluonhq.jfxapps.core.fxom;
+    exports com.gluonhq.jfxapps.core.fxom.collector;
+    exports com.gluonhq.jfxapps.core.fxom.glue;
+    exports com.gluonhq.jfxapps.core.fxom.sampledata;
+    exports com.gluonhq.jfxapps.core.fxom.ext;
+    exports com.gluonhq.jfxapps.core.fxom.transform;
+    exports com.gluonhq.jfxapps.core.fxom.util;
+    
+    exports com.gluonhq.jfxapps.core.metadata;
+    exports com.gluonhq.jfxapps.core.metadata.fx.defaults;
+    exports com.gluonhq.jfxapps.core.metadata.klass;
+    exports com.gluonhq.jfxapps.core.metadata.property;
+    exports com.gluonhq.jfxapps.core.metadata.property.value;
+    exports com.gluonhq.jfxapps.core.metadata.property.value.list;
+    exports com.gluonhq.jfxapps.core.metadata.util;
+    exports com.gluonhq.jfxapps.core.metadata.property.value.effect;
+    exports com.gluonhq.jfxapps.core.metadata.property.value.keycombination;
+    exports com.gluonhq.jfxapps.core.metadata.property.value.paint;
+
+    exports com.gluonhq.jfxapps.core.api.document;
 
     requires transitive jfxplace.javafx.starter;
     requires transitive jfxplace.core.api;
@@ -70,8 +98,8 @@ open module jfxplace.fxom.api {
     requires transitive emc4j.boot.starter;
 
     requires transitive jfxplace.core.utils;
-    requires transitive jfxplace.core.fxom;
-    requires transitive jfxplace.core.metadata;
+    //requires transitive jfxplace.core.fxom;
+    //requires transitive jfxplace.core.metadata;
     // required to allow class access from JavafxThreadClassloader
     requires transitive jfxplace.core.controls;
 
@@ -82,4 +110,12 @@ open module jfxplace.fxom.api {
     requires jfxplace.javafx.fxml.patch.link;
 
     provides Extension with FxomExtension;
+    
+
+    uses FXOMNormalizer;
+    uses FXOMRefresher;
+    uses TransientStateBackup;
+    uses WeakProperty;
+    uses FileLoader;
+    uses LoaderCapabilitiesManager;
 }

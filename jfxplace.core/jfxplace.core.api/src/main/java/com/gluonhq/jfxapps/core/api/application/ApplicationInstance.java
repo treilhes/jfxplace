@@ -47,11 +47,11 @@ public interface ApplicationInstance extends com.treilhes.emc4j.boot.api.context
     boolean isDocumentDirty();
     boolean isEditing();
     boolean hasContent();
-    boolean hasName();
-    String getName();
+    boolean hasUniqueId();
+    URL getUniqueId();
 
-    void logInfoMessage(String key);
-    void logInfoMessage(String key, Object... args);
+    //void logInfoMessage(String key);
+    //void logInfoMessage(String key, Object... args);
 
     //API to be validated
     EmContext getContext();
@@ -64,6 +64,9 @@ public interface ApplicationInstance extends com.treilhes.emc4j.boot.api.context
     MainInstanceWindow getDocumentWindow();
 
     void closeWindow();
+
+
+    //URL getLocation();
 
     public static class TitleComparator implements Comparator<ApplicationInstance> {
 
@@ -88,8 +91,5 @@ public interface ApplicationInstance extends com.treilhes.emc4j.boot.api.context
         }
 
     }
-
-    URL getLocation();
-
 
 }

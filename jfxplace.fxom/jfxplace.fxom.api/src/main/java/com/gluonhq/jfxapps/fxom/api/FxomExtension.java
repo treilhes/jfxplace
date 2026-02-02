@@ -43,6 +43,7 @@ import com.gluonhq.jfxapps.core.api.fxom.editor.selection.SelectionGroupFactoryR
 import com.gluonhq.jfxapps.core.api.fxom.gesture.DiscardGesture;
 import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
 import com.gluonhq.jfxapps.core.api.fxom.ui.controller.dock.SearchController;
+import com.gluonhq.jfxapps.core.api.fxom.ui.tool.NoPickRefiner;
 import com.treilhes.emc4j.boot.api.layer.Layer;
 import com.treilhes.emc4j.boot.api.loader.extension.RootExtension;
 import com.treilhes.emc4j.boot.api.loader.extension.SealedExtension;
@@ -80,6 +81,7 @@ public class FxomExtension implements RootExtension {
                 DefaultSelectionGroupFactory.class,
                 DiscardGesture.Factory.class,
                 DiscardGesture.class,
+                NoPickRefiner.class,
                 ObjectSelectionGroup.Factory.class,
                 SearchController.class,
                 SelectionGroupFactoryRegistry.class

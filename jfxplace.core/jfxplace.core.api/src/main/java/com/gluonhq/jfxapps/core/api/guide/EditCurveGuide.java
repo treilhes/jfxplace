@@ -36,9 +36,12 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 
 public interface EditCurveGuide {
-	public void addSampleBounds(Node childNode);
+	void addSampleBounds(Node childNode);
 
-	public Point2D makeStraightAngles(Point2D current);
+	Point2D makeStraightAngles(Point2D current);
 
-	public Point2D correct(Point2D current);
+	Point2D correct(Point2D current);
+
+	void addCurvePoint(Point2D pointInScene);
+
 }

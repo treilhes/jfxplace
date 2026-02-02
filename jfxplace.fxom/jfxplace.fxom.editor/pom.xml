@@ -1,0 +1,97 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.treilhes.jfxplace</groupId>
+		<artifactId>jfxplace.fxom</artifactId>
+		<version>${jfxplace.version}</version>
+	</parent>
+	<artifactId>jfxplace.fxom.editor</artifactId>
+	<description>Fxml editor components</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.treilhes.jfxplace</groupId>
+			<artifactId>jfxplace.fxom.api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.treilhes.jfxplace</groupId>
+			<artifactId>jfxplace.core.api</artifactId>
+			<scope>provided</scope>
+			<exclusions>
+				<!-- prevent "The package javafx.fxml is accessible from more
+				than one module" in Eclipse -->
+				<exclusion>
+					<groupId>com.treilhes.jfxplace</groupId>
+					<artifactId>javafx.fxml.patch</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.treilhes.jfxplace</groupId>
+			<artifactId>jfxplace.core.starter</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.treilhes.jfxplace</groupId>
+			<artifactId>jfxplace.core.starter.test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.kordamp.ikonli</groupId>
+			<artifactId>ikonli-javafx</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.kordamp.ikonli</groupId>
+			<artifactId>ikonli-fontawesome5-pack</artifactId>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.treilhes.emc4j</groupId>
+				<artifactId>emc4j-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>resolve-jar-path</id>
+						<goals>
+							<goal>properties</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>com.treilhes.jfxplace</groupId>
+						<artifactId>javafx.graphics.patch</artifactId>
+						<version>${jfxplace.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.treilhes.jfxplace</groupId>
+						<artifactId>javafx.fxml.patch</artifactId>
+						<version>${jfxplace.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<useModulePath>true</useModulePath>
+					<argLine>
+						--add-opens
+						javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+						--patch-module
+						javafx.graphics=${com.treilhes.jfxplace:javafx.graphics.patch:jar}
+						--patch-module
+						javafx.fxml=${com.treilhes.jfxplace:javafx.fxml.patch:jar}
+					</argLine>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

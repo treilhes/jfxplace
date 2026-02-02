@@ -1,19 +1,19 @@
-jfxapps:
+emc4j:
   registry:
     snapshotsAllowed: true
 #    defaults:
-#      jira:
-#        groupId: com.gluonhq.jfxapps
+#      manager:
+#        groupId: com.treilhes.jfxplace
 #        artifactId: manager.registry
 #        mandatory: true
 
   maven:
     directory: ${user.home}/.m2/repository
-#    redirectionsEnabled: true
-#    redirect:
-#      - groupId: com.gluonhq.jfxapps
-#        artifactId: jfxapps.core.api
-#        path: ../../jfxapps.core/jfxapps.core.api/target/classes
+    redirectionsEnabled: true
+    redirect:
+      - groupId: com.treilhes.jfxplace
+        artifactId: manager.app
+        path: ../../../../manager.app/target/classes
 
 server:
   port: 8080

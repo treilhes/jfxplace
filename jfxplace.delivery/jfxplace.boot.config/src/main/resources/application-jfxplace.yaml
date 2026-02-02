@@ -1,0 +1,15 @@
+emc4j:
+  registry:
+#    snapshotsAllowed: true
+    defaults:
+      core:
+        groupId: com.treilhes.jfxplace
+        artifactId: jfxplace.core.registry
+        mandatory: true
+      mandatory:
+        groupId: com.treilhes.jfxplace
+        artifactId: jfxplace.app.registry.mandatory
+        mandatory: true
+      optionals:
+        groupId: com.treilhes.jfxplace
+        artifactId: jfxplace.app.registry.optional

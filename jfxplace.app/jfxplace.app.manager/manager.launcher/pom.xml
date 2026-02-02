@@ -9,6 +9,9 @@
 	</parent>
 	<artifactId>manager.launcher</artifactId>
 
+	<properties>
+		<debug>false</debug>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>com.treilhes.emc4j</groupId>
@@ -21,13 +24,18 @@
 		<plugins>
 			<plugin>
 				<groupId>com.treilhes.jfxplace</groupId>
-				<artifactId>emc4j-maven-plugin</artifactId>
+				<artifactId>jfxplace-maven-plugin</artifactId>
 				<version>${jfxplace.version}</version>
 				<configuration>
-					<emc4jVersion>${jfxplace.version}</emc4jVersion>
-					<!--<debug>true</debug>-->
-					<profile>manager</profile>
-					<profileFile>${basedir}/src/main/resources/application-manager.yaml</profileFile>
+					<!--<emc4jVersion>${emc4j.version}</emc4jVersion>-->
+					<jfxplaceVersion>${jfxplace.version}</jfxplaceVersion>
+					<debug>${debug}</debug>
+					<profiles>
+						<profile>manager</profile>
+					</profiles>
+					<profileFiles>
+						<profileFile>${basedir}/src/main/resources/application-manager.yaml</profileFile>
+					</profileFiles>
 					<applicationId>00000000-0000-0000-0000-000000000002</applicationId>
 					<javaOptions>
 						<!--

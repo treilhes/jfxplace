@@ -53,7 +53,7 @@ public interface InstancesManager {
 	 * @deprecated must be removed and set to private in immplementor
 	 */
 	@Deprecated
-    ApplicationInstance lookupInstance(URL newLocation);
+    ApplicationInstance lookupInstance(URL uniqueId);
 	/**
 	 * @return
 	 * @deprecated must be removed and set to private in immplementor
@@ -84,8 +84,8 @@ public interface InstancesManager {
      *
      */
     void close();
-    void logInfoMessage(String key);
-    void logInfoMessage(String key, Object... args);
+//    void logInfoMessage(String key);
+//    void logInfoMessage(String key, Object... args);
 
 
 }

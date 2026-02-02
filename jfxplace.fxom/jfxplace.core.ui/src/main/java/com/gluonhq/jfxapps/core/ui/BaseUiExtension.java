@@ -37,12 +37,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-import com.gluonhq.jfxapps.core.api.fxom.ui.tool.NoPickRefiner;
 import com.gluonhq.jfxapps.core.ui.controller.ApplicationInstanceController;
 import com.gluonhq.jfxapps.core.ui.controller.ApplicationWindowTracker;
-import com.gluonhq.jfxapps.core.ui.controller.ContentPanelController;
-import com.gluonhq.jfxapps.core.ui.controller.ModeManagerController;
-import com.gluonhq.jfxapps.core.ui.controller.WorkspaceController;
 import com.gluonhq.jfxapps.core.ui.dialog.ModalWindowImpl;
 import com.gluonhq.jfxapps.core.ui.dialog.application.ApplicationDialogController;
 import com.gluonhq.jfxapps.core.ui.dialog.application.ApplicationMessageController;
@@ -73,21 +69,13 @@ import com.gluonhq.jfxapps.core.ui.dock.type.DockTypeLatestOnly;
 import com.gluonhq.jfxapps.core.ui.dock.type.DockTypeSplitH;
 import com.gluonhq.jfxapps.core.ui.dock.type.DockTypeSplitV;
 import com.gluonhq.jfxapps.core.ui.dock.type.DockTypeTab;
-import com.gluonhq.jfxapps.core.ui.editor.messagelog.MessageLog;
 import com.gluonhq.jfxapps.core.ui.i18n.I18NLayout;
 import com.gluonhq.jfxapps.core.ui.inlineedit.InlineEditController;
-import com.gluonhq.jfxapps.core.ui.message.MessageBarController;
-import com.gluonhq.jfxapps.core.ui.message.MessagePanelController;
-import com.gluonhq.jfxapps.core.ui.message.MessagePopupController;
-import com.gluonhq.jfxapps.core.ui.preference.BackgroundImagePreference;
 import com.gluonhq.jfxapps.core.ui.preference.MaximizedPreference;
 import com.gluonhq.jfxapps.core.ui.preference.StageHeightPreference;
 import com.gluonhq.jfxapps.core.ui.preference.StageWidthPreference;
 import com.gluonhq.jfxapps.core.ui.preference.XPosPreference;
 import com.gluonhq.jfxapps.core.ui.preference.YPosPreference;
-import com.gluonhq.jfxapps.core.ui.selectionbar.SelectionBarController;
-import com.gluonhq.jfxapps.core.ui.tool.DriverExtensionRegistryImpl;
-import com.gluonhq.jfxapps.core.ui.tool.GenericDriver;
 import com.gluonhq.jfxapps.core.ui.viewlinks.ViewLinksController;
 import com.treilhes.emc4j.boot.api.loader.extension.OpenExtension;
 
@@ -120,11 +108,9 @@ public class BaseUiExtension implements OpenExtension {
                 ApplicationDialogController.class,
                 ApplicationMessageDialog.class,
                 ApplicationMessageController.class,
-                BackgroundImagePreference.class,
                 ChangeDockTypeAction.class,
                 CloseDockAction.class,
                 CloseViewAction.class,
-                ContentPanelController.class,
                 DialogController.class,
                 DockActionFactoryImpl.class,
                 DockMinimizedPreference.class,
@@ -137,24 +123,15 @@ public class BaseUiExtension implements OpenExtension {
                 DockViewControllerImpl.class,
                 DockWindowController.class,
                 DockWindowFactory.class,
-                DriverExtensionRegistryImpl.class,
                 ErrorDialog.class,
-                GenericDriver.class,
                 I18NLayout.class,
                 InlineEditController.class,
                 LastDockDockTypePreference.class,
                 LastDockUuidPreference.class,
                 LastViewVisibilityPreference.class,
                 MaximizedPreference.class,
-                MessageBarController.class,
-                MessageLog.class,
-                MessagePanelController.class,
-                MessagePopupController.class,
                 ModalWindowImpl.class,
-                ModeManagerController.class,
                 MoveToDockAction.class,
-                NoPickRefiner.class,
-                SelectionBarController.class,
                 StageHeightPreference.class,
                 StageWidthPreference.class,
                 TextViewDialog.class,
@@ -162,7 +139,6 @@ public class BaseUiExtension implements OpenExtension {
                 ToggleViewVisibilityAction.class,
                 UndockViewAction.class,
                 ViewLinksController.class,
-                WorkspaceController.class,
                 XPosPreference.class,
                 YPosPreference.class
 

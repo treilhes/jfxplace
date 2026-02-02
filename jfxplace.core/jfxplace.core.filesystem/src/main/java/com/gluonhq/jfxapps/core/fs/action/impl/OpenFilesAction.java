@@ -40,16 +40,15 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
 import com.gluonhq.jfxapps.core.api.action.AbstractAction;
 import com.gluonhq.jfxapps.core.api.action.ActionExtensionFactory;
 import com.gluonhq.jfxapps.core.api.action.ActionMeta;
-import com.gluonhq.jfxapps.core.api.application.ApplicationActionFactory;
-import com.gluonhq.jfxapps.core.api.document.DocumentActionFactory;
 import com.gluonhq.jfxapps.core.api.fs.FileSystem;
+import com.gluonhq.jfxapps.core.api.fs.OpenFileHandler;
 import com.gluonhq.jfxapps.core.api.fs.RecentItems;
 import com.gluonhq.jfxapps.core.api.i18n.I18N;
 import com.gluonhq.jfxapps.core.api.ui.dialog.ApplicationDialog;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
 
 @ApplicationInstancePrototype("com.gluonhq.jfxapps.core.fs.action.impl.OpenFilesAction")
 @ActionMeta(nameKey = "action.name.save", descriptionKey = "action.description.save")
@@ -59,15 +58,13 @@ public class OpenFilesAction extends AbstractAction {
 
     private final FileSystem fileSystem;
 
-    private final ApplicationActionFactory applicationActionFactory;
-
-    private final DocumentActionFactory documentActionFactory;
+    private final List<OpenFileHandler> openFileHandlers;
 
     private final ApplicationDialog applicationDialog;
 
     private final RecentItems recentItems;
 
-    private List<File> fxmlFiles;
+    private List<File> files;
 
     // @formatter:off
     protected OpenFilesAction(
@@ -75,44 +72,46 @@ public class OpenFilesAction extends AbstractAction {
             ActionExtensionFactory extensionFactory,
             RecentItems recentItems,
             FileSystem fileSystem,
-            ApplicationActionFactory applicationActionFactory,
-            DocumentActionFactory documentActionFactory,
-            ApplicationDialog applicationDialog) {
+            ApplicationDialog applicationDialog,
+            List<OpenFileHandler> openFileHandlers) {
      // @formatter:on
         super(i18n, extensionFactory);
         this.fileSystem = fileSystem;
-        this.applicationActionFactory = applicationActionFactory;
-        this.documentActionFactory = documentActionFactory;
+        this.openFileHandlers = openFileHandlers;
         this.applicationDialog = applicationDialog;
         this.recentItems = recentItems;
     }
 
-    public void setFxmlFile(List<File> fxmlFiles) {
-        this.fxmlFiles = fxmlFiles;
+    public void setFiles(List<File> files) {
+        this.files = files;
     }
 
-    public List<File> getFxmlFiles() {
-        return fxmlFiles;
+    public List<File> getFiles() {
+        return files;
     }
 
     @Override
     public boolean canPerform() {
-        return fxmlFiles != null && fxmlFiles.size() > 0;
+        return files != null && files.size() > 0;
     }
 
     @Override
     public ActionStatus doPerform() {
 
-        if (fxmlFiles != null) {
-            assert fxmlFiles.isEmpty() == false;
-            fileSystem.updateNextInitialDirectory(fxmlFiles.get(0));
+        if (files != null) {
+            assert files.isEmpty() == false;
+            fileSystem.updateNextInitialDirectory(files.get(0));
 
-            for (File file : fxmlFiles) {
+            for (File file : files) {
                 try {
-                    var fileURL = file.toURI().toURL();
-                    applicationActionFactory.lookupUnusedInstance(fileURL,
-                            (instance) -> documentActionFactory.loadURL(fileURL, true));
-                    recentItems.addRecentItem(fileURL);
+                	for (OpenFileHandler handler : openFileHandlers) {
+						if (handler.canOpen(file)) {
+							handler.open(file);
+							recentItems.addRecentItem(file.toURI().toURL());
+							continue;
+						}
+					}
+                    recentItems.addRecentItem(file.toURI().toURL());
                 } catch (MalformedURLException e) {
                     logger.error("Error converting file to URL: {}", file, e);
                     applicationDialog.addError("Unable to open file", e.getMessage(), e);

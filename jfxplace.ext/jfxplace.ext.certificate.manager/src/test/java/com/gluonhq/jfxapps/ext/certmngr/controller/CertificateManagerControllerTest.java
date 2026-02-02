@@ -33,17 +33,20 @@
  */
 package com.gluonhq.jfxapps.ext.certmngr.controller;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockserver.model.HttpRequest.request;
-import static org.mockserver.model.HttpResponse.response;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.nio.file.Path;
 import java.security.KeyStore;
+import java.security.PrivateKey;
 import java.security.Provider;
 import java.security.Security;
+import java.security.cert.X509Certificate;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.net.ssl.SSLHandshakeException;
@@ -57,17 +60,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.io.CleanupMode;
 import org.junit.jupiter.api.io.TempDir;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
-import org.mockserver.configuration.ConfigurationProperties;
-import org.mockserver.integration.ClientAndServer;
-import org.mockserver.junit.jupiter.MockServerExtension;
-import org.mockserver.junit.jupiter.MockServerSettings;
-import org.mockserver.socket.PortFactory;
 
+import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import com.gluonhq.jfxapps.core.api.subjects.NetworkManager;
 import com.gluonhq.jfxapps.ext.certmngr.tls.ReloadableTrustManagerProvider;
 import com.gluonhq.jfxapps.ext.certmngr.tls.ReloadableX509TrustManager;
@@ -76,9 +75,6 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.observers.TestObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-
-@ExtendWith(MockServerExtension.class)
-@MockServerSettings(ports = {8887})
 public class CertificateManagerControllerTest {
 
     private static Logger logger = LoggerFactory.getLogger(CertificateManagerControllerTest.class);
@@ -92,36 +88,39 @@ public class CertificateManagerControllerTest {
     static String storePassword = "password";
 
     private static NetworkManager nm = new NetworkManager.NetworkManagerImpl();
-    private static ClientAndServer mockServer;
     private static String TEST_URL = "https://localhost:8887/test";
     protected final static long USER_TIMEOUT = 2;//seconds
 
+    static WireMockServer wireMock;
+
     @BeforeAll
-    public static void startMockServer() {
+    static void startWireMock() throws Exception {
+    	File caFile = sharedTempDir.resolve("ca.jks").toFile();
+        File serverFile = sharedTempDir.resolve("server.jks").toFile();
 
-        ConfigurationProperties.dynamicallyCreateCertificateAuthorityCertificate(true);
-        ConfigurationProperties.directoryToSaveDynamicSSLCertificate(sharedTempDir.toString());
+        char[] pwd = storePassword.toCharArray();
 
-        // ensure all connection using HTTPS will use the SSL context defined by
-        // MockServer to allow dynamically generated certificates to be accepted
-        //HttpsURLConnection.setDefaultSSLSocketFactory(new KeyStoreFactory(new MockServerLogger()).sslContext().getSocketFactory());
-        mockServer = ClientAndServer.startClientAndServer(PortFactory.findFreePort());
-        mockServer
-            //.secure(true)
-            .when(
-                request()
-                    .withMethod("GET")
-                    .withPath("/test")
-            )
-            .respond(
-                response()
-                    .withBody("some_response_body")
-            );
+        KeyStore ca = TestCertificates.createCA(caFile, pwd);
+        PrivateKey caKey = (PrivateKey) ca.getKey("ca", pwd);
+        X509Certificate caCert = (X509Certificate) ca.getCertificate("ca");
+
+        TestCertificates.createServer(serverFile, pwd, caKey, caCert);
+
+        wireMock = new WireMockServer(
+            WireMockConfiguration.options()
+                .httpsPort(8887)
+                .keystorePath(serverFile.getAbsolutePath())
+                .keystorePassword(storePassword)
+        );
+        wireMock.start();
+
+        wireMock.stubFor(get(urlEqualTo("/test"))
+            .willReturn(aResponse().withBody("some_response_body")));
     }
 
     @AfterAll
-    public static void stopMockServer() {
-        mockServer.stop();
+    static void stopWireMock() {
+        wireMock.stop();
     }
 
     private static HttpClient newClient() {

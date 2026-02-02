@@ -69,7 +69,7 @@ public class FileSystemActionFactoryImpl implements FileSystemActionFactory{
 
     @Override
     public Action openFiles(List<File> list) {
-        return actionFactory.create(OpenFilesAction.class, a -> a.setFxmlFile(list));
+        return actionFactory.create(OpenFilesAction.class, a -> a.setFiles(list));
     }
 
 //    @Override

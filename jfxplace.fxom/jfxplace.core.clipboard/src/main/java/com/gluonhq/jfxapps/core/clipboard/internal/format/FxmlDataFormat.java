@@ -96,10 +96,10 @@ public class FxmlDataFormat implements ClipboardDataFormat {
             final Object content = clipboard.getContent(FXML_DATA_FORMAT);
             if (content instanceof final String fxmlText) {
                 try {
-                    final URL location = targetDocument.getLocation();
-                    final ClassLoader classLoader = targetDocument.getClassLoader();
-                    final ResourceBundle resources = targetDocument.getResources();
-                    final FXOMDocument transientDoc
+                    final var location = targetDocument.getLocation();
+                    final var classLoader = targetDocument.getClassLoader();
+                    final var resources = targetDocument.getResources();
+                    final var transientDoc
                             = fxomDocumentFactory.newDocument(fxmlText, location, classLoader, resources);
                     result = Arrays.asList(transientDoc.getFxomRoot());
                 } catch(IOException x) {

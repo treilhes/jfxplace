@@ -33,6 +33,7 @@
  */
 package com.gluonhq.jfxapps.core.api.application;
 
+import java.net.URI;
 import java.net.URL;
 import java.util.function.Consumer;
 
@@ -54,7 +55,14 @@ public interface ApplicationActionFactory {
      * @return the new instance action
      */
     Action newInstance(Consumer<ApplicationInstance> consumer);
-    Action lookupUnusedInstance(URL lookup, Consumer<ApplicationInstance> consumer);
+    
+    /**
+	 * Lookup for an unused instance (no document loaded nor being edited)
+	 * and set the focus on it changing the current scope.
+	 * @param lookup the uniqueId to load in the unused instance
+	 * @return the lookup unused instance action
+	 */
+    Action lookupUnusedInstance(URL uniqueId, Consumer<ApplicationInstance> consumer);
 
     Action closeInstance();
 

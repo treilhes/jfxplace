@@ -33,19 +33,9 @@
  */
 
 open module jfxplace.core.metadata {
-    exports com.gluonhq.jfxapps.core.metadata;
-    exports com.gluonhq.jfxapps.core.metadata.fx.defaults;
-    exports com.gluonhq.jfxapps.core.metadata.klass;
-    exports com.gluonhq.jfxapps.core.metadata.property;
-    exports com.gluonhq.jfxapps.core.metadata.property.value;
-    exports com.gluonhq.jfxapps.core.metadata.property.value.list;
-    exports com.gluonhq.jfxapps.core.metadata.util;
-    exports com.gluonhq.jfxapps.core.metadata.property.value.effect;
-    exports com.gluonhq.jfxapps.core.metadata.property.value.keycombination;
-    exports com.gluonhq.jfxapps.core.metadata.property.value.paint;
 
-    requires transitive jfxplace.core.fxom;
-    requires jfxplace.core.utils;
+    //requires transitive jfxplace.fxom.api;
+    //requires jfxplace.core.utils;
 
     requires javafx.graphics;
     requires javafx.controls;

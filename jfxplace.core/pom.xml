@@ -13,6 +13,7 @@
 
     <modules>
         <module>jfxplace.core.api</module>
+        <module>jfxplace.core.appmngr</module>
         <module>jfxplace.core.extension.store</module>
         <!--<module>jfxplace.core.splash</module>-->
         <module>jfxplace.core.utils</module>

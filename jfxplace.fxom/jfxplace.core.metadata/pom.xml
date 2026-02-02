@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>com.treilhes.jfxplace</groupId>
-            <artifactId>jfxplace.core.fxom</artifactId>
+            <artifactId>jfxplace.fxom.api</artifactId>
         </dependency>
         <dependency>
             <groupId>com.treilhes.jfxplace</groupId>

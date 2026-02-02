@@ -9,6 +9,7 @@
 
 	<properties>
 		<java.version>25</java.version>
+		<emc4j.version>1.0.0-SNAPSHOT</emc4j.version>
 		<jfxplace.version>1.0.0-SNAPSHOT</jfxplace.version>
 		<manager.version>1.0.0-SNAPSHOT</manager.version>
 		

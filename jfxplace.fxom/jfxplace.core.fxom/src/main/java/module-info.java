@@ -31,22 +31,9 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import com.gluonhq.jfxapps.core.fxom.ext.FXOMNormalizer;
-import com.gluonhq.jfxapps.core.fxom.ext.FXOMRefresher;
-import com.gluonhq.jfxapps.core.fxom.ext.FileLoader;
-import com.gluonhq.jfxapps.core.fxom.ext.LoaderCapabilitiesManager;
-import com.gluonhq.jfxapps.core.fxom.ext.TransientStateBackup;
-import com.gluonhq.jfxapps.core.fxom.ext.WeakProperty;
 
 open module jfxplace.core.fxom {
 
-    exports com.gluonhq.jfxapps.core.fxom;
-    exports com.gluonhq.jfxapps.core.fxom.collector;
-    exports com.gluonhq.jfxapps.core.fxom.glue;
-    exports com.gluonhq.jfxapps.core.fxom.sampledata;
-    exports com.gluonhq.jfxapps.core.fxom.ext;
-    exports com.gluonhq.jfxapps.core.fxom.transform;
-    exports com.gluonhq.jfxapps.core.fxom.util;
 
     requires org.slf4j;
 
@@ -60,10 +47,4 @@ open module jfxplace.core.fxom {
     requires java.desktop;
     requires net.bytebuddy;
 
-    uses FXOMNormalizer;
-    uses FXOMRefresher;
-    uses TransientStateBackup;
-    uses WeakProperty;
-    uses FileLoader;
-    uses LoaderCapabilitiesManager;
 }

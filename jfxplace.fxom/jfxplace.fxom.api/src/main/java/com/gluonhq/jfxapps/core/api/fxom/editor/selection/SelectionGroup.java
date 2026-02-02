@@ -50,6 +50,19 @@ import javafx.scene.Node;
  */
 public interface SelectionGroup extends Cloneable {
 
+    SelectionGroup selectAll();
+
+    SelectionGroup selectNext();
+
+    SelectionGroup selectPrevious();
+
+    Node getCheckedHitNode();
+
+    SelectionGroup toggle(SelectionGroup toggleGroup);
+
+    boolean isSelected(SelectionGroup group);
+    
+
     /**
      * Get the latest clicked/hit item in the selected {@link OMObject} collection
      * @return the latest clicked/hit item
@@ -83,18 +96,6 @@ public interface SelectionGroup extends Cloneable {
      * @return the complete list of siblings objects or an empty list if selected objects are not siblings
      */
     List<FXOMObject> getSiblings();
-
-    SelectionGroup selectAll();
-
-    SelectionGroup selectNext();
-
-    SelectionGroup selectPrevious();
-
-    Node getCheckedHitNode();
-
-    SelectionGroup toggle(SelectionGroup toggleGroup);
-
-    boolean isSelected(SelectionGroup group);
 
     Set<? extends FXOMObject> getInnerItems();
 

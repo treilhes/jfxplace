@@ -41,14 +41,11 @@ import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.treilhes.emc4j.boot.api.context.EmContext;
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
-import com.treilhes.emc4j.boot.api.platform.EmcPlatform;
+import com.gluonhq.jfxapps.core.api.application.ApplicationClassloader;
 import com.gluonhq.jfxapps.core.api.application.ApplicationInstance;
 import com.gluonhq.jfxapps.core.api.application.InstancesManager;
-import com.gluonhq.jfxapps.core.api.application.ApplicationClassloader;
 import com.gluonhq.jfxapps.core.api.fs.FileSystem;
-import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
+//import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
 import com.gluonhq.jfxapps.core.api.i18n.I18N;
 import com.gluonhq.jfxapps.core.api.javafx.JavafxThreadClassloaderDispatcher;
 import com.gluonhq.jfxapps.core.api.javafx.JfxAppPlatform;
@@ -56,14 +53,17 @@ import com.gluonhq.jfxapps.core.api.lifecycle.DisposeWithDocument;
 import com.gluonhq.jfxapps.core.api.lifecycle.InitWithDocument;
 import com.gluonhq.jfxapps.core.api.preference.Preferences;
 import com.gluonhq.jfxapps.core.api.subjects.ApplicationEvents;
+import com.gluonhq.jfxapps.core.api.subjects.ApplicationInstanceEvents;
 import com.gluonhq.jfxapps.core.api.subjects.DockManager;
 import com.gluonhq.jfxapps.core.api.ui.MainInstanceWindow;
 import com.gluonhq.jfxapps.core.api.ui.WindowPreferenceTracker;
 import com.gluonhq.jfxapps.core.api.ui.controller.dock.DockViewController;
 import com.gluonhq.jfxapps.core.api.ui.controller.dock.View;
 import com.gluonhq.jfxapps.core.api.ui.controller.misc.InlineEdit;
-import com.gluonhq.jfxapps.core.api.ui.controller.misc.MessageLogger;
-import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
+//import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
+import com.treilhes.emc4j.boot.api.context.EmContext;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
+import com.treilhes.emc4j.boot.api.platform.EmcPlatform;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.inject.Provider;
@@ -108,21 +108,22 @@ public class ApplicationInstanceController implements ApplicationInstance {
 
     private EventHandler<KeyEvent> mainKeyEventFilter;
 
-    private final FxomEvents applicationInstanceEvents;
+    private final ApplicationInstanceEvents applicationInstanceEvents;
     private final Provider<Optional<List<InitWithDocument>>> initializations;
     private final Provider<Optional<List<DisposeWithDocument>>> finalizations;
 
     private final InstancesManager main;
     private final ApplicationEvents applicationEvents;
 
-    private FXOMDocument fxomDocument;
+    
     private final InlineEdit inlineEdit;
-    private final MessageLogger messageLogger;
 
     private final PreferenceManager preferenceManager;
     private final DockViewController viewMenuController;
     private final WindowPreferenceTracker tracker;
 
+    private Object fxomDocument;
+    
     /*
      * DocumentWindowController
      */
@@ -136,9 +137,8 @@ public class ApplicationInstanceController implements ApplicationInstance {
             FileSystem fileSystem,
             Preferences preferences,
             InlineEdit inlineEdit,
-            MessageLogger messageLogger,
             MainInstanceWindow documentWindow,
-            FxomEvents documentManager,
+            ApplicationInstanceEvents documentManager,
             DockManager dockManager,
             DockViewController viewMenuController,
             InstancesManager main,
@@ -167,7 +167,6 @@ public class ApplicationInstanceController implements ApplicationInstance {
         //this.messageBarController = messageBarController;
         //this.selectionBarController = selectionBarController;
         this.inlineEdit = inlineEdit;
-        this.messageLogger = messageLogger;
 
         this.viewMenuController = viewMenuController;
         this.applicationInstanceEvents = documentManager;
@@ -281,7 +280,7 @@ public class ApplicationInstanceController implements ApplicationInstance {
             initializeDocumentWindow();
         });
 
-        applicationInstanceEvents.fxomDocument().subscribe(fd -> {
+        applicationInstanceEvents.uniqueId().subscribe(fd -> {
             boolean firstLoad = fxomDocument == null;
             fxomDocument = fd;
 
@@ -299,15 +298,18 @@ public class ApplicationInstanceController implements ApplicationInstance {
 
     @Override
     public boolean isUnused() {
-        /*
-         * A document window controller is considered as "unused" if: //NOCHECK 1) it has
-         * not fxml text 2) it is not dirty 3) it is unamed
-         */
-        final boolean noFxmlText = (fxomDocument == null) || (fxomDocument.getFxomRoot() == null);
-        final boolean clean = !isDocumentDirty();
-        final boolean noName = (fxomDocument != null) && (fxomDocument.getLocation() == null);
-
-        return noFxmlText && clean && noName;
+//        /*
+//         * A document window controller is considered as "unused" if: //NOCHECK 1) it has
+//         * not fxml text 2) it is not dirty 3) it is unamed
+//         */
+//        final boolean noFxmlText = (fxomDocument == null) || (fxomDocument.getFxomRoot() == null);
+//        final boolean clean = !isDocumentDirty();
+//        final boolean noName = (fxomDocument != null) && (fxomDocument.getLocation() == null);
+//
+//        return noFxmlText && clean && noName;
+    	return applicationInstanceEvents.hasContent().get() == false
+    			&& applicationInstanceEvents.dirty().get() == false
+    			&& applicationInstanceEvents.uniqueId().get() == null;
     }
 
     @Override
@@ -317,32 +319,39 @@ public class ApplicationInstanceController implements ApplicationInstance {
 
     @Override
     public boolean hasContent() {
-        final boolean noFxmlText = (fxomDocument == null) || (fxomDocument.getFxomRoot() == null);
-        return noFxmlText;
+//        final boolean noFxmlText = (fxomDocument == null) || (fxomDocument.getFxomRoot() == null);
+//        return noFxmlText;
+    	return applicationInstanceEvents.hasContent().get();
     }
 
     @Override
-    public boolean hasName() {
-        final boolean hasName = (fxomDocument != null) && (fxomDocument.getLocation() != null);
-        return hasName;
+    public boolean hasUniqueId() {
+//        final boolean hasName = (fxomDocument != null) && (fxomDocument.getLocation() != null);
+//        return hasName;
+    	return applicationInstanceEvents.uniqueId().get() != null;
     }
 
     @Override
-    public String getName() {
-        final String name = hasName() ? fxomDocument.getLocation().toExternalForm() : "";
-        return name;
+    public URL getUniqueId() {
+//        final String name = hasName() ? fxomDocument.getLocation().toExternalForm() : "";
+//        return name;
+    	return applicationInstanceEvents.uniqueId().get();
     }
 
+    public boolean isDocumentDirty() {
+		return applicationInstanceEvents.dirty().get();
+	}
+    
     private void updatePreferences() {
         if (fxomDocument == null) {
             return;
         }
-        final URL fxmlLocation = fxomDocument.getLocation();
-        if (fxmlLocation == null) {
-            // Document has not been saved => nothing to write
-            // This is the case with initial empty document
-            return;
-        }
+//        final URL fxmlLocation = fxomDocument.getLocation();
+//        if (fxmlLocation == null) {
+//            // Document has not been saved => nothing to write
+//            // This is the case with initial empty document
+//            return;
+//        }
 
         preferences.save();
     }
@@ -402,10 +411,10 @@ public class ApplicationInstanceController implements ApplicationInstance {
         applicationEvents.documentScoped().set(this);
     }
 
-    @Override
-    public boolean isDocumentDirty() {
-        return applicationInstanceEvents.dirty().get();
-    }
+//    @Override
+//    public boolean isDocumentDirty() {
+//        return applicationInstanceEvents.dirty().get();
+//    }
 
     @Override
     public MainInstanceWindow getDocumentWindow() {
@@ -442,21 +451,21 @@ public class ApplicationInstanceController implements ApplicationInstance {
         return false;
     }
 
-    @Override
-    public void logInfoMessage(String key) {
-        messageLogger.logInfoMessage(key, i18n.getBundle());
-    }
+//    @Override
+//    public void logInfoMessage(String key) {
+//        messageLogger.logInfoMessage(key, i18n.getBundle());
+//    }
+//
+//    @Override
+//    public void logInfoMessage(String key, Object... args) {
+//        messageLogger.logInfoMessage(key, i18n.getBundle(), args);
+//    }
 
-    @Override
-    public void logInfoMessage(String key, Object... args) {
-        messageLogger.logInfoMessage(key, i18n.getBundle(), args);
-    }
-
-    @Override
-    public URL getLocation() {
-        FXOMDocument fxomDocument = applicationInstanceEvents.fxomDocument().get();
-        return fxomDocument == null ? null : fxomDocument.getLocation();
-    }
+//    @Override
+//    public URL getLocation() {
+//        FXOMDocument fxomDocument = applicationInstanceEvents.fxomDocument().get();
+//        return fxomDocument == null ? null : fxomDocument.getLocation();
+//    }
 
 //    @Override
 //    public void loadFromFile(File file, boolean keepTrackOfLocation) throws IOException {

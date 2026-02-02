@@ -36,8 +36,8 @@ package com.gluonhq.jfxapps.core.library.manager;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import com.treilhes.emc4j.boot.api.maven.ResolvedArtifact;
 import com.gluonhq.jfxapps.core.api.fxom.library.LibraryArtifact;
+import com.treilhes.emc4j.boot.api.maven.ResolvedArtifact;
 
 @Mapper(componentModel = "spring")
 public interface LibraryMappers {

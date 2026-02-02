@@ -52,13 +52,6 @@
 									<version>${devtools.version}</version>
 								</dependency>
 							</registry>
-							<registry>
-								<dependency>
-									<groupId>com.treilhes.jfxplace</groupId>
-									<artifactId>scenebuilder.registry</artifactId>
-									<version>${scenebuilder.version}</version>
-								</dependency>
-							</registry>
 						</registries>
 					</registry>
 				</configuration>

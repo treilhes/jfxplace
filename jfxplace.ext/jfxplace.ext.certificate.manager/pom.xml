@@ -1,40 +1,62 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>com.treilhes.jfxplace</groupId>
-        <artifactId>jfxplace.ext</artifactId>
-        <version>${jfxplace.version}</version>
-    </parent>
-    <artifactId>jfxplace.ext.certificate.manager</artifactId>
+	<parent>
+		<groupId>com.treilhes.jfxplace</groupId>
+		<artifactId>jfxplace.ext</artifactId>
+		<version>${jfxplace.version}</version>
+	</parent>
+	<artifactId>jfxplace.ext.certificate.manager</artifactId>
 
 
-    <dependencies>
-        <dependency>
-            <groupId>com.treilhes.jfxplace</groupId>
-            <artifactId>jfxplace.core.api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.treilhes.jfxplace</groupId>
-            <artifactId>jfxplace.core.starter</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.treilhes.jfxplace</groupId>
-            <artifactId>jfxplace.core.starter.test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <!--
+	<dependencies>
+		<dependency>
+			<groupId>com.treilhes.jfxplace</groupId>
+			<artifactId>jfxplace.core.api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.treilhes.jfxplace</groupId>
+			<artifactId>jfxplace.core.starter</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.treilhes.jfxplace</groupId>
+			<artifactId>jfxplace.core.starter.test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!--
         https://mvnrepository.com/artifact/org.mock-server/mockserver-junit-jupiter -->
-        <dependency>
-            <groupId>org.mock-server</groupId>
-            <artifactId>mockserver-junit-jupiter</artifactId>
-            <version>5.15.0</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+		<!--<dependency>
+			<groupId>org.mock-server</groupId>
+			<artifactId>mockserver-junit-jupiter</artifactId>
+			<version>5.15.0</version>
+			<scope>test</scope>
+		</dependency>-->
+
+		<!-- Source:
+		https://mvnrepository.com/artifact/org.wiremock/wiremock-standalone -->
+		<dependency>
+			<groupId>org.wiremock</groupId>
+			<artifactId>wiremock-standalone</artifactId>
+			<version>3.13.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+  <groupId>org.bouncycastle</groupId>
+  <artifactId>bcprov-jdk18on</artifactId>
+  <version>1.78</version>
+  <scope>test</scope>
+</dependency>
+
+<dependency>
+  <groupId>org.bouncycastle</groupId>
+  <artifactId>bcpkix-jdk18on</artifactId>
+  <version>1.78</version>
+  <scope>test</scope>
+</dependency>
+	</dependencies>
 
 </project>
