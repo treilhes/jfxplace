@@ -36,13 +36,13 @@ package com.gluonhq.jfxapps.core.api.fxom.subjects;
 import java.nio.file.Path;
 import java.util.Map;
 
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 import com.gluonhq.jfxapps.core.api.fxom.css.StylesheetProvider;
 import com.gluonhq.jfxapps.core.api.fxom.editor.selection.SelectionState;
 import com.gluonhq.jfxapps.core.api.i18n.I18nResourceProvider;
 import com.gluonhq.jfxapps.core.api.subjects.SubjectItem;
 import com.gluonhq.jfxapps.core.api.subjects.SubjectManager;
 import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 
 import io.reactivex.rxjava3.subjects.PublishSubject;
 import io.reactivex.rxjava3.subjects.ReplaySubject;

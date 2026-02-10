@@ -38,13 +38,13 @@ import java.util.Collection;
 import com.gluonhq.jfxapps.core.api.fxom.content.decoration.Decoration;
 import com.gluonhq.jfxapps.core.api.fxom.content.mode.Layer.LayerItemCreator;
 import com.gluonhq.jfxapps.core.api.fxom.content.mode.Layer.LayerItemSelector;
-import com.gluonhq.jfxapps.core.api.fxom.editor.selection.Selection;
+import com.gluonhq.jfxapps.core.api.fxom.editor.selection.FxomSelection;
 
 public interface Mode {
 
     Object getModeId();
 
-    <T extends Decoration<?>> void newLayer(Class<T> cls, boolean mouseTransparent, Selection selection,
+    <T extends Decoration<?>> void newLayer(Class<T> cls, boolean mouseTransparent, FxomSelection selection,
             LayerItemSelector selector, LayerItemCreator<T> creator);
 
     <T extends Decoration<?>> Layer<T> getLayer(Class<T> layerId);

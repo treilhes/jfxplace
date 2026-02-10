@@ -19,13 +19,12 @@
         <module>jfxplace.core.fxom</module>
         <module>jfxplace.core.jobs</module>
         <module>jfxplace.core.library</module>
-        <module>jfxplace.core.menu</module>
+
         <module>jfxplace.core.metadata</module>
         <module>jfxplace.core.metadefault</module>
         
         <module>jfxplace.core.selection</module>
 
-        <module>jfxplace.core.ui</module>
         <module>jfxplace.fxom.api</module>
         <module>jfxplace.fxom.adapter</module>
         <module>jfxplace.fxom.editor</module>

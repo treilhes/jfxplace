@@ -37,7 +37,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Set;
 
-import com.gluonhq.jfxapps.core.api.fxom.editor.selection.Selection;
+import com.gluonhq.jfxapps.core.api.fxom.editor.selection.FxomSelection;
 import com.gluonhq.jfxapps.core.fxom.FXOMObject;
 
 import javafx.event.EventHandler;
@@ -58,7 +58,7 @@ public interface Layer<T> {
 
     @FunctionalInterface
     public interface LayerItemSelector {
-        Set<? extends FXOMObject> select(Selection selection);
+        Set<? extends FXOMObject> select(FxomSelection selection);
     }
 
     /**

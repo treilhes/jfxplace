@@ -38,12 +38,12 @@ import java.util.List;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
 import com.gluonhq.jfxapps.core.api.fxom.editor.selection.ObjectSelectionGroup;
-import com.gluonhq.jfxapps.core.api.fxom.editor.selection.Selection;
 import com.gluonhq.jfxapps.core.api.fxom.job.base.InlineDocumentJob;
 import com.gluonhq.jfxapps.core.api.fxom.jobs.FxomJobsFactory;
 import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
 import com.gluonhq.jfxapps.core.api.job.Job;
 import com.gluonhq.jfxapps.core.api.job.JobExtensionFactory;
+import com.gluonhq.jfxapps.core.api.selection.Selection;
 import com.gluonhq.jfxapps.core.fxom.FXOMObject;
 
 /**

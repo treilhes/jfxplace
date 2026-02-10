@@ -33,17 +33,17 @@
  */
 package com.gluonhq.jfxapps.core.api.fxom.job.base;
 
-import com.treilhes.emc4j.boot.api.context.EmContext;
-import com.treilhes.emc4j.boot.api.context.annotation.Lazy;
-import com.treilhes.emc4j.boot.api.context.annotation.Prototype;
-import com.treilhes.emc4j.boot.api.context.annotation.Singleton;
-import com.gluonhq.jfxapps.core.api.fxom.editor.selection.Selection;
+import com.gluonhq.jfxapps.core.api.fxom.editor.selection.FxomSelection;
 import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
 import com.gluonhq.jfxapps.core.api.job.Job;
 import com.gluonhq.jfxapps.core.api.job.JobExtensionFactory;
 import com.gluonhq.jfxapps.core.api.job.JobFactory;
 import com.gluonhq.jfxapps.core.api.job.base.AbstractJob;
 import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
+import com.treilhes.emc4j.boot.api.context.EmContext;
+import com.treilhes.emc4j.boot.api.context.annotation.Lazy;
+import com.treilhes.emc4j.boot.api.context.annotation.Prototype;
+import com.treilhes.emc4j.boot.api.context.annotation.Singleton;
 
 /**
  * Allow to group multiple jobs into one job logic unit. Child jobs are executed
@@ -56,13 +56,13 @@ public final class BatchJob extends AbstractJob {
     private boolean shouldRefreshSceneGraph;
     private boolean shouldUpdateSelection;
     private final FXOMDocument fxomDocument;
-    private final Selection selection;
+    private final FxomSelection selection;
 
     // @formatter:off
     public BatchJob(
             JobExtensionFactory extensionFactory,
             FxomEvents documentManager,
-            Selection selection) {
+            FxomSelection selection) {
     // @formatter:on
         super(extensionFactory);
         this.fxomDocument = documentManager.fxomDocument().get();
@@ -161,8 +161,8 @@ public final class BatchJob extends AbstractJob {
          *                                {@link FXOMDocument#beginUpdate()} /
          *                                {@link FXOMDocument#endUpdate()}
          * @param shouldUpdateSelection   if true wrap jobs execution between
-         *                                {@link Selection#beginUpdate()} /
-         *                                {@link Selection#endUpdate()}
+         *                                {@link FxomSelection#beginUpdate()} /
+         *                                {@link FxomSelection#endUpdate()}
          * @return the job to execute
          */
         public BatchJob getJob(boolean shouldRefreshSceneGraph, boolean shouldUpdateSelection) {
@@ -185,7 +185,7 @@ public final class BatchJob extends AbstractJob {
 
         /**
          * Create a {@link BatchJob} job and notify {@link FXOMDocument} and
-         * {@link Selection} updates
+         * {@link FxomSelection} updates
          *
          * @return the job to execute
          */

@@ -70,6 +70,6 @@ public interface SelectionState extends BasicSelection {
 
     Set<FXOMElement> getUnresolvedInstances();
 
-    Selection getSelection();
+    FxomSelection getSelection();
 
 }

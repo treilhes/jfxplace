@@ -1,0 +1,29 @@
+emc4j:
+  registry:
+    snapshotsAllowed: true
+#    defaults:
+#      devtools:
+#        groupId: com.treilhes.jfxplace
+#        artifactId: devtools.registry
+#        mandatory: true
+
+  maven:
+    directory: ${user.home}/.m2/repository
+    redirectionsEnabled: true
+    redirect:
+      - groupId: com.treilhes.jfxplace
+        artifactId: devtools.app
+        path: ../../../../devtools.app/target/classes
+
+server:
+  port: 8080
+
+spring:
+  h2:
+    console:
+      enabled: false
+  jpa:
+    show-sql: true
+
+springdoc:
+  show-actuator: true

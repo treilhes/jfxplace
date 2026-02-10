@@ -98,6 +98,14 @@
                                             <version>${project.version}</version>
                                         </dependency>
                                     </extension>
+                                    <extension>
+                                        <uuid>628bafb6-dea7-4bac-b0dc-9044683d7877</uuid>
+                                        <dependency>
+                                            <groupId>com.treilhes.jfxplace</groupId>
+                                            <artifactId>jfxplace.core.menu</artifactId>
+                                            <version>${project.version}</version>
+                                        </dependency>
+                                    </extension>
                                     
                                     <!-- fxom boot -->
                                     <!--
@@ -109,14 +117,7 @@
                                             <version>${project.version}</version>
                                         </dependency>
                                     </extension>
-                                    <extension>
-                                        <uuid>628bafb6-dea7-4bac-b0dc-9044683d7877</uuid>
-                                        <dependency>
-                                            <groupId>com.treilhes.jfxplace</groupId>
-                                            <artifactId>jfxplace.core.menu</artifactId>
-                                            <version>${project.version}</version>
-                                        </dependency>
-                                    </extension>
+                                    
                                     <extension>
                                         <uuid>07a8af43-755e-4a51-a598-66ac13e3f7a5</uuid>
                                         <dependency>

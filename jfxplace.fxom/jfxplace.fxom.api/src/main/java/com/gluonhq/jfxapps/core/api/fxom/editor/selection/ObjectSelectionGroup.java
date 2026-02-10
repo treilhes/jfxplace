@@ -42,11 +42,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.treilhes.emc4j.boot.api.context.EmContext;
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
-import com.treilhes.emc4j.boot.api.context.annotation.Prototype;
 import com.gluonhq.jfxapps.core.api.fxom.mask.FXOMObjectMask;
 import com.gluonhq.jfxapps.core.api.job.Job;
+import com.gluonhq.jfxapps.core.api.selection.SelectionGroup;
 import com.gluonhq.jfxapps.core.fxom.FXOMCollection;
 import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
 import com.gluonhq.jfxapps.core.fxom.FXOMNodes;
@@ -54,6 +52,9 @@ import com.gluonhq.jfxapps.core.fxom.FXOMObject;
 import com.gluonhq.jfxapps.core.fxom.FXOMPath;
 import com.gluonhq.jfxapps.core.fxom.FXOMProperty;
 import com.gluonhq.jfxapps.core.fxom.collector.FXOMCollector;
+import com.treilhes.emc4j.boot.api.context.EmContext;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
+import com.treilhes.emc4j.boot.api.context.annotation.Prototype;
 
 import javafx.scene.Node;
 
@@ -62,7 +63,7 @@ import javafx.scene.Node;
  *
  */
 @Prototype
-public class ObjectSelectionGroup implements SelectionGroup {
+public class ObjectSelectionGroup implements FxomSelectionGroup {
 
     /** The design mask factory. */
     private final FXOMObjectMask.Factory designMaskFactory;
@@ -410,8 +411,8 @@ public class ObjectSelectionGroup implements SelectionGroup {
     public boolean isSelected(SelectionGroup group) {
         final boolean result;
 
-        if (group instanceof ObjectSelectionGroup) {
-            result = getItems().containsAll(group.getItems());
+        if (group instanceof ObjectSelectionGroup osg) {
+            result = getItems().containsAll(osg.getItems());
         } else {
             result = false;
         }
@@ -480,12 +481,12 @@ public class ObjectSelectionGroup implements SelectionGroup {
 
 
     @Override
-    public SelectionGroup selectAll() {
+    public FxomSelectionGroup selectAll() {
         return objectSelectionGroupFactory.getGroup(this.getSiblings());
     }
 
     @Override
-    public SelectionGroup selectNext() {
+    public FxomSelectionGroup selectNext() {
         Set<FXOMObject> localIitems = this.getItems();
 
         if (localIitems.size() != 1) {
@@ -511,7 +512,7 @@ public class ObjectSelectionGroup implements SelectionGroup {
     }
 
     @Override
-    public SelectionGroup selectPrevious() {
+    public FxomSelectionGroup selectPrevious() {
         Set<FXOMObject> localIitems = this.getItems();
 
         if (localIitems.size() != 1) {
@@ -630,4 +631,5 @@ public class ObjectSelectionGroup implements SelectionGroup {
 
 
     }
+
 }

@@ -40,8 +40,8 @@ import java.util.Map;
 import java.util.Set;
 
 import com.gluonhq.jfxapps.core.api.fxom.css.CssInternal;
-import com.gluonhq.jfxapps.core.api.fxom.editor.selection.Selection;
 import com.gluonhq.jfxapps.core.api.fxom.editor.selection.SelectionState;
+import com.gluonhq.jfxapps.core.api.selection.Selection;
 import com.gluonhq.jfxapps.core.fxom.FXOMElement;
 import com.gluonhq.jfxapps.core.fxom.FXOMInstance;
 import com.gluonhq.jfxapps.core.fxom.FXOMIntrinsic;

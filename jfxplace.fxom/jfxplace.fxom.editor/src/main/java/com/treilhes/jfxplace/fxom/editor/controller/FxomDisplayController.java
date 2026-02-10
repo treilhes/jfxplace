@@ -43,13 +43,13 @@ import java.util.ResourceBundle;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 import com.gluonhq.jfxapps.core.api.fs.FileSystem;
-import com.gluonhq.jfxapps.core.api.fxom.editor.selection.Selection;
 import com.gluonhq.jfxapps.core.api.fxom.error.ErrorReport;
 import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
 import com.gluonhq.jfxapps.core.api.i18n.CombinedResourceBundle;
 import com.gluonhq.jfxapps.core.api.i18n.I18nResourceProvider;
 import com.gluonhq.jfxapps.core.api.job.JobManager;
 import com.gluonhq.jfxapps.core.api.lifecycle.InitWithDocument;
+import com.gluonhq.jfxapps.core.api.selection.Selection;
 import com.gluonhq.jfxapps.core.api.subjects.ApplicationEvents;
 import com.gluonhq.jfxapps.core.api.ui.controller.misc.FxomDisplay;
 import com.gluonhq.jfxapps.core.api.ui.controller.misc.InlineEdit;

@@ -39,7 +39,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.gluonhq.jfxapps.core.api.fxom.content.decoration.Decoration;
-import com.gluonhq.jfxapps.core.api.fxom.editor.selection.Selection;
+import com.gluonhq.jfxapps.core.api.fxom.editor.selection.FxomSelection;
 import com.gluonhq.jfxapps.core.api.fxom.ui.controller.misc.Workspace;
 import com.gluonhq.jfxapps.core.api.fxom.util.CoordinateHelper;
 import com.gluonhq.jfxapps.core.fxom.FXOMObject;
@@ -59,11 +59,11 @@ public class GenericLayer<T extends Decoration<?>> implements Layer<T> {
     private final Group layerUI;
     private final Group detachableUI;
     private final Workspace workspace;
-    private final Selection selection;
+    private final FxomSelection selection;
     private final LayerItemCreator<T> creator;
     private final LayerItemSelector selector;
 
-    public GenericLayer(Class<T> layerId, Group layerUI, Selection selection, Workspace workspace,
+    public GenericLayer(Class<T> layerId, Group layerUI, FxomSelection selection, Workspace workspace,
             LayerItemSelector selector, LayerItemCreator<T> creator) {
         super();
         this.layerId = layerId;

@@ -35,11 +35,11 @@ package com.gluonhq.jfxapps.core.api.fxom.job.base;
 
 import java.util.List;
 
-import com.gluonhq.jfxapps.core.api.fxom.editor.selection.Selection;
-import com.gluonhq.jfxapps.core.api.fxom.editor.selection.SelectionGroup;
+import com.gluonhq.jfxapps.core.api.fxom.editor.selection.FxomSelection;
 import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
 import com.gluonhq.jfxapps.core.api.job.Job;
 import com.gluonhq.jfxapps.core.api.job.JobExtensionFactory;
+import com.gluonhq.jfxapps.core.api.selection.SelectionGroup;
 
 /**
  * This Job updates the FXOM document AND the selection at execution time.
@@ -51,17 +51,17 @@ public abstract class BatchSelectionJob extends BatchDocumentJob {
     private SelectionGroup oldSelectionGroup;
     private SelectionGroup newSelectionGroup;
 
-    private final Selection selection;
+    private final FxomSelection selection;
 
     protected BatchSelectionJob(
             JobExtensionFactory extensionFactory,
             FxomEvents documentManager,
-            Selection selection) {
+            FxomSelection selection) {
         super(extensionFactory, documentManager);
         this.selection = selection;
     }
 
-    protected Selection getSelection() {
+    protected FxomSelection getSelection() {
         return selection;
     }
 

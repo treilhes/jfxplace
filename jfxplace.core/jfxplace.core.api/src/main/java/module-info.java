@@ -43,6 +43,8 @@ open module jfxplace.core.api {
     exports com.gluonhq.jfxapps.core.api.application;
     exports com.gluonhq.jfxapps.core.api.application.annotation;
 
+    exports com.gluonhq.jfxapps.core.api.ctxmenu;
+    exports com.gluonhq.jfxapps.core.api.ctxmenu.annotation;
     exports com.gluonhq.jfxapps.core.api.lifecycle;
 
     exports com.gluonhq.jfxapps.core.api.ui.controller.alert;
@@ -70,6 +72,8 @@ open module jfxplace.core.api {
 
     exports com.gluonhq.jfxapps.core.api.preference;
 
+    exports com.gluonhq.jfxapps.core.api.selection;
+
     exports com.gluonhq.jfxapps.core.api.settings;
     exports com.gluonhq.jfxapps.core.api.shortcut;
     exports com.gluonhq.jfxapps.core.api.shortcut.annotation;
@@ -83,7 +87,7 @@ open module jfxplace.core.api {
     exports com.gluonhq.jfxapps.core.api.job.base;
     exports com.gluonhq.jfxapps.core.api.util;
 
-    
+
 
     requires transitive jfxplace.javafx.starter;
 

@@ -15,19 +15,19 @@
 			<artifactId>devtools.model</artifactId>
 		</dependency>
 		<dependency>
-            <groupId>com.treilhes.jfxplace</groupId>
-            <artifactId>devtools.starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.treilhes.jfxplace</groupId>
-                    <artifactId>jfxplace.core.api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.treilhes.jfxplace</groupId>
-                    <artifactId>jfxplace.core.starter</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+			<groupId>com.treilhes.jfxplace</groupId>
+			<artifactId>devtools.starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>*</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.treilhes.jfxplace</groupId>
+			<artifactId>devtools.starter.dependencies</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>com.treilhes.jfxplace</groupId>
 			<artifactId>jfxplace.core.api</artifactId>
@@ -43,12 +43,12 @@
 			<artifactId>jfxplace.core.starter.test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
-		
+
+
 		<dependency>
-    <groupId>org.codehaus.plexus</groupId>
-    <artifactId>plexus-utils</artifactId>
-  <version>3.6.0</version>
-</dependency>
+			<groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-utils</artifactId>
+			<version>3.6.0</version>
+		</dependency>
 	</dependencies>
 </project>

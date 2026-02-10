@@ -38,16 +38,16 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 import com.gluonhq.jfxapps.core.api.fxom.editor.selection.DefaultSelectionGroupFactory;
+import com.gluonhq.jfxapps.core.api.fxom.editor.selection.FxomSelection;
 import com.gluonhq.jfxapps.core.api.fxom.editor.selection.ObjectSelectionGroup;
-import com.gluonhq.jfxapps.core.api.fxom.editor.selection.Selection;
-import com.gluonhq.jfxapps.core.api.fxom.editor.selection.SelectionGroup;
 import com.gluonhq.jfxapps.core.api.fxom.editor.selection.TargetSelection;
 import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
+import com.gluonhq.jfxapps.core.api.selection.SelectionGroup;
 import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
 import com.gluonhq.jfxapps.core.fxom.FXOMObject;
 import com.gluonhq.jfxapps.core.fxom.collector.FxCollector;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 
 import jakarta.annotation.Nullable;
 import javafx.beans.property.ReadOnlyIntegerProperty;
@@ -63,7 +63,7 @@ import javafx.scene.control.Control;
  *
  */
 @ApplicationInstanceSingleton
-public class SelectionImpl implements Selection {
+public class SelectionImpl implements FxomSelection {
 
     private final DefaultSelectionGroupFactory defaultSelectionGroupFactory;
     private final SimpleIntegerProperty revision = new SimpleIntegerProperty();

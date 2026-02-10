@@ -35,8 +35,8 @@ package com.gluonhq.jfxapps.core.api.fxom.ui.controller.menu;
 
 import java.util.List;
 
-import com.gluonhq.jfxapps.core.api.fxom.editor.selection.SelectionGroup;
-import com.gluonhq.jfxapps.core.api.fxom.ui.controller.ctxmenu.ContextMenuItemAttachment;
+import com.gluonhq.jfxapps.core.api.ctxmenu.ContextMenuItemAttachment;
+import com.gluonhq.jfxapps.core.api.selection.SelectionGroup;
 
 /**
  *

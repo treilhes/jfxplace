@@ -42,9 +42,9 @@ import com.gluonhq.jfxapps.app.devtools.app.action.ShowScenicViewAction;
 import com.gluonhq.jfxapps.app.devtools.app.menu.MainMenuProvider;
 import com.gluonhq.jfxapps.app.devtools.app.ui.DevtoolsUiTemplate;
 import com.gluonhq.jfxapps.app.devtools.app.ui.WindowIconSettings;
-import com.treilhes.emc4j.boot.api.loader.extension.OpenExtension;
 import com.gluonhq.jfxapps.ext.about.api.AboutApi;
 import com.gluonhq.jfxapps.ext.scenicview.api.ScenicViewApi;
+import com.treilhes.emc4j.boot.api.loader.extension.OpenExtension;
 
 public class DevtoolsAppExtension implements OpenExtension  {
 
@@ -63,6 +63,8 @@ public class DevtoolsAppExtension implements OpenExtension  {
     @Override
     public List<Class<?>> exportedContextClasses() {
         return List.of(
+                DevtoolsOpenCommandEventHandler.class,
+
                 WindowIconSettings.class,
                 DevtoolsUiTemplate.class,
                 MainMenuProvider.class,

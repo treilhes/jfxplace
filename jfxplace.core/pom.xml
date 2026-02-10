@@ -16,7 +16,9 @@
         <module>jfxplace.core.appmngr</module>
         <module>jfxplace.core.extension.store</module>
         <!--<module>jfxplace.core.splash</module>-->
+        <module>jfxplace.core.menu</module>
         <module>jfxplace.core.utils</module>
+        <module>jfxplace.core.ui</module>
         <module>jfxplace.core.accelerators</module>
         <module>jfxplace.core.guides</module>
         <module>jfxplace.core.maven</module>

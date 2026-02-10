@@ -60,10 +60,11 @@
     </modules>
 
     <properties>
+        <emc4j.version>1.0.0-SNAPSHOT</emc4j.version>
         <jfxplace.version>1.0.0-SNAPSHOT</jfxplace.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <emc4j.version>1.0.0-SNAPSHOT</emc4j.version>
+        
 
         <java.version>25</java.version>
 

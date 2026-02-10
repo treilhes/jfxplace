@@ -61,11 +61,10 @@ open module jfxplace.fxom.api {
     exports com.gluonhq.jfxapps.core.api.fxom.subjects;
     exports com.gluonhq.jfxapps.core.api.fxom.ui.controller.misc;
     exports com.gluonhq.jfxapps.core.api.fxom.ui.controller.selbar;
-    exports com.gluonhq.jfxapps.core.api.fxom.ui.controller.ctxmenu;
-    exports com.gluonhq.jfxapps.core.api.fxom.ui.controller.ctxmenu.annotation;
+
     exports com.gluonhq.jfxapps.core.api.fxom.ui.tool;
     exports com.gluonhq.jfxapps.core.api.fxom.util;
-    
+
 
     exports com.gluonhq.jfxapps.core.fxom;
     exports com.gluonhq.jfxapps.core.fxom.collector;
@@ -74,7 +73,7 @@ open module jfxplace.fxom.api {
     exports com.gluonhq.jfxapps.core.fxom.ext;
     exports com.gluonhq.jfxapps.core.fxom.transform;
     exports com.gluonhq.jfxapps.core.fxom.util;
-    
+
     exports com.gluonhq.jfxapps.core.metadata;
     exports com.gluonhq.jfxapps.core.metadata.fx.defaults;
     exports com.gluonhq.jfxapps.core.metadata.klass;
@@ -110,7 +109,7 @@ open module jfxplace.fxom.api {
     requires jfxplace.javafx.fxml.patch.link;
 
     provides Extension with FxomExtension;
-    
+
 
     uses FXOMNormalizer;
     uses FXOMRefresher;

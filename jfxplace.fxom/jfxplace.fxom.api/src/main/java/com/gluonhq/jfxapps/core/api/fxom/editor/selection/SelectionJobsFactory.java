@@ -38,6 +38,8 @@ import java.util.List;
 import com.gluonhq.jfxapps.core.api.fxom.clipboard.Clipboard;
 import com.gluonhq.jfxapps.core.api.fxom.mask.Accessory;
 import com.gluonhq.jfxapps.core.api.job.Job;
+import com.gluonhq.jfxapps.core.api.selection.Selection;
+import com.gluonhq.jfxapps.core.api.selection.SelectionGroup;
 import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
 import com.gluonhq.jfxapps.core.fxom.FXOMObject;
 import com.gluonhq.jfxapps.core.fxom.FXOMProperty;
@@ -47,7 +49,7 @@ public interface SelectionJobsFactory {
 
     /**
      * create a backup of the current selection by cloning the content of
-     * {@link Selection#getGroup()} Undoing the job will restore the selection
+     * {@link FxomSelection#getGroup()} Undoing the job will restore the selection
      *
      * @return the job to execute
      */
@@ -211,7 +213,7 @@ public interface SelectionJobsFactory {
     Job trimSelection();
 
     /**
-     * Update the currently scoped document selection {@link Selection} with the
+     * Update the currently scoped document selection {@link FxomSelection} with the
      * provided list of {@link FXOMObject}
      *
      * @param group the selection group to select
