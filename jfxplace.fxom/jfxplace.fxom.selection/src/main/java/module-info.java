@@ -31,38 +31,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.gluonhq.jfxapps.core.api.selection;
+import com.gluonhq.jfxapps.core.selection.FxomSelectionExtension;
+import com.treilhes.emc4j.boot.api.loader.extension.Extension;
 
-import javafx.scene.Node;
+open module jfxplace.fxom.selection {
+    exports com.gluonhq.jfxapps.core.selection;
+    exports com.gluonhq.jfxapps.core.selection.i18n;
+    exports com.gluonhq.jfxapps.core.selection.job;
 
-/**
- * This interface must be implemented by classes expecting to represent a selection content
- * The implementation of this interface must be immutable and cloneable.
- */
-public interface SelectionGroup extends Cloneable {
+    requires transitive jfxplace.core.api;
+    requires transitive jfxplace.fxom.api;
+    //requires transitive jfxplace.core.jobs;
 
-    SelectionGroup selectAll();
-
-    SelectionGroup selectNext();
-
-    SelectionGroup selectPrevious();
-
-    SelectionGroup selectParent();
-
-    SelectionGroup toggle(SelectionGroup toggleGroup);
-
-    SelectionGroup clone() throws CloneNotSupportedException;
-
-    boolean isEmpty();
-
-    boolean isSelected(SelectionGroup group);
-
-    Node getCheckedHitNode();
-
-
-
-
-
-
-
+    provides Extension with FxomSelectionExtension;
 }

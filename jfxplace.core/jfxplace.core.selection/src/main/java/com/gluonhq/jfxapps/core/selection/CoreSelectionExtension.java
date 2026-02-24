@@ -31,38 +31,52 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.gluonhq.jfxapps.core.api.selection;
+package com.gluonhq.jfxapps.core.selection;
 
-import javafx.scene.Node;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
-/**
- * This interface must be implemented by classes expecting to represent a selection content
- * The implementation of this interface must be immutable and cloneable.
- */
-public interface SelectionGroup extends Cloneable {
+import com.gluonhq.jfxapps.core.selection.action.SelectAllAction;
+import com.gluonhq.jfxapps.core.selection.action.SelectNextAction;
+import com.gluonhq.jfxapps.core.selection.action.SelectNoneAction;
+import com.gluonhq.jfxapps.core.selection.action.SelectParentAction;
+import com.gluonhq.jfxapps.core.selection.action.SelectPreviousAction;
+import com.gluonhq.jfxapps.core.selection.i18n.I18NSelection;
+import com.treilhes.emc4j.boot.api.loader.extension.OpenExtension;
 
-    SelectionGroup selectAll();
+public class CoreSelectionExtension implements OpenExtension {
+    @Override
+    public UUID getId() {
+        return UUID.fromString("a112d6e9-4079-4733-96d1-d29b3fef675d");
+    }
 
-    SelectionGroup selectNext();
+    @Override
+    public UUID getParentId() {
+        return OpenExtension.ROOT_ID;
+    }
 
-    SelectionGroup selectPrevious();
+    @Override
+    public List<Class<?>> localContextClasses() {
+        return List.of();
+    }
 
-    SelectionGroup selectParent();
+    @Override
+    public List<Class<?>> exportedContextClasses() {
+     // @formatter:off
+        return Arrays.asList(
+                SelectionImpl.class,
+                SelectionActionsFactoryImpl.class,
+                EmptySelectionGroupFactoryImpl.class,
 
-    SelectionGroup toggle(SelectionGroup toggleGroup);
+                I18NSelection.class,
 
-    SelectionGroup clone() throws CloneNotSupportedException;
-
-    boolean isEmpty();
-
-    boolean isSelected(SelectionGroup group);
-
-    Node getCheckedHitNode();
-
-
-
-
-
-
-
+                SelectAllAction.class,
+                SelectNextAction.class,
+                SelectNoneAction.class,
+                SelectParentAction.class,
+                SelectPreviousAction.class
+            );
+     // @formatter:on
+    }
 }

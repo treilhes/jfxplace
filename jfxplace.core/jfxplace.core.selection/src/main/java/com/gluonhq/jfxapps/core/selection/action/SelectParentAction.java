@@ -31,80 +31,52 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.gluonhq.jfxapps.core.api.fxom.job.base;
+package com.gluonhq.jfxapps.core.selection.action;
 
-import java.util.List;
-
-import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
-import com.gluonhq.jfxapps.core.api.job.Job;
-import com.gluonhq.jfxapps.core.api.job.JobExtensionFactory;
+import com.gluonhq.jfxapps.core.api.action.AbstractAction;
+import com.gluonhq.jfxapps.core.api.action.ActionExtensionFactory;
+import com.gluonhq.jfxapps.core.api.action.ActionMeta;
+import com.gluonhq.jfxapps.core.api.i18n.I18N;
 import com.gluonhq.jfxapps.core.api.selection.Selection;
-import com.gluonhq.jfxapps.core.api.selection.SelectionGroup;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
 
-/**
- * This Job updates the FXOM document AND the selection at execution time.
- *
- * The sub jobs are created and executed just after.
- */
-public abstract class InlineSelectionJob extends InlineDocumentJob {
+@ApplicationInstancePrototype("com.gluonhq.jfxapps.core.selection.action.SelectParentAction")
+@ActionMeta(
+        nameKey = "action.name.show.about",
+        descriptionKey = "action.description.show.about")
+public class SelectParentAction extends AbstractAction {
 
-    private SelectionGroup oldSelectionGroup;
-    private SelectionGroup newSelectionGroup;
     private final Selection selection;
 
-    // @formatter:off
-    protected InlineSelectionJob(
-            JobExtensionFactory extensionFactory,
-            FxomEvents documentManager,
+    public SelectParentAction(
+            I18N i18n,
+            ActionExtensionFactory extensionFactory,
             Selection selection) {
-     // @formatter:on
-        super(extensionFactory, documentManager);
+        super(i18n, extensionFactory);
         this.selection = selection;
     }
 
-    protected Selection getSelection() {
-        return selection;
-    }
-
-    protected final SelectionGroup getOldSelectionGroup() {
-        return oldSelectionGroup;
-    }
-
-    protected abstract SelectionGroup getNewSelectionGroup();
-
+    /**
+     * Returns true if the selection is not empty and the root object is not
+     * selected.
+     *
+     * @return if the selection is not empty and the root object is not selected.
+     */
     @Override
-    public final void doExecute() {
-
-        try {
-            selection.beginUpdate();
-            oldSelectionGroup = selection.getGroup() == null ? null : selection.getGroup().clone();
-            super.doExecute();
-            newSelectionGroup = getNewSelectionGroup();
-            selection.select(newSelectionGroup);
-            selection.endUpdate();
-
-        } catch (CloneNotSupportedException x) {
-            // Emergency code
-            throw new RuntimeException(x);
-        }
+    public boolean canPerform() {
+        var group = selection.getGroup();
+        return !selection.isEmpty() && !group.selectParent().isEmpty();
     }
 
+    /**
+     * Performs the select parent control action
+     */
     @Override
-    public final void doUndo() {
-        selection.beginUpdate();
-        super.doUndo();
-        selection.select(oldSelectionGroup);
-        selection.endUpdate();
+    public ActionStatus doPerform() {
+        assert canPerform(); // (1)
+        final var ancestor = selection.getGroup().selectParent();
+        assert ancestor != null && !ancestor.isEmpty(); // Because of (1)
+        selection.select(ancestor);
+        return ActionStatus.DONE;
     }
-
-    @Override
-    public final void doRedo() {
-        selection.beginUpdate();
-        super.doRedo();
-        selection.select(newSelectionGroup);
-        selection.endUpdate();
-    }
-
-    @Override
-    protected abstract List<Job> makeAndExecuteSubJobs();
 }

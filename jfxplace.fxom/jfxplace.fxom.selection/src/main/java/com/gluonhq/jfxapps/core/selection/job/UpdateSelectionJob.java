@@ -31,80 +31,94 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.gluonhq.jfxapps.core.api.fxom.job.base;
 
-import java.util.List;
+package com.gluonhq.jfxapps.core.selection.job;
 
+import com.gluonhq.jfxapps.core.api.fxom.editor.selection.FxomSelection;
 import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
-import com.gluonhq.jfxapps.core.api.job.Job;
 import com.gluonhq.jfxapps.core.api.job.JobExtensionFactory;
+import com.gluonhq.jfxapps.core.api.job.base.AbstractJob;
 import com.gluonhq.jfxapps.core.api.selection.Selection;
 import com.gluonhq.jfxapps.core.api.selection.SelectionGroup;
+import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
+import com.gluonhq.jfxapps.core.fxom.FXOMObject;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
+
 
 /**
- * This Job updates the FXOM document AND the selection at execution time.
- *
- * The sub jobs are created and executed just after.
+ * Update the currently scoped document selection {@link Selection} with the provided list of {@link FXOMObject}
  */
-public abstract class InlineSelectionJob extends InlineDocumentJob {
+@ApplicationInstancePrototype
+public final class UpdateSelectionJob extends AbstractJob {
 
     private SelectionGroup oldSelectionGroup;
     private SelectionGroup newSelectionGroup;
-    private final Selection selection;
 
-    // @formatter:off
-    protected InlineSelectionJob(
+    private final FXOMDocument fxomDocument;
+    private final FxomSelection selection;
+
+    protected UpdateSelectionJob(
             JobExtensionFactory extensionFactory,
             FxomEvents documentManager,
-            Selection selection) {
-     // @formatter:on
-        super(extensionFactory, documentManager);
+            FxomSelection selection) {
+        super(extensionFactory);
+        this.fxomDocument = documentManager.fxomDocument().get();
         this.selection = selection;
     }
 
-    protected Selection getSelection() {
-        return selection;
+    public void setJobParameters(SelectionGroup group) {
+        newSelectionGroup = group;
     }
+//    protected void setJobParameters(Collection<FXOMObject> newSelectedObjects) {
+//        assert newSelectedObjects != null; // But possibly empty
+//        if (newSelectedObjects.isEmpty()) {
+//            newSelectionGroup = null;
+//        } else {
+//            newSelectionGroup = objectSelectionGroupFactory.getGroup(newSelectedObjects, newSelectedObjects.iterator().next(), null);
+//        }
+//    }
 
-    protected final SelectionGroup getOldSelectionGroup() {
-        return oldSelectionGroup;
-    }
-
-    protected abstract SelectionGroup getNewSelectionGroup();
+    /*
+     * Job
+     */
 
     @Override
-    public final void doExecute() {
+    public boolean isExecutable() {
+        return true;
+    }
 
+    @Override
+    public void doExecute() {
+        // Saves the current selection
         try {
-            selection.beginUpdate();
-            oldSelectionGroup = selection.getGroup() == null ? null : selection.getGroup().clone();
-            super.doExecute();
-            newSelectionGroup = getNewSelectionGroup();
-            selection.select(newSelectionGroup);
-            selection.endUpdate();
-
-        } catch (CloneNotSupportedException x) {
-            // Emergency code
-            throw new RuntimeException(x);
+            if (selection.getGroup() == null) {
+                this.oldSelectionGroup = null;
+            } else {
+                this.oldSelectionGroup = selection.getGroup().clone();
+            }
+        } catch(CloneNotSupportedException x) {
+            throw new RuntimeException("Bug", x);
         }
+
+        // Now same as redo()
+        redo();
     }
 
     @Override
-    public final void doUndo() {
-        selection.beginUpdate();
-        super.doUndo();
-        selection.select(oldSelectionGroup);
-        selection.endUpdate();
+    public void doUndo() {
+        selection.getSelection().select(oldSelectionGroup);
+        assert selection.isValid(fxomDocument);
     }
 
     @Override
-    public final void doRedo() {
-        selection.beginUpdate();
-        super.doRedo();
-        selection.select(newSelectionGroup);
-        selection.endUpdate();
+    public void doRedo() {
+        selection.getSelection().select(newSelectionGroup);
+        assert selection.isValid(fxomDocument);
     }
 
     @Override
-    protected abstract List<Job> makeAndExecuteSubJobs();
+    public String getDescription() {
+        // Not expected to reach the user
+        return getClass().getSimpleName();
+    }
 }

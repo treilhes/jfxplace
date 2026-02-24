@@ -632,4 +632,15 @@ public class ObjectSelectionGroup implements FxomSelectionGroup {
 
     }
 
+
+    @Override
+    public SelectionGroup selectParent() {
+        return hasSingleParent() ? objectSelectionGroupFactory.getGroup(getAncestor(), null) : this;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return items != null ? items.isEmpty() : true;
+    }
+
 }

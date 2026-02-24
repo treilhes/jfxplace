@@ -31,80 +31,64 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.gluonhq.jfxapps.core.api.fxom.job.base;
+package com.gluonhq.jfxapps.core.selection.action;
 
-import java.util.List;
-
-import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
-import com.gluonhq.jfxapps.core.api.job.Job;
-import com.gluonhq.jfxapps.core.api.job.JobExtensionFactory;
+import com.gluonhq.jfxapps.core.api.action.AbstractAction;
+import com.gluonhq.jfxapps.core.api.action.ActionExtensionFactory;
+import com.gluonhq.jfxapps.core.api.action.ActionMeta;
+import com.gluonhq.jfxapps.core.api.i18n.I18N;
 import com.gluonhq.jfxapps.core.api.selection.Selection;
-import com.gluonhq.jfxapps.core.api.selection.SelectionGroup;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
 
-/**
- * This Job updates the FXOM document AND the selection at execution time.
- *
- * The sub jobs are created and executed just after.
- */
-public abstract class InlineSelectionJob extends InlineDocumentJob {
+@ApplicationInstancePrototype("com.gluonhq.jfxapps.core.selection.action.SelectPreviousAction")
+@ActionMeta(
+        nameKey = "action.name.show.about",
+        descriptionKey = "action.description.show.about")
+public class SelectPreviousAction extends AbstractAction {
 
-    private SelectionGroup oldSelectionGroup;
-    private SelectionGroup newSelectionGroup;
+    //private final MainInstanceWindow documentWindow;
+    //private final InlineEdit inlineEdit;
     private final Selection selection;
 
-    // @formatter:off
-    protected InlineSelectionJob(
-            JobExtensionFactory extensionFactory,
-            FxomEvents documentManager,
+    public SelectPreviousAction(
+            I18N i18n,
+            ActionExtensionFactory extensionFactory,
+            //MainInstanceWindow documentWindow,
+            //InlineEdit inlineEdit,
             Selection selection) {
-     // @formatter:on
-        super(extensionFactory, documentManager);
+        super(i18n, extensionFactory);
+        //this.documentWindow = documentWindow;
+        //this.inlineEdit = inlineEdit;
         this.selection = selection;
     }
 
-    protected Selection getSelection() {
-        return selection;
-    }
-
-    protected final SelectionGroup getOldSelectionGroup() {
-        return oldSelectionGroup;
-    }
-
-    protected abstract SelectionGroup getNewSelectionGroup();
-
+    /**
+     * Returns true if the selection is single and the container of the selected
+     * object container contains a child previous to the selected one.
+     *
+     * @return if the selection is single and the container of the selected object
+     *         container contains a child previous to the selected one.
+     */
     @Override
-    public final void doExecute() {
-
-        try {
-            selection.beginUpdate();
-            oldSelectionGroup = selection.getGroup() == null ? null : selection.getGroup().clone();
-            super.doExecute();
-            newSelectionGroup = getNewSelectionGroup();
-            selection.select(newSelectionGroup);
-            selection.endUpdate();
-
-        } catch (CloneNotSupportedException x) {
-            // Emergency code
-            throw new RuntimeException(x);
+    public boolean canPerform() {
+        if (selection.isEmpty()) {
+            return false;
         }
+        final var group = selection.getGroup();
+
+        if (group.selectPrevious().isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
+    /**
+     * Performs the select previous control action.
+     */
     @Override
-    public final void doUndo() {
-        selection.beginUpdate();
-        super.doUndo();
-        selection.select(oldSelectionGroup);
-        selection.endUpdate();
+    public ActionStatus doPerform() {
+        assert canPerform(); // (1)
+        selection.selectPrevious();
+        return ActionStatus.DONE;
     }
-
-    @Override
-    public final void doRedo() {
-        selection.beginUpdate();
-        super.doRedo();
-        selection.select(newSelectionGroup);
-        selection.endUpdate();
-    }
-
-    @Override
-    protected abstract List<Job> makeAndExecuteSubJobs();
 }

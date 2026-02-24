@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2016, 2025, Gluon and/or its affiliates.
- * Copyright (c) 2021, 2025, Pascal Treilhes and/or its affiliates.
+ * Copyright (c) 2016, 2024, Gluon and/or its affiliates.
+ * Copyright (c) 2021, 2024, Pascal Treilhes and/or its affiliates.
  * Copyright (c) 2012, 2014, Oracle and/or its affiliates.
  * All rights reserved. Use is subject to license terms.
  *
@@ -31,80 +31,83 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.gluonhq.jfxapps.core.api.fxom.job.base;
+package com.gluonhq.jfxapps.core.selection.job;
 
-import java.util.List;
-
-import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
+import com.gluonhq.jfxapps.core.api.fxom.editor.selection.FxomSelection;
+import com.gluonhq.jfxapps.core.api.fxom.editor.selection.FxomSelectionGroup;
+import com.gluonhq.jfxapps.core.api.fxom.editor.selection.ObjectSelectionGroup;
 import com.gluonhq.jfxapps.core.api.job.Job;
 import com.gluonhq.jfxapps.core.api.job.JobExtensionFactory;
-import com.gluonhq.jfxapps.core.api.selection.Selection;
-import com.gluonhq.jfxapps.core.api.selection.SelectionGroup;
+import com.gluonhq.jfxapps.core.api.job.base.AbstractJob;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
 
 /**
- * This Job updates the FXOM document AND the selection at execution time.
- *
- * The sub jobs are created and executed just after.
+ * This job manages the deletion of the objects contained in either an
+ * ObjectSelectionGroup or a GridSelectionGroup depending on the selection.<br/>
+ * For {@link ObjectSelectionGroup} delegates to {@link DeleteObjectSelectionJob}<br/>
+ * For {@link GridSelectionGroup} delegates to {@link DeleteGridSelectionJob}<br/>
  */
-public abstract class InlineSelectionJob extends InlineDocumentJob {
+@ApplicationInstancePrototype
+public final class DeleteSelectionJob extends AbstractJob {
 
-    private SelectionGroup oldSelectionGroup;
-    private SelectionGroup newSelectionGroup;
-    private final Selection selection;
+    private Job subJob;
+    private FxomSelection selection;
 
     // @formatter:off
-    protected InlineSelectionJob(
+    protected DeleteSelectionJob(
             JobExtensionFactory extensionFactory,
-            FxomEvents documentManager,
-            Selection selection) {
-     // @formatter:on
-        super(extensionFactory, documentManager);
+            FxomSelection selection
+            ) {
+    // @formatter:on
+        super(extensionFactory);
         this.selection = selection;
     }
 
-    protected Selection getSelection() {
-        return selection;
+    public void setJobParameters() {
+        buildSubJobs();
     }
 
-    protected final SelectionGroup getOldSelectionGroup() {
-        return oldSelectionGroup;
+    /*
+     * Job
+     */
+    @Override
+    public boolean isExecutable() {
+        return subJob != null && subJob.isExecutable();
     }
-
-    protected abstract SelectionGroup getNewSelectionGroup();
 
     @Override
-    public final void doExecute() {
+    public void doExecute() {
+        subJob.execute();
+    }
 
-        try {
-            selection.beginUpdate();
-            oldSelectionGroup = selection.getGroup() == null ? null : selection.getGroup().clone();
-            super.doExecute();
-            newSelectionGroup = getNewSelectionGroup();
-            selection.select(newSelectionGroup);
-            selection.endUpdate();
+    @Override
+    public void doUndo() {
+        subJob.undo();
+    }
 
-        } catch (CloneNotSupportedException x) {
-            // Emergency code
-            throw new RuntimeException(x);
+    @Override
+    public void doRedo() {
+        subJob.redo();
+    }
+
+    @Override
+    public String getDescription() {
+        return subJob.getDescription();
+    }
+
+    Job getSubJob() {
+        return subJob;
+    }
+
+    /*
+     * Private
+     */
+    private void buildSubJobs() {
+        FxomSelectionGroup group = selection.getGroup();
+        subJob = group == null ? null : group.makeDeleteJob();
+        if (subJob == null) {
+            assert selection.getGroup() == null : "Add implementation for " + selection.getGroup();
         }
     }
 
-    @Override
-    public final void doUndo() {
-        selection.beginUpdate();
-        super.doUndo();
-        selection.select(oldSelectionGroup);
-        selection.endUpdate();
-    }
-
-    @Override
-    public final void doRedo() {
-        selection.beginUpdate();
-        super.doRedo();
-        selection.select(newSelectionGroup);
-        selection.endUpdate();
-    }
-
-    @Override
-    protected abstract List<Job> makeAndExecuteSubJobs();
 }

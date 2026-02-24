@@ -40,16 +40,6 @@ import javafx.scene.Node;
 public interface Selection {
 
     /**
-     * Check if the current selection objects are all instances of the provided
-     * type,
-     *
-     * @param the required type of selected objects
-     * @return true if the current selection objects are all instances of the
-     *         provided type, false otherwise.
-     */
-    boolean isSelectionOfType(Class<?> type);
-
-    /**
      * Returns the property holding the revision number of this selection.
      * Selection class adds +1 to this number each time the selection changes.
      *

@@ -42,7 +42,7 @@ import com.gluonhq.jfxapps.core.fxom.FXOMObject;
 
 import javafx.scene.Node;
 
-public interface FxomSelection extends Selection {
+public interface FxomSelection extends Selection{
 
     boolean isSelected(FXOMObject fxomObject);
 
@@ -123,4 +123,37 @@ public interface FxomSelection extends Selection {
      * @param hitObject
      */
     void toggleSelection(FXOMObject hitObject);
+
+
+    /**
+     * Check if the current selection objects are all instances of the provided
+     * type,
+     *
+     * @param the required type of selected objects
+     * @return true if the current selection objects are all instances of the
+     *         provided type, false otherwise.
+     */
+    boolean isSelectionOfType(Class<?> type);
+
+    /**
+     * Check if the current selection objects are all instances of a {@link Node},
+     * @return true if the current selection objects are all instances of a {@link Node},
+     * false otherwise.
+     */
+    boolean isSelectionNode();
+
+    /**
+     * Check if the current selection objects are all instances of a {@link Control}
+     * @return true if the current selection objects are all instances of a {@link Control},
+     * false otherwise.
+     */
+    boolean isSelectionControl();
+
+    @Override
+    boolean isEmpty();
+
+    @Override
+    FxomSelectionGroup getGroup();
+
+    Selection getSelection();
 }

@@ -42,7 +42,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
+import com.gluonhq.jfxapps.core.api.fxom.editor.selection.FxomSelectionGroup;
 import com.gluonhq.jfxapps.core.api.fxom.editor.selection.SelectionGroupFactory;
 import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
 import com.gluonhq.jfxapps.core.api.fxom.ui.controller.selbar.SelectionBarContentFactory;
@@ -57,6 +57,7 @@ import com.gluonhq.jfxapps.core.api.ui.controller.AbstractFxmlController;
 import com.gluonhq.jfxapps.core.api.ui.controller.misc.SelectionBar;
 import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
 import com.gluonhq.jfxapps.core.fxom.FXOMObject;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -162,12 +163,10 @@ public class SelectionBarController extends AbstractFxmlController implements Se
     private void updateSelectionBar() {
         pathBox.getChildren().clear();
 
-        if (selection.isEmpty()) {
-            pathBox.getChildren().add(new Label(getI18n().getString("selectionbar.no.selected")));
-        } else {
-            final SelectionGroup osg = selection.getGroup();
-            assert osg.getItems().isEmpty() == false;
-            FXOMObject fxomObject = osg.getItems().iterator().next();
+        if (!selection.isEmpty() && selection.getGroup() instanceof FxomSelectionGroup fsg) {
+
+            assert fsg.getItems().isEmpty() == false;
+            FXOMObject fxomObject = fsg.getItems().iterator().next();
 
             LinkedList<FXOMObject> path = barContentFactory.map(bcf -> bcf.buildOrderedPath(fxomObject)).orElse(null);
 
@@ -224,6 +223,8 @@ public class SelectionBarController extends AbstractFxmlController implements Se
             } else {
                 pathBox.getChildren().add(new Label(getI18n().getString("selectionbar.not.object")));
             }
+        } else {
+            pathBox.getChildren().add(new Label(getI18n().getString("selectionbar.no.selected")));
         }
     }
 

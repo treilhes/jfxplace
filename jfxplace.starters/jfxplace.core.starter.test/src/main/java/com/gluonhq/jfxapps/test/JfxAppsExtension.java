@@ -92,9 +92,10 @@ import com.treilhes.emc4j.boot.api.loader.extension.SealedExtension;
 import com.treilhes.emc4j.boot.context.impl.ContextManagerImpl;
 import com.treilhes.emc4j.boot.context.impl.EmContextFactoryImpl;
 import com.treilhes.emc4j.boot.context.impl.EmContextImpl;
-import com.treilhes.emc4j.boot.loader.internal.context.ContextBootstraper;
-import com.treilhes.emc4j.boot.loader.internal.context.ContextBootstraper.ServiceLoader;
+import com.treilhes.emc4j.boot.loader.internal.context.ExtensionBootstrapper;
+import com.treilhes.emc4j.boot.loader.internal.context.ExtensionBootstrapper.ServiceLoader;
 import com.treilhes.emc4j.boot.loader.model.LoadableContent;
+import com.treilhes.emc4j.boot.loader.validation.ExtensionValidator;
 
 import javafx.stage.Stage;
 
@@ -204,12 +205,13 @@ public class JfxAppsExtension implements BeforeEachCallback, AfterEachCallback, 
             var loader = Mockito.mock(ServiceLoader.class);
             var extensionDefinition = Mockito.mock(LoadableContent.class);
             var extension = Mockito.mock(RootExtension.class);
+            var extensionValidator = Mockito.mock(ExtensionValidator.class);
             var layer = Mockito.mock(Layer.class);
             var layerManager = Mockito.mock(ModuleLayerManager.class);
             // we want the context manager to return the same context everytime
             var contextFactory = new EmContextFactoryImpl();
             var contextManager = new ContextManagerImpl(null,contextFactory);//);
-            var bootstraper = new ContextBootstraper(layerManager, contextManager);
+            var bootstraper = new ExtensionBootstrapper(layerManager, contextManager, extensionValidator);
 
             when(layer.getId()).thenReturn(contextId);
             when(layer.getModuleLayer()).thenReturn(ModuleLayer.boot());

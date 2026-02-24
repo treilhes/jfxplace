@@ -39,6 +39,7 @@ import com.gluonhq.jfxapps.core.api.job.Job;
 import com.gluonhq.jfxapps.core.api.job.JobExtensionFactory;
 import com.gluonhq.jfxapps.core.api.job.JobFactory;
 import com.gluonhq.jfxapps.core.api.job.base.AbstractJob;
+import com.gluonhq.jfxapps.core.api.selection.Selection;
 import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.context.annotation.Lazy;
@@ -56,13 +57,13 @@ public final class BatchJob extends AbstractJob {
     private boolean shouldRefreshSceneGraph;
     private boolean shouldUpdateSelection;
     private final FXOMDocument fxomDocument;
-    private final FxomSelection selection;
+    private final Selection selection;
 
     // @formatter:off
     public BatchJob(
             JobExtensionFactory extensionFactory,
             FxomEvents documentManager,
-            FxomSelection selection) {
+            Selection selection) {
     // @formatter:on
         super(extensionFactory);
         this.fxomDocument = documentManager.fxomDocument().get();
