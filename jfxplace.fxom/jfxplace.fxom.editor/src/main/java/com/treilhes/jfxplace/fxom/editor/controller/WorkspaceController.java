@@ -41,9 +41,8 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
-import com.treilhes.jfxplace.fxom.editor.preference.BackgroundImagePreference;
 import com.gluonhq.jfxapps.core.api.ctxmenu.ContextMenu;
+import com.gluonhq.jfxapps.core.api.driver.Driver;
 import com.gluonhq.jfxapps.core.api.fxom.content.mode.ModeManager;
 import com.gluonhq.jfxapps.core.api.fxom.css.StylesheetProvider;
 import com.gluonhq.jfxapps.core.api.fxom.editor.selection.ObjectSelectionGroup;
@@ -51,7 +50,6 @@ import com.gluonhq.jfxapps.core.api.fxom.mask.FXOMObjectMask;
 import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
 import com.gluonhq.jfxapps.core.api.fxom.ui.controller.misc.Content;
 import com.gluonhq.jfxapps.core.api.fxom.ui.controller.misc.Workspace;
-import com.gluonhq.jfxapps.core.api.fxom.ui.tool.Driver;
 import com.gluonhq.jfxapps.core.api.fxom.ui.tool.PickRefiner;
 import com.gluonhq.jfxapps.core.api.i18n.I18N;
 import com.gluonhq.jfxapps.core.api.javafx.JfxAppPlatform;
@@ -67,6 +65,8 @@ import com.gluonhq.jfxapps.util.javafx.BoundsUnion;
 import com.gluonhq.jfxapps.util.javafx.BoundsUtils;
 import com.gluonhq.jfxapps.util.javafx.Picker;
 import com.gluonhq.jfxapps.util.javafx.ScrollPaneBooster;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
+import com.treilhes.jfxplace.fxom.editor.preference.BackgroundImagePreference;
 
 import javafx.animation.FadeTransition;
 import javafx.application.ConditionalFeature;
@@ -1092,7 +1092,6 @@ public class WorkspaceController extends AbstractFxmlController implements Works
      */
     @Override
     public FXOMObject searchWithNode(Node sceneGraphNode, double sceneX, double sceneY) {
-        final FXOMObject result;
 
         final FXOMDocument fxomDocument = documentManager.fxomDocument().get();
         final FXOMObject match = fxomDocument.collect(SceneGraphCollector.findSceneGraphObject(sceneGraphNode)).get();
@@ -1103,13 +1102,13 @@ public class WorkspaceController extends AbstractFxmlController implements Works
          * to refine this result. This refinement logic is available in AbstractDriver.
          */
         if (match != null) {
-            var refiner = driver.make(PickRefiner.class, match);
-            result = refiner.refinePick(sceneGraphNode, sceneX, sceneY, match);
-        } else {
-            result = null;
+            var refiner = driver.make(PickRefiner.class, match.getClass());
+            if (refiner != null) {
+                return refiner.refinePick(sceneGraphNode, sceneX, sceneY, match);
+            }
         }
 
-        return result;
+        return null;
     }
 
 }

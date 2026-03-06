@@ -45,6 +45,7 @@ open module jfxplace.core.api {
 
     exports com.gluonhq.jfxapps.core.api.ctxmenu;
     exports com.gluonhq.jfxapps.core.api.ctxmenu.annotation;
+
     exports com.gluonhq.jfxapps.core.api.lifecycle;
 
     exports com.gluonhq.jfxapps.core.api.ui.controller.alert;

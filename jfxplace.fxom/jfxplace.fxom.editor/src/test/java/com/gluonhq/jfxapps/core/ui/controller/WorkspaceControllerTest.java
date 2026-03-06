@@ -49,11 +49,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.testfx.api.FxRobot;
 
 import com.gluonhq.jfxapps.core.api.ctxmenu.ContextMenu;
+import com.gluonhq.jfxapps.core.api.driver.Driver;
 import com.gluonhq.jfxapps.core.api.fxom.content.mode.ModeManager;
 import com.gluonhq.jfxapps.core.api.fxom.mask.FXOMObjectMask;
 import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
 import com.gluonhq.jfxapps.core.api.fxom.ui.controller.misc.Content;
-import com.gluonhq.jfxapps.core.api.fxom.ui.tool.Driver;
 import com.gluonhq.jfxapps.core.api.selection.Selection;
 import com.gluonhq.jfxapps.core.api.subjects.ApplicationEvents;
 import com.gluonhq.jfxapps.core.api.tooltheme.ToolStylesheetProvider;

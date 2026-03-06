@@ -16,11 +16,10 @@
         <module>jfxplace.core.drag.and.drop</module>
         <module>jfxplace.core.error</module>
 
-        <module>jfxplace.core.fxom</module>
+        
         <module>jfxplace.core.jobs</module>
         <module>jfxplace.core.library</module>
 
-        <module>jfxplace.core.metadata</module>
         <module>jfxplace.core.metadefault</module>
 
         <module>jfxplace.fxom.api</module>

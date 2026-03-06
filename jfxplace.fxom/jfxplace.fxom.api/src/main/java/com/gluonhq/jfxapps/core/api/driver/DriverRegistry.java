@@ -1,7 +1,5 @@
 /*
- * Copyright (c) 2016, 2024, Gluon and/or its affiliates.
  * Copyright (c) 2021, 2024, Pascal Treilhes and/or its affiliates.
- * Copyright (c) 2012, 2014, Oracle and/or its affiliates.
  * All rights reserved. Use is subject to license terms.
  *
  * This file is available and licensed under the following license:
@@ -31,41 +29,15 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.gluonhq.jfxapps.core.metadata.property.value;
+package com.gluonhq.jfxapps.core.api.driver;
 
-import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
-import com.gluonhq.jfxapps.core.fxom.FXOMInstance;
+public interface DriverRegistry {
+    public <U> void registerExtension(Class<U> extensionInterface);
 
-/**
- *
- */
-public class StringConverterPropertyMetadata<VC> extends ComplexPropertyMetadata<Object, VC> {
+    public <T, U extends T> void registerImplementationClass(Class<T> extensionInterface, Class<?> itemClass,
+            Class<U> implementation);
 
-//    public StringConverterPropertyMetadata(PropertyName name, boolean readWrite,
-//            Object defaultValue, InspectorPath inspectorPath) {
-//        super(name, Object.class, readWrite, defaultValue, inspectorPath);
-//    }
+    public <T, U extends T> Class<U> getImplementationClass(Class<T> extensionInterface, Class<?> itemClass);
 
-    protected StringConverterPropertyMetadata(AbstractBuilder<?, ?, VC> builder) {
-        super(builder);
-    }
-
-    @Override
-    public FXOMInstance makeFxomInstanceFromValue(Object value, FXOMDocument fxomDocument) {
-        throw new UnsupportedOperationException("Not supported yet."); //NOCHECK
-    }
-
-    protected static abstract class AbstractBuilder<SELF, TOBUILD, VC> extends ComplexPropertyMetadata.AbstractBuilder<SELF, TOBUILD, Object, VC> {
-        public AbstractBuilder() {
-            super();
-            valueClass(Object.class);
-        }
-    }
-
-    public static final class Builder<VC> extends AbstractBuilder<Builder<VC>, StringConverterPropertyMetadata<VC>, VC> {
-        @Override
-        public StringConverterPropertyMetadata<VC> build() {
-            return new StringConverterPropertyMetadata<VC>(this);
-        }
-    }
+    public <T, U extends T> U getImplementationInstance(Class<T> extensionInterface, Class<?> itemClass);
 }

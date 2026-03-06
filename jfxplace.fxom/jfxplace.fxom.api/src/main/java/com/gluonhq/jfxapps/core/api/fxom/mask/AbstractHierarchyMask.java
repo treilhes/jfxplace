@@ -58,7 +58,6 @@ import com.gluonhq.jfxapps.core.metadata.AbstractMetadata;
 import com.gluonhq.jfxapps.core.metadata.klass.ComponentClassMetadata;
 import com.gluonhq.jfxapps.core.metadata.property.ComponentPropertyMetadata;
 import com.gluonhq.jfxapps.core.metadata.property.ValuePropertyMetadata;
-import com.gluonhq.jfxapps.core.metadata.property.value.StringPropertyMetadata;
 
 import javafx.scene.Node;
 
@@ -523,14 +522,14 @@ public abstract class AbstractHierarchyMask<
         return true;
     }
 
-    @Override
-    public boolean isMultilineProperty(PropertyName propertyName) {
-        var vpm = getPropertyMetadata(propertyName);
-        if (vpm != null && vpm instanceof StringPropertyMetadata spm) {
-            return spm.isMultiline();
-        }
-        return false;
-    }
+//    @Override
+//    public boolean isMultilineProperty(PropertyName propertyName) {
+//        var vpm = getPropertyMetadata(propertyName);
+//        if (vpm != null && vpm instanceof StringPropertyMetadata spm) {
+//            return spm.isMultiline();
+//        }
+//        return false;
+//    }
 
     @Override
     public boolean hasProperty(PropertyName propertyName) {

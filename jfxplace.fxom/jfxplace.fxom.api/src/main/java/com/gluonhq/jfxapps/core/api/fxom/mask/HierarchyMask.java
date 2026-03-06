@@ -94,7 +94,7 @@ public interface HierarchyMask<A extends Accessory> {
 
     public boolean isReadOnlyProperty(PropertyName propertyName);
 
-    public boolean isMultilineProperty(PropertyName propertyName);
+    //public boolean isMultilineProperty(PropertyName propertyName);
 
     public boolean hasProperty(PropertyName propertyName);
 

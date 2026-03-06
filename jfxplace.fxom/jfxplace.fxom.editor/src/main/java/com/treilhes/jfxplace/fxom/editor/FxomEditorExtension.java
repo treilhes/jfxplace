@@ -49,8 +49,6 @@ import com.treilhes.jfxplace.fxom.editor.message.MessagePanelController;
 import com.treilhes.jfxplace.fxom.editor.message.MessagePopupController;
 import com.treilhes.jfxplace.fxom.editor.preference.BackgroundImagePreference;
 import com.treilhes.jfxplace.fxom.editor.selectionbar.SelectionBarController;
-import com.treilhes.jfxplace.fxom.editor.tool.DriverExtensionRegistryImpl;
-import com.treilhes.jfxplace.fxom.editor.tool.GenericDriver;
 
 public class FxomEditorExtension implements OpenExtension {
 
@@ -76,8 +74,6 @@ public class FxomEditorExtension implements OpenExtension {
                 //temp EditorController.class,
                 BackgroundImagePreference.class,
                 ContentPanelController.class,
-                DriverExtensionRegistryImpl.class,
-                GenericDriver.class,
                 I18NLayout.class,
                 MessageBarController.class,
                 MessageLog.class,

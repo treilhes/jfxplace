@@ -37,6 +37,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import com.gluonhq.jfxapps.core.api.driver.DefaultDriverRegistry;
+import com.gluonhq.jfxapps.core.api.driver.GenericDriver;
 import com.gluonhq.jfxapps.core.api.fxom.editor.selection.DefaultSelectionGroupFactory;
 import com.gluonhq.jfxapps.core.api.fxom.editor.selection.ObjectSelectionGroup;
 import com.gluonhq.jfxapps.core.api.fxom.editor.selection.SelectionGroupFactoryRegistry;
@@ -77,6 +79,8 @@ public class FxomExtension implements RootExtension {
     @Override
     public List<Class<?>> localContextClasses() {
         return Arrays.asList(
+                GenericDriver.class,
+                DefaultDriverRegistry.class,
                 FxomEvents.FxomEventsImpl.class,
                 DefaultSelectionGroupFactory.class,
                 DiscardGesture.Factory.class,

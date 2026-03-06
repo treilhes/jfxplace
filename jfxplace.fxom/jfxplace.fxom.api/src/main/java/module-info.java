@@ -75,17 +75,12 @@ open module jfxplace.fxom.api {
     exports com.gluonhq.jfxapps.core.fxom.util;
 
     exports com.gluonhq.jfxapps.core.metadata;
-    exports com.gluonhq.jfxapps.core.metadata.fx.defaults;
     exports com.gluonhq.jfxapps.core.metadata.klass;
     exports com.gluonhq.jfxapps.core.metadata.property;
-    exports com.gluonhq.jfxapps.core.metadata.property.value;
-    exports com.gluonhq.jfxapps.core.metadata.property.value.list;
     exports com.gluonhq.jfxapps.core.metadata.util;
-    exports com.gluonhq.jfxapps.core.metadata.property.value.effect;
-    exports com.gluonhq.jfxapps.core.metadata.property.value.keycombination;
-    exports com.gluonhq.jfxapps.core.metadata.property.value.paint;
 
     exports com.gluonhq.jfxapps.core.api.document;
+    exports com.gluonhq.jfxapps.core.api.driver;
 
     requires transitive jfxplace.javafx.starter;
     requires transitive jfxplace.core.api;
