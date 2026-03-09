@@ -64,24 +64,24 @@ import org.twdata.maven.mojoexecutor.MojoExecutor.Element;
 
 @Mojo(name = "run", requiresDependencyResolution = ResolutionScope.TEST, defaultPhase = LifecyclePhase.NONE, threadSafe = true)
 public class RunMojo extends AbstractMojo {
-	
-	protected static final String DEFAULT_EMC4J_VERSION = "1.0.0-SNAPSHOT";
-	protected static final String DELIVERY_CONFIG_GROUP_ID = "com.treilhes.jfxplace";
+
+    protected static final String DEFAULT_EMC4J_VERSION = "1.0.0-SNAPSHOT";
+    protected static final String DELIVERY_CONFIG_GROUP_ID = "com.treilhes.jfxplace";
     protected static final String DELIVERY_CONFIG_ARTIFACT_ID = "jfxplace.delivery.config";
-	
-	@Component
+
+    @Component
     private BuildPluginManager pluginManager;
-	
-	@Component
+
+    @Component
     private MavenProject project;
-	
+
     @Parameter(defaultValue = "${session}", readonly = true, required = true)
     private MavenSession mavenSession;
 
-	@Parameter(property = "skip", defaultValue = "false")
+    @Parameter(property = "skip", defaultValue = "false")
     private boolean skip;
 
-	@Parameter(property = "emc4jVersion", required = false, defaultValue = DEFAULT_EMC4J_VERSION)
+    @Parameter(property = "emc4jVersion", required = false, defaultValue = DEFAULT_EMC4J_VERSION)
     private String emc4jVersion;
 
     @Parameter
@@ -89,10 +89,10 @@ public class RunMojo extends AbstractMojo {
 
     @Parameter
     private Dependency emc4jConfigurationDependency;
-    
+
     @Parameter(property = "jfxplaceVersion", required = true)
     private String jfxplaceVersion;
-    
+
     @Parameter
     private Dependency jfxplaceConfigurationDependency;
 
@@ -119,6 +119,13 @@ public class RunMojo extends AbstractMojo {
     private String applicationId;
 
     /**
+     * If true, the artifacts deployed into the run directory will be deleted first, before being copied.
+     * If false, only the configuration file will be updated, and the dependencies will not be copied again.
+     */
+    @Parameter(property = "clean", defaultValue = "true")
+    private boolean clean;
+
+    /**
      * If true, the JVM will be started in debug mode, allowing a debugger to attach.
      * The default value is false.
      */
@@ -141,42 +148,42 @@ public class RunMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
 
-    	profiles.add(0, "jfxplace");
-    	
+        profiles.add(0, "jfxplace");
+
         try {
-        	var emc4jRuntimeDependencyElement = dependencyToElement("emc4jRuntimeDependency", emc4jRuntimeDependency);
-        	
-        	// get the overrided jfxplace configuration
-        	var jfxplaceConfigurationDependencyElement = dependencyToElement("dependency", jfxplaceConfigurationDependency);
-        	
-        	// create the default one if not provided
-        	if (jfxplaceConfigurationDependencyElement == null) {
-				jfxplaceConfigurationDependencyElement = element(
-						name("dependency"),
-						element(name("groupId"), DELIVERY_CONFIG_GROUP_ID),
-						element(name("artifactId"), DELIVERY_CONFIG_ARTIFACT_ID),
-						element(name("version"), jfxplaceVersion)
-				);
-			}
-        	
-        	// other configuration dependencies with the jfxplace one added first
-        	var configurationDependenciesElements = configurationDependencies.stream()
-					.map(dep -> dependencyToElement("dependency", dep))
-					.toList();
-        	
-        	var allConfigurationDependenciesElements = new ArrayList<Element>();
-        	allConfigurationDependenciesElements.add(jfxplaceConfigurationDependencyElement);
-        	allConfigurationDependenciesElements.addAll(configurationDependenciesElements);
-        	
-        	
-        	var javaOptionsEleemnts = javaOptions.stream().map(opt -> element(name("option"), opt)).toArray(Element[]::new);
+            var emc4jRuntimeDependencyElement = dependencyToElement("emc4jRuntimeDependency", emc4jRuntimeDependency);
+
+            // get the overrided jfxplace configuration
+            var jfxplaceConfigurationDependencyElement = dependencyToElement("dependency", jfxplaceConfigurationDependency);
+
+            // create the default one if not provided
+            if (jfxplaceConfigurationDependencyElement == null) {
+                jfxplaceConfigurationDependencyElement = element(
+                        name("dependency"),
+                        element(name("groupId"), DELIVERY_CONFIG_GROUP_ID),
+                        element(name("artifactId"), DELIVERY_CONFIG_ARTIFACT_ID),
+                        element(name("version"), jfxplaceVersion)
+                );
+            }
+
+            // other configuration dependencies with the jfxplace one added first
+            var configurationDependenciesElements = configurationDependencies.stream()
+                    .map(dep -> dependencyToElement("dependency", dep))
+                    .toList();
+
+            var allConfigurationDependenciesElements = new ArrayList<Element>();
+            allConfigurationDependenciesElements.add(jfxplaceConfigurationDependencyElement);
+            allConfigurationDependenciesElements.addAll(configurationDependenciesElements);
+
+
+            var javaOptionsEleemnts = javaOptions.stream().map(opt -> element(name("option"), opt)).toArray(Element[]::new);
             var profileElements = profiles.stream().map(p -> element(name("profile"), p)).toArray(Element[]::new);
             var profileFileElements = profileFiles.stream().map(f -> element(name("profileFile"), f.getAbsolutePath())).toArray(Element[]::new);
-            
-        	var elementList = new ArrayList<Element>();
-        	
-        	elementList.addAll(List.of(
-        			element(name("skip"), Boolean.toString(skip)),
+
+            var elementList = new ArrayList<Element>();
+
+            elementList.addAll(List.of(
+                    element(name("skip"), Boolean.toString(skip)),
                     element(name("emc4jVersion"), emc4jVersion),
                     element(name("configurationDependencies"), allConfigurationDependenciesElements.toArray(Element[]::new)),
                     element(name("outputDirectory"), outputDirectory),
@@ -185,23 +192,24 @@ public class RunMojo extends AbstractMojo {
 
                     element(name("javaOptions"), javaOptionsEleemnts),
                     element(name("applicationId"), applicationId),
+                    element(name("clean"), Boolean.toString(clean)),
                     element(name("debug"), Boolean.toString(debug)),
                     element(name("debugSuspend"), Boolean.toString(debugSuspend)),
                     element(name("debugPort"), Integer.toString(debugPort))
-        			));
-        	
-        	if (emc4jRuntimeDependencyElement != null) {
-        		elementList.add(jfxplaceConfigurationDependencyElement);
-        	}
-        	
+            ));
+
+            if (emc4jRuntimeDependencyElement != null) {
+                elementList.add(jfxplaceConfigurationDependencyElement);
+            }
+
             var configuration = configuration(elementList.toArray(Element[]::new));
-            
-            
+
+
             StringWriter writer = new StringWriter();
             Xpp3DomWriter.write(writer, configuration);
 
             getLog().info("EMC4J run configuration:\n" + writer.toString());
-            
+
             executeMojo(
                     plugin(
                         groupId("com.treilhes.emc4j"),
@@ -211,28 +219,26 @@ public class RunMojo extends AbstractMojo {
                     goal("run"),
                     configuration,
                     executionEnvironment(
-                    	project,
+                        project,
                         mavenSession,
                         pluginManager
                     )
             );
 
         } catch (Exception e) {
-        	getLog().error("Error executing run goal", e);
+            getLog().error("Error executing run goal", e);
             throw new MojoExecutionException("Error executing run goal", e);
         }
         System.out.println("Run executed");
     }
 
-	private Element dependencyToElement(String name, Dependency dependency) {
-		return dependency != null ? 
-				element(
-						name(name),
-						element(name("groupId"), dependency.getGroupId()),
-						element(name("artifactId"), dependency.getArtifactId()),
-						element(name("version"), dependency.getVersion())
-				) : null;
-		
-	}
+    private Element dependencyToElement(String name, Dependency dependency) {
+        return dependency != null ? element(name(name),
+                element(name("groupId"), dependency.getGroupId()),
+                element(name("artifactId"), dependency.getArtifactId()),
+                element(name("version"), dependency.getVersion())
+        ) : null;
+
+    }
 
 }

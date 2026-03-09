@@ -36,7 +36,6 @@ package com.gluonhq.jfxapps.core.document;
 import java.util.List;
 import java.util.UUID;
 
-import com.treilhes.emc4j.boot.api.loader.extension.OpenExtension;
 import com.gluonhq.jfxapps.core.document.action.DocumentActionFactoryImpl;
 import com.gluonhq.jfxapps.core.document.action.impl.LoadBlankAction;
 import com.gluonhq.jfxapps.core.document.action.impl.LoadFileAction;
@@ -51,6 +50,7 @@ import com.gluonhq.jfxapps.core.document.controller.FxmlSerializer;
 import com.gluonhq.jfxapps.core.document.preference.CompressFxmlPreference;
 import com.gluonhq.jfxapps.core.document.preference.UseSampleDataPreference;
 import com.gluonhq.jfxapps.core.document.preference.WildcardImportsPreference;
+import com.treilhes.emc4j.boot.api.loader.extension.OpenExtension;
 
 public class DocumentExtension implements OpenExtension {
 
@@ -63,7 +63,7 @@ public class DocumentExtension implements OpenExtension {
 
     @Override
     public UUID getParentId() {
-        return OpenExtension.ROOT_ID;
+        return null;
     }
 
     @Override

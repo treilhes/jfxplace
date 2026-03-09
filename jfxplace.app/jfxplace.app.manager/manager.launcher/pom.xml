@@ -1,52 +1,53 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>com.treilhes.jfxplace</groupId>
-		<artifactId>jfxplace.app.manager</artifactId>
-		<version>${manager.version}</version>
-	</parent>
-	<artifactId>manager.launcher</artifactId>
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.treilhes.jfxplace</groupId>
+        <artifactId>jfxplace.app.manager</artifactId>
+        <version>${manager.version}</version>
+    </parent>
+    <artifactId>manager.launcher</artifactId>
 
-	<properties>
-		<debug>false</debug>
-	</properties>
-	<dependencies>
-		<dependency>
-			<groupId>com.treilhes.emc4j</groupId>
-			<artifactId>emc4j.boot.main</artifactId>
-			<version>${jfxplace.version}</version>
-		</dependency>
-	</dependencies>
+    <properties>
+        <debug>false</debug>
+    </properties>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>com.treilhes.jfxplace</groupId>
-				<artifactId>jfxplace-maven-plugin</artifactId>
-				<version>${jfxplace.version}</version>
-				<configuration>
-					<!--<emc4jVersion>${emc4j.version}</emc4jVersion>-->
-					<jfxplaceVersion>${jfxplace.version}</jfxplaceVersion>
-					<debug>${debug}</debug>
-					<profiles>
-						<profile>manager</profile>
-					</profiles>
-					<profileFiles>
-						<profileFile>${basedir}/src/main/resources/application-manager.yaml</profileFile>
-					</profileFiles>
-					<applicationId>00000000-0000-0000-0000-000000000002</applicationId>
-					<javaOptions>
-						<!--
+    <dependencies>
+        <dependency>
+            <groupId>com.treilhes.emc4j</groupId>
+            <artifactId>emc4j.boot.main</artifactId>
+            <version>${jfxplace.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.treilhes.jfxplace</groupId>
+                <artifactId>jfxplace-maven-plugin</artifactId>
+                <version>${jfxplace.version}</version>
+                <configuration>
+                    <!--<emc4jVersion>${emc4j.version}</emc4jVersion>-->
+                    <jfxplaceVersion>${jfxplace.version}</jfxplaceVersion>
+                    <debug>${debug}</debug>
+                    <profiles>
+                        <profile>manager</profile>
+                    </profiles>
+                    <profileFiles>
+                        <profileFile>${basedir}/src/main/resources/application-manager.yaml</profileFile>
+                    </profileFiles>
+                    <applicationId>00000000-0000-0000-0000-000000000002</applicationId>
+                    <javaOptions>
+                        <!--
 						<javaOption>-Dlogging.level.org.springframework.beans.factory.support=DEBUG</javaOption>
 						<javaOption>-Dlogging.level.org.springframework.beans.factory=DEBUG</javaOption>
 						<javaOption>-Dlogging.level.org.springframework.context.annotation=DEBUG</javaOption>
 				      -->
 
-					</javaOptions>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+                    </javaOptions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

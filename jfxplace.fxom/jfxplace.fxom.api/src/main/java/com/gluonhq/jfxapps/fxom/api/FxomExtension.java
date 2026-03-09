@@ -47,33 +47,33 @@ import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
 import com.gluonhq.jfxapps.core.api.fxom.ui.controller.dock.SearchController;
 import com.gluonhq.jfxapps.core.api.fxom.ui.tool.NoPickRefiner;
 import com.treilhes.emc4j.boot.api.layer.Layer;
-import com.treilhes.emc4j.boot.api.loader.extension.RootExtension;
 import com.treilhes.emc4j.boot.api.loader.extension.SealedExtension;
 
 // FIXME this isn't really a RootExtension, but we need it to be initialized very early to apply the necessary module patches
 // the way it must be loaded should be reconsidered
-public class FxomExtension implements RootExtension {
+public class FxomExtension implements SealedExtension {
 
     public final static UUID ID = UUID.fromString("1619a4bc-e5f7-413a-a93e-eae379adf56b");
 
     @Override
     public void initializeModule(Layer layer) {
-        RootExtension.super.initializeModule(layer);
-
         var module = this.getClass().getModule();
-        var fxomModule = module.getLayer().findModule("jfxapps.core.fxom").get();
-
+        var fxomModule = module.getLayer().findModule("jfxplace.fxom.api").get();
         com.gluonhq.jfxapps.javafx.fxml.patch.PatchLink.addOpen(fxomModule, "com.sun.javafx.fxml");
     }
 
+    /**
+     * The extension is a mergeable extension, so it doesn't have a parent.
+     * @return null
+     */
     @Override
     public UUID getParentId() {
-        return SealedExtension.BOOT_ID;
+        return null;
     }
 
     @Override
     public UUID getId() {
-        return ROOT_ID;
+        return ID;
     }
 
     @Override

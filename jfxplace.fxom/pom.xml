@@ -23,7 +23,6 @@
         <module>jfxplace.core.metadefault</module>
 
         <module>jfxplace.fxom.api</module>
-        <module>jfxplace.fxom.adapter</module>
         <module>jfxplace.fxom.editor</module>
         <module>jfxplace.fxom.selection</module>
     </modules>

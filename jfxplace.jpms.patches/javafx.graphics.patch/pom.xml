@@ -18,6 +18,33 @@
     </dependencies>
 
     <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.5.0</version>
+
+                <executions>
+                    <execution>
+                        <id>attach-patch</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>${project.build.directory}/${project.build.finalName}.jar</file>
+                                    <type>patch</type>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
         <pluginManagement>
             <plugins>
                 <plugin>

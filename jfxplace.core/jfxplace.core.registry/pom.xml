@@ -26,9 +26,9 @@
                 <configuration>
                     <format>json</format>
                     <registry>
-                    	<uuid>114afe02-f882-4a72-a5dc-7596382a5211</uuid>
-                    	<description>
-                    		<title>jfxplace Core Registry</title>
+                        <uuid>114afe02-f882-4a72-a5dc-7596382a5211</uuid>
+                        <description>
+                            <title>jfxplace Core Registry</title>
                             <text>Core components registry</text>
                             <image>jfxplace_core_256x256.png</image>
                         </description>
@@ -56,8 +56,8 @@
                                         </dependency>
                                     </extension>
 
-									<!-- secondary boot -->
-									<extension>
+                                    <!-- secondary boot -->
+                                    <extension>
                                         <uuid>d82c47c7-e3a7-483c-bb49-f1d3b086c2bf</uuid>
                                         <dependency>
                                             <groupId>com.treilhes.jfxplace</groupId>
@@ -106,7 +106,15 @@
                                             <version>${project.version}</version>
                                         </dependency>
                                     </extension>
-                                    
+                                    <extension>
+                                        <uuid>a112d6e9-4079-4733-96d1-d29b3fef675d</uuid>
+                                        <dependency>
+                                            <groupId>com.treilhes.jfxplace</groupId>
+                                            <artifactId>jfxplace.core.selection</artifactId>
+                                            <version>${project.version}</version>
+                                        </dependency>
+                                    </extension>
+
                                     <!-- fxom boot -->
                                     <!--
 									<extension>
@@ -126,14 +134,7 @@
                                             <version>${project.version}</version>
                                         </dependency>
                                     </extension>
-                                    <extension>
-                                        <uuid>a112d6e9-4079-4733-96d1-d29b3fef675d</uuid>
-                                        <dependency>
-                                            <groupId>com.treilhes.jfxplace</groupId>
-                                            <artifactId>jfxplace.core.selection</artifactId>
-                                            <version>${project.version}</version>
-                                        </dependency>
-                                    </extension>
+                                    
                                     <extension>
                                         <uuid>898396ea-fac4-4ca2-8915-72501f2d5f10</uuid>
                                         <dependency>
@@ -151,7 +152,7 @@
                                         </dependency>
                                     </extension>
                                     -->
-                                    
+
 
                                     <!-- temp -->
                                     <extension>
@@ -170,8 +171,8 @@
                                             <version>${jfxplace.version}</version>
                                         </dependency>
                                     </extension>
-                                    
-                                    
+
+
                                 </extensions>
                             </application>
                         </applications>

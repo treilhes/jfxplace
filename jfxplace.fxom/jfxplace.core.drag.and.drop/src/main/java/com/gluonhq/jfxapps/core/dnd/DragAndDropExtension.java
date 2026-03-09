@@ -37,14 +37,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-import com.treilhes.emc4j.boot.api.loader.extension.OpenExtension;
-import com.gluonhq.jfxapps.core.api.fxom.dnd.AccessoryDropTarget;
 import com.gluonhq.jfxapps.core.dnd.controller.DragController;
 import com.gluonhq.jfxapps.core.dnd.source.DefaultDragSourceFactoryImpl;
 import com.gluonhq.jfxapps.core.dnd.source.DocumentDragSource;
 import com.gluonhq.jfxapps.core.dnd.source.ExternalDragSourceImpl;
+import com.gluonhq.jfxapps.core.dnd.target.AccessoryDropTargetImpl;
 import com.gluonhq.jfxapps.core.dnd.target.DefaultDropTargetFactoryImpl;
 import com.gluonhq.jfxapps.core.dnd.target.RootDropTarget;
+import com.treilhes.emc4j.boot.api.loader.extension.OpenExtension;
 
 public class DragAndDropExtension implements OpenExtension {
     @Override
@@ -72,7 +72,7 @@ public class DragAndDropExtension implements OpenExtension {
                 DragController.class,
                 DocumentDragSource.class,
                 ExternalDragSourceImpl.class,
-                AccessoryDropTarget.class,
+                AccessoryDropTargetImpl.class,
                 RootDropTarget.class
 
             );

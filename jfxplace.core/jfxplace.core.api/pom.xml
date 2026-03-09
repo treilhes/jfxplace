@@ -24,20 +24,7 @@
             <groupId>com.treilhes.jfxplace</groupId>
             <artifactId>jfxplace.core.utils</artifactId>
         </dependency>
-        
-        <!-- 
-            patch dependencies must be delivered but in the end they contains a patch.jpms file
-            so at runtime they will be used by emc4j to patch the JavaFX modules in the extension's module path
-        
-        <dependency>
-            <groupId>com.treilhes.jfxplace</groupId>
-            <artifactId>javafx.fxml.patch</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.treilhes.jfxplace</groupId>
-            <artifactId>javafx.graphics.patch</artifactId>
-        </dependency>
--->
+
         <!-- https://mvnrepository.com/artifact/org.pdfsam.rxjava3/rxjavafx -->
         <dependency>
             <groupId>org.pdfsam.rxjava3</groupId>
@@ -103,5 +90,22 @@
             <artifactId>jfxplace.starter</artifactId>
         </dependency>-->
 
+        <!-- 
+            patch dependencies must be delivered but in the end they contains a patch.jpms file
+            so at runtime they will be used by emc4j to patch the JavaFX modules in the extension's module path
+        -->
+        <dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+            <artifactId>javafx.fxml.patch</artifactId>
+            <version>${jfxplace.version}</version>
+            <type>patch</type>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+            <artifactId>javafx.graphics.patch</artifactId>
+            <version>${jfxplace.version}</version>
+            <type>patch</type>
+        </dependency>
+        
     </dependencies>
 </project>

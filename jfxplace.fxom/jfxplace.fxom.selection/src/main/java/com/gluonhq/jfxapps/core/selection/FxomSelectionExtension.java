@@ -37,7 +37,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-import com.treilhes.emc4j.boot.api.loader.extension.OpenExtension;
 import com.gluonhq.jfxapps.core.selection.i18n.I18NSelection;
 import com.gluonhq.jfxapps.core.selection.job.BackupSelectionJob;
 import com.gluonhq.jfxapps.core.selection.job.BringForwardJob;
@@ -56,6 +55,7 @@ import com.gluonhq.jfxapps.core.selection.job.SendToBackJob;
 import com.gluonhq.jfxapps.core.selection.job.SetDocumentRootJob;
 import com.gluonhq.jfxapps.core.selection.job.TrimSelectionJob;
 import com.gluonhq.jfxapps.core.selection.job.UpdateSelectionJob;
+import com.treilhes.emc4j.boot.api.loader.extension.OpenExtension;
 
 public class FxomSelectionExtension implements OpenExtension {
     @Override
