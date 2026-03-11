@@ -11,7 +11,8 @@
 	<version>${sample.version}</version>
 	<packaging>pom</packaging>
 	<modules>
-		<module>jfxplace.app.sample.registry</module>
-		<module>jfxplace.app.sample.app</module>
+		<module>sample.registry</module>
+		<module>sample.app</module>
+		<module>sample.launcher</module>
 	</modules>
 </project>

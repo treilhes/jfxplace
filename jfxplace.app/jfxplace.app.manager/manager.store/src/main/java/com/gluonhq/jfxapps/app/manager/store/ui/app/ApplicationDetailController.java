@@ -40,13 +40,14 @@ import com.gluonhq.jfxapps.app.manager.store.model.Plugin;
 import com.gluonhq.jfxapps.app.manager.store.ui.component.PluginItemController;
 import com.gluonhq.jfxapps.app.manager.store.ui.root.RootController;
 import com.gluonhq.jfxapps.app.manager.store.ui.root.RootModel;
-import com.treilhes.emc4j.boot.api.context.EmContext;
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
-import com.treilhes.emc4j.boot.api.loader.extension.Extension;
+import com.gluonhq.jfxapps.core.api.JfxplaceCoreApiExtension;
 import com.gluonhq.jfxapps.core.api.i18n.I18N;
 import com.gluonhq.jfxapps.core.api.subjects.ApplicationEvents;
 import com.gluonhq.jfxapps.core.api.subjects.ApplicationInstanceEvents;
 import com.gluonhq.jfxapps.core.api.ui.controller.AbstractFxmlController;
+import com.treilhes.emc4j.boot.api.context.EmContext;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
+import com.treilhes.emc4j.boot.api.loader.extension.Extension;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.ObjectBinding;
@@ -222,7 +223,7 @@ public class ApplicationDetailController extends AbstractFxmlController {
         errorTooltip.textProperty().bind(item.errorMessageProperty());
 
         if (Extension.ROOT_ID.equals(item.uuidProperty().get())
-                || Extension.MANAGER_APP_ID.equals(item.uuidProperty().get())) {
+                || JfxplaceCoreApiExtension.MANAGER_APP_ID.equals(item.uuidProperty().get())) {
             deleteButton.setManaged(false);
             deleteButton.setVisible(false);
             launchButton.setManaged(false);

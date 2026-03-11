@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2016, 2025, Gluon and/or its affiliates.
- * Copyright (c) 2021, 2025, Pascal Treilhes and/or its affiliates.
+ * Copyright (c) 2016, 2024, Gluon and/or its affiliates.
+ * Copyright (c) 2021, 2024, Pascal Treilhes and/or its affiliates.
  * Copyright (c) 2012, 2014, Oracle and/or its affiliates.
  * All rights reserved. Use is subject to license terms.
  *
@@ -31,36 +31,39 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.gluonhq.jfxapps.app.manager.api;
+package jfxapps.app.sample.app.init;
 
-import java.util.List;
-import java.util.UUID;
+import com.gluonhq.jfxapps.core.api.i18n.I18N;
+import com.gluonhq.jfxapps.core.api.subjects.ApplicationEvents;
+import com.gluonhq.jfxapps.core.api.ui.MainInstanceWindow;
+import com.gluonhq.jfxapps.core.api.ui.controller.AbstractFxmlWindowController;
+import com.gluonhq.jfxapps.core.api.ui.controller.misc.IconSetting;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
 
-import com.gluonhq.jfxapps.core.api.JfxplaceCoreApiExtension;
-import com.gluonhq.jfxapps.core.api.application.annotation.EditorDescriptor;
-import com.treilhes.emc4j.boot.api.loader.extension.ApplicationExtension;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyEvent;
 
-@EditorDescriptor(
-            label = "manager.app.label",
-            licence = "BSD",
-            licenceFile = "LICENSE",
-            description = "manager.app.description",
-            image = "manager.png",
-            imageX2 = "manager@2x.png",
-            extensions = {"jfxmngr"}
-        )
-public class ManagerApiExtension implements ApplicationExtension  {
+@ApplicationSingleton
+public class SampleUi  extends AbstractFxmlWindowController implements MainInstanceWindow {
 
-    public final static UUID ID = JfxplaceCoreApiExtension.MANAGER_APP_ID;
-
-    @Override
-    public UUID getId() {
-        return ID;
+    // @formatter:off
+    public SampleUi(
+            I18N i18n,
+            ApplicationEvents applicationEvents,
+            IconSetting iconSetting) {
+        super(i18n, applicationEvents, iconSetting, SampleUi.class.getResource("SampleUi.fxml"), false);
+        // @formatter:on
     }
 
     @Override
-    public List<Class<?>> localContextClasses() {
-        return List.of();
+    public void composeWindow() {}
+
+    @Override
+    public void setMainKeyPressedEvent(EventHandler<KeyEvent> mainKeyEventFilter) {}
+
+    @Override
+    public void updateStageTitle() {
+        getStage().setTitle("Sample Minimal Application");
     }
 
 }

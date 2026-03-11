@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.treilhes.jfxplace</groupId>
+    <artifactId>jfxplace.app.sample</artifactId>
+    <version>${sample.version}</version>
+  </parent>
+  <artifactId>sample.launcher</artifactId>
+
+    <properties>
+        <debug>false</debug>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.treilhes.jfxplace</groupId>
+                <artifactId>jfxplace-maven-plugin</artifactId>
+                <version>${jfxplace.version}</version>
+                <configuration>
+                    <jfxplaceVersion>${jfxplace.version}</jfxplaceVersion>
+                    <debug>${debug}</debug>
+                    <profiles>
+                        <profile>sample</profile>
+                    </profiles>
+                    <profileFiles>
+                        <profileFile>${basedir}/src/main/resources/application-sample.yaml</profileFile>
+                    </profileFiles>
+                    <applicationId>99982f35-4fe7-4eb7-b8df-fc4ed034a6d9</applicationId>
+                    <javaOptions>
+                    </javaOptions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

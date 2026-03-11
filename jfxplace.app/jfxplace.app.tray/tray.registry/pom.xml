@@ -1,0 +1,61 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.treilhes.jfxplace</groupId>
+        <artifactId>jfxplace.app.tray</artifactId>
+        <version>${tray.version}</version>
+    </parent>
+    <artifactId>tray.registry</artifactId>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.treilhes.emc4j</groupId>
+                <artifactId>emc4j-registry-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>generate-registry-resources</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>emc4jRegistry</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <format>json</format>
+                    <registry>
+                        <uuid>884fb2b6-b133-4ec7-9f65-b1f8c7d2b882</uuid>
+                        <applications>
+                            <application>
+                                <uuid>00000000-0000-0000-0000-000000000003</uuid>
+                                <splash>jfxplace_devtools_256x256.jpeg</splash>
+                                <daemon>true</daemon>
+                                <dependency>
+                                    <groupId>com.treilhes.jfxplace</groupId>
+                                    <artifactId>tray.api</artifactId>
+                                    <version>${tray.version}</version>
+                                </dependency>
+                                <description>
+                                    <image>jfxplace_devtools_256x256.jpeg</image>
+                                    <title>jfxplace tray application</title>
+                                    <text>Tray application for jfxplace application</text>
+                                </description>
+                                <extensions>
+                                    <extension>
+                                        <uuid>45c6997b-07b3-4155-a8d2-5a1d8e0fd4ab</uuid>
+                                        <dependency>
+                                            <groupId>com.treilhes.jfxplace</groupId>
+                                            <artifactId>tray.app</artifactId>
+                                            <version>${tray.version}</version>
+                                        </dependency>
+                                    </extension>
+                                </extensions>
+                            </application>
+                        </applications>
+                    </registry>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

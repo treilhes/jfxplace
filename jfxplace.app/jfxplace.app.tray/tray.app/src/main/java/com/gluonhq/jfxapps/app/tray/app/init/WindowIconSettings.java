@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2016, 2025, Gluon and/or its affiliates.
- * Copyright (c) 2021, 2025, Pascal Treilhes and/or its affiliates.
+ * Copyright (c) 2016, 2024, Gluon and/or its affiliates.
+ * Copyright (c) 2021, 2024, Pascal Treilhes and/or its affiliates.
  * Copyright (c) 2012, 2014, Oracle and/or its affiliates.
  * All rights reserved. Use is subject to license terms.
  *
@@ -31,36 +31,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.gluonhq.jfxapps.app.manager.api;
+package com.gluonhq.jfxapps.app.tray.app.init;
 
-import java.util.List;
-import java.util.UUID;
+import com.gluonhq.jfxapps.core.api.ui.controller.misc.IconSetting;
+import com.treilhes.emc4j.boot.api.context.annotation.Singleton;
 
-import com.gluonhq.jfxapps.core.api.JfxplaceCoreApiExtension;
-import com.gluonhq.jfxapps.core.api.application.annotation.EditorDescriptor;
-import com.treilhes.emc4j.boot.api.loader.extension.ApplicationExtension;
+import javafx.scene.control.Alert;
+import javafx.stage.Stage;
 
-@EditorDescriptor(
-            label = "manager.app.label",
-            licence = "BSD",
-            licenceFile = "LICENSE",
-            description = "manager.app.description",
-            image = "manager.png",
-            imageX2 = "manager@2x.png",
-            extensions = {"jfxmngr"}
-        )
-public class ManagerApiExtension implements ApplicationExtension  {
+@Singleton
+public class WindowIconSettings implements IconSetting {
 
-    public final static UUID ID = JfxplaceCoreApiExtension.MANAGER_APP_ID;
+    public WindowIconSettings() {}
 
     @Override
-    public UUID getId() {
-        return ID;
+    public void setWindowIcon(Alert alert) {
     }
-
     @Override
-    public List<Class<?>> localContextClasses() {
-        return List.of();
+    public void setWindowIcon(Stage stage) {
     }
 
 }

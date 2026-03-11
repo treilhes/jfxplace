@@ -1,0 +1,88 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.treilhes.jfxplace</groupId>
+    <artifactId>jfxplace.app.tray</artifactId>
+    <version>${tray.version}</version>
+
+    <packaging>pom</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <jfxplace.version>1.0.0-SNAPSHOT</jfxplace.version>
+        <tray.version>1.0.0-SNAPSHOT</tray.version>
+        <java.version>25</java.version>
+
+        <!-- exporting a package from system module java.base is not allowed with release -->
+        <!--<maven.compiler.release>24</maven.compiler.release>-->
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+
+        <maven.compiler.plugin.version>3.14.0</maven.compiler.plugin.version>
+        <flatten-maven-plugin.version>1.7.4-SNAPSHOT</flatten-maven-plugin.version>
+    </properties>
+
+    <modules>
+        <module>tray.api</module>
+        <module>tray.app</module>
+        <module>tray.registry</module>
+        <module>tray.launcher</module>
+    </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!--
+                This plugin has 2 internal usages:
+                - generate a flattened version of the pom.xml in the repository, maven actions
+                will use the flattened pom.xml as the effective pom reducing the
+                number of roundtrip during dependency resolution and download
+                - manage a centralize version for the project
+                -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>${flatten-maven-plugin.version}</version>
+                <configuration>
+                    <flattenDependencyMode>all</flattenDependencyMode>
+                    <flattenMode>bom</flattenMode> <!-- Resolve properties like
+                    ${jfxplace.version} -->
+                    <!--<updatePomFile>true</updatePomFile>   Ensures the POM file is updated -->
+                </configuration>
+                <executions>
+                    <!-- enable flattening -->
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <!-- ensure proper cleanup -->
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.treilhes.jfxplace</groupId>
+                <artifactId>tray.api</artifactId>
+                <version>${tray.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.treilhes.jfxplace</groupId>
+                <artifactId>tray.app</artifactId>
+                <version>${tray.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

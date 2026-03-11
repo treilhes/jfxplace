@@ -13,11 +13,13 @@
       <module>jfxplace.app.manager</module>
       <module>jfxplace.app.devtools</module>
       <module>jfxplace.app.sample</module>
+      <module>jfxplace.app.tray</module>
   </modules>
   
   <properties>
       
       <manager.version>1.0.0-SNAPSHOT</manager.version>
+      <tray.version>1.0.0-SNAPSHOT</tray.version>
       <sample.version>1.0.0-SNAPSHOT</sample.version>
       <scenebuilder.version>17.0.0-SNAPSHOT</scenebuilder.version>
   </properties>

@@ -1,0 +1,32 @@
+emc4j:
+  registry:
+    snapshotsAllowed: true
+#    defaults: already registered by jfxplace.boot.config
+#      tray:
+#        groupId: com.treilhes.jfxplace
+#        artifactId: tray.registry
+#        mandatory: true
+
+  maven:
+    directory: ${user.home}/.m2/repository
+    redirectionsEnabled: true
+    redirect:
+      - groupId: com.treilhes.jfxplace
+        artifactId: tray.api
+        path: ../../../../tray.api/target/classes
+      - groupId: com.treilhes.jfxplace
+        artifactId: tray.app
+        path: ../../../../tray.app/target/classes
+
+server:
+  port: 8080
+
+spring:
+  h2:
+    console:
+      enabled: false
+  jpa:
+    show-sql: true
+
+springdoc:
+  show-actuator: true

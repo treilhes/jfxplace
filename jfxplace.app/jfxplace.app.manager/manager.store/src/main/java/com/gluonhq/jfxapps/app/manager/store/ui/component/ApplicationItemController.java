@@ -42,13 +42,13 @@ import com.gluonhq.jfxapps.app.manager.store.action.StoreActionFactory;
 import com.gluonhq.jfxapps.app.manager.store.model.Application;
 import com.gluonhq.jfxapps.app.manager.store.model.ApplicationController;
 import com.gluonhq.jfxapps.app.manager.store.ui.app.ApplicationDetailController;
-import com.treilhes.emc4j.boot.api.context.EmContext;
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
-import com.treilhes.emc4j.boot.api.loader.extension.Extension;
+import com.gluonhq.jfxapps.core.api.JfxplaceCoreApiExtension;
 import com.gluonhq.jfxapps.core.api.i18n.I18N;
 import com.gluonhq.jfxapps.core.api.subjects.ApplicationEvents;
 import com.gluonhq.jfxapps.core.api.subjects.ApplicationInstanceEvents;
 import com.gluonhq.jfxapps.core.api.ui.controller.AbstractFxmlController;
+import com.treilhes.emc4j.boot.api.context.EmContext;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -131,8 +131,8 @@ public class ApplicationItemController extends AbstractFxmlController {
         this.item = applicationItem;
         this.modelController = modelController;
 
-        var isRunnable = new SimpleBooleanProperty(!Extension.MANAGER_APP_ID.equals(item.uuidProperty().get()));
-        var isMandatory = new SimpleBooleanProperty(Extension.MANAGER_APP_ID.equals(item.uuidProperty().get()));
+        var isRunnable = new SimpleBooleanProperty(!JfxplaceCoreApiExtension.MANAGER_APP_ID.equals(item.uuidProperty().get()));
+        var isMandatory = new SimpleBooleanProperty(JfxplaceCoreApiExtension.MANAGER_APP_ID.equals(item.uuidProperty().get()));
         var isInstalled = applicationItem.installedProperty();
 
         titleLabel.textProperty().bind(applicationItem.nameProperty());

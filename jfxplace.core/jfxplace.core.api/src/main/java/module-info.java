@@ -31,7 +31,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import com.gluonhq.jfxapps.core.api.ApiExtension;
+import com.gluonhq.jfxapps.core.api.JfxplaceCoreApiExtension;
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
 
 open module jfxplace.core.api {
@@ -110,5 +110,5 @@ open module jfxplace.core.api {
     requires transitive org.pdfsam.rxjavafx;
     //requires jfxplace.javafx.fxml.patch.link;
 
-    provides Extension with ApiExtension;
+    provides Extension with JfxplaceCoreApiExtension;
 }

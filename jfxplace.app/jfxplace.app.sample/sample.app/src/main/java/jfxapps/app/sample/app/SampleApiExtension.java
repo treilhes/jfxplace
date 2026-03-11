@@ -31,27 +31,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.gluonhq.jfxapps.app.manager.api;
+package jfxapps.app.sample.app;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-import com.gluonhq.jfxapps.core.api.JfxplaceCoreApiExtension;
-import com.gluonhq.jfxapps.core.api.application.annotation.EditorDescriptor;
 import com.treilhes.emc4j.boot.api.loader.extension.ApplicationExtension;
 
-@EditorDescriptor(
-            label = "manager.app.label",
-            licence = "BSD",
-            licenceFile = "LICENSE",
-            description = "manager.app.description",
-            image = "manager.png",
-            imageX2 = "manager@2x.png",
-            extensions = {"jfxmngr"}
-        )
-public class ManagerApiExtension implements ApplicationExtension  {
+import jfxapps.app.sample.app.init.SampleOpenCommandEventHandler;
+import jfxapps.app.sample.app.init.SampleUi;
+import jfxapps.app.sample.app.init.SampleWindowIconSettings;
 
-    public final static UUID ID = JfxplaceCoreApiExtension.MANAGER_APP_ID;
+public class SampleApiExtension implements ApplicationExtension  {
+
+    public static final UUID ID = UUID.fromString("99982f35-4fe7-4eb7-b8df-fc4ed034a6d9");
 
     @Override
     public UUID getId() {
@@ -60,7 +54,13 @@ public class ManagerApiExtension implements ApplicationExtension  {
 
     @Override
     public List<Class<?>> localContextClasses() {
-        return List.of();
+        // @formatter:off
+        return Arrays.asList(
+                SampleOpenCommandEventHandler.class,
+                SampleUi.class,
+                SampleWindowIconSettings.class
+                );
+        // @formatter:on
     }
 
 }

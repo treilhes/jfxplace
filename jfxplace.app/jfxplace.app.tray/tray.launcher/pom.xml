@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.treilhes.jfxplace</groupId>
+        <artifactId>jfxplace.app.tray</artifactId>
+        <version>${tray.version}</version>
+    </parent>
+    <artifactId>tray.launcher</artifactId>
+
+    <properties>
+        <debug>false</debug>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.treilhes.jfxplace</groupId>
+                <artifactId>jfxplace-maven-plugin</artifactId>
+                <version>${jfxplace.version}</version>
+                <configuration>
+                    <jfxplaceVersion>${jfxplace.version}</jfxplaceVersion>
+                    <debug>${debug}</debug>
+                    <profiles>
+                        <profile>tray</profile>
+                    </profiles>
+                    <profileFiles>
+                        <profileFile>${basedir}/src/main/resources/application-tray.yaml</profileFile>
+                    </profileFiles>
+                    <applicationId>00000000-0000-0000-0000-000000000003</applicationId>
+                    <javaOptions>
+                    </javaOptions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
