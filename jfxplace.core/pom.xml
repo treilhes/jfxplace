@@ -24,7 +24,7 @@
         <module>jfxplace.core.maven</module>
         <module>jfxplace.core.preferences</module>
         <module>jfxplace.core.registry</module>
-                
+        <module>jfxplace.core.filesystem</module>
         <module>jfxplace.core.selection</module>
 
         <module>jfxplace.core.controls</module>
