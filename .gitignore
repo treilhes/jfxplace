@@ -4,8 +4,12 @@ app/build/
 kit/build/
 
 # Maven
-target/
+# Ignore all target directories (Maven build output)
+**/target/**
 
+# Re-allow target directories that are inside source code
+!**/src/**/target/
+!**/src/**/target/**
 # IDEA
 .theia/
 
