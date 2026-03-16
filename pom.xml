@@ -140,15 +140,26 @@
                 <version>${emc4j.version}</version>
             </dependency>
 
-            <!-- jfxplace.core -->
             <dependency>
                 <groupId>com.treilhes.jfxplace</groupId>
                 <artifactId>jfxplace.javafx.starter</artifactId>
                 <version>${jfxplace.version}</version>
             </dependency>
+
+            <!-- jfxplace.core -->
+            <dependency>
+                <groupId>com.treilhes.jfxplace</groupId>
+                <artifactId>jfxplace.core.accelerators</artifactId>
+                <version>${jfxplace.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.treilhes.jfxplace</groupId>
                 <artifactId>jfxplace.core.api</artifactId>
+                <version>${jfxplace.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.treilhes.jfxplace</groupId>
+                <artifactId>jfxplace.core.appmngr</artifactId>
                 <version>${jfxplace.version}</version>
             </dependency>
             <dependency>
@@ -188,9 +199,25 @@
             </dependency>
             <dependency>
                 <groupId>com.treilhes.jfxplace</groupId>
+                <artifactId>jfxplace.core.guides</artifactId>
+                <version>${jfxplace.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.treilhes.jfxplace</groupId>
+                <artifactId>jfxplace.core.maven</artifactId>
+                <version>${jfxplace.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.treilhes.jfxplace</groupId>
                 <artifactId>jfxplace.core.jobs</artifactId>
                 <version>${jfxplace.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.treilhes.jfxplace</groupId>
+                <artifactId>jfxplace.core.registry</artifactId>
+                <version>${jfxplace.version}</version>
+            </dependency>
+            
             <dependency>
                 <groupId>com.treilhes.jfxplace</groupId>
                 <artifactId>javafx.fxml.patch</artifactId>

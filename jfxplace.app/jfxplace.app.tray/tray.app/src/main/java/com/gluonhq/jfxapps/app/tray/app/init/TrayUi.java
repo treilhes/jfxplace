@@ -34,13 +34,17 @@
 package com.gluonhq.jfxapps.app.tray.app.init;
 
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.gluonhq.jfxapps.app.tray.app.utils.SystemTrayJavaFxProvider;
+import com.gluonhq.jfxapps.core.api.JfxplaceCoreApiExtension;
 import com.gluonhq.jfxapps.core.api.ui.MainInstanceWindow;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
+import com.treilhes.emc4j.boot.api.loader.ApplicationManager;
+import com.treilhes.emc4j.boot.api.loader.OpenCommandEvent;
 
 import dorkbox.jna.rendering.RenderProvider;
 import dorkbox.systemTray.MenuItem;
@@ -59,15 +63,19 @@ public class TrayUi implements MainInstanceWindow {
     private static final Logger logger = LoggerFactory.getLogger(TrayUi.class);
     private static final boolean DEBUG = true;
 
+    private final ApplicationManager applicationManager;
 
     private Stage stage;
     private Scene scene;
 
+
     // @formatter:off
     public TrayUi(
+            ApplicationManager applicationManager
             ) {
+     // @formatter:on
         super();
-        // @formatter:on
+        this.applicationManager = applicationManager;
     }
 
     @PostConstruct
@@ -80,7 +88,8 @@ public class TrayUi implements MainInstanceWindow {
 
         try {
             RenderProvider.set(new SystemTrayJavaFxProvider());
-            SystemTray.DEBUG = true; // for test apps, we always want to run in debug mode
+
+            SystemTray.DEBUG = DEBUG; // for test apps, we always want to run in debug mode
 
             // for test apps, make sure the cache is always reset. These are the ones used, and you should never do this in production.
             new CacheUtil("SysTrayExample").clear();
@@ -102,9 +111,10 @@ public class TrayUi implements MainInstanceWindow {
             systemTray.setStatus("App Running");
 
             // Add some menu items
-            systemTray.getMenu().add(new MenuItem("Open", (ActionEvent e) -> {
-                System.out.println("Open clicked!");
-                // Put your logic to show JavaFX window here
+            systemTray.getMenu().add(new MenuItem("Manage", (ActionEvent e) -> {
+                var mngrId = JfxplaceCoreApiExtension.MANAGER_APP_ID;
+                applicationManager.startApplication(mngrId);
+                applicationManager.send(new OpenCommandEvent(mngrId, List.of()));
             }));
 
             systemTray.getMenu().add(new MenuItem("Force Quit", (ActionEvent e) -> {
