@@ -10,6 +10,7 @@
 
     <properties>
         <debug>false</debug>
+        <debugPort>8000</debugPort>
     </properties>
 
     <build>
@@ -21,8 +22,9 @@
                 <configuration>
                     <jfxplaceVersion>${jfxplace.version}</jfxplaceVersion>
                     <debug>${debug}</debug>
+                    <debugPort>${debugPort}</debugPort>
                     <profiles>
-                        <profile>tray</profile>
+                        <profile>devlookup,tray</profile>
                     </profiles>
                     <profileFiles>
                         <profileFile>${basedir}/src/main/resources/application-tray.yaml</profileFile>

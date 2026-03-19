@@ -9,7 +9,7 @@ emc4j:
 
   maven:
     directory: ${user.home}/.m2/repository
-    redirectionsEnabled: true
+    redirectionsEnabled: false
     redirect:
       - groupId: com.treilhes.jfxplace
         artifactId: tray.api
