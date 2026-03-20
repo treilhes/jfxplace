@@ -42,16 +42,16 @@ import org.slf4j.LoggerFactory;
 
 import com.gluonhq.jfxapps.app.manager.registries.model.Source;
 import com.gluonhq.jfxapps.app.manager.registries.model.SourceModelController;
+import com.gluonhq.jfxapps.core.api.i18n.I18N;
+import com.gluonhq.jfxapps.core.api.subjects.ApplicationEvents;
+import com.gluonhq.jfxapps.core.api.subjects.ApplicationInstanceEvents;
+import com.gluonhq.jfxapps.core.api.ui.controller.AbstractFxmlController;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
 import com.treilhes.emc4j.boot.api.maven.Artifact;
 import com.treilhes.emc4j.boot.api.maven.RepositoryClient;
 import com.treilhes.emc4j.boot.api.maven.UniqueArtifact;
 import com.treilhes.emc4j.boot.api.registry.model.RegistryArtifact;
 import com.treilhes.emc4j.boot.api.registry.model.RegistrySourceInfo;
-import com.gluonhq.jfxapps.core.api.i18n.I18N;
-import com.gluonhq.jfxapps.core.api.subjects.ApplicationEvents;
-import com.gluonhq.jfxapps.core.api.subjects.ApplicationInstanceEvents;
-import com.gluonhq.jfxapps.core.api.ui.controller.AbstractFxmlController;
 
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -197,7 +197,7 @@ public class EditSourceItemController extends AbstractFxmlController {
         var version = this.version.getSelectionModel().getSelectedItem().getVersion();
         version = version.equals(LATEST) ? "" : version;
 
-        var artifact = new RegistryArtifact(groupId.getText(), artifactId.getText(), version, false);
+        var artifact = new RegistryArtifact(groupId.getText(), artifactId.getText(), version, false, null);
         var info = new RegistrySourceInfo();
         info.setArtifact(artifact);
         info.setRegistryInfo(registryInfo);

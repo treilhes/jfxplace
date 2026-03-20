@@ -55,17 +55,17 @@ import org.testfx.api.FxRobot;
 import com.gluonhq.jfxapps.app.manager.api.ManagerApiExtension;
 import com.gluonhq.jfxapps.app.manager.registries.controller.EditSourceItemController;
 import com.gluonhq.jfxapps.app.manager.registries.model.SourceModelController;
+import com.gluonhq.jfxapps.core.api.javafx.JfxAppPlatform;
+import com.gluonhq.jfxapps.core.api.ui.controller.menu.ViewMenu;
+import com.gluonhq.jfxapps.test.JfxAppsTest;
+import com.gluonhq.jfxapps.test.StageBuilder;
+import com.gluonhq.jfxapps.test.StageType;
 import com.treilhes.emc4j.boot.api.maven.RepositoryClient;
 import com.treilhes.emc4j.boot.api.maven.UniqueArtifact;
 import com.treilhes.emc4j.boot.api.registry.RegistryArtifactManager;
 import com.treilhes.emc4j.boot.api.registry.model.RegistryArtifact;
 import com.treilhes.emc4j.boot.api.registry.model.RegistryInfo;
 import com.treilhes.emc4j.boot.api.registry.model.RegistrySourceInfo;
-import com.gluonhq.jfxapps.core.api.javafx.JfxAppPlatform;
-import com.gluonhq.jfxapps.core.api.ui.controller.menu.ViewMenu;
-import com.gluonhq.jfxapps.test.JfxAppsTest;
-import com.gluonhq.jfxapps.test.StageBuilder;
-import com.gluonhq.jfxapps.test.StageType;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -163,7 +163,7 @@ class EditSourceItemControllerTest {
         reg1.setVersion("X.X.X");
 
         var regSrc1 = new RegistrySourceInfo();
-        regSrc1.setArtifact(new RegistryArtifact("reg1.group", "reg1.artifact", null, false));
+        regSrc1.setArtifact(new RegistryArtifact("reg1.group", "reg1.artifact", null, false, null));
         regSrc1.setRegistryInfo(reg1);
 
         var reg2 = new RegistryInfo();
@@ -174,7 +174,7 @@ class EditSourceItemControllerTest {
         reg2.setVersion("X.X.X");
 
         var regSrc2 = new RegistrySourceInfo();
-        regSrc2.setArtifact(new RegistryArtifact("reg2.group", "reg2.artifact", null, true));
+        regSrc2.setArtifact(new RegistryArtifact("reg2.group", "reg2.artifact", null, true, null));
         regSrc2.setRegistryInfo(reg2);
 
         Mockito.when(registryArtifactManager.listRegistrySourceInfo()).thenReturn(Set.of(regSrc1, regSrc2));

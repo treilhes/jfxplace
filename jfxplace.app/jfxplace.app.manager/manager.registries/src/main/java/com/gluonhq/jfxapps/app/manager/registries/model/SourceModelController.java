@@ -36,11 +36,11 @@ package com.gluonhq.jfxapps.app.manager.registries.model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.gluonhq.jfxapps.core.api.javafx.JfxAppPlatform;
 import com.treilhes.emc4j.boot.api.context.ApplicationInstance;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 import com.treilhes.emc4j.boot.api.registry.RegistryArtifactManager;
 import com.treilhes.emc4j.boot.api.registry.model.RegistryArtifact;
-import com.gluonhq.jfxapps.core.api.javafx.JfxAppPlatform;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -94,7 +94,7 @@ public class SourceModelController {
             if (coordinateChanged) {
 
                 var oldArtifact = oldSourceInfo.getArtifact();
-                var artifact = new RegistryArtifact(groupId, artifactId, LATEST.equals(version) ? null : version, false);
+                var artifact = new RegistryArtifact(groupId, artifactId, LATEST.equals(version) ? null : version, false, null);
                 registryArtifactManager.remove(oldArtifact);
                 registryArtifactManager.add(artifact);
 
@@ -103,7 +103,7 @@ public class SourceModelController {
 
             } else if (versionChanged) {
 
-                var artifact = new RegistryArtifact(groupId, artifactId, version, false);
+                var artifact = new RegistryArtifact(groupId, artifactId, version, false, null);
                 registryArtifactManager.update(artifact);
                 source.versionProperty().set(version);
 
@@ -123,7 +123,7 @@ public class SourceModelController {
             var groupId = source.groupIdProperty().get();
             var artifactId = source.artifactIdProperty().get();
             var version = source.versionProperty().get();
-            var artifact = new RegistryArtifact(groupId, artifactId, version, false);
+            var artifact = new RegistryArtifact(groupId, artifactId, version, false, null);
 
             registryArtifactManager.add(artifact);
 
