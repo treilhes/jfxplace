@@ -21,14 +21,14 @@
                     <jfxplaceVersion>${jfxplace.version}</jfxplaceVersion>
                     <debug>${debug}</debug>
                     <profiles>
-                        <profile>sample</profile>
+                        <profile>devlookup,sample</profile>
                     </profiles>
-                    <profileFiles>
-                        <profileFile>${basedir}/src/main/resources/application-sample.yaml</profileFile>
-                    </profileFiles>
                     <applicationId>99982f35-4fe7-4eb7-b8df-fc4ed034a6d9</applicationId>
-                    <javaOptions>
-                    </javaOptions>
+                    <registry>
+                        <groupId>com.treilhes.jfxplace</groupId>
+                        <artifactId>sample.registry</artifactId>
+                        <version>${jfxplace.version}</version>
+                    </registry>
                 </configuration>
             </plugin>
         </plugins>

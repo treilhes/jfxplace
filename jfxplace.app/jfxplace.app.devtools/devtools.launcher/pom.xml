@@ -19,18 +19,12 @@
                 <artifactId>jfxplace-maven-plugin</artifactId>
                 <version>${jfxplace.version}</version>
                 <configuration>
-                    <!--<emc4jVersion>${emc4j.version}</emc4jVersion>-->
                     <jfxplaceVersion>${jfxplace.version}</jfxplaceVersion>
                     <debug>${debug}</debug>
                     <profiles>
-                        <profile>devtools</profile>
+                        <profile>devlookup,devtools</profile>
                     </profiles>
-                    <profileFiles>
-                        <profileFile>${basedir}/src/main/resources/application-devtools.yaml</profileFile>
-                    </profileFiles>
                     <applicationId>1b8bb5f3-efb3-41a6-b6f0-12c9d96fc6a2</applicationId>
-                    <javaOptions>
-                    </javaOptions>
                 </configuration>
             </plugin>
         </plugins>

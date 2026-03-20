@@ -62,6 +62,8 @@ import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.xml.Xpp3DomWriter;
 import org.twdata.maven.mojoexecutor.MojoExecutor.Element;
 
+import com.treilhes.emc4j.plugin.RunMojo.Registry;
+
 @Mojo(name = "run", requiresDependencyResolution = ResolutionScope.TEST, defaultPhase = LifecyclePhase.NONE, threadSafe = true)
 public class RunMojo extends AbstractMojo {
 
@@ -112,38 +114,42 @@ public class RunMojo extends AbstractMojo {
     private List<String> javaOptions;
 
     /**
-     * The application identifier to run.
-     * The application identifier must be contained in one of the provided registry dependencies.
+     * The application identifier to run. The application identifier must be
+     * contained in one of the provided registry dependencies.
      */
     @Parameter(property = "applicationId", required = true)
     private String applicationId;
 
     /**
-     * If true, the artifacts deployed into the run directory will be deleted first, before being copied.
-     * If false, only the configuration file will be updated, and the dependencies will not be copied again.
+     * If true, the artifacts deployed into the run directory will be deleted first,
+     * before being copied. If false, only the configuration file will be updated,
+     * and the dependencies will not be copied again.
      */
     @Parameter(property = "clean", defaultValue = "true")
     private boolean clean;
 
     /**
-     * If true, the JVM will be started in debug mode, allowing a debugger to attach.
-     * The default value is false.
+     * If true, the JVM will be started in debug mode, allowing a debugger to
+     * attach. The default value is false.
      */
     @Parameter(property = "debug", defaultValue = "false")
     private boolean debug;
     /**
-     * If true, the JVM will wait for a debugger to attach before starting execution.
-     * The default value is true.
+     * If true, the JVM will wait for a debugger to attach before starting
+     * execution. The default value is true.
      */
     @Parameter(property = "debugSuspend", defaultValue = "true")
     private boolean debugSuspend;
 
     /**
-     * The debug port to use when starting the JVM in debug mode.
-     * The default port is 8000.
+     * The debug port to use when starting the JVM in debug mode. The default port
+     * is 8000.
      */
     @Parameter(property = "debugPort", defaultValue = "8000")
     private int debugPort;
+
+    @Parameter
+    private Registry registry;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -202,6 +208,18 @@ public class RunMojo extends AbstractMojo {
                 elementList.add(jfxplaceConfigurationDependencyElement);
             }
 
+            if (registry != null) {
+                var registryElements = new ArrayList<Element>();
+                registryElements.add(element(name("groupId"), registry.getGroupId()));
+                registryElements.add(element(name("artifactId"), registry.getArtifactId()));
+                registryElements.add(element(name("version"), registry.getVersion()));
+                if (registry.getLocalFolder() != null) {
+                    registryElements.add(element(name("localFolder"), registry.getLocalFolder().getPath()));
+                }
+                var registryElement = element(name("registry"), registryElements.toArray(Element[]::new));
+                elementList.add(registryElement);
+            }
+
             var configuration = configuration(elementList.toArray(Element[]::new));
 
 
@@ -233,11 +251,11 @@ public class RunMojo extends AbstractMojo {
     }
 
     private Element dependencyToElement(String name, Dependency dependency) {
-        return dependency != null ? element(name(name),
-                element(name("groupId"), dependency.getGroupId()),
-                element(name("artifactId"), dependency.getArtifactId()),
-                element(name("version"), dependency.getVersion())
-        ) : null;
+        return dependency != null
+                ? element(name(name), element(name("groupId"), dependency.getGroupId()),
+                        element(name("artifactId"), dependency.getArtifactId()),
+                        element(name("version"), dependency.getVersion()))
+                : null;
 
     }
 

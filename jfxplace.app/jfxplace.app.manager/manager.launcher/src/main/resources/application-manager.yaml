@@ -1,12 +1,4 @@
 emc4j:
-  registry:
-    snapshotsAllowed: true
-#    defaults:
-#      manager:
-#        groupId: com.treilhes.jfxplace
-#        artifactId: manager.registry
-#        mandatory: true
-
   maven:
     directory: ${user.home}/.m2/repository
     redirectionsEnabled: true

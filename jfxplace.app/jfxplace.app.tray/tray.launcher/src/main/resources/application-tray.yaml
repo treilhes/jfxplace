@@ -1,12 +1,4 @@
 emc4j:
-  registry:
-    snapshotsAllowed: true
-#    defaults: already registered by jfxplace.boot.config
-#      tray:
-#        groupId: com.treilhes.jfxplace
-#        artifactId: tray.registry
-#        mandatory: true
-
   maven:
     directory: ${user.home}/.m2/repository
     redirectionsEnabled: false

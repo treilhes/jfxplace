@@ -26,12 +26,7 @@
                     <profiles>
                         <profile>devlookup,tray</profile>
                     </profiles>
-                    <profileFiles>
-                        <profileFile>${basedir}/src/main/resources/application-tray.yaml</profileFile>
-                    </profileFiles>
                     <applicationId>00000000-0000-0000-0000-000000000003</applicationId>
-                    <javaOptions>
-                    </javaOptions>
                 </configuration>
             </plugin>
         </plugins>
