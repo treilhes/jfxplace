@@ -46,4 +46,20 @@
             <version>${jfxplace.version}</version>
         </dependency>
     </dependencies>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <useModulePath>true</useModulePath>
+                    <compilerArgs>
+                        <arg>--add-exports</arg>
+                        <arg>dorkbox.systemtray/dorkbox.systemTray.ui.swing=tray.app</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

@@ -33,23 +33,13 @@
  */
 package com.gluonhq.jfxapps.app.tray.app.init;
 
-import java.awt.event.ActionEvent;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.gluonhq.jfxapps.app.tray.app.utils.SystemTrayJavaFxProvider;
-import com.gluonhq.jfxapps.core.api.JfxplaceCoreApiExtension;
+import com.gluonhq.jfxapps.app.tray.app.menu.TrayMenuManager;
 import com.gluonhq.jfxapps.core.api.ui.MainInstanceWindow;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
-import com.treilhes.emc4j.boot.api.loader.ApplicationManager;
-import com.treilhes.emc4j.boot.api.loader.OpenCommandEvent;
 
-import dorkbox.jna.rendering.RenderProvider;
-import dorkbox.systemTray.MenuItem;
-import dorkbox.systemTray.SystemTray;
-import dorkbox.util.CacheUtil;
 import jakarta.annotation.PostConstruct;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -61,9 +51,8 @@ import javafx.stage.Stage;
 @ApplicationSingleton
 public class TrayUi implements MainInstanceWindow {
     private static final Logger logger = LoggerFactory.getLogger(TrayUi.class);
-    private static final boolean DEBUG = true;
 
-    private final ApplicationManager applicationManager;
+    private final TrayMenuManager trayMenuManager;
 
     private Stage stage;
     private Scene scene;
@@ -71,11 +60,11 @@ public class TrayUi implements MainInstanceWindow {
 
     // @formatter:off
     public TrayUi(
-            ApplicationManager applicationManager
+            TrayMenuManager trayMenuManager
             ) {
      // @formatter:on
         super();
-        this.applicationManager = applicationManager;
+        this.trayMenuManager = trayMenuManager;
     }
 
     @PostConstruct
@@ -87,40 +76,8 @@ public class TrayUi implements MainInstanceWindow {
         logger.info("Adding system tray icon...");
 
         try {
-            RenderProvider.set(new SystemTrayJavaFxProvider());
 
-            SystemTray.DEBUG = DEBUG; // for test apps, we always want to run in debug mode
-
-            // for test apps, make sure the cache is always reset. These are the ones used, and you should never do this in production.
-            new CacheUtil("SysTrayExample").clear();
-
-         // Get a SystemTray instance (auto-detects native or fallback)
-
-            SystemTray systemTray = SystemTray.get("SysTrayExample");
-
-            if (systemTray == null) {
-                System.err.println("Unable to load SystemTray!");
-                return;
-            }
-
-            var iconUrl = this.getClass().getResource("icon.png");//.toString();
-            // Set the image/icon for the tray
-            systemTray.setImage(iconUrl);
-
-            // Optional: set a status text
-            systemTray.setStatus("App Running");
-
-            // Add some menu items
-            systemTray.getMenu().add(new MenuItem("Manage", (ActionEvent e) -> {
-                var mngrId = JfxplaceCoreApiExtension.MANAGER_APP_ID;
-                applicationManager.startApplication(mngrId);
-                applicationManager.send(new OpenCommandEvent(mngrId, List.of()));
-            }));
-
-            systemTray.getMenu().add(new MenuItem("Force Quit", (ActionEvent e) -> {
-                systemTray.shutdown();  // removes the tray icon
-                System.exit(0);
-            }));
+            trayMenuManager.init();
 
         } catch (Exception e) {
             logger.error("Error while adding system tray icon", e);

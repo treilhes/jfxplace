@@ -6,8 +6,8 @@ open module tray.app {
 
     requires tray.api;
     requires jfxplace.core.api;
-    requires dorkbox.systemtray;
     requires java.desktop;
+    requires dorkbox.systemtray;
     requires dorkbox.utilities;
 
     provides Extension with TrayAppExtension;

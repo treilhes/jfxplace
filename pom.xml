@@ -96,7 +96,7 @@
         <ikonli.version>12.3.1</ikonli.version>
 
         <!-- internal -->
-        <sonar.projectKey>jfxapps_jfxplace_ebba4612-b87c-4dde-8efe-422a260cd817</sonar.projectKey>
+        <sonar.projectKey>jfxapps_jfxplace_64007107-07f1-4ef6-bc1c-201705f2ae22</sonar.projectKey>
         <sonar.projectName>jfxplace</sonar.projectName>
         <sonar.qualitygate.wait>true</sonar.qualitygate.wait>
         <sonar.coverage.jacoco.xmlReportPaths>**/target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>

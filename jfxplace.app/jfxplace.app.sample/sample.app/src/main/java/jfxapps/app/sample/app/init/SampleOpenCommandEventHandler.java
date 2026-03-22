@@ -4,13 +4,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.gluonhq.jfxapps.core.api.application.ApplicationActionFactory;
-import com.gluonhq.jfxapps.core.api.application.OpenCommandEventHandler;
+import com.gluonhq.jfxapps.core.api.application.CommandEventHandler;
 import com.gluonhq.jfxapps.core.api.ui.dialog.ApplicationDialog;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
 import com.treilhes.emc4j.boot.api.loader.OpenCommandEvent;
+import com.treilhes.emc4j.boot.api.loader.RestartCommandEvent;
+import com.treilhes.emc4j.boot.api.loader.StopCommandEvent;
 
 @ApplicationSingleton
-public class SampleOpenCommandEventHandler implements OpenCommandEventHandler {
+public class SampleOpenCommandEventHandler implements CommandEventHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(SampleOpenCommandEventHandler.class);
 
@@ -34,6 +36,18 @@ public class SampleOpenCommandEventHandler implements OpenCommandEventHandler {
             logger.error("Error while executing command", e);
             applicationDialog.addError("Error while executing command", e.getMessage(), e);
         }
+
+    }
+
+    @Override
+    public void handleStopCommand(StopCommandEvent command) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void handleRestartCommand(RestartCommandEvent command) {
+        // TODO Auto-generated method stub
 
     }
 

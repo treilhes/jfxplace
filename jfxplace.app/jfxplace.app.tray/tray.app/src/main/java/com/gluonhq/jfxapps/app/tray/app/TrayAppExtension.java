@@ -7,11 +7,29 @@ import com.gluonhq.jfxapps.app.tray.api.TrayApiExtension;
 import com.gluonhq.jfxapps.app.tray.app.init.TrayOpenCommandEventHandler;
 import com.gluonhq.jfxapps.app.tray.app.init.TrayUi;
 import com.gluonhq.jfxapps.app.tray.app.init.WindowIconSettings;
+import com.gluonhq.jfxapps.app.tray.app.menu.TrayMenuManager;
+import com.treilhes.emc4j.boot.api.layer.Layer;
 import com.treilhes.emc4j.boot.api.loader.extension.OpenExtension;
 
 public class TrayAppExtension implements OpenExtension {
 
     private static final UUID ID = UUID.fromString("45c6997b-07b3-4155-a8d2-5a1d8e0fd4ab");
+
+    @Override
+    public void initializeModule(Layer layer) {
+        var moduleLayer = layer.getModuleLayer();
+        var controller = layer.getModuleController();
+
+        var d = moduleLayer.findModule("dorkbox.utilities");
+        var a = moduleLayer.findModule("java.desktop");
+
+        if (d.isPresent() && a.isPresent()) {
+            controller.addReads(d.get(), a.get());
+        }
+
+        var tray = moduleLayer.findModule("dorkbox.systemtray");
+        controller.addExports(tray.get(), "dorkbox.systemTray.ui.swing", TrayAppExtension.class.getModule());
+    }
 
     @Override
     public UUID getId() {
@@ -33,7 +51,8 @@ public class TrayAppExtension implements OpenExtension {
         return List.of(
                 TrayOpenCommandEventHandler.class,
                 WindowIconSettings.class,
-                TrayUi.class
+                TrayUi.class,
+                TrayMenuManager.class
                 );
     }
 

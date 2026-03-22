@@ -41,9 +41,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEvent;
 
+import com.gluonhq.jfxapps.core.api.application.ApplicationActionFactory;
 import com.gluonhq.jfxapps.core.api.application.ApplicationClassloader;
+import com.gluonhq.jfxapps.core.api.application.CommandEventHandler;
 import com.gluonhq.jfxapps.core.api.application.CommandHandler;
-import com.gluonhq.jfxapps.core.api.application.OpenCommandEventHandler;
 import com.gluonhq.jfxapps.core.api.javafx.JavafxThreadClassloaderDispatcher;
 import com.gluonhq.jfxapps.core.api.javafx.JavafxThreadHolder;
 import com.gluonhq.jfxapps.core.api.lifecycle.DisposeWithApplication;
@@ -54,6 +55,8 @@ import com.treilhes.emc4j.boot.api.context.Application;
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
 import com.treilhes.emc4j.boot.api.loader.OpenCommandEvent;
+import com.treilhes.emc4j.boot.api.loader.RestartCommandEvent;
+import com.treilhes.emc4j.boot.api.loader.StopCommandEvent;
 
 import jakarta.inject.Provider;
 
@@ -62,30 +65,38 @@ public class CommandHandlerImpl implements CommandHandler, Application {
 
     private static final Logger logger = LoggerFactory.getLogger(CommandHandlerImpl.class);
 
-    private final OpenCommandEventHandler openCommandEventHandler;
-    private final JavafxThreadHolder fxThreadHolder;
+    private final ApplicationClassloader applicationClassloader;
+
+    private final ApplicationEvents applicationEvents;
+
     private final ApplicationDialog applicationDialog;
 
+    private final ApplicationActionFactory applicationActionFactory;
+
+
+    private final CommandEventHandler commandEventHandler;
     /**
      * Commands waiting for the javafx thread to start
      */
     private final List<OpenCommandEvent> waitingCommands = new ArrayList<>();
+
+    private final JavafxThreadHolder fxThreadHolder;
+    private final JavafxThreadClassloaderDispatcher dispatcher;
+
 
     private final EmContext context;
 
     private final Provider<Optional<List<InitWithApplication>>> initializations;
     private final Provider<Optional<List<DisposeWithApplication>>> finalizations;
 
-    private final ApplicationClassloader applicationClassloader;
 
-    private final ApplicationEvents applicationEvents;
 
-    private final JavafxThreadClassloaderDispatcher dispatcher;
 
     //@formatter:off
     public CommandHandlerImpl(
+            ApplicationActionFactory applicationActionFactory,
             EmContext context,
-            OpenCommandEventHandler openCommandEventHandler,
+            CommandEventHandler commandEventHandler,
             JavafxThreadHolder fxThreadHolder,
             JavafxThreadClassloaderDispatcher dispatcher,
             ApplicationClassloader applicationClassloader,
@@ -95,8 +106,9 @@ public class CommandHandlerImpl implements CommandHandler, Application {
             Provider<Optional<List<DisposeWithApplication>>> finalizations) {
         //@formatter:on
         super();
+        this.applicationActionFactory = applicationActionFactory;
         this.context = context;
-        this.openCommandEventHandler = openCommandEventHandler;
+        this.commandEventHandler = commandEventHandler;
         this.fxThreadHolder = fxThreadHolder;
         this.applicationClassloader = applicationClassloader;
         this.applicationEvents = applicationEvents;
@@ -110,18 +122,12 @@ public class CommandHandlerImpl implements CommandHandler, Application {
 
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
-
-        if (event instanceof OpenCommandEvent command) {
-            logger.info("CMD received " + command.toString());
-
-            if (!fxThreadHolder.hasStarted()) {
-                waitingCommands.add(command);
-            } else {
-                executeStoredCommands();
-                execute(command);
-            }
-        } else {
-            logger.warn("Received an unsupported event: " + event.getClass().getName());
+        context.getApplicationExecutor().setCurrentScope(this);
+        switch (event) {
+        case OpenCommandEvent openCommandEvent -> execute(openCommandEvent);
+        case StopCommandEvent stopCommandEvent -> execute(stopCommandEvent);
+        case RestartCommandEvent restartCommandEvent -> execute(restartCommandEvent);
+        default -> logger.warn("Received an unsupported event: " + event.getClass().getName());
         }
 
     }
@@ -149,46 +155,46 @@ public class CommandHandlerImpl implements CommandHandler, Application {
         }
     }
 
-//	private void execute(OpenCommandEvent args) {
-//		logger.info("CMD executed " + args.toString());
-//
-//		UUID targetApplication = args.getTarget();
-//		File file = args.getFile();
-//
-//		if (file != null) {
-//
-//			try {
-//				ApplicationInstance instance = instancesManager.lookupInstance(file.toURL());
-//				if (instance == null) {
-//					instance = instancesManager.newInstance();
-//				}
-//				instance.openWindow();
-//				instance.loadFromFile(file);
-//			} catch (MalformedURLException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			} catch (IOException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
-//		} else {
-//
-//			ApplicationInstance instance = instancesManager.lookupUnusedInstance();
-//			if (instance == null) {
-//				instance = instancesManager.newInstance();
-//			}
-//			instance.openWindow();
-//			instance.loadBlank();
-//		}
-//	}
+    private void execute(OpenCommandEvent command) {
+        logger.info("CMD received " + command.toString());
 
-    private void execute(OpenCommandEvent event) {
+        if (!fxThreadHolder.hasStarted()) {
+            waitingCommands.add(command);
+        } else {
+            executeStoredCommands();
+            logger.info("CMD executed " + command.toString());
+            context.getApplicationExecutor().setCurrentScope(this);
+            try {
+                commandEventHandler.handleOpenCommand(command);
+            } catch (Exception e) {
+                logger.error("Error while executing command", e);
+                applicationDialog.addError("Error while executing command", e.getMessage(), e);
+            }
+        }
+    }
+
+    private void execute(StopCommandEvent event) {
         logger.info("CMD executed " + event.toString());
-        context.getApplicationExecutor().setCurrentScope(this);
-        // UUID targetApplication = event.getTarget();
 
         try {
-            openCommandEventHandler.handleOpenCommand(event);
+            commandEventHandler.handleStopCommand(event);
+        } catch (Exception e) {
+            logger.error("Error while executing command", e);
+            applicationDialog.addError("Error while executing command", e.getMessage(), e);
+        }
+
+        // force close the window if it exists
+        applicationActionFactory.closeAllInstances().perform();
+
+        // ensure the application is finalized even if the command handler throws an exception
+        finalizeApplication();
+    }
+
+    private void execute(RestartCommandEvent event) {
+        logger.info("CMD executed " + event.toString());
+
+        try {
+            commandEventHandler.handleRestartCommand(event);
         } catch (Exception e) {
             logger.error("Error while executing command", e);
             applicationDialog.addError("Error while executing command", e.getMessage(), e);
