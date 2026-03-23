@@ -15,6 +15,7 @@ before_script:
 build-job:
   tags:
     - linux
+  image: docker.treilhes.home/jfxapps/builder-linux:latest
   stage: build
   cache:
     - key: cache-$CI_COMMIT_REF_SLUG
@@ -26,6 +27,7 @@ build-job:
 build-sonar:
   tags:
     - linux
+  image: docker.treilhes.home/jfxapps/builder-linux:latest
   stage: build-sonar
   
   cache:
