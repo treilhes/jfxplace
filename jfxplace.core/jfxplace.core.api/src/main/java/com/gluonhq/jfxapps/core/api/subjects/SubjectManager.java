@@ -177,8 +177,7 @@ public class SubjectManager {
                     this.recordStream.flush();
                     this.recordStream.close();
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    logger.error("Error while stopping recording of events", e);
                 }
                 this.recordStream = null;
             }
