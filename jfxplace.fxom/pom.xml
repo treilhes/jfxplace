@@ -10,7 +10,7 @@
     <artifactId>jfxplace.fxom</artifactId>
     <packaging>pom</packaging>
     <modules>
-        
+        <module>jfxplace.fxom.metadata</module>
         <module>jfxplace.core.clipboard</module>
         <module>jfxplace.core.document</module>
         <module>jfxplace.core.drag.and.drop</module>
