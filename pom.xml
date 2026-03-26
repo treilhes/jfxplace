@@ -123,9 +123,8 @@
                     <artifactId>flatten-maven-plugin</artifactId>
                     <version>${flatten-maven-plugin.version}</version>
                     <configuration>
-                        <flattenDependencyMode>all</flattenDependencyMode>
+                        <flattenDependencyMode>direct</flattenDependencyMode>
                         <flattenMode>bom</flattenMode> <!-- Resolve properties like ${jfxplace.version} -->
-                        <!--<updatePomFile>true</updatePomFile>   Ensures the POM file is updated -->
                     </configuration>
                     <executions>
                         <!-- enable flattening -->
