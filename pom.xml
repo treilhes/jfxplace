@@ -424,18 +424,6 @@
             <build>
                 <plugins>
                     <plugin>
-                        <artifactId>maven-clean-plugin</artifactId>
-                        <version>${maven-clean-plugin.version}</version>
-                        <inherited>false</inherited>
-                        <configuration>
-                            <filesets>
-                                <fileset>
-                                    <directory>${basedir}/docs/apidocs</directory>
-                                </fileset>
-                            </filesets>
-                        </configuration>
-                    </plugin>
-                    <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <executions>
@@ -543,9 +531,7 @@
         <profile>
             <id>headless</id>
             <activation>
-                <os>
-                    <family>Windows</family>
-                </os>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <glass.platform>Headless</glass.platform>
