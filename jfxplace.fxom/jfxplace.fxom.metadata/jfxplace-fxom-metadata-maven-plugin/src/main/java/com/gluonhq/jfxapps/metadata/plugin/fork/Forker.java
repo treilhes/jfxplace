@@ -2,12 +2,10 @@ package com.gluonhq.jfxapps.metadata.plugin.fork;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
@@ -28,9 +26,9 @@ public class Forker {
         this.log = log;
     }
 
-    public int fork(MavenProject project, List<Artifact> pluginArtifacts, String mainClass, Object params) throws CommandLineException, IOException {
+    public int fork(MavenProject project, List<Artifact> pluginArtifacts, String mainClass, Object params) throws CommandLineException, IOException, DependencyResolutionRequiredException {
         Jdk jdk = findJdk();
-        String classpath = getClasspath(pluginArtifacts);
+        String classpath = getClasspath(project, pluginArtifacts);
         return execute(project, jdk, classpath, mainClass, params);
     }
 
@@ -39,24 +37,15 @@ public class Forker {
         return new Jdk(jvmToUse);
     }
 
-    private String getClasspath(List<Artifact> pluginArtifacts) {
-        return pluginArtifacts.stream().map(a -> a.getFile().getAbsolutePath())
-                .collect(Collectors.joining(File.pathSeparator));
-
-    }
-
-    private URL[] getRuntimeClasspathElements(MavenProject project) throws DependencyResolutionRequiredException, MalformedURLException {
+    private String getClasspath(MavenProject project, List<Artifact> pluginArtifacts) throws DependencyResolutionRequiredException {
         List<String> runtimeClasspathElements = project.getRuntimeClasspathElements();
-        URL[] runtimeUrls = new URL[runtimeClasspathElements.size()];
-        for (int i = 0; i < runtimeClasspathElements.size(); i++) {
-            String element = runtimeClasspathElements.get(i).replace("\\", "/");
-            Path path = Path.of(element);
-            if (Files.exists(path) && Files.isDirectory(path) && !element.endsWith("/")) {
-                element += "/";
-            }
-            runtimeUrls[i] = new URL("file://" + element);
-        }
-        return runtimeUrls;
+        List<String> pluginClasspathElements = pluginArtifacts.stream()
+                .map(a -> a.getFile().getAbsolutePath())
+                .collect(Collectors.toList());
+
+        return Stream.concat(runtimeClasspathElements.stream(), pluginClasspathElements.stream())
+                .distinct()
+                .collect(Collectors.joining(File.pathSeparator));
     }
 
     private int execute(MavenProject project, Jdk jdk, String classpath, String mainClass, Object params) throws CommandLineException, IOException {

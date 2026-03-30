@@ -78,6 +78,7 @@ public class MetadataSourceProcess extends JfxAppsAbstractProcess{
             process.execute(params);
         } catch (Exception e) {
             e.printStackTrace();
+            System.exit(1);
         }
     }
 
