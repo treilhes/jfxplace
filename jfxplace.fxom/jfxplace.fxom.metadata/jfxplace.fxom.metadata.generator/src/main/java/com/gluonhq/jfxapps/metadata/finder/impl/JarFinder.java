@@ -61,7 +61,7 @@ public class JarFinder {
      * @return
      */
     private static List<File> getFiles(String paths) {
-      List<File> filesList = new ArrayList<File>();
+      List<File> filesList = new ArrayList<>();
       for (final String path : paths.split(File.pathSeparator)) {
         final File file = new File(path);
         if( file.isDirectory()) {

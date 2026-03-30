@@ -12,8 +12,8 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>com.treilhes.scenebuilder</groupId>
-                <artifactId>jfxplace-metadata-maven-plugin</artifactId>
+                <groupId>com.treilhes.jfxplace</groupId>
+                <artifactId>jfxplace-fxom-metadata-maven-plugin</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
                 <executions>
                     <execution>
@@ -105,7 +105,7 @@
                         </constructorOverride>
                     </constructorOverrides>
                     <javafxVersion>16</javafxVersion>
-                    <resourceFolder>./target/generated-resourcesxxx</resourceFolder>
+                    <outputResourceFolder>./target/generated-resources</outputResourceFolder>
                 </configuration>
                 <dependencies>
                     <dependency>

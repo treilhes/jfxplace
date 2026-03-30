@@ -1,7 +1,5 @@
 /*
- * Copyright (c) 2016, 2025, Gluon and/or its affiliates.
- * Copyright (c) 2021, 2025, Pascal Treilhes and/or its affiliates.
- * Copyright (c) 2012, 2014, Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2026, Pascal Treilhes and/or its affiliates.
  * All rights reserved. Use is subject to license terms.
  *
  * This file is available and licensed under the following license:
@@ -34,33 +32,16 @@
 package com.gluonhq.jfxapps.metadata.plugin;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.util.List;
-import java.util.Set;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.descriptor.PluginDescriptor;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 
-import com.gluonhq.jfxapps.metadata.finder.api.Descriptor;
-import com.gluonhq.jfxapps.metadata.finder.api.IClassCrawler;
-import com.gluonhq.jfxapps.metadata.finder.api.SearchContext;
-import com.gluonhq.jfxapps.metadata.finder.impl.ClassCrawler;
-import com.gluonhq.jfxapps.metadata.finder.impl.DescriptorCollector;
-import com.gluonhq.jfxapps.metadata.finder.impl.JarFinder;
-import com.gluonhq.jfxapps.metadata.finder.impl.MatchingJarCollector;
-import com.gluonhq.jfxapps.metadata.java.api.JavaGenerationContext;
-import com.gluonhq.jfxapps.metadata.java.impl.JavaGeneratorImpl;
-import com.gluonhq.jfxapps.metadata.properties.api.PropertyGenerationContext;
+import com.gluonhq.jfxapps.metadata.plugin.fork.Forker;
 import com.gluonhq.jfxapps.metadata.util.FxThreadinitializer;
-import com.gluonhq.jfxapps.metadata.util.Report;
-
-import javafx.application.Platform;
 
 @Mojo(name = "metadataSource", defaultPhase = LifecyclePhase.GENERATE_SOURCES, requiresDependencyResolution = ResolutionScope.COMPILE)
 public class MetadataSourceMojo extends JfxAppsAbstractMojo {
@@ -136,66 +117,44 @@ public class MetadataSourceMojo extends JfxAppsAbstractMojo {
      */
     @Override
     public void execute() throws MojoExecutionException {
-        Report.enableGlobalReport = enableGlobalReport;
-
 
         try {
 
-            if (!FxThreadinitializer.initJFX(javafxVersion)) {
-                throw new MojoExecutionException("Failed to initialize JavaFX thread");
-            }
+            // Instantiate and populate MetadataSourceParams with plugin parameters
+            MetadataSourceParams metadataSourceParams = new MetadataSourceParams();
+            populateCommonValues(metadataSourceParams);
 
-            PluginDescriptor pluginDescriptor = (PluginDescriptor)getPluginContext().get("pluginDescriptor");
-            List<File> cp = pluginDescriptor.getArtifacts().stream().map(a -> a.getFile()).collect(Collectors.toList());
+            metadataSourceParams.setInputResourceFolder(inputResourceFolder);
+            metadataSourceParams.setSourceFolder(sourceFolder);
+            metadataSourceParams.setTargetPackage(targetPackage);
+            metadataSourceParams.setModuleName(moduleName);
+            metadataSourceParams.setParentUuid(parentUuid);
+            metadataSourceParams.setUuid(uuid);
+            metadataSourceParams.setModuleRequires(moduleRequires);
+            metadataSourceParams.setExtensionName(extensionName);
+            metadataSourceParams.setMetadataPrefix(metadataPrefix);
+            metadataSourceParams.setTemplateForComponentCustomization(templateForComponentCustomization);
+            metadataSourceParams.setTemplateForComponentConstructorCustomization(templateForComponentConstructorCustomization);
+            metadataSourceParams.setTemplateForComponentPropertyCustomization(templateForComponentPropertyCustomization);
+            metadataSourceParams.setTemplateForValuePropertyCustomization(templateForValuePropertyCustomization);
+            metadataSourceParams.setTemplateForStaticValuePropertyCustomization(templateForStaticValuePropertyCustomization);
+            metadataSourceParams.setTargetComponentSuperClass(targetComponentSuperClass);
+            metadataSourceParams.setTargetComponentCustomizationClass(targetComponentCustomizationClass);
+            metadataSourceParams.setTargetComponentPropertyCustomizationClass(targetComponentPropertyCustomizationClass);
+            metadataSourceParams.setTargetValuePropertyCustomizationClass(targetValuePropertyCustomizationClass);
 
-            final SearchContext searchContext = createSearchContext(getProjectClassloader());
-            final PropertyGenerationContext propertyContext = createPropertyGenerationContext(getProjectClassloader());
-            final JavaGenerationContext javaContext = createJavaGenerationContext();
-
-            DescriptorCollector descriptorCollector = new DescriptorCollector();
-            MatchingJarCollector jarCollector = new MatchingJarCollector(searchContext.getJarFilterPatterns());
-
-            JarFinder.listJarsInClasspath(cp, List.of(jarCollector, descriptorCollector));
-            Set<Path> jars = jarCollector.getCollected();
-            Set<Descriptor> descriptors = descriptorCollector.getCollected();
-
-            IClassCrawler crawler = new ClassCrawler();
-            JavaGeneratorImpl generator = new JavaGeneratorImpl(propertyContext, javaContext);
-
-            final CompletableFuture<Boolean> returnValue = new CompletableFuture<>();
-
-            Runnable runnable = () -> {
-                try {
-                    var classes = crawler.crawl(jars, searchContext);
-                    generator.generateJavaFiles(classes, descriptors);
-                    returnValue.complete(true);
-                } catch (Exception e) {
-                    returnValue.completeExceptionally(e);
-                }
-            };
-
-            Platform.runLater(runnable);
-
-            if (returnValue.get()) {
-                getLog().info("SUCCESS");
-            }
-
-            if (returnValue.isCompletedExceptionally()) {
-                throw new MojoExecutionException("Failed to complete the generating process!", returnValue.exceptionNow());
-            }
+            Forker forker = new Forker(getLog());
+            int result = forker.fork(project, pluginArtifacts, "com.gluonhq.jfxapps.metadata.plugin.MetadataSourceProcess",
+                    metadataSourceParams);
 
             updateProject();
 
-            if (Report.flush(getLog().isDebugEnabled()) && failOnError) {
-                throw new MojoExecutionException(
-                        "Some errors occured during the generation process, please see the logs!");
+            if (result != 0) {
+                throw new MojoExecutionException("Failed to complete the generating process! Forked process exited with code: " + result);
             }
         } catch (Exception e) {
-            getLog().error("Failed to complete the generation process! " + e.getMessage(), e);
-            Report.flush(getLog().isDebugEnabled());
-            throw new MojoExecutionException("Failed to complete the generation process!", e);
-        } finally {
-            FxThreadinitializer.stop();
+            getLog().error("Failed to complete the generating process! " + e.getMessage(), e);
+            throw new MojoExecutionException("Failed to complete the generating process!", e);
         }
 
     }
@@ -204,43 +163,4 @@ public class MetadataSourceMojo extends JfxAppsAbstractMojo {
         project.addCompileSourceRoot(sourceFolder.getPath());
     }
 
-    private JavaGenerationContext createJavaGenerationContext() throws MojoExecutionException {
-
-        JavaGenerationContext javaContext = new JavaGenerationContext();
-
-        if (sourceFolder != null && !sourceFolder.exists()) {
-            sourceFolder.mkdirs();
-        }
-        javaContext.setSourceFolder(sourceFolder);
-
-        javaContext.setInputResourceFolder(inputResourceFolder);
-
-        javaContext.setTargetPackage(targetPackage);
-
-        javaContext.setModuleName(moduleName);
-
-        for (String s : moduleRequires) {
-            javaContext.addModuleRequire(s);
-        }
-
-        javaContext.setParentUuid(parentUuid);
-        javaContext.setUuid(uuid);
-
-        javaContext.setExtensionName(extensionName);
-
-        javaContext.setMetadataPrefix(metadataPrefix);
-
-        javaContext.setComponentCustomizationTemplate(templateForComponentCustomization);
-        javaContext.setComponentPropertyCustomizationTemplate(templateForComponentPropertyCustomization);
-        javaContext.setValuePropertyCustomizationTemplate(templateForValuePropertyCustomization);
-        javaContext.setStaticValuePropertyCustomizationTemplate(templateForStaticValuePropertyCustomization);
-        javaContext.setComponentConstructorCustomizationTemplate(templateForComponentConstructorCustomization);
-
-
-        javaContext.setTargetComponentSuperClass(targetComponentSuperClass);
-        javaContext.setTargetComponentCustomizationClass(targetComponentCustomizationClass);
-        javaContext.setTargetComponentPropertyCustomizationClass(targetComponentPropertyCustomizationClass);
-        javaContext.setTargetValuePropertyCustomizationClass(targetValuePropertyCustomizationClass);
-        return javaContext;
-    }
 }
