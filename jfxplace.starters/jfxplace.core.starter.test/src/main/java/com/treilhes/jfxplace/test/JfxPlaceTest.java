@@ -15,14 +15,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.test.context.BootstrapWith;
 
-import com.gluonhq.jfxapps.core.api.i18n.BundleProvider;
-import com.gluonhq.jfxapps.core.api.i18n.I18N;
 import com.treilhes.emc4j.test.Emc4jCoreContext;
 import com.treilhes.emc4j.test.Emc4jDefault;
 import com.treilhes.emc4j.test.Emc4jExtension;
 import com.treilhes.emc4j.test.Emc4jExtension.Emc4jTestContextBootstrapper;
 import com.treilhes.emc4j.test.Emc4jSpringExtension;
 import com.treilhes.emc4j.test.Emc4jTest;
+import com.treilhes.jfxplace.core.api.i18n.BundleProvider;
+import com.treilhes.jfxplace.core.api.i18n.I18N;
 import com.treilhes.jfxplace.test.JfxPlaceTest.I18NTestConfig;
 
 @Retention(RetentionPolicy.RUNTIME)

@@ -37,11 +37,11 @@ package com.gluonhq.jfxapps.core.dnd.target;
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
+import com.treilhes.jfxplace.core.api.job.Job;
 import com.gluonhq.jfxapps.core.api.fxom.dnd.AbstractDropTarget;
 import com.gluonhq.jfxapps.core.api.fxom.dnd.DragSource;
 import com.gluonhq.jfxapps.core.api.fxom.dnd.DropTargetFactory;
 import com.gluonhq.jfxapps.core.api.fxom.editor.selection.SelectionJobsFactory;
-import com.gluonhq.jfxapps.core.api.job.Job;
 import com.gluonhq.jfxapps.core.fxom.FXOMObject;
 
 /**

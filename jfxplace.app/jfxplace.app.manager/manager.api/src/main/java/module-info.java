@@ -31,13 +31,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import com.gluonhq.jfxapps.app.manager.api.ManagerApiExtension;
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
+import com.treilhes.jfxplace.app.manager.api.ManagerApiExtension;
 
 open module manager.api {
-    exports com.gluonhq.jfxapps.app.manager.api;
-    exports com.gluonhq.jfxapps.app.manager.api.menu;
-    exports com.gluonhq.jfxapps.app.manager.api.ui;
+    exports com.treilhes.jfxplace.app.manager.api;
+    exports com.treilhes.jfxplace.app.manager.api.menu;
+    exports com.treilhes.jfxplace.app.manager.api.ui;
 
     requires transitive jfxplace.core.api;
 

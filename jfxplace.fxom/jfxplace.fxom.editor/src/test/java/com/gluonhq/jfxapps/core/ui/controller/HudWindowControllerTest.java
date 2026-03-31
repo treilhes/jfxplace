@@ -44,10 +44,10 @@ import org.testfx.api.FxAssert;
 import org.testfx.api.FxRobot;
 import org.testfx.matcher.control.LabeledMatchers;
 
-import com.gluonhq.jfxapps.test.JfxAppsTest;
-import com.gluonhq.jfxapps.test.StageBuilder;
-import com.gluonhq.jfxapps.test.TestStages;
 import com.treilhes.jfxplace.fxom.editor.controller.HudWindowController;
+import com.treilhes.jfxplace.testold.JfxAppsTest;
+import com.treilhes.jfxplace.testold.StageBuilder;
+import com.treilhes.jfxplace.testold.TestStages;
 
 import javafx.scene.control.Button;
 

@@ -39,7 +39,7 @@ import java.security.Security;
 import org.springframework.stereotype.Component;
 
 import com.treilhes.emc4j.boot.api.platform.EmcPlatform;
-import com.gluonhq.jfxapps.core.api.subjects.NetworkManager;
+import com.treilhes.jfxplace.core.api.subjects.NetworkManager;
 import com.gluonhq.jfxapps.ext.certmngr.tls.ReloadableTrustManagerProvider;
 
 @Component

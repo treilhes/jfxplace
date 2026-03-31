@@ -34,15 +34,15 @@
 package com.gluonhq.jfxapps.ext.container.preferences.global;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
-import com.gluonhq.jfxapps.core.api.preference.DefaultPreferenceGroups;
-import com.gluonhq.jfxapps.core.api.preference.DefaultPreferenceGroups.PreferenceGroup;
-import com.gluonhq.jfxapps.core.api.preference.DefaultValueProvider;
-import com.gluonhq.jfxapps.core.api.preference.ManagedGlobalPreference;
-import com.gluonhq.jfxapps.core.api.preference.Preference;
-import com.gluonhq.jfxapps.core.api.preference.PreferenceContext;
-import com.gluonhq.jfxapps.core.api.preference.UserPreference;
-import com.gluonhq.jfxapps.core.api.tooltheme.ToolTheme;
-import com.gluonhq.jfxapps.core.api.tooltheme.ToolThemeProvider;
+import com.treilhes.jfxplace.core.api.preference.DefaultPreferenceGroups;
+import com.treilhes.jfxplace.core.api.preference.DefaultValueProvider;
+import com.treilhes.jfxplace.core.api.preference.ManagedGlobalPreference;
+import com.treilhes.jfxplace.core.api.preference.Preference;
+import com.treilhes.jfxplace.core.api.preference.PreferenceContext;
+import com.treilhes.jfxplace.core.api.preference.UserPreference;
+import com.treilhes.jfxplace.core.api.preference.DefaultPreferenceGroups.PreferenceGroup;
+import com.treilhes.jfxplace.core.api.tooltheme.ToolTheme;
+import com.treilhes.jfxplace.core.api.tooltheme.ToolThemeProvider;
 import com.gluonhq.jfxapps.ext.container.tooltheme.DefaultToolThemesList;
 
 import javafx.scene.Parent;

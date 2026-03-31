@@ -1,5 +1,5 @@
 module jfxplace.javafx.fxml.patch.link {
-    exports com.gluonhq.jfxapps.javafx.fxml.patch;
+    exports com.treilhes.jfxplace.javafx.fxml.patch;
 
     requires javafx.fxml;
 }

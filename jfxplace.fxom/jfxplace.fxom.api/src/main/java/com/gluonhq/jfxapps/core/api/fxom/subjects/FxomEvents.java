@@ -38,11 +38,11 @@ import java.util.Map;
 
 import com.gluonhq.jfxapps.core.api.fxom.css.StylesheetProvider;
 import com.gluonhq.jfxapps.core.api.fxom.editor.selection.SelectionState;
-import com.gluonhq.jfxapps.core.api.i18n.I18nResourceProvider;
-import com.gluonhq.jfxapps.core.api.subjects.SubjectItem;
-import com.gluonhq.jfxapps.core.api.subjects.SubjectManager;
 import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
+import com.treilhes.jfxplace.core.api.i18n.I18nResourceProvider;
+import com.treilhes.jfxplace.core.api.subjects.SubjectItem;
+import com.treilhes.jfxplace.core.api.subjects.SubjectManager;
 
 import io.reactivex.rxjava3.subjects.PublishSubject;
 import io.reactivex.rxjava3.subjects.ReplaySubject;

@@ -32,11 +32,11 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
-import com.gluonhq.jfxapps.core.accelerators.AcceleratorsExtension;
+import com.treilhes.jfxplace.core.accelerators.AcceleratorsExtension;
 
 open module jfxplace.core.accelerators {
-    exports com.gluonhq.jfxapps.core.accelerators;
-    exports com.gluonhq.jfxapps.core.accelerators.i18n;
+    exports com.treilhes.jfxplace.core.accelerators;
+    exports com.treilhes.jfxplace.core.accelerators.i18n;
 
     requires transitive jfxplace.core.api;
     requires transitive jfxplace.core.starter;

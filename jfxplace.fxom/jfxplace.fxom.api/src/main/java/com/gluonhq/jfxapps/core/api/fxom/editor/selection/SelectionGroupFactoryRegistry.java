@@ -35,7 +35,7 @@ package com.gluonhq.jfxapps.core.api.fxom.editor.selection;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
-import com.gluonhq.jfxapps.util.InheritanceRegistry;
+import com.treilhes.jfxplace.util.InheritanceRegistry;
 
 @ApplicationSingleton
 public class SelectionGroupFactoryRegistry extends InheritanceRegistry<SelectionGroupFactory> {

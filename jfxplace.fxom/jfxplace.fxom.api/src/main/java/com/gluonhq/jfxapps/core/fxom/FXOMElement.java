@@ -38,8 +38,8 @@ import java.util.Map;
 import com.gluonhq.jfxapps.core.fxom.collector.FXOMCollector;
 import com.gluonhq.jfxapps.core.fxom.glue.GlueElement;
 import com.gluonhq.jfxapps.core.fxom.util.PropertyName;
-import com.gluonhq.jfxapps.util.IndexedHashMap;
-import com.gluonhq.jfxapps.util.IndexedMap;
+import com.treilhes.jfxplace.util.IndexedHashMap;
+import com.treilhes.jfxplace.util.IndexedMap;
 
 public abstract class FXOMElement extends FXOMObject {
 

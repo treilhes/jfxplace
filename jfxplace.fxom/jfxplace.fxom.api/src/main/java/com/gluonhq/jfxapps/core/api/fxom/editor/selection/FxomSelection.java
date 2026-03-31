@@ -36,9 +36,9 @@ package com.gluonhq.jfxapps.core.api.fxom.editor.selection;
 import java.util.Collection;
 import java.util.Map;
 
-import com.gluonhq.jfxapps.core.api.selection.Selection;
 import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
 import com.gluonhq.jfxapps.core.fxom.FXOMObject;
+import com.treilhes.jfxplace.core.api.selection.Selection;
 
 import javafx.scene.Node;
 

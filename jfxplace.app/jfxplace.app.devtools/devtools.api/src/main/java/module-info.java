@@ -31,17 +31,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import com.gluonhq.jfxapps.app.devtools.api.DevtoolsApiExtension;
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
+import com.treilhes.jfxplace.app.devtools.api.DevtoolsApiExtension;
 
 open module devtools.api {
-    exports com.gluonhq.jfxapps.app.devtools.api;
-    exports com.gluonhq.jfxapps.app.devtools.api.project.fs;
-    exports com.gluonhq.jfxapps.app.devtools.api.project.fs.content;
-    exports com.gluonhq.jfxapps.app.devtools.api.project.fs.feature;
-    exports com.gluonhq.jfxapps.app.devtools.api.menu;
-    exports com.gluonhq.jfxapps.app.devtools.api.ui;
-    exports com.gluonhq.jfxapps.app.devtools.api.project;
+    exports com.treilhes.jfxplace.app.devtools.api;
+    exports com.treilhes.jfxplace.app.devtools.api.project.fs;
+    exports com.treilhes.jfxplace.app.devtools.api.project.fs.content;
+    exports com.treilhes.jfxplace.app.devtools.api.project.fs.feature;
+    exports com.treilhes.jfxplace.app.devtools.api.menu;
+    exports com.treilhes.jfxplace.app.devtools.api.ui;
+    exports com.treilhes.jfxplace.app.devtools.api.project;
 
     requires transitive jfxplace.core.api;
     requires transitive devtools.model;

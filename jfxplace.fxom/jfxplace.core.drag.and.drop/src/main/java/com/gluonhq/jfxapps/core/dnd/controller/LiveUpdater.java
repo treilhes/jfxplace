@@ -35,7 +35,7 @@ package com.gluonhq.jfxapps.core.dnd.controller;
 
 import com.gluonhq.jfxapps.core.api.fxom.dnd.DragSource;
 import com.gluonhq.jfxapps.core.api.fxom.dnd.DropTarget;
-import com.gluonhq.jfxapps.core.api.job.Job;
+import com.treilhes.jfxplace.core.api.job.Job;
 
 /**
  *

@@ -36,8 +36,8 @@ package com.gluonhq.jfxapps.core.api.fxom.editor.selection;
 import java.util.Collection;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
-import com.gluonhq.jfxapps.core.api.factory.AbstractFactory;
-import com.gluonhq.jfxapps.core.api.selection.SelectionGroup;
+import com.treilhes.jfxplace.core.api.factory.AbstractFactory;
+import com.treilhes.jfxplace.core.api.selection.SelectionGroup;
 import com.gluonhq.jfxapps.core.fxom.FXOMObject;
 
 import javafx.scene.Node;

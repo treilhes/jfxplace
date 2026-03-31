@@ -34,7 +34,7 @@
 package com.gluonhq.jfxapps.ext.about.i18n;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
-import com.gluonhq.jfxapps.core.api.i18n.BundleProvider;
+import com.treilhes.jfxplace.core.api.i18n.BundleProvider;
 
 @ApplicationSingleton
 public class I18NAbout implements BundleProvider {

@@ -1,0 +1,1 @@
+package com.treilhes.jfxplace.core.api.application.annotation;

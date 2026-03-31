@@ -32,13 +32,13 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
-import com.gluonhq.jfxapps.core.extstore.ExtensionStoreExtension;
+import com.treilhes.jfxplace.core.extstore.ExtensionStoreExtension;
 
 open module jfxplace.core.extension.store {
 
-    exports com.gluonhq.jfxapps.core.extstore;
-    exports com.gluonhq.jfxapps.core.extstore.fs;
-    exports com.gluonhq.jfxapps.core.extstore.i18n;
+    exports com.treilhes.jfxplace.core.extstore;
+    exports com.treilhes.jfxplace.core.extstore.fs;
+    exports com.treilhes.jfxplace.core.extstore.i18n;
 
     requires transitive jfxplace.core.api;
 

@@ -37,13 +37,13 @@ import java.util.List;
 
 import com.gluonhq.jfxapps.core.api.fxom.clipboard.Clipboard;
 import com.gluonhq.jfxapps.core.api.fxom.mask.Accessory;
-import com.gluonhq.jfxapps.core.api.job.Job;
-import com.gluonhq.jfxapps.core.api.selection.Selection;
-import com.gluonhq.jfxapps.core.api.selection.SelectionGroup;
 import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
 import com.gluonhq.jfxapps.core.fxom.FXOMObject;
 import com.gluonhq.jfxapps.core.fxom.FXOMProperty;
 import com.gluonhq.jfxapps.core.metadata.property.ValuePropertyMetadata;
+import com.treilhes.jfxplace.core.api.job.Job;
+import com.treilhes.jfxplace.core.api.selection.Selection;
+import com.treilhes.jfxplace.core.api.selection.SelectionGroup;
 
 public interface SelectionJobsFactory {
 

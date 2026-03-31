@@ -34,7 +34,7 @@
 package com.gluonhq.jfxapps.core.api.fxom.dnd;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
-import com.gluonhq.jfxapps.core.api.factory.AbstractFactory;
+import com.treilhes.jfxplace.core.api.factory.AbstractFactory;
 
 public class DropTargetFactory<T extends DropTarget> extends AbstractFactory<T> {
     public DropTargetFactory(EmContext sbContext) {

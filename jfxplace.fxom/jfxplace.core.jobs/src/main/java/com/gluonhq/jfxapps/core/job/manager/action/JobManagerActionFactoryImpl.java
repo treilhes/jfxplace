@@ -34,9 +34,9 @@
 package com.gluonhq.jfxapps.core.job.manager.action;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
-import com.gluonhq.jfxapps.core.api.action.Action;
-import com.gluonhq.jfxapps.core.api.action.ActionFactory;
-import com.gluonhq.jfxapps.core.api.job.JobManagerActionFactory;
+import com.treilhes.jfxplace.core.api.action.Action;
+import com.treilhes.jfxplace.core.api.action.ActionFactory;
+import com.treilhes.jfxplace.core.api.job.JobManagerActionFactory;
 import com.gluonhq.jfxapps.core.job.manager.action.impl.RedoAction;
 import com.gluonhq.jfxapps.core.job.manager.action.impl.UndoAction;
 

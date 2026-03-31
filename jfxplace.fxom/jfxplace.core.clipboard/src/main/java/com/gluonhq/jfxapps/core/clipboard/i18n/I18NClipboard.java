@@ -35,7 +35,7 @@ package com.gluonhq.jfxapps.core.clipboard.i18n;
 
 import org.springframework.stereotype.Component;
 
-import com.gluonhq.jfxapps.core.api.i18n.BundleProvider;
+import com.treilhes.jfxplace.core.api.i18n.BundleProvider;
 
 @Component
 public class I18NClipboard implements BundleProvider {

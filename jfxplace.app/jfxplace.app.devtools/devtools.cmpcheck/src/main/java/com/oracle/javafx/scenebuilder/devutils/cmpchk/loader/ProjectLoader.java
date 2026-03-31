@@ -37,10 +37,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gluonhq.jfxapps.app.devtools.model.ClassFile;
-import com.gluonhq.jfxapps.app.devtools.model.Project;
-import com.gluonhq.jfxapps.app.devtools.model.config.CommonConfig;
-import com.gluonhq.jfxapps.app.devtools.model.utils.ModelUtils;
+import com.treilhes.jfxplace.app.devtools.model.ClassFile;
+import com.treilhes.jfxplace.app.devtools.model.Project;
+import com.treilhes.jfxplace.app.devtools.model.config.CommonConfig;
+import com.treilhes.jfxplace.app.devtools.model.utils.ModelUtils;
 
 public class ProjectLoader {
 

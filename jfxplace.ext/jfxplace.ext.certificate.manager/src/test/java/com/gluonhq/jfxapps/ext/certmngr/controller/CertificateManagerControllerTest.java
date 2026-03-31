@@ -67,9 +67,9 @@ import org.junit.platform.commons.logging.LoggerFactory;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import com.gluonhq.jfxapps.core.api.subjects.NetworkManager;
 import com.gluonhq.jfxapps.ext.certmngr.tls.ReloadableTrustManagerProvider;
 import com.gluonhq.jfxapps.ext.certmngr.tls.ReloadableX509TrustManager;
+import com.treilhes.jfxplace.core.api.subjects.NetworkManager;
 
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.observers.TestObserver;

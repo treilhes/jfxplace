@@ -3,8 +3,8 @@ package com.gluonhq.jfxapps.core.api.driver;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.gluonhq.jfxapps.util.InheritanceMap;
 import com.treilhes.emc4j.boot.api.context.EmContext;
+import com.treilhes.jfxplace.util.InheritanceMap;
 
 public class AbstractDriverRegistry implements DriverRegistry {
 

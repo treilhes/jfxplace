@@ -38,7 +38,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
-import com.gluonhq.jfxapps.core.api.subjects.ApplicationInstanceEvents;
+import com.treilhes.jfxplace.core.api.subjects.ApplicationInstanceEvents;
 
 import javafx.stage.Stage;
 

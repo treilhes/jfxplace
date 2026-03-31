@@ -31,12 +31,12 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import com.gluonhq.jfxapps.app.manager.mvnrepos.ManagerMvnReposExtension;
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
+import com.treilhes.jfxplace.app.manager.mvnrepos.ManagerMvnReposExtension;
 
 open module manager.registries {
-    exports com.gluonhq.jfxapps.app.manager.mvnrepos;
-    exports com.gluonhq.jfxapps.app.manager.mvnrepos.controller;
+    exports com.treilhes.jfxplace.app.manager.mvnrepos;
+    exports com.treilhes.jfxplace.app.manager.mvnrepos.controller;
 
     requires manager.api;
     requires jfxplace.core.starter;

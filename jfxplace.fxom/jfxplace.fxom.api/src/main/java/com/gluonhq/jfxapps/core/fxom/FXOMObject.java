@@ -41,7 +41,7 @@ import com.gluonhq.jfxapps.core.fxom.collector.FxCollector;
 import com.gluonhq.jfxapps.core.fxom.glue.GlueElement;
 import com.gluonhq.jfxapps.core.fxom.util.JavaLanguage;
 import com.gluonhq.jfxapps.core.fxom.util.PrefixedValue;
-import com.gluonhq.jfxapps.util.URLUtils;
+import com.treilhes.jfxplace.util.URLUtils;
 
 import javafx.scene.Node;
 import javafx.scene.SubScene;

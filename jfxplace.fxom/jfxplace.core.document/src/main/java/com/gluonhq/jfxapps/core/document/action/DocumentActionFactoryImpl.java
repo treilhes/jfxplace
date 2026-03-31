@@ -37,8 +37,8 @@ import java.io.File;
 import java.net.URL;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
-import com.gluonhq.jfxapps.core.api.action.Action;
-import com.gluonhq.jfxapps.core.api.action.ActionFactory;
+import com.treilhes.jfxplace.core.api.action.Action;
+import com.treilhes.jfxplace.core.api.action.ActionFactory;
 import com.gluonhq.jfxapps.core.api.document.DocumentActionFactory;
 import com.gluonhq.jfxapps.core.document.action.impl.LoadBlankAction;
 import com.gluonhq.jfxapps.core.document.action.impl.LoadFileAction;

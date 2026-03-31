@@ -1,8 +1,8 @@
-import com.gluonhq.jfxapps.app.tray.api.TrayApiExtension;
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
+import com.treilhes.jfxplace.app.tray.api.TrayApiExtension;
 
 open module tray.api {
-    exports com.gluonhq.jfxapps.app.tray.api;
+    exports com.treilhes.jfxplace.app.tray.api;
 
     requires jfxplace.core.api;
 

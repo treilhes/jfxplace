@@ -31,12 +31,12 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import com.gluonhq.jfxapps.app.devtools.app.DevtoolsAppExtension;
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
+import com.treilhes.jfxplace.app.devtools.app.DevtoolsAppExtension;
 
 open module devtools.app {
-    exports com.gluonhq.jfxapps.app.devtools.app;
-    exports com.gluonhq.jfxapps.app.devtools.app.menu;
+    exports com.treilhes.jfxplace.app.devtools.app;
+    exports com.treilhes.jfxplace.app.devtools.app.menu;
 
     requires devtools.api;
     requires devtools.model;

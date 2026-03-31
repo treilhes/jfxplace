@@ -31,21 +31,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import com.gluonhq.jfxapps.core.ui.BaseUiExtension;
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
+import com.treilhes.jfxplace.core.ui.BaseUiExtension;
 
 open module jfxplace.core.ui {
 
-    exports com.gluonhq.jfxapps.core.ui.controller;
-    exports com.gluonhq.jfxapps.core.ui.dialog.application;
-    exports com.gluonhq.jfxapps.core.ui.dialog.instance;
-    exports com.gluonhq.jfxapps.core.ui.i18n;
-    exports com.gluonhq.jfxapps.core.ui.viewlinks;
+    exports com.treilhes.jfxplace.core.ui.controller;
+    exports com.treilhes.jfxplace.core.ui.dialog.application;
+    exports com.treilhes.jfxplace.core.ui.dialog.instance;
+    exports com.treilhes.jfxplace.core.ui.i18n;
+    exports com.treilhes.jfxplace.core.ui.viewlinks;
 
-    exports com.gluonhq.jfxapps.core.ui.dock;
-    exports com.gluonhq.jfxapps.core.ui.dock.preference;
+    exports com.treilhes.jfxplace.core.ui.dock;
+    exports com.treilhes.jfxplace.core.ui.dock.preference;
 
-    exports com.gluonhq.jfxapps.core.ui.preference;
+    exports com.treilhes.jfxplace.core.ui.preference;
 
     requires transitive jfxplace.core.api;
 

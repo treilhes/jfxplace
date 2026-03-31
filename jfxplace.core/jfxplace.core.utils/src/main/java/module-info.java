@@ -1,6 +1,6 @@
 module jfxplace.core.utils {
-    exports com.gluonhq.jfxapps.util;
-    exports com.gluonhq.jfxapps.util.javafx;
+    exports com.treilhes.jfxplace.util;
+    exports com.treilhes.jfxplace.util.javafx;
 
 //    requires transitive jfxplace.starter;
 //    requires java.desktop;

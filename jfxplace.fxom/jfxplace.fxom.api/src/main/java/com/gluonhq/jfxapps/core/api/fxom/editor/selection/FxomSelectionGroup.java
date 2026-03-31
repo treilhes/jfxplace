@@ -36,13 +36,13 @@ package com.gluonhq.jfxapps.core.api.fxom.editor.selection;
 import java.util.List;
 import java.util.Set;
 
-import com.gluonhq.jfxapps.core.api.job.Job;
-import com.gluonhq.jfxapps.core.api.selection.SelectionGroup;
 import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
 import com.gluonhq.jfxapps.core.fxom.FXOMObject;
 import com.gluonhq.jfxapps.core.fxom.FXOMPropertyC;
 import com.gluonhq.jfxapps.core.fxom.FXOMPropertyT;
 import com.gluonhq.jfxapps.core.fxom.collector.FXOMCollector;
+import com.treilhes.jfxplace.core.api.job.Job;
+import com.treilhes.jfxplace.core.api.selection.SelectionGroup;
 
 /**
  * This interface must be implemented by classes expecting to represent a selection content

@@ -41,10 +41,10 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.gluonhq.jfxapps.app.devtools.model.ClassFile;
-import com.gluonhq.jfxapps.app.devtools.model.ModuleFile;
-import com.gluonhq.jfxapps.app.devtools.model.StringOccurence;
 import com.oracle.javafx.scenebuilder.devutils.cmpchk.config.utils.Patterns;
+import com.treilhes.jfxplace.app.devtools.model.ClassFile;
+import com.treilhes.jfxplace.app.devtools.model.ModuleFile;
+import com.treilhes.jfxplace.app.devtools.model.StringOccurence;
 
 public class ClassFileLoader {
 

@@ -31,12 +31,12 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import com.gluonhq.jfxapps.app.manager.registries.ManagerRegistriesExtension;
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
+import com.treilhes.jfxplace.app.manager.registries.ManagerRegistriesExtension;
 
 open module manager.registries {
-    exports com.gluonhq.jfxapps.app.manager.registries;
-    exports com.gluonhq.jfxapps.app.manager.registries.controller;
+    exports com.treilhes.jfxplace.app.manager.registries;
+    exports com.treilhes.jfxplace.app.manager.registries.controller;
 
     requires manager.api;
     requires jfxplace.core.starter;

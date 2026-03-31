@@ -49,8 +49,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
-import com.gluonhq.jfxapps.core.api.application.ApplicationClassloader;
-import com.gluonhq.jfxapps.core.api.subjects.ApplicationEvents;
+import com.treilhes.jfxplace.core.api.application.ApplicationClassloader;
+import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 
 @ApplicationInstanceSingleton
 public class ClassLoaderController {

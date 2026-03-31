@@ -48,7 +48,7 @@ import java.util.ResourceBundle;
 import com.gluonhq.jfxapps.core.fxom.collector.FXOMCollector;
 import com.gluonhq.jfxapps.core.fxom.glue.GlueDocument;
 import com.gluonhq.jfxapps.core.fxom.util.Deprecation;
-import com.gluonhq.jfxapps.util.URLUtils;
+import com.treilhes.jfxplace.util.URLUtils;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;

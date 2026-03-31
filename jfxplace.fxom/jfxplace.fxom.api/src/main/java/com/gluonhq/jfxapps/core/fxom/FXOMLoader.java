@@ -51,7 +51,7 @@ import com.gluonhq.jfxapps.core.fxom.ext.LoaderCapabilitiesManager;
 import com.gluonhq.jfxapps.core.fxom.glue.GlueCursor;
 import com.gluonhq.jfxapps.core.fxom.glue.GlueDocument;
 import com.gluonhq.jfxapps.core.fxom.util.PropertyName;
-import com.gluonhq.jfxapps.javafx.fxml.patch.PatchLink;
+import com.treilhes.jfxplace.javafx.fxml.patch.PatchLink;
 
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXMLLoader;

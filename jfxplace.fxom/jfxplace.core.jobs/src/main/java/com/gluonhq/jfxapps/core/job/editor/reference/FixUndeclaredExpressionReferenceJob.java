@@ -42,11 +42,11 @@ import java.util.stream.Collectors;
 import org.springframework.lang.Nullable;
 
 import com.treilhes.emc4j.boot.api.context.annotation.Singleton;
+import com.treilhes.jfxplace.core.api.job.Job;
+import com.treilhes.jfxplace.core.api.job.JobExtensionFactory;
 import com.gluonhq.jfxapps.core.api.fxom.job.base.InlineDocumentJob;
 import com.gluonhq.jfxapps.core.api.fxom.jobs.FxomJobsFactory;
 import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
-import com.gluonhq.jfxapps.core.api.job.Job;
-import com.gluonhq.jfxapps.core.api.job.JobExtensionFactory;
 import com.gluonhq.jfxapps.core.fxom.FXOMCloner;
 import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
 import com.gluonhq.jfxapps.core.fxom.FXOMObject;

@@ -39,9 +39,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
-import com.gluonhq.jfxapps.core.api.application.ApplicationClassloader;
-import com.gluonhq.jfxapps.core.api.javafx.JavafxThreadClassloaderDispatcher;
-import com.gluonhq.jfxapps.core.api.ui.MainInstanceWindow;
+import com.treilhes.jfxplace.core.api.application.ApplicationClassloader;
+import com.treilhes.jfxplace.core.api.javafx.JavafxThreadClassloaderDispatcher;
+import com.treilhes.jfxplace.core.api.ui.MainInstanceWindow;
 
 import javafx.stage.Stage;
 

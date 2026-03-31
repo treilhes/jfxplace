@@ -31,12 +31,12 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import com.gluonhq.jfxapps.app.devtools.ext.strchk.DevtoolsI18nExtension;
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
+import com.treilhes.jfxplace.app.devtools.ext.strchk.DevtoolsI18nExtension;
 
 open module devtools.i18n {
-    exports com.gluonhq.jfxapps.app.devtools.ext.strchk;
-    exports com.gluonhq.jfxapps.app.devtools.ext.strchk.controller;
+    exports com.treilhes.jfxplace.app.devtools.ext.strchk;
+    exports com.treilhes.jfxplace.app.devtools.ext.strchk.controller;
 
     requires devtools.api;
     requires jfxplace.core.starter;

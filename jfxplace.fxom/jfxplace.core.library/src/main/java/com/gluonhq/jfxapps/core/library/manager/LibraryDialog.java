@@ -36,7 +36,7 @@ package com.gluonhq.jfxapps.core.library.manager;
 import java.io.File;
 
 import com.treilhes.emc4j.boot.api.maven.UniqueArtifact;
-import com.gluonhq.jfxapps.core.api.ui.InstanceWindow;
+import com.treilhes.jfxplace.core.api.ui.InstanceWindow;
 
 import javafx.collections.ObservableList;
 

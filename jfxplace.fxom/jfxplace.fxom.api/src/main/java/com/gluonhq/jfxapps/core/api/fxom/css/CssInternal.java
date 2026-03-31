@@ -51,7 +51,7 @@ import java.util.stream.Collectors;
 import com.gluonhq.jfxapps.core.fxom.FXOMElement;
 import com.gluonhq.jfxapps.core.fxom.util.Deprecation;
 import com.gluonhq.jfxapps.core.metadata.property.ValuePropertyMetadata;
-import com.gluonhq.jfxapps.javafx.graphics.patch.PatchLink;
+import com.treilhes.jfxplace.javafx.graphics.patch.PatchLink;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.FXCollections;

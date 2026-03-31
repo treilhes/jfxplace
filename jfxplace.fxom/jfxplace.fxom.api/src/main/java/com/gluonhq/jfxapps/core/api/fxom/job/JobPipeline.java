@@ -36,10 +36,10 @@ package com.gluonhq.jfxapps.core.api.fxom.job;
 import java.util.List;
 import java.util.Map;
 
-import com.gluonhq.jfxapps.core.api.job.Job;
 import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
 import com.gluonhq.jfxapps.core.fxom.FXOMObject;
 import com.gluonhq.jfxapps.core.fxom.collector.FXOMCollector;
+import com.treilhes.jfxplace.core.api.job.Job;
 
 /**
  * Pipeline of jobs and collectors that will be executed on a {@link FXOMDocument} before and after

@@ -59,7 +59,7 @@ public class FxomExtension implements SealedExtension {
     public void initializeModule(Layer layer) {
         var module = this.getClass().getModule();
         var fxomModule = module.getLayer().findModule("jfxplace.fxom.api").get();
-        com.gluonhq.jfxapps.javafx.fxml.patch.PatchLink.addOpen(fxomModule, "com.sun.javafx.fxml");
+        com.treilhes.jfxplace.javafx.fxml.patch.PatchLink.addOpen(fxomModule, "com.sun.javafx.fxml");
     }
 
     /**

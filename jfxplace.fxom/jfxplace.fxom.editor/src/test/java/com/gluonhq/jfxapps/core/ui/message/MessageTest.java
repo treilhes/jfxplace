@@ -43,14 +43,14 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.testfx.api.FxRobot;
 
-import com.gluonhq.jfxapps.core.api.ui.controller.misc.MessageLogger;
-import com.gluonhq.jfxapps.test.JfxAppsTest;
-import com.gluonhq.jfxapps.test.StageBuilder;
-import com.gluonhq.jfxapps.test.StageType;
+import com.treilhes.jfxplace.core.api.ui.controller.misc.MessageLogger;
 import com.treilhes.jfxplace.fxom.editor.editor.messagelog.MessageLog;
 import com.treilhes.jfxplace.fxom.editor.message.MessageBarController;
 import com.treilhes.jfxplace.fxom.editor.message.MessagePanelController;
 import com.treilhes.jfxplace.fxom.editor.message.MessagePopupController;
+import com.treilhes.jfxplace.testold.JfxAppsTest;
+import com.treilhes.jfxplace.testold.StageBuilder;
+import com.treilhes.jfxplace.testold.StageType;
 
 import javafx.scene.control.Button;
 

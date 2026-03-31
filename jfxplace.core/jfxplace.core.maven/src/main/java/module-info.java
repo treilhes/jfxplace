@@ -1,9 +1,9 @@
 open module jfxplace.core.maven {
-    exports com.gluonhq.jfxapps.core.maven.artifact;
-    exports com.gluonhq.jfxapps.core.maven;
-    exports com.gluonhq.jfxapps.core.maven.impl;
-    exports com.gluonhq.jfxapps.core.maven.preference;
-    exports com.gluonhq.jfxapps.core.maven.repository;
+    exports com.treilhes.jfxplace.core.maven.artifact;
+    exports com.treilhes.jfxplace.core.maven;
+    exports com.treilhes.jfxplace.core.maven.impl;
+    exports com.treilhes.jfxplace.core.maven.preference;
+    exports com.treilhes.jfxplace.core.maven.repository;
 
     requires transitive jfxplace.core.api;
     requires jakarta.annotation;

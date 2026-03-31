@@ -48,12 +48,12 @@ import com.gluonhq.jfxapps.core.api.fxom.clipboard.ClipboardDataFormat;
 import com.gluonhq.jfxapps.core.api.fxom.dnd.AbstractDragSource;
 import com.gluonhq.jfxapps.core.api.fxom.dnd.ExternalDragSource;
 import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
-import com.gluonhq.jfxapps.core.api.i18n.I18N;
-import com.gluonhq.jfxapps.core.api.ui.MainInstanceWindow;
 import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
 import com.gluonhq.jfxapps.core.fxom.FXOMObject;
-import com.gluonhq.jfxapps.util.ClassUtils;
 import com.treilhes.emc4j.boot.api.context.annotation.Prototype;
+import com.treilhes.jfxplace.core.api.i18n.I18N;
+import com.treilhes.jfxplace.core.api.ui.MainInstanceWindow;
+import com.treilhes.jfxplace.util.ClassUtils;
 
 import javafx.geometry.Bounds;
 import javafx.scene.Group;

@@ -39,9 +39,9 @@ import java.util.Map;
 import org.springframework.lang.Nullable;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
+import com.treilhes.jfxplace.core.api.job.Job;
+import com.treilhes.jfxplace.core.api.job.JobFactory;
 import com.gluonhq.jfxapps.core.api.fxom.jobs.FxomJobsFactory;
-import com.gluonhq.jfxapps.core.api.job.Job;
-import com.gluonhq.jfxapps.core.api.job.JobFactory;
 import com.gluonhq.jfxapps.core.fxom.FXOMCloner;
 import com.gluonhq.jfxapps.core.fxom.FXOMElement;
 import com.gluonhq.jfxapps.core.fxom.FXOMIntrinsic;

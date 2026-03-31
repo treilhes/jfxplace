@@ -32,7 +32,7 @@
  */
 package com.treilhes.jfxplace.fxom.editor.editor.messagelog;
 
-import com.gluonhq.jfxapps.core.api.ui.controller.misc.MessageLogger.MessageEntry;
+import com.treilhes.jfxplace.core.api.ui.controller.misc.MessageLogger.MessageEntry;
 
 /**
  *

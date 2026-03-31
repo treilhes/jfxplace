@@ -45,12 +45,12 @@ import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 import org.springframework.context.annotation.Lazy;
 
 import com.treilhes.emc4j.boot.api.context.annotation.Prototype;
-import com.gluonhq.jfxapps.core.api.action.AbstractActionExtension;
-import com.gluonhq.jfxapps.core.api.action.ActionFactory;
-import com.gluonhq.jfxapps.core.api.lifecycle.InitWithDocument;
-import com.gluonhq.jfxapps.core.api.tooltheme.CssPreference;
-import com.gluonhq.jfxapps.core.api.tooltheme.CssPreference.CssProperty;
-import com.gluonhq.jfxapps.util.URLUtils;
+import com.treilhes.jfxplace.core.api.action.AbstractActionExtension;
+import com.treilhes.jfxplace.core.api.action.ActionFactory;
+import com.treilhes.jfxplace.core.api.lifecycle.InitWithDocument;
+import com.treilhes.jfxplace.core.api.tooltheme.CssPreference;
+import com.treilhes.jfxplace.core.api.tooltheme.CssPreference.CssProperty;
+import com.treilhes.jfxplace.util.URLUtils;
 
 import io.reactivex.rxjava3.subjects.PublishSubject;
 import io.reactivex.rxjava3.subjects.Subject;

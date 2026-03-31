@@ -50,7 +50,7 @@ import com.gluonhq.jfxapps.core.fxom.collector.SceneGraphCollector;
 import com.gluonhq.jfxapps.core.fxom.util.FXMLFormatUtils;
 import com.gluonhq.jfxapps.core.fxom.util.PrefixedValue;
 import com.gluonhq.jfxapps.core.fxom.util.PropertyName;
-import com.gluonhq.jfxapps.util.URLUtils;
+import com.treilhes.jfxplace.util.URLUtils;
 
 import javafx.fxml.FXMLLoader;
 

@@ -32,13 +32,13 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
-import com.gluonhq.jfxapps.core.fs.FileSystemExtension;
+import com.treilhes.jfxplace.core.fs.FileSystemExtension;
 
 open module jfxplace.core.filesystem {
-    exports com.gluonhq.jfxapps.core.fs.util;
-    exports com.gluonhq.jfxapps.core.fs.preference;
-    exports com.gluonhq.jfxapps.core.fs.controller;
-    exports com.gluonhq.jfxapps.core.fs;
+    exports com.treilhes.jfxplace.core.fs.util;
+    exports com.treilhes.jfxplace.core.fs.preference;
+    exports com.treilhes.jfxplace.core.fs.controller;
+    exports com.treilhes.jfxplace.core.fs;
 
     requires transitive jfxplace.core.api;
     requires org.slf4j;

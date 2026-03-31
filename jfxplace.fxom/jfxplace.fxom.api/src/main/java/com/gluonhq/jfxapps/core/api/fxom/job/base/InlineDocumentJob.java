@@ -36,10 +36,10 @@ package com.gluonhq.jfxapps.core.api.fxom.job.base;
 import java.util.List;
 
 import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
-import com.gluonhq.jfxapps.core.api.job.Job;
-import com.gluonhq.jfxapps.core.api.job.JobExtensionFactory;
-import com.gluonhq.jfxapps.core.api.job.base.CompositeJob;
 import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
+import com.treilhes.jfxplace.core.api.job.Job;
+import com.treilhes.jfxplace.core.api.job.JobExtensionFactory;
+import com.treilhes.jfxplace.core.api.job.base.CompositeJob;
 
 /**
  * This Job updates the FXOM document at execution time. The selection is not

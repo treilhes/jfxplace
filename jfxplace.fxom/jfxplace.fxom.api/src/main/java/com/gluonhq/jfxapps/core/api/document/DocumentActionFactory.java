@@ -36,7 +36,7 @@ package com.gluonhq.jfxapps.core.api.document;
 import java.io.File;
 import java.net.URL;
 
-import com.gluonhq.jfxapps.core.api.action.Action;
+import com.treilhes.jfxplace.core.api.action.Action;
 
 public interface DocumentActionFactory {
 

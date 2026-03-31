@@ -36,7 +36,6 @@ package com.gluonhq.jfxapps.core.api.fxom.jobs;
 import java.util.List;
 import java.util.Map;
 
-import com.gluonhq.jfxapps.core.api.job.Job;
 import com.gluonhq.jfxapps.core.fxom.FXOMCloner;
 import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
 import com.gluonhq.jfxapps.core.fxom.FXOMElement;
@@ -47,6 +46,7 @@ import com.gluonhq.jfxapps.core.fxom.FXOMProperty;
 import com.gluonhq.jfxapps.core.fxom.FXOMPropertyC;
 import com.gluonhq.jfxapps.core.fxom.FXOMPropertyT;
 import com.gluonhq.jfxapps.core.metadata.property.ValuePropertyMetadata;
+import com.treilhes.jfxplace.core.api.job.Job;
 
 public interface FxomJobsFactory {
     /**

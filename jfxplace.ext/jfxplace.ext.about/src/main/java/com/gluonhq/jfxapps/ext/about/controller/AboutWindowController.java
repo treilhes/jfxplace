@@ -39,11 +39,11 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
-import com.gluonhq.jfxapps.core.api.About;
-import com.gluonhq.jfxapps.core.api.i18n.I18N;
-import com.gluonhq.jfxapps.core.api.subjects.ApplicationEvents;
-import com.gluonhq.jfxapps.core.api.ui.controller.AbstractFxmlWindowController;
-import com.gluonhq.jfxapps.core.api.ui.controller.misc.IconSetting;
+import com.treilhes.jfxplace.core.api.About;
+import com.treilhes.jfxplace.core.api.i18n.I18N;
+import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
+import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlWindowController;
+import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;

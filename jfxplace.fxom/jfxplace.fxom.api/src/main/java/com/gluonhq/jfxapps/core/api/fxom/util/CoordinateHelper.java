@@ -35,7 +35,7 @@ package com.gluonhq.jfxapps.core.api.fxom.util;
 
 import com.gluonhq.jfxapps.core.fxom.FXOMObject;
 import com.gluonhq.jfxapps.core.fxom.SceneGraphObject;
-import com.gluonhq.jfxapps.javafx.graphics.patch.PatchLink;
+import com.treilhes.jfxplace.javafx.graphics.patch.PatchLink;
 
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;

@@ -29,12 +29,12 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-import com.gluonhq.jfxapps.core.appmngr.AppManagerExtension;
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
+import com.treilhes.jfxplace.core.appmngr.AppManagerExtension;
 
 open module jfxplace.core.appmngr {
-    exports com.gluonhq.jfxapps.core.appmngr.impl;
-    exports com.gluonhq.jfxapps.core.appmngr;
+    exports com.treilhes.jfxplace.core.appmngr.impl;
+    exports com.treilhes.jfxplace.core.appmngr;
 
     requires transitive jfxplace.core.api;
     requires jakarta.inject;

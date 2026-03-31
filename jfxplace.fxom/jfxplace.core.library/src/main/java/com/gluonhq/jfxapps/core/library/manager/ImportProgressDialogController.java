@@ -43,11 +43,11 @@ import org.slf4j.LoggerFactory;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 import com.treilhes.emc4j.boot.api.platform.EmcPlatform;
-import com.gluonhq.jfxapps.core.api.i18n.I18N;
-import com.gluonhq.jfxapps.core.api.subjects.ApplicationEvents;
-import com.gluonhq.jfxapps.core.api.ui.controller.misc.IconSetting;
-import com.gluonhq.jfxapps.core.api.ui.dialog.AbstractModalDialog;
-import com.gluonhq.jfxapps.core.api.ui.dialog.Dialog;
+import com.treilhes.jfxplace.core.api.i18n.I18N;
+import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
+import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
+import com.treilhes.jfxplace.core.api.ui.dialog.AbstractModalDialog;
+import com.treilhes.jfxplace.core.api.ui.dialog.Dialog;
 
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;

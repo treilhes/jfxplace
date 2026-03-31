@@ -36,7 +36,7 @@ package com.gluonhq.jfxapps.core.api.fxom.mask;
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
 import com.treilhes.emc4j.boot.api.context.annotation.Prototype;
-import com.gluonhq.jfxapps.core.api.factory.AbstractFactory;
+import com.treilhes.jfxplace.core.api.factory.AbstractFactory;
 import com.gluonhq.jfxapps.core.fxom.FXOMObject;
 import com.gluonhq.jfxapps.core.metadata.AbstractMetadata;
 import com.gluonhq.jfxapps.core.metadata.klass.ComponentClassMetadata;

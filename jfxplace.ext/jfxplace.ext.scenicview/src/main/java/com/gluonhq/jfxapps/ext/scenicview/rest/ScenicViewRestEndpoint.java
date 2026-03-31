@@ -42,7 +42,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.treilhes.emc4j.boot.api.context.ContextManager;
-import com.gluonhq.jfxapps.core.api.action.ActionFactory;
+import com.treilhes.jfxplace.core.api.action.ActionFactory;
 import com.gluonhq.jfxapps.ext.scenicview.actions.ShowScenicViewAction;
 
 @RestController

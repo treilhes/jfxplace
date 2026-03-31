@@ -34,7 +34,7 @@
 package com.gluonhq.jfxapps.core.library.api;
 
 import com.treilhes.emc4j.boot.api.context.annotation.Singleton;
-import com.gluonhq.jfxapps.core.extstore.fs.ExtensionFileSystem;
+import com.treilhes.jfxplace.core.extstore.fs.ExtensionFileSystem;
 import com.gluonhq.jfxapps.core.library.preference.MavenArtifactsPreferencesFactory;
 import com.gluonhq.jfxapps.core.library.store.LibraryStoreController;
 

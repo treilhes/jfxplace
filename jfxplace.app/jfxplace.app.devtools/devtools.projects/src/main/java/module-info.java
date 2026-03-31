@@ -32,13 +32,13 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import com.gluonhq.jfxapps.app.devtools.projects.DevtoolsProjectsExtension;
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
+import com.treilhes.jfxplace.app.devtools.projects.DevtoolsProjectsExtension;
 
 module devtools.projects {
-    exports com.gluonhq.jfxapps.app.devtools.projects;
-    exports com.gluonhq.jfxapps.app.devtools.projects.action;
-    exports com.gluonhq.jfxapps.app.devtools.projects.controller;
+    exports com.treilhes.jfxplace.app.devtools.projects;
+    exports com.treilhes.jfxplace.app.devtools.projects.action;
+    exports com.treilhes.jfxplace.app.devtools.projects.controller;
 
     requires devtools.api;
     requires jfxplace.core.api;

@@ -34,10 +34,10 @@
 package com.gluonhq.jfxapps.core.library.preference;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
+import com.treilhes.jfxplace.core.api.preference.DefaultValueProvider;
+import com.treilhes.jfxplace.core.api.preference.Preference;
+import com.treilhes.jfxplace.core.api.preference.PreferenceContext;
 import com.gluonhq.jfxapps.core.api.fxom.library.LibraryArtifact;
-import com.gluonhq.jfxapps.core.api.preference.DefaultValueProvider;
-import com.gluonhq.jfxapps.core.api.preference.Preference;
-import com.gluonhq.jfxapps.core.api.preference.PreferenceContext;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

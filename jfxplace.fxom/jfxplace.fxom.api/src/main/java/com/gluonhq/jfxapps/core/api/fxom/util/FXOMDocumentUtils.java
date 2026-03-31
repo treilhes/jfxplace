@@ -36,8 +36,8 @@ package com.gluonhq.jfxapps.core.api.fxom.util;
 import java.io.File;
 import java.net.URISyntaxException;
 
-import com.gluonhq.jfxapps.core.api.i18n.I18N;
 import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
+import com.treilhes.jfxplace.core.api.i18n.I18N;
 
 public class FXOMDocumentUtils {
     public static final String makeTitle(I18N i18n, FXOMDocument fxomDocument) {

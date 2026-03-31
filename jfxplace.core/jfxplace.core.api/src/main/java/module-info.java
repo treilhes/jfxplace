@@ -31,62 +31,62 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import com.gluonhq.jfxapps.core.api.JfxplaceCoreApiExtension;
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
+import com.treilhes.jfxplace.core.api.JfxplaceCoreApiExtension;
 
 open module jfxplace.core.api {
 
-    exports com.gluonhq.jfxapps.core.api;
-    exports com.gluonhq.jfxapps.core.api.action;
-    exports com.gluonhq.jfxapps.core.api.action.editor;
+    exports com.treilhes.jfxplace.core.api;
+    exports com.treilhes.jfxplace.core.api.action;
+    exports com.treilhes.jfxplace.core.api.action.editor;
 
-    exports com.gluonhq.jfxapps.core.api.application;
-    exports com.gluonhq.jfxapps.core.api.application.annotation;
+    exports com.treilhes.jfxplace.core.api.application;
+    exports com.treilhes.jfxplace.core.api.application.annotation;
 
-    exports com.gluonhq.jfxapps.core.api.ctxmenu;
-    exports com.gluonhq.jfxapps.core.api.ctxmenu.annotation;
+    exports com.treilhes.jfxplace.core.api.ctxmenu;
+    exports com.treilhes.jfxplace.core.api.ctxmenu.annotation;
 
-    exports com.gluonhq.jfxapps.core.api.lifecycle;
+    exports com.treilhes.jfxplace.core.api.lifecycle;
 
-    exports com.gluonhq.jfxapps.core.api.ui.controller.alert;
+    exports com.treilhes.jfxplace.core.api.ui.controller.alert;
 
-    exports com.gluonhq.jfxapps.core.api.ui.controller.dock;
-    exports com.gluonhq.jfxapps.core.api.ui.controller.dock.annotation;
-    exports com.gluonhq.jfxapps.core.api.editor.images;
-    exports com.gluonhq.jfxapps.core.api.factory;
-    exports com.gluonhq.jfxapps.core.api.fs;
-    exports com.gluonhq.jfxapps.core.api.fs.content;
-    exports com.gluonhq.jfxapps.core.api.fs.watcher;
-    exports com.gluonhq.jfxapps.core.api.glossary;
-    exports com.gluonhq.jfxapps.core.api.guide;
-    exports com.gluonhq.jfxapps.core.api.i18n;
+    exports com.treilhes.jfxplace.core.api.ui.controller.dock;
+    exports com.treilhes.jfxplace.core.api.ui.controller.dock.annotation;
+    exports com.treilhes.jfxplace.core.api.editor.images;
+    exports com.treilhes.jfxplace.core.api.factory;
+    exports com.treilhes.jfxplace.core.api.fs;
+    exports com.treilhes.jfxplace.core.api.fs.content;
+    exports com.treilhes.jfxplace.core.api.fs.watcher;
+    exports com.treilhes.jfxplace.core.api.glossary;
+    exports com.treilhes.jfxplace.core.api.guide;
+    exports com.treilhes.jfxplace.core.api.i18n;
 
-    exports com.gluonhq.jfxapps.core.api.maven;
-    exports com.gluonhq.jfxapps.core.api.ui;
-    exports com.gluonhq.jfxapps.core.api.ui.controller;
-    exports com.gluonhq.jfxapps.core.api.ui.controller.dock.type;
-    exports com.gluonhq.jfxapps.core.api.ui.controller.menu;
-    exports com.gluonhq.jfxapps.core.api.ui.controller.menu.annotation;
-    exports com.gluonhq.jfxapps.core.api.ui.controller.misc;
+    exports com.treilhes.jfxplace.core.api.maven;
+    exports com.treilhes.jfxplace.core.api.ui;
+    exports com.treilhes.jfxplace.core.api.ui.controller;
+    exports com.treilhes.jfxplace.core.api.ui.controller.dock.type;
+    exports com.treilhes.jfxplace.core.api.ui.controller.menu;
+    exports com.treilhes.jfxplace.core.api.ui.controller.menu.annotation;
+    exports com.treilhes.jfxplace.core.api.ui.controller.misc;
 
-    exports com.gluonhq.jfxapps.core.api.ui.dialog;
+    exports com.treilhes.jfxplace.core.api.ui.dialog;
 
-    exports com.gluonhq.jfxapps.core.api.preference;
+    exports com.treilhes.jfxplace.core.api.preference;
 
-    exports com.gluonhq.jfxapps.core.api.selection;
+    exports com.treilhes.jfxplace.core.api.selection;
 
-    exports com.gluonhq.jfxapps.core.api.settings;
-    exports com.gluonhq.jfxapps.core.api.shortcut;
-    exports com.gluonhq.jfxapps.core.api.shortcut.annotation;
-    exports com.gluonhq.jfxapps.core.api.subjects;
+    exports com.treilhes.jfxplace.core.api.settings;
+    exports com.treilhes.jfxplace.core.api.shortcut;
+    exports com.treilhes.jfxplace.core.api.shortcut.annotation;
+    exports com.treilhes.jfxplace.core.api.subjects;
 
-    exports com.gluonhq.jfxapps.core.api.task;
-    exports com.gluonhq.jfxapps.core.api.tooltheme;
+    exports com.treilhes.jfxplace.core.api.task;
+    exports com.treilhes.jfxplace.core.api.tooltheme;
 
-    exports com.gluonhq.jfxapps.core.api.javafx;
-    exports com.gluonhq.jfxapps.core.api.job;
-    exports com.gluonhq.jfxapps.core.api.job.base;
-    exports com.gluonhq.jfxapps.core.api.util;
+    exports com.treilhes.jfxplace.core.api.javafx;
+    exports com.treilhes.jfxplace.core.api.job;
+    exports com.treilhes.jfxplace.core.api.job.base;
+    exports com.treilhes.jfxplace.core.api.util;
 
 
 

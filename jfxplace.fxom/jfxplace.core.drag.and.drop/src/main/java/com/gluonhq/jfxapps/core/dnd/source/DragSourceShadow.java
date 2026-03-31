@@ -32,7 +32,7 @@
  */
 package com.gluonhq.jfxapps.core.dnd.source;
 
-import com.gluonhq.jfxapps.util.MathUtils;
+import com.treilhes.jfxplace.util.MathUtils;
 
 import javafx.geometry.Bounds;
 import javafx.geometry.Rectangle2D;

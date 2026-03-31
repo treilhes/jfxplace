@@ -57,16 +57,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
+import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
+import com.treilhes.jfxplace.core.api.lifecycle.InitWithApplication;
+import com.treilhes.jfxplace.core.api.lifecycle.InitWithDocument;
+import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
+import com.treilhes.jfxplace.core.api.ui.InstanceWindow;
+import com.treilhes.jfxplace.core.fs.controller.ClassLoaderController;
 import com.gluonhq.jfxapps.core.api.fxom.library.Library;
 import com.gluonhq.jfxapps.core.api.fxom.library.LibraryArtifact;
 import com.gluonhq.jfxapps.core.api.fxom.library.LibraryItem;
 import com.gluonhq.jfxapps.core.api.fxom.library.Report;
-import com.gluonhq.jfxapps.core.api.javafx.JfxAppPlatform;
-import com.gluonhq.jfxapps.core.api.lifecycle.InitWithApplication;
-import com.gluonhq.jfxapps.core.api.lifecycle.InitWithDocument;
-import com.gluonhq.jfxapps.core.api.subjects.ApplicationEvents;
-import com.gluonhq.jfxapps.core.api.ui.InstanceWindow;
-import com.gluonhq.jfxapps.core.fs.controller.ClassLoaderController;
 import com.gluonhq.jfxapps.core.library.manager.ImportProgressDialogController;
 import com.gluonhq.jfxapps.core.library.manager.LibraryDialogController;
 

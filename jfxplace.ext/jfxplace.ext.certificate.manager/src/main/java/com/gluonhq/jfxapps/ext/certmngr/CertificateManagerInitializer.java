@@ -35,7 +35,7 @@ package com.gluonhq.jfxapps.ext.certmngr;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
-import com.gluonhq.jfxapps.core.api.lifecycle.InitWithApplication;
+import com.treilhes.jfxplace.core.api.lifecycle.InitWithApplication;
 import com.gluonhq.jfxapps.ext.certmngr.controller.CertificateManagerWindowController;
 
 @ApplicationSingleton

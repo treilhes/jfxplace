@@ -48,8 +48,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.gluonhq.jfxapps.core.api.fxom.job.base.BatchJob;
 import com.gluonhq.jfxapps.core.api.fxom.jobs.FxomJobsFactory;
 import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
-import com.gluonhq.jfxapps.core.api.job.Job;
 import com.gluonhq.jfxapps.core.job.manager.JobManagerImpl.JobPipelineFactory;
+import com.treilhes.jfxplace.core.api.job.Job;
 
 @ExtendWith(MockitoExtension.class)
 class JobManagerImplTestIT {

@@ -33,8 +33,8 @@
  */
 package com.gluonhq.jfxapps.core.api.fxom.dnd;
 
-import com.gluonhq.jfxapps.core.api.job.Job;
 import com.gluonhq.jfxapps.core.fxom.FXOMObject;
+import com.treilhes.jfxplace.core.api.job.Job;
 
 /**
  *

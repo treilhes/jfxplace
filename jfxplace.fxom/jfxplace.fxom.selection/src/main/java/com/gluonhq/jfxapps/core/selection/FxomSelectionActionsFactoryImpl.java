@@ -1,7 +1,5 @@
 package com.gluonhq.jfxapps.core.selection;
 
-import com.gluonhq.jfxapps.core.api.action.Action;
-import com.gluonhq.jfxapps.core.api.action.ActionFactory;
 import com.gluonhq.jfxapps.core.api.fxom.editor.selection.FxomSelectionActionsFactory;
 import com.gluonhq.jfxapps.core.selection.action.BringForwardAction;
 import com.gluonhq.jfxapps.core.selection.action.BringToFrontAction;
@@ -15,6 +13,8 @@ import com.gluonhq.jfxapps.core.selection.action.SendBackwardAction;
 import com.gluonhq.jfxapps.core.selection.action.SendToBackAction;
 import com.gluonhq.jfxapps.core.selection.action.TrimAction;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
+import com.treilhes.jfxplace.core.api.action.Action;
+import com.treilhes.jfxplace.core.api.action.ActionFactory;
 
 @ApplicationSingleton
 public class FxomSelectionActionsFactoryImpl implements FxomSelectionActionsFactory {

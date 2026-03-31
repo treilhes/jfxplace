@@ -1,6 +1,6 @@
 package com.gluonhq.jfxapps.core.api.fxom.editor.selection;
 
-import com.gluonhq.jfxapps.core.api.action.Action;
+import com.treilhes.jfxplace.core.api.action.Action;
 
 public interface SelectionActionsFactory {
 

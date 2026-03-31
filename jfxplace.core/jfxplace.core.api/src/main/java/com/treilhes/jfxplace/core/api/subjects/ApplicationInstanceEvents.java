@@ -1,0 +1,212 @@
+/*
+ * Copyright (c) 2016, 2025, Gluon and/or its affiliates.
+ * Copyright (c) 2021, 2025, Pascal Treilhes and/or its affiliates.
+ * Copyright (c) 2012, 2014, Oracle and/or its affiliates.
+ * All rights reserved. Use is subject to license terms.
+ *
+ * This file is available and licensed under the following license:
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *  - Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  - Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in
+ *    the documentation and/or other materials provided with the distribution.
+ *  - Neither the name of Oracle Corporation and Gluon nor the names of its
+ *    contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+package com.treilhes.jfxplace.core.api.subjects;
+
+import java.net.URI;
+import java.net.URL;
+
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
+import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlViewController;
+import com.treilhes.jfxplace.core.api.ui.controller.AbstractInstanceUiController;
+
+import io.reactivex.rxjava3.subjects.ReplaySubject;
+
+/**
+ * This interface describe events related to the currently edited document
+ *
+ */
+public interface ApplicationInstanceEvents {
+    /**
+     * The current "closed" state has changed.
+     * The document has been closed if true
+     */
+    SubjectItem<Boolean> closed();
+    
+    /**
+     * The current "dirty" state has changed.
+     * The instance contains unsaved changes if true
+     */
+    SubjectItem<Boolean> dirty();
+    
+    /**
+     * The current "hasContent" state has changed.
+     * The instance contains data which isn't the initial data if true
+     */
+    SubjectItem<Boolean> hasContent();
+
+    /**
+     * The current classloader has changed.
+     */
+    SubjectItem<ClassLoader> classLoaderDidChange();
+    /**
+     * The main cycle of dependency injection loading is done
+     * The document's dependencies have been loaded if true
+     */
+    SubjectItem<Boolean> dependenciesLoaded();
+
+    SubjectItem<AbstractInstanceUiController> focused();
+
+    SubjectItem<AbstractFxmlViewController> focusedView();
+
+    /**
+     * The unique ID of the application instance
+     * @return the unique ID
+     */
+    SubjectItem<URL> uniqueId();
+
+    @ApplicationInstanceSingleton
+    public class ApplicationInstanceEventsImpl implements ApplicationInstanceEvents {
+
+        private ApplicationInstanceSubjects subjects;
+
+        private final SubjectItem<Boolean> closed;
+        private final SubjectItem<Boolean> hasContent;
+        private final SubjectItem<Boolean> dirty;
+        private final SubjectItem<Boolean> dependenciesLoaded;
+        private final SubjectItem<ClassLoader> classLoaderDidChange;
+        private final SubjectItem<AbstractInstanceUiController> focused;
+        private final SubjectItem<AbstractFxmlViewController> focusedView;
+        private final SubjectItem<URL> uniqueId;
+
+        public ApplicationInstanceEventsImpl() {
+            subjects = new ApplicationInstanceSubjects();
+
+            closed = new SubjectItem<>(subjects.getClosed());
+            hasContent = new SubjectItem<>(subjects.getHasContent());
+            dirty = new SubjectItem<>(subjects.getDirty());
+            dependenciesLoaded = new SubjectItem<>(subjects.getDependenciesLoaded()).set(false);
+            classLoaderDidChange = new SubjectItem<>(subjects.getClassLoaderDidChange());
+            focused = new SubjectItem<>(subjects.getFocused());
+            focusedView = new SubjectItem<>(subjects.getFocusedView());
+            uniqueId = new SubjectItem<>(subjects.getUniqueId());
+        }
+
+        @Override
+        public SubjectItem<Boolean> closed() {
+            return closed;
+        }
+        
+        @Override
+        public SubjectItem<Boolean> hasContent() {
+            return hasContent;
+        }
+        
+        @Override
+        public SubjectItem<Boolean> dirty() {
+            return dirty;
+        }
+
+        @Override
+        public SubjectItem<ClassLoader> classLoaderDidChange() {
+            return classLoaderDidChange;
+        }
+
+        @Override
+        public SubjectItem<Boolean> dependenciesLoaded() {
+            return dependenciesLoaded;
+        }
+
+        @Override
+        public SubjectItem<AbstractInstanceUiController> focused() {
+            return focused;
+        }
+
+        @Override
+        public SubjectItem<AbstractFxmlViewController> focusedView() {
+            return focusedView;
+        }
+
+        @Override
+        public SubjectItem<URL> uniqueId() {
+            return uniqueId;
+        }
+    }
+
+    public class ApplicationInstanceSubjects extends SubjectManager {
+
+        private ReplaySubject<Boolean> closed;
+        private ReplaySubject<Boolean> hasContent;
+        private ReplaySubject<Boolean> dirty;
+        private ReplaySubject<Boolean> dependenciesLoaded;
+        private ReplaySubject<ClassLoader> classLoaderDidChange;
+
+        private ReplaySubject<AbstractInstanceUiController> focused;
+        private ReplaySubject<AbstractFxmlViewController> focusedView;
+        private ReplaySubject<URL> uniqueId;;
+
+        public ApplicationInstanceSubjects() {
+            closed = wrap(ApplicationInstanceSubjects.class, "closed", ReplaySubject.create(1)); // NOI18N
+            hasContent = wrap(ApplicationInstanceSubjects.class, "hasContent", ReplaySubject.create(1)); // NOI18N
+            dirty = wrap(ApplicationInstanceSubjects.class, "dirty", ReplaySubject.create(1)); // NOI18N
+            
+            dependenciesLoaded = wrap(ApplicationInstanceSubjects.class, "dependenciesLoaded", ReplaySubject.create(1)); // NOI18N
+            classLoaderDidChange = wrap(ApplicationInstanceSubjects.class, "classLoaderDidChange", ReplaySubject.create(1)); // NOI18N
+            focused = wrap(ApplicationInstanceSubjects.class, "focused", ReplaySubject.create(1)); // NOI18N
+            focusedView = wrap(ApplicationInstanceSubjects.class, "focusedView", ReplaySubject.create(1)); // NOI18N
+            uniqueId = wrap(ApplicationInstanceSubjects.class, "uniqueId", ReplaySubject.create(1)); // NOI18N
+        }
+
+        public ReplaySubject<Boolean> getClosed() {
+            return closed;
+        }
+        
+        public ReplaySubject<Boolean> getHasContent() {
+            return hasContent;
+        }
+        
+        public ReplaySubject<Boolean> getDirty() {
+            return dirty;
+        }
+
+        public ReplaySubject<Boolean> getDependenciesLoaded() {
+            return dependenciesLoaded;
+        }
+
+        public ReplaySubject<ClassLoader> getClassLoaderDidChange() {
+            return classLoaderDidChange;
+        }
+
+        public ReplaySubject<AbstractInstanceUiController> getFocused() {
+            return focused;
+        }
+
+        public ReplaySubject<AbstractFxmlViewController> getFocusedView() {
+            return focusedView;
+        }
+
+        public ReplaySubject<URL> getUniqueId() {
+            return uniqueId;
+        }
+    }
+}

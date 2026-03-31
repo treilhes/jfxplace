@@ -1,6 +1,5 @@
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
-
-import jfxapps.app.sample.app.SampleApiExtension;
+import com.treilhes.jfxplace.app.sample.app.SampleApiExtension;
 
 open module sample.app {
     //exports jfxapps.app.sample.app;

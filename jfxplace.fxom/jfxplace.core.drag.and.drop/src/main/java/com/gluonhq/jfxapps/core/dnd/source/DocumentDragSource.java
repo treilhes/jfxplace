@@ -40,11 +40,11 @@ import java.util.List;
 import java.util.Set;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
-import com.gluonhq.jfxapps.core.api.editor.images.ImageUtils;
+import com.treilhes.jfxplace.core.api.editor.images.ImageUtils;
+import com.treilhes.jfxplace.core.api.i18n.I18N;
+import com.treilhes.jfxplace.core.api.ui.InstanceWindow;
 import com.gluonhq.jfxapps.core.api.fxom.clipboard.ClipboardEncoder;
 import com.gluonhq.jfxapps.core.api.fxom.dnd.AbstractDragSource;
-import com.gluonhq.jfxapps.core.api.i18n.I18N;
-import com.gluonhq.jfxapps.core.api.ui.InstanceWindow;
 import com.gluonhq.jfxapps.core.fxom.FXOMObject;
 
 import javafx.geometry.Bounds;

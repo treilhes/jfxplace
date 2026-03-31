@@ -37,10 +37,10 @@ import org.springframework.context.annotation.Lazy;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.context.annotation.Prototype;
-import com.gluonhq.jfxapps.core.api.action.AbstractActionExtension;
-import com.gluonhq.jfxapps.core.api.action.ActionFactory;
-import com.gluonhq.jfxapps.core.api.lifecycle.InitWithDocument;
-import com.gluonhq.jfxapps.core.api.tooltheme.ToolTheme;
+import com.treilhes.jfxplace.core.api.action.AbstractActionExtension;
+import com.treilhes.jfxplace.core.api.action.ActionFactory;
+import com.treilhes.jfxplace.core.api.lifecycle.InitWithDocument;
+import com.treilhes.jfxplace.core.api.tooltheme.ToolTheme;
 import com.gluonhq.jfxapps.ext.container.preferences.global.ToolThemePreference;
 
 @Prototype
