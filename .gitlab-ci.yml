@@ -18,7 +18,7 @@ build-job:
   image: docker.treilhes.home/jfxapps/builder-linux:latest
   stage: build
   script:
-    - mvn -Dmaven.repo.local=/cache/repository -B -ntp clean deploy -P headless
+    - mvn -Dmaven.repo.local=/cache/repository -B -ntp clean install -P headless
 
 build-sonar:
   tags:
