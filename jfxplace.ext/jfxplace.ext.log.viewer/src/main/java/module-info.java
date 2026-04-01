@@ -32,12 +32,12 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
-import com.gluonhq.jfxapps.ext.logviewer.LogViewerExtension;
+import com.treilhes.jfxplace.ext.logviewer.LogViewerExtension;
 
 open module jfxplace.ext.log.viewer {
-    exports com.gluonhq.jfxapps.ext.logviewer.i18n;
-    exports com.gluonhq.jfxapps.ext.logviewer.controller;
-    exports com.gluonhq.jfxapps.ext.logviewer;
+    exports com.treilhes.jfxplace.ext.logviewer.i18n;
+    exports com.treilhes.jfxplace.ext.logviewer.controller;
+    exports com.treilhes.jfxplace.ext.logviewer;
 
     requires transitive jfxplace.core.api;
 

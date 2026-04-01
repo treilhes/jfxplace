@@ -47,7 +47,7 @@ import com.treilhes.jfxplace.core.api.ui.controller.menu.annotation.MenuItemAtta
 
 import javafx.stage.FileChooser;
 
-@ApplicationInstancePrototype("com.gluonhq.jfxapps.app.devtools.projects.action.OpenProjectAction")
+@ApplicationInstancePrototype("com.treilhes.jfxplace.app.devtools.projects.action.OpenProjectAction")
 @ActionMeta(
         nameKey = "action.name.save",
         descriptionKey = "action.description.save")

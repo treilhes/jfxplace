@@ -33,8 +33,8 @@
  */
 package com.treilhes.jfxplace.testold;
 
-import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
 import com.treilhes.jfxplace.core.api.javafx.UiController;
+import com.treilhes.jfxplace.core.fxom.FXOMDocument;
 
 import javafx.application.Platform;
 import javafx.stage.Stage;

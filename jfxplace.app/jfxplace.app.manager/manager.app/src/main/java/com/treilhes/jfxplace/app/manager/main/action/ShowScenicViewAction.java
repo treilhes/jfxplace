@@ -42,7 +42,7 @@ import com.treilhes.jfxplace.core.api.action.ActionMeta;
 import com.treilhes.jfxplace.core.api.i18n.I18N;
 import com.treilhes.jfxplace.core.api.ui.controller.menu.PositionRequest;
 import com.treilhes.jfxplace.core.api.ui.controller.menu.annotation.MenuItemAttachment;
-import com.gluonhq.jfxapps.ext.scenicview.api.ScenicViewApi;
+import com.treilhes.jfxplace.ext.scenicview.api.ScenicViewApi;
 
 @ApplicationInstancePrototype("ShowScenicviewActionRelay")
 @ActionMeta(nameKey = "action.name.show.about", descriptionKey = "action.description.show.about")

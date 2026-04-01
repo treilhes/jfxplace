@@ -43,6 +43,8 @@ import java.util.ResourceBundle;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 import com.treilhes.jfxplace.core.api.fs.FileSystem;
+import com.treilhes.jfxplace.core.api.fxom.error.ErrorReport;
+import com.treilhes.jfxplace.core.api.fxom.subjects.FxomEvents;
 import com.treilhes.jfxplace.core.api.i18n.CombinedResourceBundle;
 import com.treilhes.jfxplace.core.api.i18n.I18nResourceProvider;
 import com.treilhes.jfxplace.core.api.job.JobManager;
@@ -52,12 +54,10 @@ import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.FxomDisplay;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.InlineEdit;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.MessageLogger;
-import com.gluonhq.jfxapps.core.api.fxom.error.ErrorReport;
-import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
-import com.gluonhq.jfxapps.core.fxom.FXOMAssetIndex;
-import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
-import com.gluonhq.jfxapps.core.fxom.FXOMDocumentFactory;
-import com.gluonhq.jfxapps.core.fxom.transform.FXOMSerializer;
+import com.treilhes.jfxplace.core.fxom.FXOMAssetIndex;
+import com.treilhes.jfxplace.core.fxom.FXOMDocument;
+import com.treilhes.jfxplace.core.fxom.FXOMDocumentFactory;
+import com.treilhes.jfxplace.core.fxom.transform.FXOMSerializer;
 
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;

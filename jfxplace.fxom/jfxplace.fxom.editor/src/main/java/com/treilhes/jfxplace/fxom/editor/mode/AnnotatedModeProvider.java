@@ -43,9 +43,9 @@ import org.slf4j.LoggerFactory;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
-import com.gluonhq.jfxapps.core.api.fxom.content.mode.AbstractModeController;
-import com.gluonhq.jfxapps.core.api.fxom.content.mode.ModeDescriptor;
-import com.gluonhq.jfxapps.core.api.fxom.content.mode.ModeProvider;
+import com.treilhes.jfxplace.core.api.fxom.content.mode.AbstractModeController;
+import com.treilhes.jfxplace.core.api.fxom.content.mode.ModeDescriptor;
+import com.treilhes.jfxplace.core.api.fxom.content.mode.ModeProvider;
 
 @ApplicationInstanceSingleton
 public class AnnotatedModeProvider implements ModeProvider {
@@ -69,7 +69,7 @@ public class AnnotatedModeProvider implements ModeProvider {
 
         modesCache = context
                 .getBeanClassesForAnnotation(
-                        com.gluonhq.jfxapps.core.api.fxom.content.mode.annotation.ModeDescriptor.class)
+                        com.treilhes.jfxplace.core.api.fxom.content.mode.annotation.ModeDescriptor.class)
                 .stream().map(this::makeModeDescriptor).flatMap(l -> l.stream()).filter(Objects::nonNull)
                 .collect(Collectors.toList());
 
@@ -88,9 +88,9 @@ public class AnnotatedModeProvider implements ModeProvider {
             }
             final Class<AbstractModeController> modeClass = (Class<AbstractModeController>) cls;
 
-            final com.gluonhq.jfxapps.core.api.fxom.content.mode.annotation.ModeDescriptor[] annotations = modeClass
+            final com.treilhes.jfxplace.core.api.fxom.content.mode.annotation.ModeDescriptor[] annotations = modeClass
                     .getAnnotationsByType(
-                            com.gluonhq.jfxapps.core.api.fxom.content.mode.annotation.ModeDescriptor.class);
+                            com.treilhes.jfxplace.core.api.fxom.content.mode.annotation.ModeDescriptor.class);
 
             assert annotations != null;
 
@@ -98,7 +98,7 @@ public class AnnotatedModeProvider implements ModeProvider {
                 return result;
             }
 
-            for (com.gluonhq.jfxapps.core.api.fxom.content.mode.annotation.ModeDescriptor annotation : annotations) {
+            for (com.treilhes.jfxplace.core.api.fxom.content.mode.annotation.ModeDescriptor annotation : annotations) {
                 result.add(ModeDescriptor.create(modeClass, annotation.documentType(), annotation.defaultMode()));
             }
 

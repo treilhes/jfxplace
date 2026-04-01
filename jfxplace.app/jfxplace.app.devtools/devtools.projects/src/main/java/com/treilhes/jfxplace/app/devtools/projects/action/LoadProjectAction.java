@@ -42,7 +42,7 @@ import com.treilhes.jfxplace.core.api.action.ActionExtensionFactory;
 import com.treilhes.jfxplace.core.api.action.ActionMeta;
 import com.treilhes.jfxplace.core.api.i18n.I18N;
 
-@ApplicationInstancePrototype("com.gluonhq.jfxapps.app.devtools.projects.action.LoadProjectAction")
+@ApplicationInstancePrototype("com.treilhes.jfxplace.app.devtools.projects.action.LoadProjectAction")
 @ActionMeta(
         nameKey = "action.name.save",
         descriptionKey = "action.description.save")

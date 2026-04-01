@@ -20,7 +20,7 @@ build-job:
   script:
     - mvn -Dmaven.repo.local=/cache/repository -B -ntp clean $MAVEN_GOAL -P headless -T 1C
   rules:
-    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: '$CI_COMMIT_BRANCH == "master"'
       variables:
         MAVEN_GOAL: "deploy"
     - when: always
@@ -39,5 +39,4 @@ build-sonar:
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
     - if: $CI_COMMIT_BRANCH == 'master'
-    - if: $CI_COMMIT_BRANCH == 'main'
     - if: $CI_COMMIT_BRANCH == 'develop'

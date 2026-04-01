@@ -31,12 +31,12 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import com.gluonhq.jfxapps.core.clipboard.ClipboardExtension;
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
+import com.treilhes.jfxplace.core.clipboard.ClipboardExtension;
 
 open module jfxplace.core.clipboard {
-    exports com.gluonhq.jfxapps.core.clipboard;
-    exports com.gluonhq.jfxapps.core.clipboard.i18n;
+    exports com.treilhes.jfxplace.core.clipboard;
+    exports com.treilhes.jfxplace.core.clipboard.i18n;
 
     requires jfxplace.core.api;
     requires transitive jfxplace.fxom.api;

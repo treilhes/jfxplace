@@ -42,15 +42,15 @@ import org.slf4j.LoggerFactory;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
+import com.treilhes.jfxplace.core.api.fxom.content.mode.AbstractModeController;
+import com.treilhes.jfxplace.core.api.fxom.content.mode.Mode;
+import com.treilhes.jfxplace.core.api.fxom.content.mode.ModeDescriptor;
+import com.treilhes.jfxplace.core.api.fxom.content.mode.ModeManager;
+import com.treilhes.jfxplace.core.api.fxom.content.mode.ModeProvider;
+import com.treilhes.jfxplace.core.api.fxom.dnd.Drag;
+import com.treilhes.jfxplace.core.api.fxom.subjects.FxomEvents;
 import com.treilhes.jfxplace.core.api.job.JobManager;
-import com.gluonhq.jfxapps.core.api.fxom.content.mode.AbstractModeController;
-import com.gluonhq.jfxapps.core.api.fxom.content.mode.Mode;
-import com.gluonhq.jfxapps.core.api.fxom.content.mode.ModeDescriptor;
-import com.gluonhq.jfxapps.core.api.fxom.content.mode.ModeManager;
-import com.gluonhq.jfxapps.core.api.fxom.content.mode.ModeProvider;
-import com.gluonhq.jfxapps.core.api.fxom.dnd.Drag;
-import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
-import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
+import com.treilhes.jfxplace.core.fxom.FXOMDocument;
 
 @ApplicationInstanceSingleton
 public class ModeManagerController implements ModeManager {

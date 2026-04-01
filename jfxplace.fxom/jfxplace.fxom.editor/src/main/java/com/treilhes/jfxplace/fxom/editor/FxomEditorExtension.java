@@ -37,8 +37,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-import com.gluonhq.jfxapps.core.api.fxom.ui.tool.NoPickRefiner;
 import com.treilhes.emc4j.boot.api.loader.extension.OpenExtension;
+import com.treilhes.jfxplace.core.api.fxom.ui.tool.NoPickRefiner;
 import com.treilhes.jfxplace.fxom.editor.controller.ContentPanelController;
 import com.treilhes.jfxplace.fxom.editor.controller.ModeManagerController;
 import com.treilhes.jfxplace.fxom.editor.controller.WorkspaceController;

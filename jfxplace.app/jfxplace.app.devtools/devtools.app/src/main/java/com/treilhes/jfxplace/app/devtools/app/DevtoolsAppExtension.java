@@ -36,8 +36,6 @@ package com.treilhes.jfxplace.app.devtools.app;
 import java.util.List;
 import java.util.UUID;
 
-import com.gluonhq.jfxapps.ext.about.api.AboutApi;
-import com.gluonhq.jfxapps.ext.scenicview.api.ScenicViewApi;
 import com.treilhes.emc4j.boot.api.loader.extension.OpenExtension;
 import com.treilhes.jfxplace.app.devtools.api.DevtoolsApiExtension;
 import com.treilhes.jfxplace.app.devtools.app.action.ShowAboutAction;
@@ -45,6 +43,8 @@ import com.treilhes.jfxplace.app.devtools.app.action.ShowScenicViewAction;
 import com.treilhes.jfxplace.app.devtools.app.menu.MainMenuProvider;
 import com.treilhes.jfxplace.app.devtools.app.ui.DevtoolsUiTemplate;
 import com.treilhes.jfxplace.app.devtools.app.ui.WindowIconSettings;
+import com.treilhes.jfxplace.ext.about.api.AboutApi;
+import com.treilhes.jfxplace.ext.scenicview.api.ScenicViewApi;
 
 public class DevtoolsAppExtension implements OpenExtension  {
 

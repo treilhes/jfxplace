@@ -31,14 +31,14 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import com.gluonhq.jfxapps.core.dnd.DragAndDropExtension;
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
+import com.treilhes.jfxplace.core.dnd.DragAndDropExtension;
 
 open module jfxplace.core.drag.and.drop{
-    exports com.gluonhq.jfxapps.core.dnd;
-    exports com.gluonhq.jfxapps.core.dnd.controller;
-    exports com.gluonhq.jfxapps.core.dnd.source;
-    exports com.gluonhq.jfxapps.core.dnd.target;
+    exports com.treilhes.jfxplace.core.dnd;
+    exports com.treilhes.jfxplace.core.dnd.controller;
+    exports com.treilhes.jfxplace.core.dnd.source;
+    exports com.treilhes.jfxplace.core.dnd.target;
 
     requires transitive jfxplace.core.api;
     requires transitive jfxplace.fxom.api;

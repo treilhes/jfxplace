@@ -42,14 +42,12 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.gluonhq.jfxapps.core.api.fxom.editor.selection.FxomSelectionGroup;
-import com.gluonhq.jfxapps.core.api.fxom.editor.selection.SelectionGroupFactory;
-import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
-import com.gluonhq.jfxapps.core.api.fxom.ui.controller.selbar.SelectionBarContentFactory;
-import com.gluonhq.jfxapps.core.api.fxom.ui.controller.selbar.SelectionBarContentFactory.BarItem;
-import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
-import com.gluonhq.jfxapps.core.fxom.FXOMObject;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
+import com.treilhes.jfxplace.core.api.fxom.editor.selection.FxomSelectionGroup;
+import com.treilhes.jfxplace.core.api.fxom.editor.selection.SelectionGroupFactory;
+import com.treilhes.jfxplace.core.api.fxom.subjects.FxomEvents;
+import com.treilhes.jfxplace.core.api.fxom.ui.controller.selbar.SelectionBarContentFactory;
+import com.treilhes.jfxplace.core.api.fxom.ui.controller.selbar.SelectionBarContentFactory.BarItem;
 import com.treilhes.jfxplace.core.api.i18n.I18N;
 import com.treilhes.jfxplace.core.api.job.JobManager;
 import com.treilhes.jfxplace.core.api.selection.Selection;
@@ -58,6 +56,8 @@ import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationInstanceEvents;
 import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlController;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.SelectionBar;
+import com.treilhes.jfxplace.core.fxom.FXOMDocument;
+import com.treilhes.jfxplace.core.fxom.FXOMObject;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

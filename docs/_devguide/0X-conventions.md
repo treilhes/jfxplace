@@ -16,4 +16,4 @@ toc: true
 
 #### Used in this project
 
-- All packages contained within the module must start with com.gluonhq followed by the module name
+- All packages contained within the module must start with com.treilhes.jfxplace followed by the module name

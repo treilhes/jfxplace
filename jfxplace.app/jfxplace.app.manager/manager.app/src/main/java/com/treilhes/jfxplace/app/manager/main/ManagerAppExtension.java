@@ -43,8 +43,8 @@ import com.treilhes.jfxplace.app.manager.main.action.ShowScenicViewAction;
 import com.treilhes.jfxplace.app.manager.main.menu.MainMenuProvider;
 import com.treilhes.jfxplace.app.manager.main.ui.ManagerUiTemplate;
 import com.treilhes.jfxplace.app.manager.main.ui.WindowIconSettings;
-import com.gluonhq.jfxapps.ext.about.api.AboutApi;
-import com.gluonhq.jfxapps.ext.scenicview.api.ScenicViewApi;
+import com.treilhes.jfxplace.ext.about.api.AboutApi;
+import com.treilhes.jfxplace.ext.scenicview.api.ScenicViewApi;
 
 public class ManagerAppExtension implements OpenExtension  {
 

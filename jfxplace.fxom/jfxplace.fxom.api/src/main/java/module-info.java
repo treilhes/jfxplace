@@ -32,55 +32,55 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import com.gluonhq.jfxapps.core.fxom.ext.FXOMNormalizer;
-import com.gluonhq.jfxapps.core.fxom.ext.FXOMRefresher;
-import com.gluonhq.jfxapps.core.fxom.ext.FileLoader;
-import com.gluonhq.jfxapps.core.fxom.ext.LoaderCapabilitiesManager;
-import com.gluonhq.jfxapps.core.fxom.ext.TransientStateBackup;
-import com.gluonhq.jfxapps.core.fxom.ext.WeakProperty;
-import com.gluonhq.jfxapps.fxom.api.FxomExtension;
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
+import com.treilhes.jfxplace.core.fxom.ext.FXOMNormalizer;
+import com.treilhes.jfxplace.core.fxom.ext.FXOMRefresher;
+import com.treilhes.jfxplace.core.fxom.ext.FileLoader;
+import com.treilhes.jfxplace.core.fxom.ext.LoaderCapabilitiesManager;
+import com.treilhes.jfxplace.core.fxom.ext.TransientStateBackup;
+import com.treilhes.jfxplace.core.fxom.ext.WeakProperty;
+import com.treilhes.jfxplace.fxom.api.FxomExtension;
 
 open module jfxplace.fxom.api {
 
-    exports com.gluonhq.jfxapps.core.api.fxom.action;
-    exports com.gluonhq.jfxapps.core.api.fxom.clipboard;
-    exports com.gluonhq.jfxapps.core.api.fxom.content.decoration;
-    exports com.gluonhq.jfxapps.core.api.fxom.content.mode;
-    exports com.gluonhq.jfxapps.core.api.fxom.content.mode.annotation;
-    exports com.gluonhq.jfxapps.core.api.fxom.css;
-    exports com.gluonhq.jfxapps.core.api.fxom.dnd;
-    exports com.gluonhq.jfxapps.core.api.fxom.editor.selection;
-    exports com.gluonhq.jfxapps.core.api.fxom.error;
-    exports com.gluonhq.jfxapps.core.api.fxom.gesture;
-    exports com.gluonhq.jfxapps.core.api.fxom.jobs;
-    exports com.gluonhq.jfxapps.core.api.fxom.job;
-    exports com.gluonhq.jfxapps.core.api.fxom.job.base;
-    exports com.gluonhq.jfxapps.core.api.fxom.library;
-    exports com.gluonhq.jfxapps.core.api.fxom.mask;
-    exports com.gluonhq.jfxapps.core.api.fxom.subjects;
-    exports com.gluonhq.jfxapps.core.api.fxom.ui.controller.misc;
-    exports com.gluonhq.jfxapps.core.api.fxom.ui.controller.selbar;
+    exports com.treilhes.jfxplace.core.api.fxom.action;
+    exports com.treilhes.jfxplace.core.api.fxom.clipboard;
+    exports com.treilhes.jfxplace.core.api.fxom.content.decoration;
+    exports com.treilhes.jfxplace.core.api.fxom.content.mode;
+    exports com.treilhes.jfxplace.core.api.fxom.content.mode.annotation;
+    exports com.treilhes.jfxplace.core.api.fxom.css;
+    exports com.treilhes.jfxplace.core.api.fxom.dnd;
+    exports com.treilhes.jfxplace.core.api.fxom.editor.selection;
+    exports com.treilhes.jfxplace.core.api.fxom.error;
+    exports com.treilhes.jfxplace.core.api.fxom.gesture;
+    exports com.treilhes.jfxplace.core.api.fxom.jobs;
+    exports com.treilhes.jfxplace.core.api.fxom.job;
+    exports com.treilhes.jfxplace.core.api.fxom.job.base;
+    exports com.treilhes.jfxplace.core.api.fxom.library;
+    exports com.treilhes.jfxplace.core.api.fxom.mask;
+    exports com.treilhes.jfxplace.core.api.fxom.subjects;
+    exports com.treilhes.jfxplace.core.api.fxom.ui.controller.misc;
+    exports com.treilhes.jfxplace.core.api.fxom.ui.controller.selbar;
 
-    exports com.gluonhq.jfxapps.core.api.fxom.ui.tool;
-    exports com.gluonhq.jfxapps.core.api.fxom.util;
+    exports com.treilhes.jfxplace.core.api.fxom.ui.tool;
+    exports com.treilhes.jfxplace.core.api.fxom.util;
 
 
-    exports com.gluonhq.jfxapps.core.fxom;
-    exports com.gluonhq.jfxapps.core.fxom.collector;
-    exports com.gluonhq.jfxapps.core.fxom.glue;
-    exports com.gluonhq.jfxapps.core.fxom.sampledata;
-    exports com.gluonhq.jfxapps.core.fxom.ext;
-    exports com.gluonhq.jfxapps.core.fxom.transform;
-    exports com.gluonhq.jfxapps.core.fxom.util;
+    exports com.treilhes.jfxplace.core.fxom;
+    exports com.treilhes.jfxplace.core.fxom.collector;
+    exports com.treilhes.jfxplace.core.fxom.glue;
+    exports com.treilhes.jfxplace.core.fxom.sampledata;
+    exports com.treilhes.jfxplace.core.fxom.ext;
+    exports com.treilhes.jfxplace.core.fxom.transform;
+    exports com.treilhes.jfxplace.core.fxom.util;
 
-    exports com.gluonhq.jfxapps.core.metadata;
-    exports com.gluonhq.jfxapps.core.metadata.klass;
-    exports com.gluonhq.jfxapps.core.metadata.property;
-    exports com.gluonhq.jfxapps.core.metadata.util;
+    exports com.treilhes.jfxplace.core.metadata;
+    exports com.treilhes.jfxplace.core.metadata.klass;
+    exports com.treilhes.jfxplace.core.metadata.property;
+    exports com.treilhes.jfxplace.core.metadata.util;
 
-    exports com.gluonhq.jfxapps.core.api.document;
-    exports com.gluonhq.jfxapps.core.api.driver;
+    exports com.treilhes.jfxplace.core.api.document;
+    exports com.treilhes.jfxplace.core.api.driver;
 
     requires transitive jfxplace.javafx.starter;
     requires transitive jfxplace.core.api;

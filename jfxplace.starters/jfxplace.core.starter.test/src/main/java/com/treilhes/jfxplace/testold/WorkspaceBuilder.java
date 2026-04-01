@@ -37,15 +37,15 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import org.testfx.api.FxRobot;
 
-import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
-import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
-import com.gluonhq.jfxapps.core.fxom.FXOMDocumentFactory;
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.context.annotation.Prototype;
 import com.treilhes.jfxplace.core.api.application.ApplicationClassloader;
+import com.treilhes.jfxplace.core.api.fxom.subjects.FxomEvents;
 import com.treilhes.jfxplace.core.api.javafx.UiController;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.tooltheme.ToolStylesheetProvider;
+import com.treilhes.jfxplace.core.fxom.FXOMDocument;
+import com.treilhes.jfxplace.core.fxom.FXOMDocumentFactory;
 import com.treilhes.jfxplace.util.URLUtils;
 
 import javafx.scene.Group;

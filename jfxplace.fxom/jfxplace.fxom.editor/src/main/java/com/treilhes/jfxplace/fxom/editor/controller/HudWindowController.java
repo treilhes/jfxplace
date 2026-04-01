@@ -36,13 +36,13 @@ package com.treilhes.jfxplace.fxom.editor.controller;
 import java.util.List;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
+import com.treilhes.jfxplace.core.api.fxom.gesture.CardinalPoint;
+import com.treilhes.jfxplace.core.api.fxom.ui.controller.misc.HudWindow;
 import com.treilhes.jfxplace.core.api.i18n.I18N;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationInstanceEvents;
 import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlPopupController;
 import com.treilhes.jfxplace.util.javafx.LineEquation;
-import com.gluonhq.jfxapps.core.api.fxom.gesture.CardinalPoint;
-import com.gluonhq.jfxapps.core.api.fxom.ui.controller.misc.HudWindow;
 
 import javafx.fxml.FXML;
 import javafx.geometry.BoundingBox;

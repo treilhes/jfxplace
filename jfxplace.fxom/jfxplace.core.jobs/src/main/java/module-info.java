@@ -31,11 +31,11 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import com.gluonhq.jfxapps.core.job.JobsExtension;
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
+import com.treilhes.jfxplace.core.job.JobsExtension;
 
 open module jfxplace.core.jobs {
-    exports com.gluonhq.jfxapps.core.job;
+    exports com.treilhes.jfxplace.core.job;
 
     requires transitive jfxplace.core.api;
     requires transitive jfxplace.fxom.api;

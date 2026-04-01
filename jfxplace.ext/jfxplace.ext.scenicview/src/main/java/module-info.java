@@ -32,11 +32,11 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
-import com.gluonhq.jfxapps.ext.scenicview.ScenicViewExtension;
+import com.treilhes.jfxplace.ext.scenicview.ScenicViewExtension;
 
 open module jfxplace.ext.scenicview {
-    exports com.gluonhq.jfxapps.ext.scenicview;
-    exports com.gluonhq.jfxapps.ext.scenicview.i18n;
+    exports com.treilhes.jfxplace.ext.scenicview;
+    exports com.treilhes.jfxplace.ext.scenicview.i18n;
 
     requires transitive jfxplace.core.api;
     requires org.scenicview.scenicview;

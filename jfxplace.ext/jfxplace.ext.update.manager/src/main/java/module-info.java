@@ -32,11 +32,11 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
-import com.gluonhq.jfxapps.ext.updatemgr.UpdateManagerExtension;
+import com.treilhes.jfxplace.ext.updatemgr.UpdateManagerExtension;
 
 open module jfxplace.ext.update.manager {
-    exports com.gluonhq.jfxapps.ext.updatemgr.i18n;
-    exports com.gluonhq.jfxapps.ext.updatemgr;
+    exports com.treilhes.jfxplace.ext.updatemgr.i18n;
+    exports com.treilhes.jfxplace.ext.updatemgr;
 
     requires transitive jfxplace.core.api;
     //requires spring.context;

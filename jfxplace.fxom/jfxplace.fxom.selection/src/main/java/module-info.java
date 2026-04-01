@@ -31,13 +31,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import com.gluonhq.jfxapps.core.selection.FxomSelectionExtension;
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
+import com.treilhes.jfxplace.core.selection.FxomSelectionExtension;
 
 open module jfxplace.fxom.selection {
-    exports com.gluonhq.jfxapps.core.selection;
-    exports com.gluonhq.jfxapps.core.selection.i18n;
-    exports com.gluonhq.jfxapps.core.selection.job;
+    exports com.treilhes.jfxplace.core.selection;
+    exports com.treilhes.jfxplace.core.selection.i18n;
+    exports com.treilhes.jfxplace.core.selection.job;
 
     requires transitive jfxplace.core.api;
     requires transitive jfxplace.fxom.api;

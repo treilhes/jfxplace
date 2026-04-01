@@ -72,7 +72,6 @@ import org.springframework.test.context.MergedContextConfiguration;
 import org.springframework.test.context.support.AbstractContextLoader;
 import org.testfx.api.FxToolkit;
 
-import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
 import com.treilhes.emc4j.boot.api.layer.Layer;
 import com.treilhes.emc4j.boot.api.layer.ModuleLayerManager;
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
@@ -86,6 +85,7 @@ import com.treilhes.emc4j.boot.loader.internal.context.ExtensionBootstrapper.Ser
 import com.treilhes.emc4j.boot.loader.model.LoadableContent;
 import com.treilhes.emc4j.boot.loader.validation.ExtensionValidator;
 import com.treilhes.jfxplace.core.api.application.ApplicationClassloader;
+import com.treilhes.jfxplace.core.api.fxom.subjects.FxomEvents;
 import com.treilhes.jfxplace.core.api.i18n.BundleProvider;
 import com.treilhes.jfxplace.core.api.i18n.I18N;
 import com.treilhes.jfxplace.core.api.javafx.internal.FxmlControllerBeanPostProcessor;
@@ -101,7 +101,7 @@ import javafx.stage.Stage;
 
 public class JfxAppsExtension implements BeforeEachCallback, AfterEachCallback, ParameterResolver {
     private final static Logger logger = LoggerFactory.getLogger(JfxAppsExtension.class);
-    private final static Namespace JFXAPPS = create("com.gluonhq.jfxapps");
+    private final static Namespace JFXAPPS = create("com.treilhes.jfxplace");
 
     // This constructor is invoked by JUnit Jupiter via reflection or ServiceLoader
     @SuppressWarnings("unused")

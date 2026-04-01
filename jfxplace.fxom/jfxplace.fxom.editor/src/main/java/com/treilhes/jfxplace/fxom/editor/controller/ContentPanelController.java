@@ -37,12 +37,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
+import com.treilhes.jfxplace.core.api.fxom.subjects.FxomEvents;
+import com.treilhes.jfxplace.core.api.fxom.ui.controller.misc.Content;
 import com.treilhes.jfxplace.core.api.i18n.I18N;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.MessageLogger;
-import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
-import com.gluonhq.jfxapps.core.api.fxom.ui.controller.misc.Content;
-import com.gluonhq.jfxapps.core.fxom.FXOMDocument;
+import com.treilhes.jfxplace.core.fxom.FXOMDocument;
 
 import io.reactivex.rxjava3.subjects.PublishSubject;
 import io.reactivex.rxjava3.subjects.Subject;

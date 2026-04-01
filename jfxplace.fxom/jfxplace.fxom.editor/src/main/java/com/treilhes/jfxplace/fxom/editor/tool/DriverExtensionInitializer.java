@@ -33,10 +33,10 @@
  */
 package com.treilhes.jfxplace.fxom.editor.tool;
 
-import com.gluonhq.jfxapps.core.api.driver.DriverRegistry;
-import com.gluonhq.jfxapps.core.api.fxom.ui.tool.NoPickRefiner;
-import com.gluonhq.jfxapps.core.api.fxom.ui.tool.PickRefiner;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
+import com.treilhes.jfxplace.core.api.driver.DriverRegistry;
+import com.treilhes.jfxplace.core.api.fxom.ui.tool.NoPickRefiner;
+import com.treilhes.jfxplace.core.api.fxom.ui.tool.PickRefiner;
 
 @ApplicationSingleton
 public class DriverExtensionInitializer {

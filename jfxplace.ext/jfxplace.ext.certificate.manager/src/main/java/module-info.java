@@ -32,13 +32,13 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
-import com.gluonhq.jfxapps.ext.certmngr.CertificateManagerExtension;
+import com.treilhes.jfxplace.ext.certmngr.CertificateManagerExtension;
 
 open module jfxplace.core.ext.certificate.manager {
-    exports com.gluonhq.jfxapps.ext.certmngr;
-    exports com.gluonhq.jfxapps.ext.certmngr.controller;
-    exports com.gluonhq.jfxapps.ext.certmngr.i18n;
-    exports com.gluonhq.jfxapps.ext.certmngr.tls;
+    exports com.treilhes.jfxplace.ext.certmngr;
+    exports com.treilhes.jfxplace.ext.certmngr.controller;
+    exports com.treilhes.jfxplace.ext.certmngr.i18n;
+    exports com.treilhes.jfxplace.ext.certmngr.tls;
 
     requires transitive jfxplace.core.api;
 

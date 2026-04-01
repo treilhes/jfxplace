@@ -37,10 +37,10 @@ import java.util.concurrent.TimeoutException;
 
 import org.testfx.api.FxToolkit;
 
-import com.gluonhq.jfxapps.core.api.fxom.subjects.FxomEvents;
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.context.annotation.Prototype;
 import com.treilhes.jfxplace.core.api.application.ApplicationClassloader;
+import com.treilhes.jfxplace.core.api.fxom.subjects.FxomEvents;
 import com.treilhes.jfxplace.core.api.javafx.UiController;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.testold.controller.EmptyController;

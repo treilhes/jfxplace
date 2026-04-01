@@ -32,15 +32,15 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
-import com.gluonhq.jfxapps.ext.container.ScenebuilderContainerExtension;
+import com.treilhes.jfxplace.ext.container.ScenebuilderContainerExtension;
 
 open module jfxplace.ext.sb {
-    exports com.gluonhq.jfxapps.ext.container;
-    exports com.gluonhq.jfxapps.ext.container.actions;
-    exports com.gluonhq.jfxapps.ext.container.menu;
-    exports com.gluonhq.jfxapps.ext.container.menu.controller;
-    exports com.gluonhq.jfxapps.ext.container.preferences.global;
-    exports com.gluonhq.jfxapps.ext.container.tooltheme;
+    exports com.treilhes.jfxplace.ext.container;
+    exports com.treilhes.jfxplace.ext.container.actions;
+    exports com.treilhes.jfxplace.ext.container.menu;
+    exports com.treilhes.jfxplace.ext.container.menu.controller;
+    exports com.treilhes.jfxplace.ext.container.preferences.global;
+    exports com.treilhes.jfxplace.ext.container.tooltheme;
 
     requires transitive jfxplace.core.api;
     requires spring.beans;

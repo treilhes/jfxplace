@@ -31,16 +31,16 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-import com.gluonhq.jfxapps.core.library.LibraryExtension;
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
+import com.treilhes.jfxplace.core.library.LibraryExtension;
 
 open module jfxplace.core.library {
-    exports com.gluonhq.jfxapps.core.library.manager;
-    exports com.gluonhq.jfxapps.core.library.api;
-    exports com.gluonhq.jfxapps.core.library;
-    exports com.gluonhq.jfxapps.core.library.store;
-    exports com.gluonhq.jfxapps.core.library.util;
-    exports com.gluonhq.jfxapps.core.library.preference;
+    exports com.treilhes.jfxplace.core.library.manager;
+    exports com.treilhes.jfxplace.core.library.api;
+    exports com.treilhes.jfxplace.core.library;
+    exports com.treilhes.jfxplace.core.library.store;
+    exports com.treilhes.jfxplace.core.library.util;
+    exports com.treilhes.jfxplace.core.library.preference;
 
     requires jfxplace.fxom.api;
     requires jfxplace.core.starter;
