@@ -52,7 +52,7 @@ public class TemplateGeneration {
     public void generateComponentClass(JavaGenerationContext context, Context templateContext,  Component<?, ?, ?> component, ClassCustomization customization) throws IOException {
         String classPath = component.getMetadataClassName().replace('.', File.separatorChar);
         String relativePath = String.format("%s.java", classPath);
-        String template = "/com/gluonhq/jfxapps/metadata/java/template/scenebuilderx/ComponentClassMetadata.ftl";
+        String template = "/com/treilhes/jfxplace/metadata/java/template/scenebuilderx/ComponentClassMetadata.ftl";
 
         Map<String, Object> inputs = Map.of("context", templateContext, "component", component, "customization", customization);
 
@@ -63,7 +63,7 @@ public class TemplateGeneration {
         String javaPackage = context.getTargetPackage();
         String packagePath = javaPackage.replace('.', File.separatorChar);
         String relativePath = packagePath + "/PropertyNames.java";
-        String template = "/com/gluonhq/jfxapps/metadata/java/template/scenebuilderx/PropertyNames.ftl";
+        String template = "/com/treilhes/jfxplace/metadata/java/template/scenebuilderx/PropertyNames.ftl";
 
         var propertyMap = new HashMap<String, Object>();
         for (var c:localComponents.values()) {
@@ -84,7 +84,7 @@ public class TemplateGeneration {
     }
     public void generateDescriptor(JavaGenerationContext javaContext, Context templateContext, Descriptor descriptor) throws IOException {
         String relativePath = Descriptor.DESCRIPTOR_LOCATION;
-        String template = "/com/gluonhq/jfxapps/metadata/java/template/scenebuilderx/Descriptor.ftl";
+        String template = "/com/treilhes/jfxplace/metadata/java/template/scenebuilderx/Descriptor.ftl";
 
         Map<String, Object> inputs = Map.of("context", templateContext, "classToMetaMap", descriptor.getClassToMetaClass());
 
@@ -93,7 +93,7 @@ public class TemplateGeneration {
 
     public void generateServiceFile(JavaGenerationContext javaContext, Map<String, Object> inputs) throws IOException {
         String relativePath = "META-INF/services/com.oracle.javafx.scenebuilder.extension.Extension";
-        String template = "/com/gluonhq/jfxapps/metadata/java/template/scenebuilderx/service.ftl";
+        String template = "/com/treilhes/jfxplace/metadata/java/template/scenebuilderx/service.ftl";
         generateResource(javaContext, inputs, template, relativePath);
     }
 
@@ -101,7 +101,7 @@ public class TemplateGeneration {
         String javaPackage = javaContext.getTargetPackage();
         String packagePath = javaPackage.replace('.', File.separatorChar);
         String relativePath = packagePath + "/" + javaContext.getExtensionName() + ".java";
-        String template = "/com/gluonhq/jfxapps/metadata/java/template/scenebuilderx/Extension.ftl";
+        String template = "/com/treilhes/jfxplace/metadata/java/template/scenebuilderx/Extension.ftl";
 
         Map<String, Object> inputs = Map.of("context", templateContext, "components", components);
 
@@ -110,7 +110,7 @@ public class TemplateGeneration {
 
     public void generateModuleInfo(JavaGenerationContext searchContext, Context templateContext, Set<String> packages) throws IOException {
         String relativePath = "module-info.java";
-        String template = "/com/gluonhq/jfxapps/metadata/java/template/scenebuilderx/module-info.ftl";
+        String template = "/com/treilhes/jfxplace/metadata/java/template/scenebuilderx/module-info.ftl";
 
         Map<String, Object> inputs = Map.of("context", templateContext, "packages", packages);
 

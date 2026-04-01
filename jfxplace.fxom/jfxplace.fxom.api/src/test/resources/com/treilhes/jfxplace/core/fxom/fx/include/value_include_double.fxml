@@ -5,6 +5,6 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="512.0" prefWidth="868.0" xmlns="http://javafx.com/javafx/xxx" xmlns:fx="http://javafx.com/fxml/1">
    <minWidth>
-      <fx:include source="/com/gluonhq/jfxapps/core/fxom/fx/include/double.fxml" />
+      <fx:include source="/com/treilhes/jfxplace/core/fxom/fx/include/double.fxml" />
    </minWidth>
 </Pane>

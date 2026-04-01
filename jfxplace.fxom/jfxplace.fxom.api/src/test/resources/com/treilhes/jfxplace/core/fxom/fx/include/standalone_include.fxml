@@ -2,4 +2,4 @@
 
 
 
-<fx:include source="/com/gluonhq/jfxapps/core/fxom/fx/include/always_valid.fxml" xmlns="http://javafx.com/javafx/xxx" xmlns:fx="http://javafx.com/fxml/1" />
+<fx:include source="/com/treilhes/jfxplace/core/fxom/fx/include/always_valid.fxml" xmlns="http://javafx.com/javafx/xxx" xmlns:fx="http://javafx.com/fxml/1" />
