@@ -277,7 +277,7 @@ public class FXOMSaverUpdateImportInstructionsTest {
     }
 
     private void setupTestCase(FxmlTestInfo n) {
-        Path pathToFXML = Paths.get("src/test/resources/com/gluonhq/jfxapps/core/fxom/" + n.getFilename() + ".fxml");
+        Path pathToFXML = Paths.get("src/test/resources/com/treilhes/jfxplace/core/fxom/" + n.getFilename() + ".fxml");
         try {
             Path pathToTestFXML = new File(temporaryFolder, "testerFXML.fxml").toPath();
 
