@@ -18,7 +18,14 @@ build-job:
   image: docker.treilhes.home/jfxapps/builder-linux:latest
   stage: build
   script:
-    - mvn -Dmaven.repo.local=/cache/repository -B -ntp clean install -P headless
+    - mvn -Dmaven.repo.local=/cache/repository -B -ntp clean $MAVEN_GOAL -P headless -T 1C
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      variables:
+        MAVEN_GOAL: "deploy"
+    - when: always
+      variables:
+        MAVEN_GOAL: "install"
 
 build-sonar:
   tags:
@@ -27,7 +34,7 @@ build-sonar:
   stage: build-sonar
       
   script: 
-    - mvn -Dmaven.repo.local=/cache/repository -ntp verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -P coverage,headless
+    - mvn -Dmaven.repo.local=/cache/repository -ntp verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -P coverage,headless -T 1C
   allow_failure: true
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
