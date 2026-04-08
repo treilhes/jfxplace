@@ -18,7 +18,7 @@ build-job:
   image: docker.treilhes.home/jfxapps/builder-linux:latest
   stage: build
   script:
-    - mvn -Dmaven.repo.local=/cache/repository -B -ntp clean $MAVEN_GOAL -P headless -T 1C
+    - mvn -Dmaven.repo.local=/cache/repository -B -ntp clean $MAVEN_GOAL -P headless -T 1C $GITLAB_OPS
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
       variables:
