@@ -180,9 +180,9 @@ public class CssInternal {
         return styleClassMap.get(styleClass);
     }
 
-//    public static List<String> getStyleClasses(EditorController editorController, Set<FXOMInstance> instances) {
-//        return new ArrayList<>(getStyleClassesMap(editorController, instances).keySet());
-//    }
+    public static List<String> getStyleClasses(StylesheetProvider stylesheetConfig) {
+        return new ArrayList<>(getStyleClassesMap(stylesheetConfig, Set.of()).keySet());
+    }
 
     public static Map<String, String> getStyleClassesMap(StylesheetProvider stylesheetConfig, Set<FXOMElement> instances) {
         Map<String, String> classesMap = new TreeMap<>();
