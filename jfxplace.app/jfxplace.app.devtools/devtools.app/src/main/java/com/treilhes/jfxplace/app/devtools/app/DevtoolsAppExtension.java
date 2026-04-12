@@ -63,7 +63,7 @@ public class DevtoolsAppExtension implements OpenExtension  {
     @Override
     public List<Class<?>> exportedContextClasses() {
         return List.of(
-                DevtoolsOpenCommandEventHandler.class,
+                DevtoolsCommandEventHandler.class,
 
                 WindowIconSettings.class,
                 DevtoolsUiTemplate.class,

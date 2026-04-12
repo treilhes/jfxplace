@@ -64,7 +64,7 @@ public class ManagerAppExtension implements OpenExtension  {
     @Override
     public List<Class<?>> exportedContextClasses() {
         return List.of(
-        		ManagerOpenCommandEventHandler.class,
+        		ManagerCommandEventHandler.class,
                 WindowIconSettings.class,
                 ManagerUiTemplate.class,
                 MainMenuProvider.class,

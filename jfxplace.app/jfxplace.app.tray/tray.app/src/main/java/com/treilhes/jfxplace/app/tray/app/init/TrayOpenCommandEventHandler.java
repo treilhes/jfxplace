@@ -5,14 +5,15 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
+import com.treilhes.emc4j.boot.api.loader.OpenCommandEvent;
+import com.treilhes.emc4j.boot.api.loader.RestartCommandEvent;
+import com.treilhes.emc4j.boot.api.loader.RestartedCommandEvent;
+import com.treilhes.emc4j.boot.api.loader.StopCommandEvent;
 import com.treilhes.jfxplace.core.api.application.ApplicationActionFactory;
 import com.treilhes.jfxplace.core.api.application.CommandEventHandler;
 import com.treilhes.jfxplace.core.api.fs.OpenFileHandler;
 import com.treilhes.jfxplace.core.api.ui.dialog.ApplicationDialog;
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
-import com.treilhes.emc4j.boot.api.loader.OpenCommandEvent;
-import com.treilhes.emc4j.boot.api.loader.RestartCommandEvent;
-import com.treilhes.emc4j.boot.api.loader.StopCommandEvent;
 
 @ApplicationSingleton
 public class TrayOpenCommandEventHandler implements CommandEventHandler {
@@ -49,6 +50,12 @@ public class TrayOpenCommandEventHandler implements CommandEventHandler {
 
     @Override
     public void handleRestartCommand(RestartCommandEvent command) {
+    }
+
+    @Override
+    public void handleRestartedCommand(RestartedCommandEvent command) {
+        // TODO Auto-generated method stub
+
     }
 
 }
