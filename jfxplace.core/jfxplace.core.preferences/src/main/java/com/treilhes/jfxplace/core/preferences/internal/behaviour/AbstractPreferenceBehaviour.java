@@ -38,22 +38,22 @@ import org.springframework.data.core.TypeInformation;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.treilhes.emc4j.boot.api.aop.AopMetadata;
 import com.treilhes.jfxplace.core.api.preference.Preference;
-import com.treilhes.jfxplace.core.preferences.internal.aop.PreferenceAopContext.PreferenceMetadata;
 import com.treilhes.jfxplace.core.preferences.repository.PreferenceRepository;
 
 public abstract class AbstractPreferenceBehaviour implements PreferenceBehaviour {
 
-    private final PreferenceMetadata metadata;
+    private final AopMetadata metadata;
     private final PreferenceRepository repository;
 
-    public AbstractPreferenceBehaviour(PreferenceMetadata metadata, PreferenceRepository repository) {
+    public AbstractPreferenceBehaviour(AopMetadata metadata, PreferenceRepository repository) {
         super();
         this.metadata = metadata;
         this.repository = repository;
     }
 
-    public PreferenceMetadata getMetadata() {
+    public AopMetadata getMetadata() {
         return metadata;
     }
 

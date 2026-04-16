@@ -36,20 +36,24 @@ package com.treilhes.jfxplace.core.preferences.internal.aop;
 import java.util.Arrays;
 import java.util.UUID;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.core.annotation.AnnotationUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.treilhes.emc4j.boot.api.aop.AopContext;
+import com.treilhes.emc4j.boot.api.aop.AopFactory;
 import com.treilhes.emc4j.boot.api.aop.AopFactoryBean;
 import com.treilhes.emc4j.boot.api.aop.AopMetadata;
+import com.treilhes.emc4j.boot.api.aop.DefaultMethodInterceptor;
+import com.treilhes.emc4j.boot.api.aop.ImplementationInterceptor;
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
 import com.treilhes.jfxplace.core.api.i18n.I18N;
+import com.treilhes.jfxplace.core.api.preference.DefaultPreferenceGroups.PreferenceGroup;
 import com.treilhes.jfxplace.core.api.preference.DefaultValueProvider;
 import com.treilhes.jfxplace.core.api.preference.JsonMapper;
 import com.treilhes.jfxplace.core.api.preference.NoPreferenceBean;
@@ -58,7 +62,6 @@ import com.treilhes.jfxplace.core.api.preference.PreferenceContext;
 import com.treilhes.jfxplace.core.api.preference.PreferenceEditorFactory;
 import com.treilhes.jfxplace.core.api.preference.UserPreference;
 import com.treilhes.jfxplace.core.api.preference.ValueValidator;
-import com.treilhes.jfxplace.core.api.preference.DefaultPreferenceGroups.PreferenceGroup;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationInstanceEvents;
 import com.treilhes.jfxplace.core.preferences.internal.behaviour.ApplicationPreferenceBehaviour;
@@ -73,36 +76,74 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.Parent;
 
 
-public class PreferenceAopContext extends AopContext<Preference, PreferenceContext, PreferenceAopContext.PreferenceMetadata> {
+public class PreferenceAopContext extends AopContext<Preference> {
 
     public PreferenceAopContext() {
-        super(Preference.class, PreferenceContext.class);
+        super(Preference.class);
     }
 
     @Override
-    public PreferenceAopContext.PreferenceMetadata loadMetadata(Class<?> clazz) {
-        return new PreferenceMetadata(getContexAnnotationClass(), getMarkerClass(), clazz);
+    public boolean isCandidateComponent(AnnotatedBeanDefinition beanDefinition) {
+        boolean isNonPreferenceInterface = !Preference.class.getName().equals(beanDefinition.getBeanClassName());
+        boolean isPreference = Arrays.stream(beanDefinition.getMetadata().getInterfaceNames())
+                .anyMatch(Preference.class.getName()::equals);
+        boolean isInterface = beanDefinition.getMetadata().isInterface();
+        boolean hasContextAnnotation = beanDefinition.getMetadata().isAnnotated(PreferenceContext.class.getName());
+
+        return isPreference && isInterface && isNonPreferenceInterface && hasContextAnnotation;
     }
 
     @Override
-    public Preference createTarget(EmContext context, PreferenceMetadata metadata) {
+    public Class<? extends AopFactoryBean<?>> factoryBeanClass() {
+        return PreferenceAopFactoryBean.class;
+    }
+
+    @Override
+    public Class<? extends NoPreferenceBean> getExclusionAnnotation() {
+        return NoPreferenceBean.class;
+    }
+
+    @Override
+    public Preference createProxy(AopFactory factory, EmContext context, AopMetadata metadata) {
 
         var preferenceInterface = metadata.getBeanClass();
 
+        factory.addRead(preferenceInterface);
+
+        var preference = createTarget(context, metadata, preferenceInterface);
+
+        // Create proxy
+        var result = new ProxyFactory();
+        result.setTarget(preference);
+        result.setInterfaces(preferenceInterface);
+        result.addAdvice(new DefaultMethodInterceptor());
+        result.addAdvice(new ImplementationInterceptor(preference, preferenceInterface));
+
+        return (Preference) result.getProxy(preferenceInterface.getClassLoader());
+
+    }
+
+    private BasePreference createTarget(EmContext context, AopMetadata metadata, Class<?> preferenceInterface) {
         boolean isEditable = UserPreference.class.isAssignableFrom(preferenceInterface);
 
-        var jfxAppContext = context;
-        var i18n = jfxAppContext.getBean(I18N.class);
+        var i18n = context.getBean(I18N.class);
 
-        var preferenceRepository = jfxAppContext.getBean(PreferenceRepository.class);
+        var preferenceRepository = context.getBean(PreferenceRepository.class);
 
-        var defaultEditorFactory = isEditable ? jfxAppContext.getBean(PreferenceEditorFactory.class) : null;
+        var defaultEditorFactory = isEditable ? context.getBean(PreferenceEditorFactory.class) : null;
 
-        var id = metadata.getId();
-        var name = metadata.getName();
-        var defaultValueProviderClass = metadata.getDefaultValueProviderClass();
-        var valueValidatorClass = metadata.getValueValidatorClass();
-        var jsonMapperClass = metadata.getJsonMapperClass();
+
+        var preferenceContextAnnotation = AnnotationUtils.findAnnotation(preferenceInterface, PreferenceContext.class);
+
+        if (preferenceContextAnnotation == null) {
+            throw new IllegalArgumentException("Preference interface must be annotated with @PreferenceContext");
+        }
+
+        var id = UUID.fromString(preferenceContextAnnotation.id());
+        var name = preferenceContextAnnotation.name();
+        var defaultValueProviderClass = preferenceContextAnnotation.defaultValueProvider();
+        var valueValidatorClass = preferenceContextAnnotation.validator();
+        var jsonMapperClass = preferenceContextAnnotation.jsonMapper();
         var preferenceType = metadata.getGenericTypeInformation();
         var scope = metadata.getScope();
         var dataClass = preferenceType.getType();
@@ -110,7 +151,7 @@ public class PreferenceAopContext extends AopContext<Preference, PreferenceConte
         DefaultValueProvider<?> defaultValueProvider = null;
         try {
             defaultValueProvider = defaultValueProviderClass != PreferenceContext.NoOpDefaultValueProvider.class //
-                    ? instanciate(jfxAppContext, defaultValueProviderClass)
+                    ? instanciate(context, defaultValueProviderClass)
                     : () -> null;
         } catch (Exception e) {
             throw new IllegalArgumentException("Unable to create DefaultValueProvider", e);
@@ -120,7 +161,7 @@ public class PreferenceAopContext extends AopContext<Preference, PreferenceConte
         try {
             valueValidator = valueValidatorClass != PreferenceContext.NoOpValueValidator.class //
                     ? valueValidatorClass.getDeclaredConstructor().newInstance()
-                    : (v) -> true;
+                    : _ -> true;
         } catch (Exception e) {
             throw new IllegalArgumentException("Unable to create ValueValidator", e);
         }
@@ -136,8 +177,7 @@ public class PreferenceAopContext extends AopContext<Preference, PreferenceConte
 
         var behaviourClass = switch (scope) {
 
-        case DefaultListableBeanFactory.SCOPE_SINGLETON ->
-            new GlobalPreferenceBehaviour(metadata, preferenceRepository);
+        case ConfigurableBeanFactory.SCOPE_SINGLETON -> new GlobalPreferenceBehaviour(metadata, preferenceRepository);
 
         case ApplicationSingleton.SCOPE_NAME -> new ApplicationPreferenceBehaviour(metadata, preferenceRepository,
                 context.getBean(ApplicationEvents.class));
@@ -148,45 +188,22 @@ public class PreferenceAopContext extends AopContext<Preference, PreferenceConte
         default -> throw new IllegalArgumentException("Unexpected value: " + scope);
         };
 
-        var preference = new BasePreference(preferenceInterface, jfxAppContext, i18n, id, name, dataClass, defaultValueProvider, valueValidator,
-                behaviourClass, defaultEditorFactory, jsonMapper);
-
-        return preference;
+        return new BasePreference(
+                preferenceInterface,
+                context,
+                i18n,
+                id,
+                name,
+                dataClass,
+                defaultValueProvider,
+                valueValidator,
+                behaviourClass,
+                defaultEditorFactory,
+                jsonMapper);
     }
 
-    @Override
-    public Class<? extends AopFactoryBean<Preference, PreferenceMetadata>> factoryBeanClass() {
-        return PreferenceFactoryBean.class;
-    }
-
-    public static class PreferenceFactoryBean extends AopFactoryBean<Preference, PreferenceMetadata> {
-
-        public PreferenceFactoryBean(Class<?> themeInterface) {
-            super(themeInterface, new PreferenceAopContext());
-        }
-
-    }
-
-    @Override
-    public boolean isCandidateComponent(AnnotatedBeanDefinition beanDefinition) {
-
-        boolean isNonPreferenceInterface = !Preference.class.getName().equals(beanDefinition.getBeanClassName());
-        boolean isPreference = Arrays.stream(beanDefinition.getMetadata().getInterfaceNames())
-                .anyMatch(Preference.class.getName()::equals);
-        boolean isInterface = beanDefinition.getMetadata().isInterface();
-        boolean hasContextAnnotation = beanDefinition.getMetadata().isAnnotated(PreferenceContext.class.getName());
-
-        return isPreference && isInterface && isNonPreferenceInterface && hasContextAnnotation;
-    }
-
-    @Override
-    public Class<? extends NoPreferenceBean> getExclusionAnnotation() {
-        return NoPreferenceBean.class;
-    }
 
     public class BasePreference<T> implements Preference<T>, UserPreference<T> {
-
-        private static final Logger logger = LoggerFactory.getLogger(BasePreference.class);
 
         private final EmContext context;
         private final I18N i18n;
@@ -307,8 +324,8 @@ public class PreferenceAopContext extends AopContext<Preference, PreferenceConte
         }
 
         public void fromJson(String json, JavaType type) throws JsonProcessingException {
-            T value = jsonMapper != null ? (T) jsonMapper.fromJson(json, type) : (T) objectMapper.readValue(json, type);
-            setValue(value);
+            T newValue = jsonMapper != null ? (T) jsonMapper.fromJson(json, type) : (T) objectMapper.readValue(json, type);
+            setValue(newValue);
         }
 
         @Override
@@ -338,54 +355,10 @@ public class PreferenceAopContext extends AopContext<Preference, PreferenceConte
 
     }
 
-    public static class PreferenceMetadata extends AopMetadata<PreferenceContext, Preference> {
-
-        private UUID id;
-        private String name;
-        private Class<? extends DefaultValueProvider<?>> defaultValueProviderClass;
-        private Class<? extends ValueValidator<?>> valueValidatorClass;
-        private Class<? extends JsonMapper<?>> jsonMapperClass;
-
-        public PreferenceMetadata(Class<PreferenceContext> annotationClass, Class<Preference> markerClass, Class<?> themeInterface) {
-            super(annotationClass, markerClass, themeInterface);
+    static class PreferenceAopFactoryBean extends AopFactoryBean<Preference> {
+        public PreferenceAopFactoryBean(Class<?> beanClass) {
+            super(beanClass, new PreferenceAopContext());
         }
-
-        @Override
-        protected void loadMetadata(PreferenceContext annotation) {
-            if (hasAnnotation()) {
-                this.id = UUID.fromString(annotation.id());
-                this.name = annotation.name();
-                this.defaultValueProviderClass = annotation.defaultValueProvider();
-                this.valueValidatorClass = annotation.validator();
-                this.jsonMapperClass = annotation.jsonMapper();
-            } else {
-                this.id = null;
-                this.name = null;
-                this.defaultValueProviderClass = null;
-                this.valueValidatorClass = null;
-                this.jsonMapperClass = null;
-            }
-        }
-
-        public UUID getId() {
-            return id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public Class<? extends DefaultValueProvider<?>> getDefaultValueProviderClass() {
-            return defaultValueProviderClass;
-        }
-
-        public Class<? extends ValueValidator<?>> getValueValidatorClass() {
-            return valueValidatorClass;
-        }
-
-        public Class<? extends JsonMapper<?>> getJsonMapperClass() {
-            return jsonMapperClass;
-        }
-
     }
+
 }

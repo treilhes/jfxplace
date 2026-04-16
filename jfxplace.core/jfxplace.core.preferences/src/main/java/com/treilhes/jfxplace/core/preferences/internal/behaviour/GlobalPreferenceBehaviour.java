@@ -37,8 +37,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.treilhes.emc4j.boot.api.aop.AopMetadata;
 import com.treilhes.jfxplace.core.preferences.internal.aop.PreferenceAopContext.BasePreference;
-import com.treilhes.jfxplace.core.preferences.internal.aop.PreferenceAopContext.PreferenceMetadata;
 import com.treilhes.jfxplace.core.preferences.model.PreferenceEntity;
 import com.treilhes.jfxplace.core.preferences.model.PreferenceEntity.PreferenceEntityId;
 import com.treilhes.jfxplace.core.preferences.repository.PreferenceRepository;
@@ -47,7 +47,7 @@ public class GlobalPreferenceBehaviour extends AbstractPreferenceBehaviour {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalPreferenceBehaviour.class);
 
-    public GlobalPreferenceBehaviour(PreferenceMetadata metadata, PreferenceRepository repository) {
+    public GlobalPreferenceBehaviour(AopMetadata metadata, PreferenceRepository repository) {
         super(metadata, repository);
     }
 

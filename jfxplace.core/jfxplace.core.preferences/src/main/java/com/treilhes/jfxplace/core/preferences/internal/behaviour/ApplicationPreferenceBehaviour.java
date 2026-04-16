@@ -37,9 +37,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.treilhes.emc4j.boot.api.aop.AopMetadata;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.preferences.internal.aop.PreferenceAopContext.BasePreference;
-import com.treilhes.jfxplace.core.preferences.internal.aop.PreferenceAopContext.PreferenceMetadata;
 import com.treilhes.jfxplace.core.preferences.model.PreferenceEntity;
 import com.treilhes.jfxplace.core.preferences.model.PreferenceEntity.PreferenceEntityId;
 import com.treilhes.jfxplace.core.preferences.repository.PreferenceRepository;
@@ -51,7 +51,7 @@ public class ApplicationPreferenceBehaviour extends AbstractPreferenceBehaviour 
     private String applicationId;
 
     public ApplicationPreferenceBehaviour(
-            PreferenceMetadata metadata,
+            AopMetadata metadata,
             PreferenceRepository repository,
             ApplicationEvents applicationEvents) {
         super(metadata, repository);

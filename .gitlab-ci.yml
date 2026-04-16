@@ -18,7 +18,7 @@ build-job:
   image: docker.treilhes.home/jfxapps/builder-linux:latest
   stage: build
   script:
-    - mvn -Dmaven.repo.local=/cache/repository -B -ntp clean $MAVEN_GOAL -P headless -T 1C $GITLAB_OPS
+    - mvn -Dmaven.repo.local=/cache/repository -B -ntp clean $MAVEN_GOAL -P delivery,headless -T 1C $GITLAB_OPS
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
       variables:
@@ -32,7 +32,6 @@ build-sonar:
     - linux
   image: docker.treilhes.home/jfxapps/builder-linux:latest
   stage: build-sonar
-      
   script: 
     - mvn -Dmaven.repo.local=/cache/repository -ntp verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -P coverage,headless -T 1C
   allow_failure: true
