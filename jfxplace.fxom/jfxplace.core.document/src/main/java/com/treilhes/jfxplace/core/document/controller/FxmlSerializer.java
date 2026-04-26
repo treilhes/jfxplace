@@ -37,8 +37,8 @@ import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSinglet
 import com.treilhes.jfxplace.core.document.preference.CompressFxmlPreference;
 import com.treilhes.jfxplace.core.document.preference.WildcardImportsPreference;
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
-import com.treilhes.jfxplace.core.fxom.transform.DefaultFxmlSerializer;
-import com.treilhes.jfxplace.core.fxom.transform.FXOMSerializer;
+import com.treilhes.jfxplace.core.fxom.pipeline.DefaultFxmlSerializer;
+import com.treilhes.jfxplace.core.fxom.pipeline.FXOMSerializer;
 
 @ApplicationInstanceSingleton
 public class FxmlSerializer implements FXOMSerializer {

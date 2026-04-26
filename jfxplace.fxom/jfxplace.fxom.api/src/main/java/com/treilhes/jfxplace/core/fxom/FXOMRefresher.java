@@ -40,7 +40,7 @@ import java.util.List;
 import java.util.ServiceLoader;
 import java.util.Set;
 
-import com.treilhes.jfxplace.core.fxom.transform.FXOMSerializer;
+import com.treilhes.jfxplace.core.fxom.pipeline.FXOMSerializer;
 import com.treilhes.jfxplace.core.fxom.util.PropertyName;
 
 import javafx.scene.Node;

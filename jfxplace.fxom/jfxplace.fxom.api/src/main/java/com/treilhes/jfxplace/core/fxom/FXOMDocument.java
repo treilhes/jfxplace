@@ -47,6 +47,7 @@ import java.util.ResourceBundle;
 
 import com.treilhes.jfxplace.core.fxom.collector.FXOMCollector;
 import com.treilhes.jfxplace.core.fxom.glue.GlueDocument;
+import com.treilhes.jfxplace.core.fxom.pipeline.FXOMDocumentFactory;
 import com.treilhes.jfxplace.core.fxom.util.Deprecation;
 import com.treilhes.jfxplace.util.URLUtils;
 
@@ -92,20 +93,20 @@ public class FXOMDocument {
 
     private List<Class<?>> initialDeclaredClasses;
 
-    FXOMDocument(FXOMDocumentFactory factory) {
+    public FXOMDocument(FXOMDocumentFactory factory) {
         this.factory = factory;
         this.glue = new GlueDocument();
     }
 
-    FXOMDocument(FXOMDocumentFactory factory, String fxmlText) throws IOException {
+    public FXOMDocument(FXOMDocumentFactory factory, String fxmlText) throws IOException {
         this(factory, fxmlText, null, null, null);
     }
 
-    FXOMDocument(FXOMDocumentFactory factory, String fxmlText, URL location, ClassLoader classLoader, ResourceBundle resources) throws IOException {
+    public FXOMDocument(FXOMDocumentFactory factory, String fxmlText, URL location, ClassLoader classLoader, ResourceBundle resources) throws IOException {
         this(factory, fxmlText, location, classLoader, resources, true /* normalize */);
     }
 
-    FXOMDocument(FXOMDocumentFactory factory, String fxmlText, URL location, ClassLoader classLoader, ResourceBundle resources, boolean normalize) throws IOException {
+    public FXOMDocument(FXOMDocumentFactory factory, String fxmlText, URL location, ClassLoader classLoader, ResourceBundle resources, boolean normalize) throws IOException {
         this.factory = factory;
         this.locationProperty.set(location);
         this.glue = new GlueDocument(fxmlText);

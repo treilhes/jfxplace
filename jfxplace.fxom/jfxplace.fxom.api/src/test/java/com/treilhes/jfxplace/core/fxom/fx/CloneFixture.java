@@ -42,7 +42,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.IOException;
 
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
-import com.treilhes.jfxplace.core.fxom.FXOMDocumentFactory;
 import com.treilhes.jfxplace.core.fxom.FXOMInstance;
 import com.treilhes.jfxplace.core.fxom.FXOMIntrinsic;
 import com.treilhes.jfxplace.core.fxom.FXOMNodes;
@@ -50,8 +49,9 @@ import com.treilhes.jfxplace.core.fxom.FXOMObject;
 import com.treilhes.jfxplace.core.fxom.FXOMProperty;
 import com.treilhes.jfxplace.core.fxom.FXOMPropertyT;
 import com.treilhes.jfxplace.core.fxom.fx.script.FxomFxScriptTagTest;
-import com.treilhes.jfxplace.core.fxom.transform.DefaultFxmlSerializer;
-import com.treilhes.jfxplace.core.fxom.transform.FXOMSerializer;
+import com.treilhes.jfxplace.core.fxom.pipeline.DefaultFxmlSerializer;
+import com.treilhes.jfxplace.core.fxom.pipeline.FXOMDocumentFactory;
+import com.treilhes.jfxplace.core.fxom.pipeline.FXOMSerializer;
 import com.treilhes.jfxplace.core.fxom.util.PropertyName;
 
 public class CloneFixture {

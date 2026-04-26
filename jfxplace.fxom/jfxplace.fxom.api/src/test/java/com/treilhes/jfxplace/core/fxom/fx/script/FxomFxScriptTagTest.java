@@ -50,13 +50,13 @@ import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
-import com.treilhes.jfxplace.core.fxom.FXOMDocumentFactory;
 import com.treilhes.jfxplace.core.fxom.FXOMScript;
 import com.treilhes.jfxplace.core.fxom.collector.FxCollector;
 import com.treilhes.jfxplace.core.fxom.fx.CloneFixture;
 import com.treilhes.jfxplace.core.fxom.fx.IOFixture;
-import com.treilhes.jfxplace.core.fxom.transform.DefaultFxmlSerializer;
-import com.treilhes.jfxplace.core.fxom.transform.FXOMSerializer;
+import com.treilhes.jfxplace.core.fxom.pipeline.DefaultFxmlSerializer;
+import com.treilhes.jfxplace.core.fxom.pipeline.FXOMDocumentFactory;
+import com.treilhes.jfxplace.core.fxom.pipeline.FXOMSerializer;
 
 import javafx.stage.Stage;
 

@@ -77,6 +77,7 @@ import com.treilhes.jfxplace.core.ui.preference.StageHeightPreference;
 import com.treilhes.jfxplace.core.ui.preference.StageWidthPreference;
 import com.treilhes.jfxplace.core.ui.preference.XPosPreference;
 import com.treilhes.jfxplace.core.ui.preference.YPosPreference;
+import com.treilhes.jfxplace.core.ui.view.SearchController;
 import com.treilhes.jfxplace.core.ui.viewlinks.ViewLinksController;
 
 public class BaseUiExtension implements OpenExtension {
@@ -134,6 +135,7 @@ public class BaseUiExtension implements OpenExtension {
                 MoveToDockAction.class,
                 StageHeightPreference.class,
                 StageWidthPreference.class,
+                SearchController.class,
                 TextViewDialog.class,
                 ToggleMinimizeDockAction.class,
                 ToggleViewVisibilityAction.class,

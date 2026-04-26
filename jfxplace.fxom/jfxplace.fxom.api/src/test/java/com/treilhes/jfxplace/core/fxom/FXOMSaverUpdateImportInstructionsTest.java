@@ -57,10 +57,10 @@ import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
-import com.treilhes.jfxplace.core.fxom.FXOMDocumentFactory;
 import com.treilhes.jfxplace.core.fxom.collector.DeclaredClassCollector;
 import com.treilhes.jfxplace.core.fxom.glue.GlueComment;
-import com.treilhes.jfxplace.core.fxom.transform.FXOMSerializer;
+import com.treilhes.jfxplace.core.fxom.pipeline.FXOMDocumentFactory;
+import com.treilhes.jfxplace.core.fxom.pipeline.FXOMSerializer;
 
 import javafx.stage.Stage;
 

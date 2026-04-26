@@ -37,9 +37,9 @@ import org.junit.BeforeClass;
 import org.junitpioneer.jupiter.SetSystemProperty;
 
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
-import com.treilhes.jfxplace.core.fxom.FXOMDocumentFactory;
 import com.treilhes.jfxplace.core.fxom.FXOMInclude;
 import com.treilhes.jfxplace.core.fxom.FXOMIntrinsic;
+import com.treilhes.jfxplace.core.fxom.pipeline.FXOMDocumentFactory;
 
 /**
  * Unit test for {@link FXOMIntrinsic#createFxomInstanceFromIntrinsic()}

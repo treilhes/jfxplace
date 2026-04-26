@@ -46,6 +46,7 @@ open module jfxplace.core.ui {
     exports com.treilhes.jfxplace.core.ui.dock.preference;
 
     exports com.treilhes.jfxplace.core.ui.preference;
+    exports com.treilhes.jfxplace.core.ui.view;
 
     requires transitive jfxplace.core.api;
 

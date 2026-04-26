@@ -45,7 +45,7 @@ import org.slf4j.LoggerFactory;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
 import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
-import com.treilhes.jfxplace.core.fxom.FXOMDocumentFactory;
+import com.treilhes.jfxplace.core.fxom.pipeline.FXOMDocumentFactory;
 
 /**
  * Default implementation of the {@link FXOMDocumentFactory} interface.

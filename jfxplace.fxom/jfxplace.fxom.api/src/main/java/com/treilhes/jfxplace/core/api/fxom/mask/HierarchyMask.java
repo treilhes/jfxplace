@@ -41,62 +41,62 @@ import com.treilhes.jfxplace.core.fxom.util.PropertyName;
 import com.treilhes.jfxplace.core.metadata.property.ValuePropertyMetadata;
 
 public interface HierarchyMask<A extends Accessory> {
-    public boolean isAcceptingAccessory(A accessory);
+    boolean isAcceptingAccessory(A accessory);
 
-    // public FXOMObject getAccessory(Accessory accessory);
+    // FXOMObject getAccessory(Accessory accessory);
 
-    public A getAccessory(PropertyName accessoryName);
+    A getAccessory(PropertyName accessoryName);
 
-    public List<FXOMObject> getAccessories(A accessory, boolean includeVirtuals);
+    List<FXOMObject> getAccessories(A accessory, boolean includeVirtuals);
 
-    public boolean hasMainAccessory();
+    boolean hasMainAccessory();
 
-    public int getSubComponentCount(A accessory, boolean includeVirtuals);
+    int getSubComponentCount(A accessory, boolean includeVirtuals);
 
-    public int getSubComponentCount(boolean includeVirtuals);
+    int getSubComponentCount(boolean includeVirtuals);
 
-    public FXOMObject getSubComponentAtIndex(A accessory, int i, boolean includeVirtuals);
+    FXOMObject getSubComponentAtIndex(A accessory, int i, boolean includeVirtuals);
 
-    public FXOMObject getSubComponentAtIndex(int i, boolean includeVirtuals);
+    FXOMObject getSubComponentAtIndex(int i, boolean includeVirtuals);
 
-    public boolean isAcceptingAccessory(A accessory, FXOMObject newObject);
+    boolean isAcceptingAccessory(A accessory, FXOMObject newObject);
 
-    public FXOMObject getFxomObject();
+    FXOMObject getFxomObject();
 
     // new
-    public List<A> getAccessories();
+    List<A> getAccessories();
 
-    public A getMainAccessory();
+    A getMainAccessory();
 
-    public FXOMObject getParentFXOMObject();
+    FXOMObject getParentFXOMObject();
 
-    public boolean isResourceKey(PropertyName propertyNameForDescription);
+    boolean isResourceKey(PropertyName propertyNameForDescription);
 
-    public FXOMObject getClosestFxNode();
+    FXOMObject getClosestFxNode();
 
-    public PropertyName getPropertyNameForAccessory(A accessory);
+    PropertyName getPropertyNameForAccessory(A accessory);
 
-    public boolean isAcceptingSubComponent(FXOMObject newObject);
+    boolean isAcceptingSubComponent(FXOMObject newObject);
 
-    public boolean isAcceptingSubComponent(Collection<? extends FXOMObject> fxomObjects);
+    boolean isAcceptingSubComponent(Collection<? extends FXOMObject> fxomObjects);
 
-    public List<FXOMObject> getSubComponents(boolean includeVirtuals);
+    List<FXOMObject> getSubComponents(boolean includeVirtuals);
 
-    public boolean isAcceptingAccessory(A targetAccessory, Collection<? extends FXOMObject> draggedObject);
+    boolean isAcceptingAccessory(A targetAccessory, Collection<? extends FXOMObject> draggedObject);
 
-    public String getFxId();
+    String getFxId();
 
-    public ValuePropertyMetadata getPropertyMetadata(PropertyName propertyName);
+    ValuePropertyMetadata getPropertyMetadata(PropertyName propertyName);
 
-    public Object getPropertyValue(PropertyName propertyName);
+    Object getPropertyValue(PropertyName propertyName);
 
-    public Object getPropertySceneGraphValue(PropertyName propertyName);
+    Object getPropertySceneGraphValue(PropertyName propertyName);
 
-    public boolean isReadOnlyProperty(PropertyName propertyName);
+    boolean isReadOnlyProperty(PropertyName propertyName);
 
-    //public boolean isMultilineProperty(PropertyName propertyName);
+    boolean isMultilineProperty(PropertyName propertyName);
 
-    public boolean hasProperty(PropertyName propertyName);
+    boolean hasProperty(PropertyName propertyName);
 
     /**
      * Returns the string value for this FXOM object node id property.
@@ -106,5 +106,6 @@ public interface HierarchyMask<A extends Accessory> {
     String getNodeId();
 
     A getAccessoryOf(FXOMObject childFxomObject);
+
 
 }

@@ -96,6 +96,7 @@ public class FxomSelectionExtension implements OpenExtension {
                 UpdateSelectionJob.class,
 
                 SelectionJobsFactoryImpl.class,
+                FxomSelectionActionsFactoryImpl.class,
                 FxomSelectionImpl.class,
                 TargetSelectionImpl.class,
                 I18NSelection.class

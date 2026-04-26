@@ -36,6 +36,7 @@ import com.treilhes.jfxplace.core.api.subjects.ViewManager;
 import com.treilhes.jfxplace.core.api.task.TaskService;
 import com.treilhes.jfxplace.core.api.ui.controller.dock.ViewController;
 import com.treilhes.jfxplace.test.JfxPlaceTest.I18NTestConfig;
+import com.treilhes.jfxplace.test.builder.StageBuilder;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
@@ -70,6 +71,9 @@ import com.treilhes.jfxplace.test.JfxPlaceTest.I18NTestConfig;
 
                         //UI
                         ViewController.class, //base ui for views
+
+                        //Builder
+                        StageBuilder.class
                 }
         )
 )
@@ -105,5 +109,7 @@ public @interface JfxPlaceTest {
         I18N i18nTest(List<BundleProvider> bundleProviders) {
             return new I18N(bundleProviders, true);
         }
+
+
     }
 }

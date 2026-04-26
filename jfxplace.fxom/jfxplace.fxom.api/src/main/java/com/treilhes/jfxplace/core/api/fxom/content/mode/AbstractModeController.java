@@ -44,6 +44,8 @@ import com.treilhes.jfxplace.core.api.fxom.editor.selection.FxomSelection;
 import com.treilhes.jfxplace.core.api.fxom.ui.controller.misc.Workspace;
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Group;
 
 /**
@@ -55,6 +57,8 @@ import javafx.scene.Group;
 public abstract class AbstractModeController implements Mode{
 
     protected final Workspace workspace;
+
+    private BooleanProperty active = new SimpleBooleanProperty(false);
 
     private Map<Class<?>, Layer<?>> layers = new HashMap<>();
 
@@ -95,12 +99,20 @@ public abstract class AbstractModeController implements Mode{
         getLayers().forEach(l -> l.removeAll());
     }
 
-    public abstract void willResignActive(AbstractModeController nextModeController);
-    public abstract void didBecomeActive(AbstractModeController previousModeController);
-
     public abstract void editorSelectionDidChange();
     public abstract void fxomDocumentDidChange(FXOMDocument oldDocument);
     public abstract void fxomDocumentDidRefreshSceneGraph();
     public abstract void dropTargetDidChange();
 
+    public BooleanProperty activeProperty() {
+        return active;
+    }
+
+    public boolean isActive() {
+        return active.get();
+    }
+
+    public void setActive(boolean active) {
+        this.active.set(active);
+    }
 }

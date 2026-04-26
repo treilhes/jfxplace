@@ -41,7 +41,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
-import com.treilhes.jfxplace.core.fxom.FXOMDocumentFactory;
+import com.treilhes.jfxplace.core.fxom.pipeline.FXOMDocumentFactory;
 
 public class FxmlUtil {
 

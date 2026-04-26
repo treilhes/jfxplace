@@ -48,8 +48,8 @@ import org.testfx.framework.junit5.Start;
 
 import com.treilhes.jfxplace.core.fxom.FXOMComment;
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
-import com.treilhes.jfxplace.core.fxom.FXOMDocumentFactory;
 import com.treilhes.jfxplace.core.fxom.collector.CommentCollector;
+import com.treilhes.jfxplace.core.fxom.pipeline.FXOMDocumentFactory;
 
 import javafx.stage.Stage;
 

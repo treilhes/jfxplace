@@ -42,21 +42,17 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.ContextConfiguration;
 import org.testfx.api.FxRobot;
 
+import com.treilhes.emc4j.test.EmcInject;
+import com.treilhes.emc4j.test.EmcInjectMock;
 import com.treilhes.jfxplace.core.api.guide.MovingGuide;
-import com.treilhes.jfxplace.core.guides.controller.MovingGuideController;
 import com.treilhes.jfxplace.core.guides.preference.AlignmentGuidesColorPreference;
 import com.treilhes.jfxplace.core.guides.preference.GuidesEnabledPreference;
-import com.treilhes.jfxplace.testold.JfxAppsTest;
-import com.treilhes.jfxplace.testold.StageBuilder;
-import com.treilhes.jfxplace.testold.StageType;
+import com.treilhes.jfxplace.test.JfxPlaceTest;
+import com.treilhes.jfxplace.test.builder.StageBuilder;
+import com.treilhes.jfxplace.test.builder.StageType;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.BoundingBox;
@@ -68,24 +64,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
-@JfxAppsTest
-@ContextConfiguration(classes = { MovingGuideControllerTest.Config.class, MovingGuideController.class })
+@JfxPlaceTest (classes = { MovingGuideControllerTest.Config.class })
 class MovingGuideControllerTest {
-
-    private final static Logger logger = LoggerFactory.getLogger(MovingGuideControllerTest.class);
 
     private static final double EQ_DELTA = 0.1;
     private static final double DELTA = 2.0;
-
     private static final double PROXYMITY_LIMIT = 6; // -fx-border-insets: -6
 
-    @TestConfiguration
     static class Config {
-        @Bean
-        AlignmentGuidesColorPreference alignmentGuidesColorPreference() {
-            return Mockito.mock(AlignmentGuidesColorPreference.class);
-        }
 
+        /**
+         * We need to mock the preferences early because it is used in the controller
+         * init method (&commat;PostConstruct) and we want to be able to change their values during the test
+         */
         @Bean
         GuidesEnabledPreference guidesEnabledPreference() {
             GuidesEnabledPreference guidesEnabledPreference = Mockito.mock(GuidesEnabledPreference.class);
@@ -102,26 +93,28 @@ class MovingGuideControllerTest {
         n.setLayoutX(x - n.getWidth() / 2);
         n.setLayoutY(y - n.getHeight() / 2);
         movingGuide.match(n);
-    };;
+    };
 
-    @Autowired
-    private AlignmentGuidesColorPreference alignmentGuidesColorPreference;
+    @EmcInject
+    StageBuilder builder;
 
-    @Autowired
-    private GuidesEnabledPreference guidesEnabledPreference;
+    @EmcInjectMock
+    AlignmentGuidesColorPreference alignmentGuidesColorPreference;
 
-    @Autowired
-    private MovingGuide guide;
+    @EmcInject
+    GuidesEnabledPreference guidesEnabledPreference;
+
+    @EmcInject(create = true)
+    MovingGuideController guide;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         Mockito.when(alignmentGuidesColorPreference.getValue()).thenReturn(Color.RED);
-
         guide.setMatchDistance(PROXYMITY_LIMIT);
     }
 
     @Test
-    void must_show_the_expected_guides(StageBuilder builder, FxRobot robot) throws Exception {
+    void must_show_the_expected_guides(FxRobot robot) {
 
         //@formatter:off
         var testStage = builder.workspace()
@@ -151,7 +144,7 @@ class MovingGuideControllerTest {
 
         Label dragme = robot.from(uiController.getSubSceneRoot()).lookup("#dragme").query();
         assertEquals("Must be a square", dragme.getWidth(), dragme.getHeight(), EQ_DELTA);
-        double drag_side = dragme.getWidth();
+        double dragSide = dragme.getWidth();
 
         Rectangle square = robot.from(uiController.getSubSceneRoot()).lookup("#square").query();
         assertEquals("Must be a square", square.getWidth(), square.getHeight(), EQ_DELTA);
@@ -160,7 +153,7 @@ class MovingGuideControllerTest {
         double miny = square.getLayoutY();
         double side = square.getWidth();
 
-        Predicate<Line> isLeftGuide = (line) -> {
+        Predicate<Line> isLeftGuide = line -> {
             var local = lineToLocal(subScene, line);
             return local.getMinX() == minx && local.getMaxX() == minx;
         };
@@ -202,8 +195,8 @@ class MovingGuideControllerTest {
         //robot.interact(() -> ScenicView.show(uiController.getRoot().getScene()));
 
         // dragged : outside off the reference top left
-        robot.interact(() -> moveAndMatch.moveAndMatch(dragme, minx - drag_side / 2 - DELTA,
-                miny - drag_side / 2 - DELTA, guide));
+        robot.interact(() -> moveAndMatch.moveAndMatch(dragme, minx - dragSide / 2 - DELTA,
+                miny - dragSide / 2 - DELTA, guide));
         var lines = lookupLines(robot);
         assertEquals("Expected two guides", 2, lines.size());
         assertTrue("Expected a left guide", lines.stream().anyMatch(isLeftGuide));
@@ -212,8 +205,8 @@ class MovingGuideControllerTest {
         assertEquals("Expected suggestedY", DELTA, guide.getSuggestedDY(), EQ_DELTA);
 
         // dragged : outside off the reference top right
-        robot.interact(() -> moveAndMatch.moveAndMatch(dragme, minx + side + drag_side / 2 + DELTA,
-                miny - drag_side / 2 - DELTA, guide));
+        robot.interact(() -> moveAndMatch.moveAndMatch(dragme, minx + side + dragSide / 2 + DELTA,
+                miny - dragSide / 2 - DELTA, guide));
         lines = lookupLines(robot);
         assertEquals("Expected two guides", 2, lines.size());
         assertTrue("Expected a right guide", lines.stream().anyMatch(isRightGuide));
@@ -222,8 +215,8 @@ class MovingGuideControllerTest {
         assertEquals("Expected suggestedY", DELTA, guide.getSuggestedDY(), EQ_DELTA);
 
         // dragged : outside off the reference bottom right
-        robot.interact(() -> moveAndMatch.moveAndMatch(dragme, minx + side + drag_side / 2 + DELTA,
-                miny + side + drag_side / 2 + DELTA, guide));
+        robot.interact(() -> moveAndMatch.moveAndMatch(dragme, minx + side + dragSide / 2 + DELTA,
+                miny + side + dragSide / 2 + DELTA, guide));
         lines = lookupLines(robot);
         assertEquals("Expected two guides", 2, lines.size());
         assertTrue("Expected a right guide", lines.stream().anyMatch(isRightGuide));
@@ -232,8 +225,8 @@ class MovingGuideControllerTest {
         assertEquals("Expected suggestedY", -DELTA, guide.getSuggestedDY(), EQ_DELTA);
 
         // dragged : outside off the reference bottom left
-        robot.interact(() -> moveAndMatch.moveAndMatch(dragme, minx - drag_side / 2 - DELTA,
-                miny + side + drag_side / 2 + DELTA, guide));
+        robot.interact(() -> moveAndMatch.moveAndMatch(dragme, minx - dragSide / 2 - DELTA,
+                miny + side + dragSide / 2 + DELTA, guide));
         lines = lookupLines(robot);
         assertEquals("Expected two guides", 2, lines.size());
         assertTrue("Expected a left guide", lines.stream().anyMatch(isLeftGuide));
@@ -254,7 +247,7 @@ class MovingGuideControllerTest {
 
     private List<Line> lookupLines(FxRobot robot) {
         return robot.lookup(node -> node instanceof Line && node.isVisible()).queryAll().stream()
-                .map(node -> (Line) node).toList();
+                .map(Line.class::cast).toList();
     }
 
     private Bounds lineToLocal(SubScene subScene, Line line) {

@@ -40,7 +40,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.treilhes.jfxplace.core.fxom.transform.FXOMSerializer;
+import com.treilhes.jfxplace.core.fxom.pipeline.FXOMSerializer;
 
 /**
  *

@@ -25,5 +25,6 @@
         <module>jfxplace.fxom.api</module>
         <module>jfxplace.fxom.editor</module>
         <module>jfxplace.fxom.selection</module>
+        <module>jfxplace.fxom.sample.data</module>
     </modules>
 </project>

@@ -46,13 +46,13 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
-import com.treilhes.jfxplace.core.fxom.FXOMDocumentFactory;
 import com.treilhes.jfxplace.core.fxom.FXOMInstance;
 import com.treilhes.jfxplace.core.fxom.FXOMObject;
 import com.treilhes.jfxplace.core.fxom.FXOMProperty;
 import com.treilhes.jfxplace.core.fxom.FXOMPropertyT;
 import com.treilhes.jfxplace.core.fxom.collector.PropertyCollector;
 import com.treilhes.jfxplace.core.fxom.collector.SceneGraphCollector;
+import com.treilhes.jfxplace.core.fxom.pipeline.FXOMDocumentFactory;
 
 public class FXOMUtils {
 

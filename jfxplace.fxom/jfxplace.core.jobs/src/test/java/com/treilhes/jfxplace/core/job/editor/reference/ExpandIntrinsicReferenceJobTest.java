@@ -54,9 +54,9 @@ import com.treilhes.jfxplace.core.api.fxom.jobs.FxomJobsFactory;
 import com.treilhes.jfxplace.core.api.fxom.subjects.FxomEvents;
 import com.treilhes.jfxplace.core.fxom.FXOMCloner;
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
-import com.treilhes.jfxplace.core.fxom.FXOMDocumentFactory;
 import com.treilhes.jfxplace.core.fxom.collector.FxCollector;
-import com.treilhes.jfxplace.core.fxom.transform.FXOMSerializer;
+import com.treilhes.jfxplace.core.fxom.pipeline.FXOMDocumentFactory;
+import com.treilhes.jfxplace.core.fxom.pipeline.FXOMSerializer;
 import com.treilhes.jfxplace.core.job.editor.atomic.ReplaceObjectJob;
 import com.treilhes.jfxplace.core.job.editor.reference.ExpandIntrinsicReferenceJob;
 

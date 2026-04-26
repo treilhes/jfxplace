@@ -44,6 +44,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.WeakHashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.treilhes.jfxplace.core.fxom.FXOMElement;
 import com.treilhes.jfxplace.core.fxom.util.PropertyName;
 import com.treilhes.jfxplace.core.metadata.klass.ComponentClassMetadata;
@@ -61,6 +64,7 @@ public abstract class AbstractMetadata<
     CPM extends ComponentPropertyMetadata, VPM extends ValuePropertyMetadata,
     C extends ComponentClassMetadata> {
 
+    private static final Logger logger = LoggerFactory.getLogger(AbstractMetadata.class);
     protected final Map<Class<?>, C> componentClassMap = new HashMap<>();
     protected final Map<Class<?>, C> customComponentClassMap = new WeakHashMap<>();
 
@@ -85,27 +89,29 @@ public abstract class AbstractMetadata<
     }
 
     public C queryComponentMetadata(Class<?> componentClass) {
-        final C result;
-
-
         final C componentMetadata = componentClassMap.get(componentClass);
         if (componentMetadata != null) {
             // componentClass is a certified component
-            result = componentMetadata;
-        } else {
-            // componentClass is a custom component
-            final C customMetadata = customComponentClassMap.get(componentClass);
-            if (customMetadata != null) {
-                // componentClass has already been introspected
-                result = customMetadata;
-            } else {
-                // componentClass must be introspected
-
-                result = metadataIntrospector.introspect(componentClass);
-
-                customComponentClassMap.put(componentClass, result);
-            }
+            return componentMetadata;
         }
+
+     // componentClass is a custom component
+        final C customMetadata = customComponentClassMap.get(componentClass);
+        if (customMetadata != null) {
+            // componentClass has already been introspected
+            return customMetadata;
+        }
+
+        // componentClass must be introspected
+        if (metadataIntrospector == null) {
+            logger.warn(
+                    "No metadata introspector set, cannot introspect {} register an implementation of MetadataIntrospector to allow instropection",
+                    componentClass.getName());
+            return null;
+        }
+
+        final C result = metadataIntrospector.introspect(componentClass);
+        customComponentClassMap.put(componentClass, result);
 
         return result;
     }

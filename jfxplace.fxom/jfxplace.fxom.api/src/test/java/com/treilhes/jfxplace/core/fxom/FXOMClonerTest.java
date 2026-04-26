@@ -41,8 +41,8 @@ import org.testfx.framework.junit5.Start;
 
 import com.treilhes.jfxplace.core.fxom.FXOMCloner;
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
-import com.treilhes.jfxplace.core.fxom.FXOMDocumentFactory;
 import com.treilhes.jfxplace.core.fxom.FXOMObject;
+import com.treilhes.jfxplace.core.fxom.pipeline.FXOMDocumentFactory;
 import com.treilhes.jfxplace.core.fxom.testutil.FilenameProvider;
 import com.treilhes.jfxplace.core.fxom.testutil.FxmlUtil;
 

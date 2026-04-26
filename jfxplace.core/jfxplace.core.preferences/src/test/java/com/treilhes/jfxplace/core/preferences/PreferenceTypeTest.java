@@ -163,12 +163,12 @@ public class PreferenceTypeTest {
     }
 
     @Singleton
-    @PreferenceContext(id = "96f69947-d70f-4f95-9b1b-317aa32bfdf4", name = "some.name.global")
+    @PreferenceContext(id = "96f69947-d70f-4f95-9b1b-317aa32bfd00", name = "some.name.global")
     public static interface SimpleTypePreference extends Preference<Integer> {
     }
 
     @Singleton
-    @PreferenceContext(id = "96f69947-d70f-4f95-9b1b-317aa32bfdf4", name = "some.name.global")
+    @PreferenceContext(id = "96f69947-d70f-4f95-9b1b-317aa32bfd01", name = "some.name.global")
     public static interface EnumTypePreference extends Preference<EnumType> {
     }
     public enum EnumType {
@@ -176,32 +176,32 @@ public class PreferenceTypeTest {
     }
 
     @Singleton
-    @PreferenceContext(id = "96f69947-d70f-4f95-9b1b-317aa32bfdf4", name = "some.name.global")
+    @PreferenceContext(id = "96f69947-d70f-4f95-9b1b-317aa32bfd02", name = "some.name.global")
     public static interface FilePreference extends Preference<File> {
     }
 
     @Singleton
-    @PreferenceContext(id = "96f69947-d70f-4f95-9b1b-317aa32bfdf4", name = "some.name.global")
+    @PreferenceContext(id = "96f69947-d70f-4f95-9b1b-317aa32bfd03", name = "some.name.global")
     public static interface ObjectMapPreference extends Preference<ObservableMap<Value, Value>> {
     }
 
     @Singleton
-    @PreferenceContext(id = "96f69947-d70f-4f95-9b1b-317aa32bfdf4", name = "some.name.global")
+    @PreferenceContext(id = "96f69947-d70f-4f95-9b1b-317aa32bfd04", name = "some.name.global")
     public static interface ClassListPreference extends Preference<ObservableList<Class<?>>> {
     }
 
     @Singleton
-    @PreferenceContext(id = "96f69947-d70f-4f95-9b1b-317aa32bfdf4", name = "some.name.global")
+    @PreferenceContext(id = "96f69947-d70f-4f95-9b1b-317aa32bfd05", name = "some.name.global")
     public static interface NestedMapPreference extends Preference<ObservableMap<Value, ObservableMap<Value,Value>>> {
     }
 
     @Singleton
-    @PreferenceContext(id = "96f69947-d70f-4f95-9b1b-317aa32bfdf4", name = "some.name.global")
+    @PreferenceContext(id = "96f69947-d70f-4f95-9b1b-317aa32bfd06", name = "some.name.global")
     public static interface UuidPreference extends Preference<UUID> {
     }
 
     @Singleton
-    @PreferenceContext(id = "96f69947-d70f-4f95-9b1b-317aa32bfdf4", name = "some.name.global", jsonMapper = ColorPreference.ColorJsonMapper.class)
+    @PreferenceContext(id = "96f69947-d70f-4f95-9b1b-317aa32bfd07", name = "some.name.global", jsonMapper = ColorPreference.ColorJsonMapper.class)
     public static interface ColorPreference extends Preference<Color> {
 
         static class ColorJsonMapper implements JsonMapper<Color> {

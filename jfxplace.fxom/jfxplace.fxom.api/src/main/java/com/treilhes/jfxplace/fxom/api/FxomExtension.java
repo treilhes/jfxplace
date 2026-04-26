@@ -46,14 +46,14 @@ import com.treilhes.jfxplace.core.api.fxom.editor.selection.ObjectSelectionGroup
 import com.treilhes.jfxplace.core.api.fxom.editor.selection.SelectionGroupFactoryRegistry;
 import com.treilhes.jfxplace.core.api.fxom.gesture.DiscardGesture;
 import com.treilhes.jfxplace.core.api.fxom.subjects.FxomEvents;
-import com.treilhes.jfxplace.core.api.fxom.ui.controller.dock.SearchController;
 import com.treilhes.jfxplace.core.api.fxom.ui.tool.NoPickRefiner;
+import com.treilhes.jfxplace.core.fxom.pipeline.DefaultFxomPipeline;
 
 // FIXME this isn't really a RootExtension, but we need it to be initialized very early to apply the necessary module patches
 // the way it must be loaded should be reconsidered
 public class FxomExtension implements SealedExtension {
 
-    public final static UUID ID = UUID.fromString("1619a4bc-e5f7-413a-a93e-eae379adf56b");
+    public static final UUID ID = UUID.fromString("1619a4bc-e5f7-413a-a93e-eae379adf56b");
 
     @Override
     public void initializeModule(Layer layer) {
@@ -87,8 +87,10 @@ public class FxomExtension implements SealedExtension {
                 DiscardGesture.class,
                 NoPickRefiner.class,
                 ObjectSelectionGroup.Factory.class,
-                SearchController.class,
-                SelectionGroupFactoryRegistry.class
+                SelectionGroupFactoryRegistry.class,
+
+                //pipeline
+                DefaultFxomPipeline.class
         );
     }
 }

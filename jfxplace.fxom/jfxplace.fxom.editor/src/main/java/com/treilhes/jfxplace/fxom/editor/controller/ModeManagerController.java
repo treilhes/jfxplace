@@ -95,7 +95,7 @@ public class ModeManagerController implements ModeManager {
 
         previousMode = null;
         if (currentMode != null) {
-            currentMode.willResignActive(null);
+            currentMode.setActive(false);
         }
         currentMode = null;
         availableModes.clear();
@@ -175,11 +175,11 @@ public class ModeManagerController implements ModeManager {
         assert nextModeController != null;
 
         if (currentMode != null) {
-            currentMode.willResignActive(nextModeController);
+            currentMode.setActive(false);
         }
         previousMode = currentMode;
         currentMode = nextModeController;
-        currentMode.didBecomeActive(previousMode);
+        currentMode.setActive(true);
     }
 
     private void fxomDocumentDidChange(FXOMDocument oldDocument) {

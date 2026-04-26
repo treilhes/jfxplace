@@ -58,6 +58,7 @@ open module jfxplace.fxom.api {
     exports com.treilhes.jfxplace.core.api.fxom.job.base;
     exports com.treilhes.jfxplace.core.api.fxom.library;
     exports com.treilhes.jfxplace.core.api.fxom.mask;
+
     exports com.treilhes.jfxplace.core.api.fxom.subjects;
     exports com.treilhes.jfxplace.core.api.fxom.ui.controller.misc;
     exports com.treilhes.jfxplace.core.api.fxom.ui.controller.selbar;
@@ -69,14 +70,21 @@ open module jfxplace.fxom.api {
     exports com.treilhes.jfxplace.core.fxom;
     exports com.treilhes.jfxplace.core.fxom.collector;
     exports com.treilhes.jfxplace.core.fxom.glue;
-    exports com.treilhes.jfxplace.core.fxom.sampledata;
     exports com.treilhes.jfxplace.core.fxom.ext;
-    exports com.treilhes.jfxplace.core.fxom.transform;
+    exports com.treilhes.jfxplace.core.fxom.pipeline;
+    exports com.treilhes.jfxplace.core.fxom.sample;
     exports com.treilhes.jfxplace.core.fxom.util;
 
     exports com.treilhes.jfxplace.core.metadata;
+    exports com.treilhes.jfxplace.core.metadata.component;
     exports com.treilhes.jfxplace.core.metadata.klass;
     exports com.treilhes.jfxplace.core.metadata.property;
+    exports com.treilhes.jfxplace.core.metadata.property.base;
+    exports com.treilhes.jfxplace.core.metadata.property.value;
+    exports com.treilhes.jfxplace.core.metadata.property.value.effect;
+    exports com.treilhes.jfxplace.core.metadata.property.value.keycombination;
+    exports com.treilhes.jfxplace.core.metadata.property.value.list;
+    exports com.treilhes.jfxplace.core.metadata.property.value.paint;
     exports com.treilhes.jfxplace.core.metadata.util;
 
     exports com.treilhes.jfxplace.core.api.document;

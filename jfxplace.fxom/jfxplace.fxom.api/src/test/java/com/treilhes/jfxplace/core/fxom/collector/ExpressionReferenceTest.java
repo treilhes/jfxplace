@@ -53,11 +53,11 @@ import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
-import com.treilhes.jfxplace.core.fxom.FXOMDocumentFactory;
 import com.treilhes.jfxplace.core.fxom.FXOMObject;
 import com.treilhes.jfxplace.core.fxom.FXOMPropertyT;
 import com.treilhes.jfxplace.core.fxom.collector.ExpressionCollector;
 import com.treilhes.jfxplace.core.fxom.collector.FxCollector;
+import com.treilhes.jfxplace.core.fxom.pipeline.FXOMDocumentFactory;
 
 import javafx.stage.Stage;
 

@@ -45,7 +45,7 @@ import com.treilhes.jfxplace.core.api.javafx.UiController;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.tooltheme.ToolStylesheetProvider;
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
-import com.treilhes.jfxplace.core.fxom.FXOMDocumentFactory;
+import com.treilhes.jfxplace.core.fxom.pipeline.FXOMDocumentFactory;
 import com.treilhes.jfxplace.util.URLUtils;
 
 import javafx.scene.Group;
