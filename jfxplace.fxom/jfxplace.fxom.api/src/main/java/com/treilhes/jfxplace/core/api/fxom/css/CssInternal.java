@@ -50,7 +50,6 @@ import java.util.stream.Collectors;
 
 import com.treilhes.jfxplace.core.fxom.FXOMElement;
 import com.treilhes.jfxplace.core.fxom.util.Deprecation;
-import com.treilhes.jfxplace.core.metadata.property.ValuePropertyMetadata;
 import com.treilhes.jfxplace.javafx.graphics.patch.PatchLink;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -304,15 +303,6 @@ public class CssInternal {
         return new ArrayList<>(cssProperties);
     }
 
-    // If this property is ruled by CSS, return a CssPropAuthorInfo. Otherwise
-    // returns null.
-    public static CssPropAuthorInfo getCssInfo(Map<StyleableProperty, List<Style>> cssState, ValuePropertyMetadata prop) {
-        CssPropAuthorInfo info = null;
-        if (cssState != null) {
-            info = getCssInfoFromState(cssState, prop);
-        }
-        return info;
-    }
 
      public static Map<StyleableProperty, List<Style>> getCssState(Object fxObject) {
 
@@ -332,49 +322,6 @@ public class CssInternal {
         return null;
     }
 
-    private static CssPropAuthorInfo getCssInfoFromState(Map<StyleableProperty, List<Style>> cssState, ValuePropertyMetadata prop) {
-        @SuppressWarnings("rawtypes")
-        Map<StyleableProperty, List<Style>> map = cssState;
-        for (@SuppressWarnings("rawtypes")
-        Map.Entry<StyleableProperty, List<Style>> entry : map.entrySet()) {// NOI18N
-            StyleableProperty<?> beanProp = entry.getKey();
-            List<Style> styles = new ArrayList<>(entry.getValue());
-            String name = getBeanPropertyName(beanProp);
-            if (!name.equals(prop.getName().getName())) {
-                continue;
-            }
-            if (name.equals(prop.getName().getName())) {
-                // If the value has an origin of Author or Inline
-                // then we have a property ruled by CSS, otherwise return null
-                // This is in sync because the map is not empty
-                StyleOrigin origin = beanProp.getStyleOrigin();
-                if (origin == null || origin.equals(StyleOrigin.USER) || origin.equals(StyleOrigin.USER_AGENT)) {
-                    return null;
-                }
-                CssMetaData<?, ?> styleable = beanProp.getCssMetaData();
-                // Lookup the Author style
-                CssPropAuthorInfo info = null;
-                for (Style style : styles) {
-                    Rule rule = style.getDeclaration().getRule();
-                    assert rule != null;
-                    // StyleOrigin can be null when the value is set to its initial value.
-                    StyleOrigin o = rule.getOrigin();
-                    if (o == null) {
-                        return null;
-                    }
-                    if ((o.equals(StyleOrigin.AUTHOR) && (!CssInternal.isThemeStyle(style)))
-                            || o.equals(StyleOrigin.INLINE)) {
-                        if (info == null) {
-                            info = new CssPropAuthorInfo(prop, beanProp, styleable);
-                        }
-                        info.getStyles().add(style);
-                    }
-                }
-                return info;
-            }
-        }
-        return null;
-    }
 
     // TODO this method was not used
 //    public static boolean isCssRuled(Object fxObject, ValuePropertyMetadata prop) {

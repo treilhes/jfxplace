@@ -35,6 +35,7 @@ package com.treilhes.jfxplace.fxom.api;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import com.treilhes.emc4j.boot.api.layer.Layer;
@@ -47,7 +48,6 @@ import com.treilhes.jfxplace.core.api.fxom.editor.selection.SelectionGroupFactor
 import com.treilhes.jfxplace.core.api.fxom.gesture.DiscardGesture;
 import com.treilhes.jfxplace.core.api.fxom.subjects.FxomEvents;
 import com.treilhes.jfxplace.core.api.fxom.ui.tool.NoPickRefiner;
-import com.treilhes.jfxplace.core.fxom.pipeline.DefaultFxomPipeline;
 
 // FIXME this isn't really a RootExtension, but we need it to be initialized very early to apply the necessary module patches
 // the way it must be loaded should be reconsidered
@@ -77,6 +77,15 @@ public class FxomExtension implements SealedExtension {
     }
 
     @Override
+    public Set<UUID> getMergedExtensions() {
+        return Set.of(
+                UUID.fromString("a07b94ba-fdc0-4f4b-9b4c-10710128a45e"), //FxomModelExtension
+                UUID.fromString("8e362a08-926c-4732-9e89-bdb5b0e87662"), //FxomMetadataExtension
+                UUID.fromString("94124a19-94ad-49b4-84a1-a621db188b6f")  //FxomEditorsExtension
+                );
+    }
+
+    @Override
     public List<Class<?>> localContextClasses() {
         return Arrays.asList(
                 GenericDriver.class,
@@ -87,10 +96,7 @@ public class FxomExtension implements SealedExtension {
                 DiscardGesture.class,
                 NoPickRefiner.class,
                 ObjectSelectionGroup.Factory.class,
-                SelectionGroupFactoryRegistry.class,
-
-                //pipeline
-                DefaultFxomPipeline.class
+                SelectionGroupFactoryRegistry.class
         );
     }
 }

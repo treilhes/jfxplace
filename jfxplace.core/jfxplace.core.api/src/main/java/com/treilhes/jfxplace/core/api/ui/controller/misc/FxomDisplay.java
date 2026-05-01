@@ -38,6 +38,7 @@ import java.net.URL;
 
 import javafx.beans.value.ObservableValue;
 
+@Deprecated(forRemoval = true)
 public interface FxomDisplay {
 
 
@@ -46,14 +47,19 @@ public interface FxomDisplay {
      *
      * @return null or the location of the fxml being edited.
      */
-	public URL getFxmlLocation();
+	@Deprecated(forRemoval = true)
+    public URL getFxmlLocation();
 
-	public ObservableValue<URL> fxmlLocationProperty();
+	@Deprecated(forRemoval = true)
+    public ObservableValue<URL> fxmlLocationProperty();
 
+    @Deprecated(forRemoval = true)
     public String getFxmlText(boolean wildcardImports);
 
+    @Deprecated(forRemoval = true)
     public void setFxmlTextAndLocation(String fxmlText, URL fxmlURL, boolean keepTrackOfLocation) throws IOException;
 
+    @Deprecated(forRemoval = true)
     public void setFxmlLocation(URL newLocation);
 
 }

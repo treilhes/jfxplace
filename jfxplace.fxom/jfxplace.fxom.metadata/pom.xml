@@ -8,21 +8,33 @@
         <version>${jfxplace.version}</version>
     </parent>
     <artifactId>jfxplace.fxom.metadata</artifactId>
-    <packaging>pom</packaging>
-    
-    <properties>
-    	<jackson-dataformat-properties.version>2.20.1</jackson-dataformat-properties.version>
-        <byte-buddy.version>1.18.1</byte-buddy.version>
-        <slf4j.version>2.0.17</slf4j.version>
-        <commons-configuration2.version>2.10.1</commons-configuration2.version>
-        <freemarker.version>2.3.34</freemarker.version>
-        <javafx.version>11</javafx.version>
-        <logback.version>1.5.3</logback.version>
-    </properties>
 
-    <modules>
-        <module>jfxplace.fxom.metadata.generator</module>
-        <module>jfxplace-fxom-metadata-maven-plugin</module>
-        <module>jfxplace-source-override-maven-plugin</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+            <artifactId>jfxplace.fxom.model</artifactId>
+            <version>${jfxplace.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+            <artifactId>jfxplace.core.api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.emc4j</groupId>
+            <artifactId>emc4j.boot.api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.emc4j</groupId>
+            <artifactId>emc4j.boot.starter</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.emc4j</groupId>
+            <artifactId>emc4j.boot.starter.test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>

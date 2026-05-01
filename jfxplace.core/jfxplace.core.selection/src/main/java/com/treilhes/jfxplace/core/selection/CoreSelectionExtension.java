@@ -44,6 +44,9 @@ import com.treilhes.jfxplace.core.selection.action.SelectNoneAction;
 import com.treilhes.jfxplace.core.selection.action.SelectParentAction;
 import com.treilhes.jfxplace.core.selection.action.SelectPreviousAction;
 import com.treilhes.jfxplace.core.selection.i18n.I18NSelection;
+import com.treilhes.jfxplace.core.selection.impl.EmptySelectionGroupFactoryImpl;
+import com.treilhes.jfxplace.core.selection.impl.SelectionActionsFactoryImpl;
+import com.treilhes.jfxplace.core.selection.impl.SelectionImpl;
 
 public class CoreSelectionExtension implements OpenExtension {
     @Override

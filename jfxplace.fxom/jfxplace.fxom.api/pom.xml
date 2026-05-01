@@ -9,11 +9,23 @@
     </parent>
     <artifactId>jfxplace.fxom.api</artifactId>
 
-	<properties>
-		<graalvm.js.engine.version>24.2.2</graalvm.js.engine.version>
-	</properties>
-
     <dependencies>
+        <dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+            <artifactId>jfxplace.fxom.model</artifactId>
+            <version>${jfxplace.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+            <artifactId>jfxplace.fxom.metadata</artifactId>
+            <version>${jfxplace.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+            <artifactId>jfxplace.fxom.editors</artifactId>
+            <version>${jfxplace.version}</version>
+        </dependency>
+        
         <dependency>
             <groupId>com.treilhes.jfxplace</groupId>
             <artifactId>javafx.graphics.patch.link</artifactId>
@@ -26,21 +38,6 @@
             <groupId>com.treilhes.jfxplace</groupId>
             <artifactId>jfxplace.core.metadata</artifactId>
         </dependency>-->
-        
-        
-        <dependency>
-            <groupId>org.graalvm.js</groupId>
-            <artifactId>js</artifactId>
-            <version>${graalvm.js.engine.version}</version>
-            <type>pom</type>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.graalvm.js</groupId>
-            <artifactId>js-scriptengine</artifactId>
-            <version>${graalvm.js.engine.version}</version>
-            <scope>test</scope>
-        </dependency>
         
         <dependency>
             <groupId>com.treilhes.jfxplace</groupId>

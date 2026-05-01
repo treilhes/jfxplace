@@ -37,6 +37,7 @@ import com.treilhes.jfxplace.core.selection.CoreSelectionExtension;
 open module jfxplace.core.selection {
     exports com.treilhes.jfxplace.core.selection;
     exports com.treilhes.jfxplace.core.selection.i18n;
+    exports com.treilhes.jfxplace.core.selection.impl;
 
     requires transitive jfxplace.core.api;
 

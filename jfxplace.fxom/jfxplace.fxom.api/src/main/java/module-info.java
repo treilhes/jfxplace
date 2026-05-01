@@ -33,12 +33,6 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 import com.treilhes.emc4j.boot.api.loader.extension.Extension;
-import com.treilhes.jfxplace.core.fxom.ext.FXOMNormalizer;
-import com.treilhes.jfxplace.core.fxom.ext.FXOMRefresher;
-import com.treilhes.jfxplace.core.fxom.ext.FileLoader;
-import com.treilhes.jfxplace.core.fxom.ext.LoaderCapabilitiesManager;
-import com.treilhes.jfxplace.core.fxom.ext.TransientStateBackup;
-import com.treilhes.jfxplace.core.fxom.ext.WeakProperty;
 import com.treilhes.jfxplace.fxom.api.FxomExtension;
 
 open module jfxplace.fxom.api {
@@ -67,25 +61,7 @@ open module jfxplace.fxom.api {
     exports com.treilhes.jfxplace.core.api.fxom.util;
 
 
-    exports com.treilhes.jfxplace.core.fxom;
-    exports com.treilhes.jfxplace.core.fxom.collector;
-    exports com.treilhes.jfxplace.core.fxom.glue;
-    exports com.treilhes.jfxplace.core.fxom.ext;
-    exports com.treilhes.jfxplace.core.fxom.pipeline;
     exports com.treilhes.jfxplace.core.fxom.sample;
-    exports com.treilhes.jfxplace.core.fxom.util;
-
-    exports com.treilhes.jfxplace.core.metadata;
-    exports com.treilhes.jfxplace.core.metadata.component;
-    exports com.treilhes.jfxplace.core.metadata.klass;
-    exports com.treilhes.jfxplace.core.metadata.property;
-    exports com.treilhes.jfxplace.core.metadata.property.base;
-    exports com.treilhes.jfxplace.core.metadata.property.value;
-    exports com.treilhes.jfxplace.core.metadata.property.value.effect;
-    exports com.treilhes.jfxplace.core.metadata.property.value.keycombination;
-    exports com.treilhes.jfxplace.core.metadata.property.value.list;
-    exports com.treilhes.jfxplace.core.metadata.property.value.paint;
-    exports com.treilhes.jfxplace.core.metadata.util;
 
     exports com.treilhes.jfxplace.core.api.document;
     exports com.treilhes.jfxplace.core.api.driver;
@@ -93,16 +69,11 @@ open module jfxplace.fxom.api {
     requires transitive jfxplace.javafx.starter;
     requires transitive jfxplace.core.api;
     requires transitive emc4j.boot.api;
-
-//    requires transitive emc4j.boot.loader;
-//    requires transitive emc4j.boot.platform;
-//    requires transitive emc4j.boot.maven;
     requires transitive emc4j.boot.starter;
 
+    requires transitive jfxplace.fxom.model;
+    requires transitive jfxplace.fxom.metadata;
     requires transitive jfxplace.core.utils;
-    //requires transitive jfxplace.core.fxom;
-    //requires transitive jfxplace.core.metadata;
-    // required to allow class access from JavafxThreadClassloader
     requires transitive jfxplace.core.controls;
 
     requires transitive io.reactivex.rxjava3;
@@ -111,13 +82,7 @@ open module jfxplace.fxom.api {
     requires jfxplace.javafx.graphics.patch.link;
     requires jfxplace.javafx.fxml.patch.link;
 
+
     provides Extension with FxomExtension;
 
-
-    uses FXOMNormalizer;
-    uses FXOMRefresher;
-    uses TransientStateBackup;
-    uses WeakProperty;
-    uses FileLoader;
-    uses LoaderCapabilitiesManager;
 }

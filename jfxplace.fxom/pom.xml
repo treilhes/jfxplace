@@ -10,7 +10,7 @@
     <artifactId>jfxplace.fxom</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>jfxplace.fxom.metadata</module>
+        <module>jfxplace.fxom.maven</module>
         <module>jfxplace.core.clipboard</module>
         <module>jfxplace.core.document</module>
         <module>jfxplace.core.drag.and.drop</module>
@@ -20,11 +20,12 @@
         <module>jfxplace.core.jobs</module>
         <module>jfxplace.core.library</module>
 
-        <module>jfxplace.core.metadefault</module>
-
         <module>jfxplace.fxom.api</module>
         <module>jfxplace.fxom.editor</module>
         <module>jfxplace.fxom.selection</module>
         <module>jfxplace.fxom.sample.data</module>
+        <module>jfxplace.fxom.model</module>
+        <module>jfxplace.fxom.metadata</module>
+        <module>jfxplace.fxom.editors</module>
     </modules>
 </project>
