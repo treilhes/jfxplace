@@ -13,6 +13,8 @@ open module jfxplace.fxom.editors {
     exports com.treilhes.jfxplace.fxom.editors.popupeditors;
     exports com.treilhes.jfxplace.fxom.editors.control.effectpicker;
 
+    exports com.treilhes.jfxplace.fxom.editors.util;
+
     requires transitive jfxplace.core.api;
     requires jfxplace.core.starter;
     requires jfxplace.fxom.metadata;
