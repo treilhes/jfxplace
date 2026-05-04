@@ -58,18 +58,18 @@
 
                                     <!-- secondary boot -->
                                     <extension>
-                                        <uuid>d82c47c7-e3a7-483c-bb49-f1d3b086c2bf</uuid>
-                                        <dependency>
-                                            <groupId>com.treilhes.jfxplace</groupId>
-                                            <artifactId>jfxplace.core.preferences</artifactId>
-                                            <version>${project.version}</version>
-                                        </dependency>
-                                    </extension>
-                                    <extension>
                                         <uuid>0f456500-a6d0-4438-8186-4d3de840b81b</uuid>
                                         <dependency>
                                             <groupId>com.treilhes.jfxplace</groupId>
                                             <artifactId>jfxplace.core.filesystem</artifactId>
+                                            <version>${project.version}</version>
+                                        </dependency>
+                                    </extension>
+                                    <extension>
+                                        <uuid>d82c47c7-e3a7-483c-bb49-f1d3b086c2bf</uuid>
+                                        <dependency>
+                                            <groupId>com.treilhes.jfxplace</groupId>
+                                            <artifactId>jfxplace.core.preferences</artifactId>
                                             <version>${project.version}</version>
                                         </dependency>
                                     </extension>
@@ -81,15 +81,8 @@
                                             <version>${project.version}</version>
                                         </dependency>
                                     </extension>
+                                    
                                     <!-- optional -->
-                                    <extension>
-                                        <uuid>81595bd2-372c-43ca-91af-f5cf7a80d808</uuid>
-                                        <dependency>
-                                            <groupId>com.treilhes.jfxplace</groupId>
-                                            <artifactId>jfxplace.ext.certificate.manager</artifactId>
-                                            <version>${jfxplace.version}</version>
-                                        </dependency>
-                                    </extension>
                                     <extension>
                                         <uuid>6c858b4e-b74f-4e8d-89c6-99c96ca77732</uuid>
                                         <dependency>
@@ -114,6 +107,25 @@
                                             <version>${project.version}</version>
                                         </dependency>
                                     </extension>
+                                    <extension>
+                                        <uuid>f04a79dc-d3aa-40ee-b081-2ba47433a18f</uuid>
+                                        <dependency>
+                                            <groupId>com.treilhes.jfxplace</groupId>
+                                            <artifactId>jfxplace.core.guides</artifactId>
+                                            <version>${project.version}</version>
+                                        </dependency>
+                                    </extension>
+                                    
+                                    <!-- extensions -->
+                                    <extension>
+                                        <uuid>81595bd2-372c-43ca-91af-f5cf7a80d808</uuid>
+                                        <dependency>
+                                            <groupId>com.treilhes.jfxplace</groupId>
+                                            <artifactId>jfxplace.ext.certificate.manager</artifactId>
+                                            <version>${jfxplace.version}</version>
+                                        </dependency>
+                                    </extension>
+                                    
 
                                     <!-- fxom boot -->
                                     <!--

@@ -4,6 +4,7 @@ import com.treilhes.jfxplace.fxom.sampledata.FxomSampleDataExtension;
 module jfxplace.fxom.sample.data {
     exports com.treilhes.jfxplace.fxom.sampledata;
     exports com.treilhes.jfxplace.fxom.sampledata.data;
+    exports com.treilhes.jfxplace.fxom.sampledata.action;
 
     requires transitive jfxplace.core.api;
     requires transitive jfxplace.fxom.api;

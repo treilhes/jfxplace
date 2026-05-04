@@ -71,7 +71,7 @@ import javafx.util.Callback;
 @ApplicationInstanceSingleton
 public class InlineEditController implements InlineEdit{
 
-    private final static Logger logger = LoggerFactory.getLogger(InlineEditController.class);
+    private static final Logger logger = LoggerFactory.getLogger(InlineEditController.class);
 
     // Style class used for styling the inline editor (TextInputControl)
 

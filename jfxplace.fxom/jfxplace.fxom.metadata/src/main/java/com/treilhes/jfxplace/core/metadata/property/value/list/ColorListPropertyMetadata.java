@@ -43,7 +43,7 @@ import javafx.scene.paint.Color;
  */
 public class ColorListPropertyMetadata<VC> extends ListValuePropertyMetadata<Color, VC> {
 
-    private final static ColorPropertyMetadata<Void> itemMetadata = new ColorPropertyMetadata.Builder<Void>()
+    private static final ColorPropertyMetadata<Void> itemMetadata = new ColorPropertyMetadata.Builder<Void>()
             .name(new PropertyName("unused")) // NOCHECK
             .readWrite(true)
             .defaultValue(Color.BLACK)

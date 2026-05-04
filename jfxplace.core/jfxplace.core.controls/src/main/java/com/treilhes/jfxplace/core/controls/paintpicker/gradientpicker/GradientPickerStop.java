@@ -64,7 +64,7 @@ import javafx.scene.shape.Rectangle;
  */
 public class GradientPickerStop extends VBox {
 
-    private final static Logger logger = LoggerFactory.getLogger(GradientPickerStop.class);
+    private static final Logger logger = LoggerFactory.getLogger(GradientPickerStop.class);
 
     @FXML
     private Rectangle chip_rect;

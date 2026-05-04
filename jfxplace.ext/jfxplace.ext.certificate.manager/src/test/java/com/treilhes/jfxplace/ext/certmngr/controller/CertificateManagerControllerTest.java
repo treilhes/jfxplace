@@ -89,7 +89,7 @@ public class CertificateManagerControllerTest {
 
     private static NetworkManager nm = new NetworkManager.NetworkManagerImpl();
     private static String TEST_URL = "https://localhost:8887/test";
-    protected final static long USER_TIMEOUT = 2;//seconds
+    protected static final long USER_TIMEOUT = 2;//seconds
 
     static WireMockServer wireMock;
 

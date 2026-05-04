@@ -54,9 +54,9 @@ import javafx.scene.input.KeyCodeCombination;
 @ApplicationInstanceSingleton
 public class SceneBuilderMenuProvider implements MenuItemProvider {
 
-    private final static String FILE_MENU_ID = "fileMenu";
-    private final static String CLOSE_WINDOW_ID = "closeMenuItem";
-    private final static String EXIT_ID = "exitMenuItem";
+    private static final String FILE_MENU_ID = "fileMenu";
+    private static final String CLOSE_WINDOW_ID = "closeMenuItem";
+    private static final String EXIT_ID = "exitMenuItem";
 
     private final I18N i18n;
     private final SceneBuilderMenuController sceneBuilderMenuController;

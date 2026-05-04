@@ -48,7 +48,7 @@ import com.treilhes.jfxplace.core.library.api.ExplorerInspector;
 
 public class FolderExplorer {
     
-    private final static Logger logger = LoggerFactory.getLogger(FolderExplorer.class);
+    private static final Logger logger = LoggerFactory.getLogger(FolderExplorer.class);
 
     private FolderExplorer(Path folderPath) {}
 

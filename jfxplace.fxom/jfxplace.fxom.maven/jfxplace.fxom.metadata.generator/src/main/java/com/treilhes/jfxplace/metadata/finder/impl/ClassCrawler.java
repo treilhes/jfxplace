@@ -48,7 +48,7 @@ import com.treilhes.jfxplace.metadata.util.Report;
 
 public class ClassCrawler implements IClassCrawler {
 
-    private final static Logger logger = LoggerFactory.getLogger(ClassCrawler.class);
+    private static final Logger logger = LoggerFactory.getLogger(ClassCrawler.class);
 
     @Override
     public Set<Class<?>> crawl(Set<Path> jars, SearchContext context) {

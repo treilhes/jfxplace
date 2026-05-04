@@ -41,7 +41,7 @@ import com.treilhes.jfxplace.app.devtools.api.project.ProjectEvents;
 
 public class DevtoolsApiExtension implements ApplicationExtension  {
 
-    public final static UUID ID = UUID.fromString("1b8bb5f3-efb3-41a6-b6f0-12c9d96fc6a2");
+    public static final UUID ID = UUID.fromString("1b8bb5f3-efb3-41a6-b6f0-12c9d96fc6a2");
 
     @Override
     public UUID getId() {

@@ -59,7 +59,7 @@ import com.treilhes.jfxplace.app.manager.store.ui.root.RootModelControllerImpl;
 public class ManagerStoreExtension implements OpenExtension  {
 
     /** The Constant ID. */
-    public final static UUID ID = UUID.fromString("26a4c220-7adb-4fae-a9be-4c4bf233b812");
+    public static final UUID ID = UUID.fromString("26a4c220-7adb-4fae-a9be-4c4bf233b812");
 
 
     /**

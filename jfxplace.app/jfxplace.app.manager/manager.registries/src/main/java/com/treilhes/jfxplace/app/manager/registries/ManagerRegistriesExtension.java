@@ -51,7 +51,7 @@ import com.treilhes.jfxplace.app.manager.registries.model.SourceModelController;
 public class ManagerRegistriesExtension implements OpenExtension  {
 
     /** The Constant ID. */
-    public final static UUID ID = UUID.fromString("c1e38085-c20a-4481-8b91-ab9d7efec171");
+    public static final UUID ID = UUID.fromString("c1e38085-c20a-4481-8b91-ab9d7efec171");
 
 
     /**

@@ -42,7 +42,7 @@ import com.treilhes.jfxplace.app.devtools.openapi.controller.OpenApiController;
 
 public class DevtoolsOpenapiExtension implements OpenExtension  {
 
-    public final static UUID ID = UUID.fromString("b1df62f8-42bd-45e2-bdbb-434ef2b0e4c2");
+    public static final UUID ID = UUID.fromString("b1df62f8-42bd-45e2-bdbb-434ef2b0e4c2");
 
 
     @Override

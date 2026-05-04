@@ -1,4 +1,4 @@
-package com.treilhes.jfxplace.fxom.sampledata.preference;
+package com.treilhes.jfxplace.core.fxom.sample;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 import com.treilhes.jfxplace.core.api.preference.DefaultValueProvider;

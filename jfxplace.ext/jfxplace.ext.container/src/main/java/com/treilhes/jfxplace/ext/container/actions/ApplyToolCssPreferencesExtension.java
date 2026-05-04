@@ -59,8 +59,8 @@ import io.reactivex.rxjava3.subjects.Subject;
 public class ApplyToolCssPreferencesExtension extends AbstractActionExtension<ApplyToolCssAction>
         implements InitWithDocument {
 
-    private final static String cssClassFormat = "%s {%s\n}\n\n";
-    private final static String cssPropertyFormat = "\n   %s: %s;";
+    private static final String cssClassFormat = "%s {%s\n}\n\n";
+    private static final String cssPropertyFormat = "\n   %s: %s;";
 
     private final ActionFactory actionFactory;
     private final List<CssPreference<?>> cssPreferences;

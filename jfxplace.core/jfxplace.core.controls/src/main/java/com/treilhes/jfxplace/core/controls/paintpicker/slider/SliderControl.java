@@ -49,7 +49,7 @@ import javafx.scene.layout.GridPane;
 
 public class SliderControl extends GridPane {
 
-    private final static Logger logger = LoggerFactory.getLogger(SliderControl.class);
+    private static final Logger logger = LoggerFactory.getLogger(SliderControl.class);
 
     @FXML
     private Slider slider_slider;

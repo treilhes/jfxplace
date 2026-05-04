@@ -91,7 +91,7 @@ public class RepositoryController extends AbstractFxmlViewController {
 
     private FxmlController currentEdit;
 
-    private final static GaussianBlur EDIT_BLUR = new GaussianBlur(60);
+    private static final GaussianBlur EDIT_BLUR = new GaussianBlur(60);
 
     //@formatter:off
     protected RepositoryController(

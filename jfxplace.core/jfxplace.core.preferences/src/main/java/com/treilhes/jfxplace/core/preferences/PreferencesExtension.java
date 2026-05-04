@@ -52,7 +52,7 @@ import com.treilhes.jfxplace.core.preferences.repository.PreferenceRepository;
 //@EnableJpaRepositories(basePackageClasses = { PreferenceRepository.class })
 public class PreferencesExtension implements OpenExtension {
 
-    public final static UUID ID = UUID.fromString("d82c47c7-e3a7-483c-bb49-f1d3b086c2bf");
+    public static final UUID ID = UUID.fromString("d82c47c7-e3a7-483c-bb49-f1d3b086c2bf");
 
     @Override
     public UUID getParentId() {

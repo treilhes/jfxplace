@@ -52,7 +52,7 @@ import javafx.scene.shape.Shape;
  */
 public class Picker {
 
-    private final static double THRESHOLD = 3;
+    private static final double THRESHOLD = 3;
     
     private final Set<Node> excludes = new HashSet<>();
     private final List<Node> matches = new ArrayList<>();

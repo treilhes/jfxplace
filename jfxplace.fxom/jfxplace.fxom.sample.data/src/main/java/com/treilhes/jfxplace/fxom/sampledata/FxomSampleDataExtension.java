@@ -38,6 +38,8 @@ import java.util.List;
 import java.util.UUID;
 
 import com.treilhes.emc4j.boot.api.loader.extension.OpenExtension;
+import com.treilhes.jfxplace.core.fxom.sample.SampleDataEnabledPreference;
+import com.treilhes.jfxplace.fxom.sampledata.action.ToggleSampleDataAction;
 import com.treilhes.jfxplace.fxom.sampledata.data.ChoiceBoxSampleData;
 import com.treilhes.jfxplace.fxom.sampledata.data.ComboBoxSampleData;
 import com.treilhes.jfxplace.fxom.sampledata.data.ListViewSampleData;
@@ -49,7 +51,6 @@ import com.treilhes.jfxplace.fxom.sampledata.data.TreeViewSampleData;
 import com.treilhes.jfxplace.fxom.sampledata.data.XYChartSampleData;
 import com.treilhes.jfxplace.fxom.sampledata.pipeline.SampleDataGenerator;
 import com.treilhes.jfxplace.fxom.sampledata.pipeline.SampleDataPipeline;
-import com.treilhes.jfxplace.fxom.sampledata.preference.SampleDataEnabledPreference;
 
 public class FxomSampleDataExtension implements OpenExtension {
 
@@ -84,7 +85,8 @@ public class FxomSampleDataExtension implements OpenExtension {
                 XYChartSampleData.class,
                 SampleDataGenerator.class,
                 SampleDataPipeline.class,
-                SampleDataEnabledPreference.class
+                SampleDataEnabledPreference.class,
+                ToggleSampleDataAction.class
                 );
     }
 }

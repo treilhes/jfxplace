@@ -65,7 +65,7 @@ import javafx.stage.Stage;
 @SetSystemProperty(key = "javafx.allowjs", value = "true")
 class ExpressionReferenceTest {
 
-    private final static String MAIN = """
+    private static final String MAIN = """
             <?import javafx.scene.control.Button?>
             <?import javafx.scene.layout.Pane?>
             <?import javafx.scene.shape.Circle?>
@@ -96,7 +96,7 @@ class ExpressionReferenceTest {
             </Pane>
             """;
 
-    private final static String REFERRED1 = """
+    private static final String REFERRED1 = """
             <?import javafx.scene.control.Button?>
             <?import javafx.scene.layout.Pane?>
 
@@ -107,7 +107,7 @@ class ExpressionReferenceTest {
             </Pane>
             """;
 
-    private final static String REFERRED2 = """
+    private static final String REFERRED2 = """
             <?import javafx.scene.control.Button?>
             <?import javafx.scene.layout.Pane?>
 

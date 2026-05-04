@@ -51,7 +51,7 @@ import com.treilhes.jfxplace.core.api.application.annotation.EditorDescriptor;
         )
 public class ManagerApiExtension implements ApplicationExtension  {
 
-    public final static UUID ID = JfxplaceCoreApiExtension.MANAGER_APP_ID;
+    public static final UUID ID = JfxplaceCoreApiExtension.MANAGER_APP_ID;
 
     @Override
     public UUID getId() {

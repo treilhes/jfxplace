@@ -76,7 +76,7 @@ import javafx.scene.image.WritableImage;
 
 public class LibraryStoreController implements LibraryStore, Runnable {
 
-    private final static Logger logger = LoggerFactory.getLogger(LibraryStoreController.class);
+    private static final Logger logger = LoggerFactory.getLogger(LibraryStoreController.class);
 
     public enum State {
         READY, WATCHING

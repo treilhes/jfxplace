@@ -69,7 +69,7 @@ import com.treilhes.jfxplace.core.fxom.pipeline.FXOMSerializer;
 @ApplicationInstanceSingleton
 public class DocumentControllerImpl implements DocumentController  {
 
-    private final static Logger logger = LoggerFactory.getLogger(DocumentControllerImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(DocumentControllerImpl.class);
 
     private final JfxAppPlatform jfxAppPlatform;
     private final ApplicationEvents applicationEvents;

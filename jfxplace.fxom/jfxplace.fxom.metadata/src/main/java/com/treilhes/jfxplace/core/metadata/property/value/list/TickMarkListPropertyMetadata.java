@@ -41,7 +41,7 @@ import com.treilhes.jfxplace.core.metadata.property.base.ObjectPropertyMetadata;
  */
 public class TickMarkListPropertyMetadata<VC> extends ListValuePropertyMetadata<Object, VC> {
 
-    private final static ObjectPropertyMetadata<Void> itemMetadata = new ObjectPropertyMetadata.Builder<Void>()
+    private static final ObjectPropertyMetadata<Void> itemMetadata = new ObjectPropertyMetadata.Builder<Void>()
             .name(new PropertyName("unused")) // NOCHECK
             .readWrite(true)
             .defaultValue(null)

@@ -55,7 +55,7 @@ import javafx.scene.layout.VBox;
 @ApplicationInstanceSingleton
 public class DockTypeAccordion implements DockType<TitledPane>, com.treilhes.jfxplace.core.api.ui.controller.dock.type.Accordion {
 
-    private final static String VIEW_SOURCE = "TitledPane.fxml";
+    private static final String VIEW_SOURCE = "TitledPane.fxml";
 
     private final EmContext context;
 

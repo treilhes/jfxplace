@@ -43,7 +43,7 @@ import com.treilhes.jfxplace.core.fxom.util.PropertyName;
 
 public class FXOMDefine extends FXOMVirtual {
 
-    public final static PropertyName defineContentName = new PropertyName(GlueElement.IGNORED_PREFIX + ":content");
+    public static final PropertyName defineContentName = new PropertyName(GlueElement.IGNORED_PREFIX + ":content");
 
     private final List<FXOMObject> items = new ArrayList<>();
 

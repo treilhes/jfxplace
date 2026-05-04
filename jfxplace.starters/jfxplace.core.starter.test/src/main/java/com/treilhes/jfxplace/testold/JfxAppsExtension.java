@@ -100,8 +100,8 @@ import com.treilhes.jfxplace.core.api.ui.controller.dock.ViewController;
 import javafx.stage.Stage;
 
 public class JfxAppsExtension implements BeforeEachCallback, AfterEachCallback, ParameterResolver {
-    private final static Logger logger = LoggerFactory.getLogger(JfxAppsExtension.class);
-    private final static Namespace JFXAPPS = create("com.treilhes.jfxplace");
+    private static final Logger logger = LoggerFactory.getLogger(JfxAppsExtension.class);
+    private static final Namespace JFXAPPS = create("com.treilhes.jfxplace");
 
     // This constructor is invoked by JUnit Jupiter via reflection or ServiceLoader
     @SuppressWarnings("unused")

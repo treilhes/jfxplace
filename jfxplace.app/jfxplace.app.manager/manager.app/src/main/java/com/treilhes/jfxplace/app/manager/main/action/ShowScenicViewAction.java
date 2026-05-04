@@ -53,7 +53,7 @@ import com.treilhes.jfxplace.ext.scenicview.api.ScenicViewApi;
         positionRequest = PositionRequest.AsLastChild)
 public class ShowScenicViewAction extends AbstractAction {
 
-    public final static String SCENICVIEW_MENU_ID = "scenicMenu"; //NOCHECK
+    public static final String SCENICVIEW_MENU_ID = "scenicMenu"; //NOCHECK
 
     private final EmContext context;
 

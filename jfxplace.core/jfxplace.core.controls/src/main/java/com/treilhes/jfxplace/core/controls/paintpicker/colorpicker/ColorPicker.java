@@ -65,7 +65,7 @@ import javafx.scene.shape.Circle;
  */
 public class ColorPicker extends VBox {
 
-    private final static Logger logger = LoggerFactory.getLogger(ColorPicker.class);
+    private static final Logger logger = LoggerFactory.getLogger(ColorPicker.class);
 
     @FXML
     private Region chip_region;

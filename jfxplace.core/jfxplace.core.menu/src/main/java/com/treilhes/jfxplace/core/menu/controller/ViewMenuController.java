@@ -67,7 +67,7 @@ import javafx.scene.control.SeparatorMenuItem;
 @ApplicationInstanceSingleton
 public class ViewMenuController implements ViewMenu {
 
-    private final static Logger logger = LoggerFactory.getLogger(ViewMenuController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ViewMenuController.class);
 
     private final List<ViewMenuItemProvider> menuItemProviders;
 

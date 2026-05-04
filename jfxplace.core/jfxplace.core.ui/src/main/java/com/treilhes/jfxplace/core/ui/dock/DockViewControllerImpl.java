@@ -67,7 +67,7 @@ import com.treilhes.jfxplace.core.ui.dock.preference.LastViewVisibilityPreferenc
 @ApplicationInstanceSingleton
 public class DockViewControllerImpl implements InitWithDocument, DockViewController {
 
-    private final static Logger logger = LoggerFactory.getLogger(DockViewControllerImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(DockViewControllerImpl.class);
 
     private final EmContext context;
     private final DockManager dockManager;

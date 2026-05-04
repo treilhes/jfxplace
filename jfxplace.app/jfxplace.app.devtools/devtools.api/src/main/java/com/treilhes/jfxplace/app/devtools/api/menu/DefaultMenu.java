@@ -34,7 +34,7 @@
 package com.treilhes.jfxplace.app.devtools.api.menu;
 
 public interface DefaultMenu {
-    public final static String FILE_MENU_ID = "fileMenu";// NOCHECK
-    public final static String TOOLS_MENU_ID = "toolsMenu";// NOCHECK
-    public final static String HELP_MENU_ID = "helpMenu"; // NOCHECK
+    public static final String FILE_MENU_ID = "fileMenu";// NOCHECK
+    public static final String TOOLS_MENU_ID = "toolsMenu";// NOCHECK
+    public static final String HELP_MENU_ID = "helpMenu"; // NOCHECK
 }

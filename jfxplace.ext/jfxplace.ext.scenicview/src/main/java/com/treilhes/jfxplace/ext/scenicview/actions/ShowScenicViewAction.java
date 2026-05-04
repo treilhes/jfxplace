@@ -46,7 +46,7 @@ import com.treilhes.jfxplace.ext.scenicview.controller.ScenicViewStarter;
 @ActionMeta(nameKey = "action.name.show.about", descriptionKey = "action.description.show.about")
 public class ShowScenicViewAction extends AbstractAction {
 
-    public final static String SCENICVIEW_MENU_ID = "scenicMenu"; //NOCHECK
+    public static final String SCENICVIEW_MENU_ID = "scenicMenu"; //NOCHECK
 
     private final EmContext context;
 

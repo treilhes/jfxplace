@@ -63,9 +63,9 @@ import javafx.scene.input.DataFormat;
     icon = "ViewIconLog.png", iconX2 = "ViewIconLog@2x.png")
 public class LogViewerController extends AbstractFxmlViewController {
 
-    public final static String VIEW_ID = "f0769ce0-08cd-463f-bf6f-c65c96f6c6d0";
-    public final static String VIEW_NAME = "view.name.log.viewer";
-    public final static int MAX_LINES = 10000;
+    public static final String VIEW_ID = "f0769ce0-08cd-463f-bf6f-c65c96f6c6d0";
+    public static final String VIEW_NAME = "view.name.log.viewer";
+    public static final int MAX_LINES = 10000;
 
     private final JfxAppPlatform jfxAppPlatform;
 

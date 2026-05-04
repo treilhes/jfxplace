@@ -52,13 +52,13 @@ import com.treilhes.jfxplace.util.IndexedHashMap;
 @SetSystemProperty(key = "javafx.allowjs", value = "true")
 class IndexedHashMapTest {
 
-    private final static String K1 = "key01";
-    private final static String K2 = "key2";
-    private final static String K3 = "k3";
+    private static final String K1 = "key01";
+    private static final String K2 = "key2";
+    private static final String K3 = "k3";
 
-    private final static String V1 = "val01";
-    private final static String V2 = "val2";
-    private final static String V3 = "v3";
+    private static final String V1 = "val01";
+    private static final String V2 = "val2";
+    private static final String V3 = "v3";
 
     @Test
     void indexed_map_keep_the_insertion_order_for_keys_and_values() {

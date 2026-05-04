@@ -74,8 +74,14 @@ public abstract class AbstractModeController implements Mode{
     }
 
     @Override
-    public <T extends Decoration<?>> void newLayer(Class<T> cls, boolean mouseTransparent, FxomSelection selection,
-            LayerItemSelector selector, LayerItemCreator<T> creator) {
+    // @formatter:off
+    public <T extends Decoration<?>> void newLayer(
+            Class<T> cls,
+            boolean mouseTransparent,
+            FxomSelection selection,
+            LayerItemSelector selector,
+            LayerItemCreator<T> creator) {
+        // @formatter:on
         Group layerUi = new Group();
         layerUi.setMouseTransparent(mouseTransparent);
         layerUi.setManaged(false);

@@ -46,8 +46,8 @@ import java.util.Objects;
  */
 public class GlueElement extends GlueNode {
     public static final String IGNORED_PREFIX = "ignored";
-    private final static String FX_PREFIX = "fx:";
-    private final static int INDENT_STEP = 3;
+    private static final String FX_PREFIX = "fx:";
+    private static final int INDENT_STEP = 3;
 
 
     private GlueDocument document;

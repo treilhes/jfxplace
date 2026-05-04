@@ -45,7 +45,7 @@ public class ReloadableTrustManagerProvider extends Provider {
     private static final long serialVersionUID = 1L;
     
     /** The Constant PROVIDER_VERSION. */
-    private final static String PROVIDER_VERSION = "1.0.0";
+    private static final String PROVIDER_VERSION = "1.0.0";
 
     private final NetworkManager networkManager;
 

@@ -44,7 +44,7 @@ import com.treilhes.jfxplace.metadata.properties.api.PropertyGenerationContext;
 
 public class MetadataProducer {
 
-    private final static Logger logger = LoggerFactory.getLogger(MetadataProducer.class);
+    private static final Logger logger = LoggerFactory.getLogger(MetadataProducer.class);
 
     private PropertyGenerationContext propertyContext;
 

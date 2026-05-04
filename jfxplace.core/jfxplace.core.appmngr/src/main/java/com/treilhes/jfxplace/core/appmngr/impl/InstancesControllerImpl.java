@@ -63,7 +63,7 @@ import javafx.collections.ObservableList;
 @Lazy
 public class InstancesControllerImpl implements InstancesManager {
 
-    private final static Logger logger = LoggerFactory.getLogger(InstancesControllerImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(InstancesControllerImpl.class);
 
     private final I18N i18n;
 

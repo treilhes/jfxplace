@@ -46,7 +46,7 @@ import com.treilhes.jfxplace.core.fxom.FXOMDocument;
 @ActionMeta(nameKey = "action.name.save", descriptionKey = "action.description.save")
 public class SaveOrSaveAsAction extends AbstractAction {
 
-    public final static String MENU_ID = "saveMenu";
+    public static final String MENU_ID = "saveMenu";
 
     private final FxomEvents documentManager;
     private final ActionFactory actionFactory;

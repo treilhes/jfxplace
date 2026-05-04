@@ -52,7 +52,7 @@ import com.treilhes.jfxplace.app.manager.mvnrepos.model.RepositoryModelControlle
 public class ManagerMvnReposExtension implements OpenExtension  {
 
     /** The Constant ID. */
-    public final static UUID ID = UUID.fromString("fa80ba52-4350-4155-b968-1d1f69c9c5eb");
+    public static final UUID ID = UUID.fromString("fa80ba52-4350-4155-b968-1d1f69c9c5eb");
 
 
     /**

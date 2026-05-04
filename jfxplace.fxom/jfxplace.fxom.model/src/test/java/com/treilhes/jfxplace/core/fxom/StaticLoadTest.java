@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2016, 2025, Gluon and/or its affiliates.
- * Copyright (c) 2021, 2025, Pascal Treilhes and/or its affiliates.
+ * Copyright (c) 2016, 2024, Gluon and/or its affiliates.
+ * Copyright (c) 2021, 2024, Pascal Treilhes and/or its affiliates.
  * Copyright (c) 2012, 2014, Oracle and/or its affiliates.
  * All rights reserved. Use is subject to license terms.
  *
@@ -31,46 +31,42 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.treilhes.jfxplace.app.devtools.projects;
+package com.treilhes.jfxplace.core.fxom;
 
-import java.util.List;
-import java.util.UUID;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-import com.treilhes.emc4j.boot.api.loader.extension.OpenExtension;
-import com.treilhes.jfxplace.app.devtools.api.DevtoolsApiExtension;
-import com.treilhes.jfxplace.app.devtools.projects.action.LoadProjectAction;
-import com.treilhes.jfxplace.app.devtools.projects.action.OpenProjectAction;
-import com.treilhes.jfxplace.app.devtools.projects.action.ProjectActionFactoryImpl;
-import com.treilhes.jfxplace.app.devtools.projects.controller.ProjectController;
+import java.io.IOException;
+import java.net.URL;
 
-public class DevtoolsProjectsExtension implements OpenExtension  {
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.testfx.framework.junit5.ApplicationExtension;
 
-    public static final UUID ID = UUID.fromString("b73748f8-703c-4f4a-8e1e-253fbf328167");
+import javafx.fxml.FXMLLoader;
 
+/**
+ * Unit test for {@link FXOMLoader#setStaticLoad(javafx.fxml.FXMLLoader, boolean) }
+ */
+@ExtendWith(ApplicationExtension.class)
+class StaticLoadTest {
 
-    @Override
-    public UUID getParentId() {
-        return DevtoolsApiExtension.ID;
+    @Test
+    void testStaticLoadWithoutEventHandler() {
+        assertDoesNotThrow(() -> {
+            final URL fxmlURL = StaticLoadTest.class.getResource("testStaticLoadWithoutEventHandler.fxml");
+            var fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(fxmlURL);
+            FXOMLoader.setStaticLoad(fxmlLoader, true);
+        });
     }
 
-    @Override
-    public UUID getId() {
-        return ID;
+    @Test
+    void testStaticLoad() throws IOException {
+        assertDoesNotThrow(() -> {
+            final URL fxmlURL = StaticLoadTest.class.getResource("testStaticLoad.fxml");
+            var fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(fxmlURL);
+            FXOMLoader.setStaticLoad(fxmlLoader, true);
+        });
     }
-
-    @Override
-    public List<Class<?>> exportedContextClasses() {
-        return List.of(
-                LoadProjectAction.class,
-                OpenProjectAction.class,
-                ProjectActionFactoryImpl.class,
-                ProjectController.class
-                );
-    }
-
-    @Override
-    public List<Class<?>> localContextClasses() {
-        return List.of();
-    }
-
 }

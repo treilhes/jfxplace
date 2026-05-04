@@ -42,7 +42,7 @@ import com.treilhes.jfxplace.app.devtools.startup.controller.StartupController;
 
 public class DevtoolsStartupExtension implements OpenExtension  {
 
-    public final static UUID ID = UUID.fromString("5b660c25-a77a-4435-b2ca-20ac2c734303");
+    public static final UUID ID = UUID.fromString("5b660c25-a77a-4435-b2ca-20ac2c734303");
 
 
     @Override

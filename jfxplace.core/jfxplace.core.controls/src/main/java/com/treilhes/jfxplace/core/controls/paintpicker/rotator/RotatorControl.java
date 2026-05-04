@@ -53,7 +53,7 @@ import javafx.scene.layout.GridPane;
 
 public class RotatorControl extends GridPane {
 
-    private final static Logger logger = LoggerFactory.getLogger(RotatorControl.class);
+    private static final Logger logger = LoggerFactory.getLogger(RotatorControl.class);
 
     @FXML
     private TextField rotator_textfield;

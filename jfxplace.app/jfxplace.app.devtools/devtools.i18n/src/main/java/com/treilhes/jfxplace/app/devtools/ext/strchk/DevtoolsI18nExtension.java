@@ -42,7 +42,7 @@ import com.treilhes.jfxplace.app.devtools.ext.strchk.controller.ResourceLocation
 
 public class DevtoolsI18nExtension implements OpenExtension  {
 
-    public final static UUID ID = UUID.fromString("733baa71-86ee-42db-b2d5-3f8111138de4");
+    public static final UUID ID = UUID.fromString("733baa71-86ee-42db-b2d5-3f8111138de4");
 
 
     @Override

@@ -95,7 +95,7 @@ public abstract class AbstractPropertyEditor extends AbstractEditor {
         SIMPLE_LINE_NO_NAME,
         DOUBLE_LINE
     }
-    public final static LayoutFormat DEFAULT_LAYOUT_FORMAT = LayoutFormat.SIMPLE_LINE_CENTERED;
+    public static final LayoutFormat DEFAULT_LAYOUT_FORMAT = LayoutFormat.SIMPLE_LINE_CENTERED;
     private static final Image cssIcon = new Image(
             AbstractPropertyEditor.class.getResource("css-icon.png").toExternalForm());
 

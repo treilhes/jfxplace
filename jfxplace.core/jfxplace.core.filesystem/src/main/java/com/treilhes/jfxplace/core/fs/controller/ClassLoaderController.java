@@ -55,7 +55,7 @@ import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 @ApplicationInstanceSingleton
 public class ClassLoaderController {
 
-    private final static Logger logger = LoggerFactory.getLogger(ClassLoaderController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ClassLoaderController.class);
 
     private final Set<Path> jarsOrFolders = ConcurrentHashMap.newKeySet();
 

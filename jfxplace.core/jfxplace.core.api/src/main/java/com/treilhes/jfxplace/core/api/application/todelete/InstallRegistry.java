@@ -35,7 +35,7 @@ package com.treilhes.jfxplace.core.api.application.todelete;
 
 public class InstallRegistry {
 
-    public final static String REGISTRY_ARTIFACT_ID = "install-registry";
+    public static final String REGISTRY_ARTIFACT_ID = "install-registry";
 
     private String groupId;
 

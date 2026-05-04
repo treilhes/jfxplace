@@ -42,7 +42,7 @@ import com.treilhes.jfxplace.app.devtools.db.controller.DatabaseConsoleControlle
 
 public class DevtoolsDbExtension implements OpenExtension  {
 
-    public final static UUID ID = UUID.fromString("5aadfc19-93f1-4d0b-b21a-c5d7ad5a2b05");
+    public static final UUID ID = UUID.fromString("5aadfc19-93f1-4d0b-b21a-c5d7ad5a2b05");
 
 
     @Override

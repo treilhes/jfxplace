@@ -44,7 +44,7 @@ import com.treilhes.jfxplace.core.fxom.util.PropertyName;
  */
 class TransientDefine extends TransientVirtual {
 
-    private final static PropertyName name = new PropertyName("fx:define");
+    private static final PropertyName name = new PropertyName("fx:define");
 
     public TransientDefine(
             TransientNode parentNode,

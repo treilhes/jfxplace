@@ -47,9 +47,9 @@ import com.treilhes.jfxplace.core.metadata.property.value.list.ListValueProperty
  */
 public class DoubleArrayPropertyMetadata<VC> extends ListValuePropertyMetadata<Double, VC> {
 
-    private final static PropertyName unusedName = new PropertyName("unused"); // NOCHECK
+    private static final PropertyName unusedName = new PropertyName("unused"); // NOCHECK
 
-    private final static CoordinateDoublePropertyMetadata<Void> itemMetadata = new CoordinateDoublePropertyMetadata.Builder<Void>()
+    private static final CoordinateDoublePropertyMetadata<Void> itemMetadata = new CoordinateDoublePropertyMetadata.Builder<Void>()
             .name(unusedName)
             .readWrite(true)
             .defaultValue(0.0)

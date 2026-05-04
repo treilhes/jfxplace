@@ -138,8 +138,9 @@ class FXOMLoader implements LoadListener {
                 // TODO present this exception to the user but without compromising the black
                 // boxing of core
                 throw new IOException("Unsupported charset", x); // NOCHECK
-            } else
+            } else {
                 throw new IOException("unable to load fxml", x);
+            }
         }
     }
 
@@ -480,7 +481,7 @@ class FXOMLoader implements LoadListener {
 
     // Deprecated stuff in FXMLLoader
     // RT-21226 : Promote setStaticLoad to public API
-    private static void setStaticLoad(FXMLLoader loader, boolean staticLoad) {
+    static void setStaticLoad(FXMLLoader loader, boolean staticLoad) {
         // See SB-266 and JDK-8186429
         // ReflectionUtils.setStaticLoad(loader, staticLoad);
         // FXMLLoaderHelper.setStaticLoad(loader, staticLoad);

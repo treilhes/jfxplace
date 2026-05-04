@@ -101,7 +101,7 @@ public class TableViewResizePolicyPropertyMetadata<VC> extends CallbackPropertyM
 
     }
 
-    public final static class Builder<VC> extends AbstractBuilder<Builder<VC>, TableViewResizePolicyPropertyMetadata<VC>,VC> {
+    public static final class Builder<VC> extends AbstractBuilder<Builder<VC>, TableViewResizePolicyPropertyMetadata<VC>,VC> {
 
         @Override
         public TableViewResizePolicyPropertyMetadata<VC> build() {

@@ -59,7 +59,7 @@ public class MessageLog implements MessageLogger{
     private final List<MessageLogEntry> entries = new ArrayList<>();
     private final SimpleIntegerProperty revision = new SimpleIntegerProperty();
     private final SimpleIntegerProperty numOfWarningMessages = new SimpleIntegerProperty();
-    private final static String TIMESTAMP_PATTERN = "h:mm a EEEEEEEEE d MMM. yyyy"; //NOCHECK
+    private static final String TIMESTAMP_PATTERN = "h:mm a EEEEEEEEE d MMM. yyyy"; //NOCHECK
     private static SimpleDateFormat TIMESTAMP_DATE_FORMAT;
 
 

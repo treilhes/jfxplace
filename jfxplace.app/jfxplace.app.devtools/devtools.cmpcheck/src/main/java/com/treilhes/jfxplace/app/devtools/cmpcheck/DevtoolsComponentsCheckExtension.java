@@ -43,7 +43,7 @@ import com.treilhes.jfxplace.app.devtools.cmpcheck.watcher.WatcherConfiguration;
 
 public class DevtoolsComponentsCheckExtension implements OpenExtension  {
 
-    public final static UUID ID = UUID.fromString("d474380c-8b2a-41ff-ab49-93aee05160ff");
+    public static final UUID ID = UUID.fromString("d474380c-8b2a-41ff-ab49-93aee05160ff");
 
 
     @Override

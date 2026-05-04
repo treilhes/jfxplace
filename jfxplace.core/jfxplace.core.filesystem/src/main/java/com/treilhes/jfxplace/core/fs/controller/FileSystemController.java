@@ -57,7 +57,7 @@ import javafx.collections.ObservableList;
 @ApplicationInstanceSingleton
 public class FileSystemController implements FileSystem {
 
-    private final static Logger logger = LoggerFactory.getLogger(FileSystemController.class);
+    private static final Logger logger = LoggerFactory.getLogger(FileSystemController.class);
 
     //private final JfxAppPlatform jfxAppPlatform;
     //private final ApplicationEvents applicationEvents;

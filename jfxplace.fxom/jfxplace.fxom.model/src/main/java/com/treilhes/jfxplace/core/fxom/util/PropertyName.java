@@ -38,7 +38,7 @@ package com.treilhes.jfxplace.core.fxom.util;
  */
 public class PropertyName implements Comparable<PropertyName> {
 
-    public final static PropertyName EMPTY = new PropertyName("");
+    public static final PropertyName EMPTY = new PropertyName("");
 
     private final String name;
     private final Class<?> residenceClass;

@@ -47,7 +47,7 @@ import com.treilhes.jfxplace.core.fxom.util.PropertyName;
  */
 public abstract class FXOMIntrinsic extends FXOMElement {
 
-    public final static PropertyName GENERIC_DEFAULT_PROPERTY = new PropertyName(GlueElement.IGNORED_PREFIX + ":GENERIC_DEFAULT_PROPERTY");
+    public static final PropertyName GENERIC_DEFAULT_PROPERTY = new PropertyName(GlueElement.IGNORED_PREFIX + ":GENERIC_DEFAULT_PROPERTY");
 
     private static final String CHARSET_PROPERTY = "charset";
     private static final String SOURCE_PROPERTY = "source";

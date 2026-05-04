@@ -68,7 +68,7 @@ public class FxomSelectionImpl implements FxomSelection {
     //private final SimpleIntegerProperty revision = new SimpleIntegerProperty();
     private final Selection selection;
     private final TargetSelection targetSelection;
-
+    private final FxomEvents fxomEvents;
     //private SelectionGroup group;
     //private boolean lock;
     //private long lastListenerInvocationTime;
@@ -76,7 +76,7 @@ public class FxomSelectionImpl implements FxomSelection {
 
 
     public FxomSelectionImpl(
-            FxomEvents documentManager,
+            FxomEvents fxomEvents,
             Selection selection,
             TargetSelection targetSelection,
             DefaultSelectionGroupFactory defaultSelectionGroupFactory) {
@@ -84,7 +84,8 @@ public class FxomSelectionImpl implements FxomSelection {
         this.selection = selection;
         this.targetSelection = targetSelection;
         this.defaultSelectionGroupFactory = defaultSelectionGroupFactory;
-        documentManager.fxomDocument().subscribe(fxom -> selection.clear());
+        this.fxomEvents = fxomEvents;
+        fxomEvents.fxomDocument().subscribe(fxom -> selection.clear());
     }
     /**
      * Replaces the selected items by the specified fxom object.
@@ -546,6 +547,7 @@ public class FxomSelectionImpl implements FxomSelection {
     @Override
     public void endUpdate() {
         selection.endUpdate();
+        fxomEvents.selectionDidChange().set(new SelectionStateImpl(this));
     }
 
 }

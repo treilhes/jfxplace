@@ -64,7 +64,7 @@ import javafx.stage.FileChooser;
 @ActionMeta(nameKey = "action.name.save", descriptionKey = "action.description.save")
 public class SaveAsAction extends AbstractAction {
 
-    public final static String MENU_ID = "saveAsMenu";
+    public static final String MENU_ID = "saveAsMenu";
 
     private final FxomEvents documentManager;
     private final InlineEdit inlineEdit;

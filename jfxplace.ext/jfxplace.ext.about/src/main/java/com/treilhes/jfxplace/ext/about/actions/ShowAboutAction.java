@@ -50,8 +50,8 @@ import com.treilhes.jfxplace.ext.about.controller.AboutWindowController;
 //        positionRequest = PositionRequest.AsLastChild)
 public class ShowAboutAction extends AbstractAction {
 
-    protected final static String HELP_MENU_ID = "helpMenu"; //NOCHECK
-    public final static String ABOUT_MENU_ID = "aboutMenu"; //NOCHECK
+    protected static final String HELP_MENU_ID = "helpMenu"; //NOCHECK
+    public static final String ABOUT_MENU_ID = "aboutMenu"; //NOCHECK
 
     private final AboutWindowController aboutWindowController;
 

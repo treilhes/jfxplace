@@ -41,7 +41,7 @@ import com.treilhes.jfxplace.core.metadata.property.base.DoublePropertyMetadata.
  */
 public class DoubleListPropertyMetadata<VC> extends ListValuePropertyMetadata<Double, VC> {
 
-    private final static CoordinateDoublePropertyMetadata<Void> itemMetadata = new CoordinateDoublePropertyMetadata.Builder<Void>()
+    private static final CoordinateDoublePropertyMetadata<Void> itemMetadata = new CoordinateDoublePropertyMetadata.Builder<Void>()
             .name(new PropertyName("unused")) //NOCHECK
             .readWrite(true)
             .defaultValue(0.0)

@@ -74,10 +74,10 @@ public class PaintPickerController {
     private final ObjectProperty<Paint> paint = new SimpleObjectProperty<>();
     private final BooleanProperty liveUpdate = new SimpleBooleanProperty();
 
-    public final static Color DEFAULT_COLOR = Color.BLACK;
-    public final static LinearGradient DEFAULT_LINEAR
+    public static final Color DEFAULT_COLOR = Color.BLACK;
+    public static final LinearGradient DEFAULT_LINEAR
             = new LinearGradient(0.0, 0.0, 1.0, 1.0, true, CycleMethod.NO_CYCLE);
-    public final static RadialGradient DEFAULT_RADIAL
+    public static final RadialGradient DEFAULT_RADIAL
             = new RadialGradient(0.0, 0.0, 0.5, 0.5, 0.5, true, CycleMethod.NO_CYCLE);
 
     public ObjectProperty<Paint> paintProperty() {

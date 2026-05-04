@@ -38,10 +38,15 @@ import java.util.List;
 import java.util.UUID;
 
 import com.treilhes.emc4j.boot.api.loader.extension.OpenExtension;
+import com.treilhes.jfxplace.core.guides.action.DisableGuidesAction;
+import com.treilhes.jfxplace.core.guides.action.EnableGuidesAction;
+import com.treilhes.jfxplace.core.guides.action.GuideActionFactoryImpl;
 import com.treilhes.jfxplace.core.guides.controller.EditCurveGuideController;
 import com.treilhes.jfxplace.core.guides.controller.MovingGuideController;
 import com.treilhes.jfxplace.core.guides.controller.ResizingGuideController;
 import com.treilhes.jfxplace.core.guides.i18n.I18NGuides;
+import com.treilhes.jfxplace.core.guides.preference.AlignmentGuidesColorPreference;
+import com.treilhes.jfxplace.core.guides.preference.GuidesEnabledPreference;
 
 public class GuidesExtension implements OpenExtension {
 
@@ -64,10 +69,15 @@ public class GuidesExtension implements OpenExtension {
     public List<Class<?>> exportedContextClasses() {
      // @formatter:off
         return Arrays.asList(
+                DisableGuidesAction.class,
+                EnableGuidesAction.class,
+                GuideActionFactoryImpl.class,
                 EditCurveGuideController.class,
-                I18NGuides.class,
                 MovingGuideController.class,
-                ResizingGuideController.class
+                ResizingGuideController.class,
+                I18NGuides.class,
+                AlignmentGuidesColorPreference.class,
+                GuidesEnabledPreference.class
             );
      // @formatter:on
     }

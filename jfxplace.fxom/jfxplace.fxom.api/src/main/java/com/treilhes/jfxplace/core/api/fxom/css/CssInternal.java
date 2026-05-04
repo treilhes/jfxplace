@@ -75,7 +75,7 @@ import javafx.scene.Parent;
 //TODO this class need a complete rewrite
 public class CssInternal {
 
-//    private final static String[] themeUrls = {
+//    private static final String[] themeUrls = {
 //        Theme.CASPIAN_EMBEDDED_HIGH_CONTRAST.getStylesheetURL(),
 //        Theme.CASPIAN_EMBEDDED_QVGA_HIGH_CONTRAST.getStylesheetURL(),
 //        Theme.CASPIAN_EMBEDDED_QVGA.getStylesheetURL(),

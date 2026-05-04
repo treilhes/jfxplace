@@ -47,7 +47,7 @@ import com.treilhes.jfxplace.core.api.job.JobManager;
         descriptionKey = "action.description.redo")
 public class RedoAction extends AbstractAction {
 
-    public final static String MENU_ID = "redoMenuItem"; //NOCHECK
+    public static final String MENU_ID = "redoMenuItem"; //NOCHECK
 
     private final JobManager jobManager;
     private final FxomEvents documentManager;

@@ -33,11 +33,10 @@
  */
 package com.treilhes.jfxplace.core.guides.i18n;
 
-import org.springframework.stereotype.Component;
-
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
 import com.treilhes.jfxplace.core.api.i18n.BundleProvider;
 
-@Component
+@ApplicationSingleton
 public class I18NGuides implements BundleProvider {
     @Override
     public String getBundleName() {

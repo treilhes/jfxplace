@@ -45,7 +45,7 @@ import javafx.fxml.FXMLLoader;
  */
 public class StringListPropertyMetadata<VC> extends ListValuePropertyMetadata<String, VC> {
 
-    private final static I18nStringPropertyMetadata<Void> itemMetadata = new I18nStringPropertyMetadata.Builder<Void>()
+    private static final I18nStringPropertyMetadata<Void> itemMetadata = new I18nStringPropertyMetadata.Builder<Void>()
             .name(null)
             .readWrite(true)
             .defaultValue(null)

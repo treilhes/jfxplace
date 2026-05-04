@@ -6,7 +6,7 @@ import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSinglet
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
 import com.treilhes.jfxplace.core.fxom.pipeline.FXOMPostDeserialization;
 import com.treilhes.jfxplace.core.fxom.pipeline.FXOMPreSerialization;
-import com.treilhes.jfxplace.fxom.sampledata.preference.SampleDataEnabledPreference;
+import com.treilhes.jfxplace.core.fxom.sample.SampleDataEnabledPreference;
 
 @ApplicationInstanceSingleton
 public class SampleDataPipeline implements FXOMPostDeserialization, FXOMPreSerialization {

@@ -64,17 +64,17 @@ import com.treilhes.jfxplace.core.api.ui.controller.menu.MenuBuilder;
 
 public class JfxplaceCoreApiExtension implements RootExtension {
 
-    public final static UUID ID = ROOT_ID;
+    public static final UUID ID = ROOT_ID;
 
     /**
      * The UUID for the manager application extension.
      */
-    public final static UUID MANAGER_APP_ID = UUID.fromString("00000000-0000-0000-0000-000000000002");
+    public static final UUID MANAGER_APP_ID = UUID.fromString("00000000-0000-0000-0000-000000000002");
 
     /**
      * The UUID for the tray application extension.
      */
-    public final static UUID TRAY_APP_ID = UUID.fromString("00000000-0000-0000-0000-000000000003");
+    public static final UUID TRAY_APP_ID = UUID.fromString("00000000-0000-0000-0000-000000000003");
 
     @Override
     public UUID getParentId() {

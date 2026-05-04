@@ -54,7 +54,7 @@ import javafx.scene.layout.VBox;
 @ApplicationInstanceSingleton
 public class DockTypeTab implements DockType<Tab>, com.treilhes.jfxplace.core.api.ui.controller.dock.type.Tab {
 
-    private final static String VIEW_SOURCE = "Tab.fxml";
+    private static final String VIEW_SOURCE = "Tab.fxml";
 
     private final EmContext context;
 

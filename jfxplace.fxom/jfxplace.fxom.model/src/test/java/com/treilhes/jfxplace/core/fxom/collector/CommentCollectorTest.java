@@ -57,7 +57,7 @@ import javafx.stage.Stage;
 @SetSystemProperty(key = "javafx.allowjs", value = "true")
 class CommentCollectorTest {
 
-    private final static String MAIN = """
+    private static final String MAIN = """
             <?import javafx.scene.control.Button?>
             <?import javafx.scene.layout.Pane?>
 

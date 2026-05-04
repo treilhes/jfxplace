@@ -44,7 +44,7 @@ public interface SelectionBarContentFactory {
     LinkedList<FXOMObject> buildOrderedPath(FXOMObject omObject);
     BarItem buildItem(FXOMObject omObject);
 
-    public final static class BarItem {
+    public static final class BarItem {
         private final Node graphic;
         private final String label;
         public BarItem(Node graphic, String label) {

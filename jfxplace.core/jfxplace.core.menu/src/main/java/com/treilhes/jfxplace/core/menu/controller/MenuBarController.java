@@ -81,7 +81,7 @@ import javafx.scene.layout.StackPane;
 public class MenuBarController implements com.treilhes.jfxplace.core.api.ui.controller.menu.MenuBar {
     private static final String I18N_MENU_TITLE_NO_WINDOW = "menu.title.no.window";
 
-    private final static Logger logger = LoggerFactory.getLogger(MenuBarController.class);
+    private static final Logger logger = LoggerFactory.getLogger(MenuBarController.class);
 
     private static MenuBarController systemMenuBarController; // For Mac only
 
@@ -431,13 +431,15 @@ public class MenuBarController implements com.treilhes.jfxplace.core.api.ui.cont
                                     break;
                                 }
                                 default:
-                                    throw new RuntimeException(String.format(
-                                            "Invalid position request for menuItem %s targeting %s at %s", ma.getMenuItem(), ma.getTargetId(), ma.getPositionRequest()));
+                                    throw new RuntimeException(
+                                            String.format("Invalid position request for menuItem %s targeting %s at %s",
+                                                    ma.getMenuItem(), ma.getTargetId(), ma.getPositionRequest()));
 
                                 }
                             } catch (Exception e) {
-                                logger.error("Unable to add the menuItem {} targeting {} at {}", ma.getMenuItem(), ma.getTargetId(), ma.getPositionRequest(),
-                                        e);
+                                logger.error("Unable to add the menuItem {} with id {} targeting {} at {}",
+                                        ma.getMenuItem(), ma.getMenuItem().getId(), ma.getTargetId(),
+                                        ma.getPositionRequest(), e);
                             }
 
                             if (inserted) {

@@ -52,7 +52,7 @@ import com.treilhes.jfxplace.testold.StageType;
 @ContextConfiguration(classes = { WorkspaceBuilderTest.Config.class, WorkspaceBuilderTest.Something2.class })
 class WorkspaceBuilderTest {
 
-    private final static Logger logger = LoggerFactory.getLogger(WorkspaceBuilderTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(WorkspaceBuilderTest.class);
 
     public interface Something {
 

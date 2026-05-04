@@ -48,7 +48,7 @@ import com.treilhes.jfxplace.ext.scenicview.api.ScenicViewApi;
 
 public class DevtoolsAppExtension implements OpenExtension  {
 
-    public final static UUID ID = UUID.fromString("deabfbdf-0889-4723-9417-77450b962742");
+    public static final UUID ID = UUID.fromString("deabfbdf-0889-4723-9417-77450b962742");
 
     @Override
     public UUID getParentId() {

@@ -57,9 +57,9 @@ import javafx.application.Platform;
 @ActionMeta(nameKey = "action.name.toggle.dock", descriptionKey = "action.description.toggle.dock")
 public class CloseAllInstancesAction extends AbstractAction {
 
-    private final static Logger logger = LoggerFactory.getLogger(CloseAllInstancesAction.class);
+    private static final Logger logger = LoggerFactory.getLogger(CloseAllInstancesAction.class);
 
-    public final static String MENU_ID = "fb462a53-9877-4f85-a37f-8aa07f6a3ec1";
+    public static final String MENU_ID = "fb462a53-9877-4f85-a37f-8aa07f6a3ec1";
 
     private final InstancesManager main;
     private final Dialog dialog;

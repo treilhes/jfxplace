@@ -94,7 +94,7 @@ public class PropertyCollector {
 
     public static class FxNullProperties implements FXOMCollector<List<FXOMPropertyT>>{
 
-        private final static String JAVAFX_NULL = "$null";
+        private static final String JAVAFX_NULL = "$null";
 
         private List<FXOMPropertyT> result = new ArrayList<>();
 

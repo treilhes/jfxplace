@@ -50,6 +50,7 @@ public interface Layer<T> {
     void update();
     void enable();
     void disable();
+    boolean isEnabled();
 
     @FunctionalInterface
     public interface LayerItemCreator<T> {

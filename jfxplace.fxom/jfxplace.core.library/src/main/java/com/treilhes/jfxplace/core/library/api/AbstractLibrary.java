@@ -92,7 +92,7 @@ import javafx.concurrent.Worker.State;
 public abstract class AbstractLibrary<R extends Report, I extends LibraryItem>
         implements Library<R, I>, InitWithApplication, InitWithDocument {
 
-    private final static Logger logger = LoggerFactory.getLogger(AbstractLibrary.class);
+    private static final Logger logger = LoggerFactory.getLogger(AbstractLibrary.class);
 
     private static final List<String> JAVAFX_MODULES = Arrays.asList("javafx-base", "javafx-graphics",
             "javafx-controls", "javafx-fxml", "javafx-media", "javafx-web", "javafx-swing");

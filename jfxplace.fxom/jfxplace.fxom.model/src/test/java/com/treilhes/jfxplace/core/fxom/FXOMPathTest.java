@@ -59,7 +59,7 @@ import javafx.stage.Stage;
 @ExtendWith({ ApplicationExtension.class, MockitoExtension.class })
 class FXOMPathTest {
 
-    private final static String FXML = """
+    private static final String FXML = """
             <?import javafx.scene.control.Button?>
             <?import javafx.scene.layout.Pane?>
 

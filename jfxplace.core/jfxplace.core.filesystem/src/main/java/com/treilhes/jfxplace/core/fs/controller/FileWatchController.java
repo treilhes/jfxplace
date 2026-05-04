@@ -54,7 +54,7 @@ import com.treilhes.jfxplace.core.fs.util.FileWatcher;
 @ApplicationInstanceSingleton
 public class FileWatchController implements FileWatcher.Delegate {
 
-    private final static Logger logger = LoggerFactory.getLogger(FileWatchController.class);
+    private static final Logger logger = LoggerFactory.getLogger(FileWatchController.class);
 
     private final Map<MainInstanceWindow, List<Object>> documentWatchKeys = new HashMap<>();
     private final Map<Object, List<Path>> watchedFiles = new HashMap<>();

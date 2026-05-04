@@ -45,6 +45,7 @@ import com.treilhes.jfxplace.core.api.fxom.util.CoordinateHelper;
 import com.treilhes.jfxplace.core.fxom.FXOMObject;
 import com.treilhes.jfxplace.util.javafx.IOUtils;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -63,8 +64,15 @@ public class GenericLayer<T extends Decoration<?>> implements Layer<T> {
     private final LayerItemCreator<T> creator;
     private final LayerItemSelector selector;
 
-    public GenericLayer(Class<T> layerId, Group layerUI, FxomSelection selection, Workspace workspace,
-            LayerItemSelector selector, LayerItemCreator<T> creator) {
+    //@formatter:off
+    public GenericLayer(
+            Class<T> layerId,
+            Group layerUI,
+            FxomSelection selection,
+            Workspace workspace,
+            LayerItemSelector selector,
+            LayerItemCreator<T> creator) {
+        //@formatter:on
         super();
         this.layerId = layerId;
         this.layerUI = layerUI;
@@ -126,7 +134,7 @@ public class GenericLayer<T extends Decoration<?>> implements Layer<T> {
     public void update() {
 
         Set<? extends FXOMObject> targets = selector.select(selection);
-        if (targets != null && targets.size() > 0) {
+        if (targets != null && !targets.isEmpty()) {
             updateLayer(targets);
         } else {
             removeAll();
@@ -199,14 +207,23 @@ public class GenericLayer<T extends Decoration<?>> implements Layer<T> {
 
     @Override
     public void enable() {
-        if (!this.layerUI.getChildren().contains(this.detachableUI)) {
-            this.layerUI.getChildren().add(this.detachableUI);
-        }
+        Platform.runLater(() -> {
+            if (!this.layerUI.getChildren().contains(this.detachableUI)) {
+                this.layerUI.getChildren().add(this.detachableUI);
+            }
+        });
     }
 
     @Override
     public void disable() {
-        this.layerUI.getChildren().clear();
+        Platform.runLater(() -> {
+            this.layerUI.getChildren().clear();
+        });
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return !this.layerUI.getChildren().isEmpty();
     }
 
     @Override

@@ -54,7 +54,7 @@ import com.treilhes.jfxplace.core.api.ui.dialog.Dialog;
 
 public class ExtensionFileSystemImpl implements ExtensionFileSystem {
 
-    private final static Logger logger = LoggerFactory.getLogger(ExtensionFileSystemImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(ExtensionFileSystemImpl.class);
 
     private final String TEMP_FILE_EXTENSION = ".tmp"; //NOCHECK
 

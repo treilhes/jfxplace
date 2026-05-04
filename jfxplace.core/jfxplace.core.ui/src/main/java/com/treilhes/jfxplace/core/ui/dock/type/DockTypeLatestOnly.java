@@ -54,7 +54,7 @@ import javafx.scene.layout.VBox;
 @ApplicationInstanceSingleton
 public class DockTypeLatestOnly implements DockType<Pane>, LastSurvivor {
 
-    private final static String VIEW_SOURCE = "Pane.fxml";
+    private static final String VIEW_SOURCE = "Pane.fxml";
 
     private final EmContext context;
 

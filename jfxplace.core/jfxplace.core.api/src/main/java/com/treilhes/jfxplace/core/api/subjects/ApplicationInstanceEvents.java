@@ -33,7 +33,6 @@
  */
 package com.treilhes.jfxplace.core.api.subjects;
 
-import java.net.URI;
 import java.net.URL;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
@@ -52,13 +51,13 @@ public interface ApplicationInstanceEvents {
      * The document has been closed if true
      */
     SubjectItem<Boolean> closed();
-    
+
     /**
      * The current "dirty" state has changed.
      * The instance contains unsaved changes if true
      */
     SubjectItem<Boolean> dirty();
-    
+
     /**
      * The current "hasContent" state has changed.
      * The instance contains data which isn't the initial data if true
@@ -116,12 +115,12 @@ public interface ApplicationInstanceEvents {
         public SubjectItem<Boolean> closed() {
             return closed;
         }
-        
+
         @Override
         public SubjectItem<Boolean> hasContent() {
             return hasContent;
         }
-        
+
         @Override
         public SubjectItem<Boolean> dirty() {
             return dirty;
@@ -163,13 +162,13 @@ public interface ApplicationInstanceEvents {
 
         private ReplaySubject<AbstractInstanceUiController> focused;
         private ReplaySubject<AbstractFxmlViewController> focusedView;
-        private ReplaySubject<URL> uniqueId;;
+        private ReplaySubject<URL> uniqueId;
 
         public ApplicationInstanceSubjects() {
             closed = wrap(ApplicationInstanceSubjects.class, "closed", ReplaySubject.create(1)); // NOI18N
             hasContent = wrap(ApplicationInstanceSubjects.class, "hasContent", ReplaySubject.create(1)); // NOI18N
             dirty = wrap(ApplicationInstanceSubjects.class, "dirty", ReplaySubject.create(1)); // NOI18N
-            
+
             dependenciesLoaded = wrap(ApplicationInstanceSubjects.class, "dependenciesLoaded", ReplaySubject.create(1)); // NOI18N
             classLoaderDidChange = wrap(ApplicationInstanceSubjects.class, "classLoaderDidChange", ReplaySubject.create(1)); // NOI18N
             focused = wrap(ApplicationInstanceSubjects.class, "focused", ReplaySubject.create(1)); // NOI18N
@@ -180,11 +179,11 @@ public interface ApplicationInstanceEvents {
         public ReplaySubject<Boolean> getClosed() {
             return closed;
         }
-        
+
         public ReplaySubject<Boolean> getHasContent() {
             return hasContent;
         }
-        
+
         public ReplaySubject<Boolean> getDirty() {
             return dirty;
         }

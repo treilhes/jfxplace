@@ -33,10 +33,12 @@
  */
 package com.treilhes.jfxplace.core.guides.action;
 
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
 import com.treilhes.jfxplace.core.api.action.Action;
 import com.treilhes.jfxplace.core.api.action.ActionFactory;
 import com.treilhes.jfxplace.core.api.guide.GuideActionFactory;
 
+@ApplicationSingleton
 public class GuideActionFactoryImpl implements GuideActionFactory {
 
     private final ActionFactory actionFactory;

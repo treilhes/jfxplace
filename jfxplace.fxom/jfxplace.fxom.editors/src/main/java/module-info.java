@@ -18,6 +18,7 @@ open module jfxplace.fxom.editors {
     requires transitive jfxplace.core.api;
     requires jfxplace.core.starter;
     requires jfxplace.fxom.metadata;
+    requires emc4j.boot.api;
 
 
     provides Extension with FxomEditorsExtension;

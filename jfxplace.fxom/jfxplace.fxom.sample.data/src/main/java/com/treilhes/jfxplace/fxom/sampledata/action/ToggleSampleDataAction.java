@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2016, 2025, Gluon and/or its affiliates.
- * Copyright (c) 2021, 2025, Pascal Treilhes and/or its affiliates.
+ * Copyright (c) 2016, 2026, Gluon and/or its affiliates.
+ * Copyright (c) 2021, 2026, Pascal Treilhes and/or its affiliates.
  * Copyright (c) 2012, 2014, Oracle and/or its affiliates.
  * All rights reserved. Use is subject to license terms.
  *
@@ -31,7 +31,12 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.treilhes.jfxplace.core.job.manager.action.impl;
+package com.treilhes.jfxplace.fxom.sampledata.action;
+
+import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
 import com.treilhes.jfxplace.core.api.action.AbstractAction;
@@ -39,49 +44,52 @@ import com.treilhes.jfxplace.core.api.action.ActionExtensionFactory;
 import com.treilhes.jfxplace.core.api.action.ActionMeta;
 import com.treilhes.jfxplace.core.api.fxom.subjects.FxomEvents;
 import com.treilhes.jfxplace.core.api.i18n.I18N;
-import com.treilhes.jfxplace.core.api.job.JobManager;
+import com.treilhes.jfxplace.core.fxom.pipeline.FXOMPipeline;
+import com.treilhes.jfxplace.core.fxom.sample.SampleDataEnabledPreference;
 
-@ApplicationInstancePrototype("com.treilhes.jfxplace.core.job.manager.action.impl.UndoAction")
-@ActionMeta(
-        nameKey = "action.name.undo",
-        descriptionKey = "action.description.undo")
-public class UndoAction extends AbstractAction {
+@ApplicationInstancePrototype("com.treilhes.jfxplace.fxom.sampledata.action.ToggleSampleDataAction")
+@ActionMeta(nameKey = "action.name.toggle.dock", descriptionKey = "action.description.toggle.dock")
+public class ToggleSampleDataAction extends AbstractAction {
 
-    public static final String MENU_ID = "undoMenuItem"; //NOCHECK
+    public static final Logger LOGGER = LoggerFactory.getLogger(ToggleSampleDataAction.class);
 
-    private final JobManager jobManager;
-    private final FxomEvents documentManager;
+    private final FxomEvents fxomEvents;
+    private final FXOMPipeline fxomPipeline;
+    private final SampleDataEnabledPreference sampleDataEnabledPreference;
 
-    public UndoAction(
-        I18N i18n,
-        ActionExtensionFactory extensionFactory,
-        JobManager jobManager,
-        FxomEvents documentManager) {
+    //@formatter:off
+    public ToggleSampleDataAction(
+            I18N i18n,
+            ActionExtensionFactory extensionFactory,
+            FxomEvents fxomEvents,
+            FXOMPipeline fxomPipeline,
+            SampleDataEnabledPreference sampleDataEnabledPreference) {
+        //@formatter:on
         super(i18n, extensionFactory);
-        this.jobManager = jobManager;
-        this.documentManager = documentManager;
+        this.fxomEvents = fxomEvents;
+        this.fxomPipeline = fxomPipeline;
+        this.sampleDataEnabledPreference = sampleDataEnabledPreference;
     }
 
-    /**
-     * Returns true if the undo action is permitted (ie there is something to be
-     * undone).
-     *
-     * @return true if the undo action is permitted.
-     */
     @Override
     public boolean canPerform() {
-        return jobManager.canUndo();
+        return fxomEvents.fxomDocument().get() != null;
     }
 
-    /**
-     * Performs the undo action.
-     */
     @Override
     public ActionStatus doPerform() {
-        jobManager.undo();
-        assert documentManager.fxomDocument().get().isUpdateOnGoing() == false;
+        var value = sampleDataEnabledPreference.getValue();
+        sampleDataEnabledPreference.setValue(!value);
 
-        return ActionStatus.DONE;
+        var document = fxomEvents.fxomDocument().get();
+        try {
+            var newDocument = fxomPipeline.clone(document);
+            fxomEvents.fxomDocument().set(newDocument);
+            return ActionStatus.DONE;
+        } catch (IOException e) {
+            LOGGER.error("Failed to toggle sample data", e);
+            return ActionStatus.FAILED;
+        }
     }
 
 }

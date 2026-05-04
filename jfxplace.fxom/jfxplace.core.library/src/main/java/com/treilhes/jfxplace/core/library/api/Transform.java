@@ -52,7 +52,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @FunctionalInterface
 public interface Transform<I, O> {
 
-    public final static ObjectMapper mapper = new ObjectMapper();
+    public static final ObjectMapper mapper = new ObjectMapper();
 
     List<O> filter(List<I> inputs);
 

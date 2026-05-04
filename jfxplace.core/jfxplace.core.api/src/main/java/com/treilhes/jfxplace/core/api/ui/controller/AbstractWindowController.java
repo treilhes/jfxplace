@@ -63,7 +63,7 @@ import javafx.stage.WindowEvent;
  */
 public abstract class AbstractWindowController implements InstanceWindow {
 
-    private final static Logger logger = LoggerFactory.getLogger(AbstractWindowController.class);
+    private static final Logger logger = LoggerFactory.getLogger(AbstractWindowController.class);
 
     /** The owner window stage. */
     final private InstanceWindow owner;

@@ -71,7 +71,7 @@ import javafx.scene.shape.Rectangle;
  */
 public class GradientPicker extends VBox {
 
-    private final static Logger logger = LoggerFactory.getLogger(GradientPicker.class);
+    private static final Logger logger = LoggerFactory.getLogger(GradientPicker.class);
 
     @FXML
     private Pane track_pane;

@@ -55,7 +55,7 @@ import javafx.scene.layout.VBox;
 
 public abstract class AbstractDockTypeSplit implements DockType<Node> {
 
-    private final static String VIEW_SOURCE = "View.fxml";
+    private static final String VIEW_SOURCE = "View.fxml";
 
     private final EmContext context;
 

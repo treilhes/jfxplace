@@ -53,7 +53,7 @@ import com.treilhes.jfxplace.core.library.api.ExplorerInspector;
  */
 public class JarExplorer {
     
-    private final static Logger logger = LoggerFactory.getLogger(JarExplorer.class);
+    private static final Logger logger = LoggerFactory.getLogger(JarExplorer.class);
     
     private JarExplorer() {}
     

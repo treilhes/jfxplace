@@ -64,7 +64,7 @@ import javafx.stage.WindowEvent;
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 public class JavafxThreadBootstrapper implements ApplicationListener<StageReadyEvent>, JavafxThreadHolder {
 
-    private final static Logger logger = LoggerFactory.getLogger(JavafxThreadBootstrapper.class);
+    private static final Logger logger = LoggerFactory.getLogger(JavafxThreadBootstrapper.class);
 
     private static EmContext context;
     private final JavafxThreadClassloaderDispatcherImpl fxThreadClassloaderDispatcher;

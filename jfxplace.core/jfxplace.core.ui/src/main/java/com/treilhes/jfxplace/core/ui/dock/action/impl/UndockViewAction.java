@@ -47,7 +47,7 @@ import com.treilhes.jfxplace.core.api.ui.controller.dock.View;
         descriptionKey = "action.description.save")
 public class UndockViewAction extends AbstractAction {
 
-    public final static String MENU_ID = "undockViewMenu";
+    public static final String MENU_ID = "undockViewMenu";
 
     private final DockViewController viewMenuController;
     private View targetView;

@@ -34,14 +34,14 @@
 package com.treilhes.jfxplace.app.manager.api.menu;
 
 public interface DefaultMenu {
-	public final static String FILE_MENU_ID = "fileMenu";//NOCHECK
-	public final static String EDIT_MENU_ID = "editMenu";//NOCHECK
-	public final static String VIEW_MENU_ID = "viewMenu";//NOCHECK
-	//public final static String INSERT_MENU_ID = "insertMenu";//NOCHECK
-	public final static String MODIFY_MENU_ID = "modifyMenu";//NOCHECK
-	public final static String ARRANGE_MENU_ID = "arrangeMenu";//NOCHECK
-	public final static String PREVIEW_MENU_ID = "previewMenu";//NOCHECK
-	public final static String WINDOW_MENU_ID = "windowMenu";//NOCHECK
-	public final static String HELP_MENU_ID = "helpMenu"; //NOCHECK
-	public final static String DEBUG_MENU_ID = "debugMenu";//NOCHECK
+	public static final String FILE_MENU_ID = "fileMenu";//NOCHECK
+	public static final String EDIT_MENU_ID = "editMenu";//NOCHECK
+	public static final String VIEW_MENU_ID = "viewMenu";//NOCHECK
+	//public static final String INSERT_MENU_ID = "insertMenu";//NOCHECK
+	public static final String MODIFY_MENU_ID = "modifyMenu";//NOCHECK
+	public static final String ARRANGE_MENU_ID = "arrangeMenu";//NOCHECK
+	public static final String PREVIEW_MENU_ID = "previewMenu";//NOCHECK
+	public static final String WINDOW_MENU_ID = "windowMenu";//NOCHECK
+	public static final String HELP_MENU_ID = "helpMenu"; //NOCHECK
+	public static final String DEBUG_MENU_ID = "debugMenu";//NOCHECK
 }

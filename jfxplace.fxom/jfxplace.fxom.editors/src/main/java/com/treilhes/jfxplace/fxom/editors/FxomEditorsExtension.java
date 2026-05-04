@@ -37,7 +37,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-import com.treilhes.emc4j.boot.api.loader.extension.OpenExtension;
+import com.treilhes.emc4j.boot.api.loader.extension.SealedExtension;
 import com.treilhes.jfxplace.fxom.editors.base.ControllerClassEditor;
 import com.treilhes.jfxplace.fxom.editors.base.CoreEditors;
 import com.treilhes.jfxplace.fxom.editors.base.FxIdEditor;
@@ -82,7 +82,7 @@ import com.treilhes.jfxplace.fxom.editors.popupeditors.KeyCombinationPopupEditor
 import com.treilhes.jfxplace.fxom.editors.popupeditors.Rectangle2DPopupEditor;
 import com.treilhes.jfxplace.fxom.editors.popupeditors.StringPopupEditor;
 
-public class FxomEditorsExtension implements OpenExtension {
+public class FxomEditorsExtension implements SealedExtension {
 
     public static final UUID ID = UUID.fromString("94124a19-94ad-49b4-84a1-a621db188b6f");
 
@@ -97,8 +97,8 @@ public class FxomEditorsExtension implements OpenExtension {
     }
 
     @Override
-    public List<Class<?>> exportedContextClasses() {
-     // @formatter:off
+    public List<Class<?>> localContextClasses() {
+        // @formatter:off
         return Arrays.asList(
                 ControllerClassEditor.class,
                 CoreEditors.class,
@@ -150,11 +150,6 @@ public class FxomEditorsExtension implements OpenExtension {
                 ToggleGroupEditor.class
             );
      // @formatter:on
-    }
-
-    @Override
-    public List<Class<?>> localContextClasses() {
-        return List.of();
     }
 
 }
