@@ -127,7 +127,7 @@ public class CommandHandlerImpl implements CommandHandler, Application {
         case OpenCommandEvent openCommandEvent -> execute(openCommandEvent);
         case StopCommandEvent stopCommandEvent -> execute(stopCommandEvent);
         case RestartCommandEvent restartCommandEvent -> execute(restartCommandEvent);
-        default -> logger.warn("Received an unsupported event: " + event.getClass().getName());
+        default -> {/* ignore other events */ }
         }
 
     }
