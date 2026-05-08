@@ -12,6 +12,7 @@
       <module>jfxplace.app.registry.optional</module>
       <module>jfxplace.app.manager</module>
       <module>jfxplace.app.devtools</module>
+      <module>jfxplace.app.debugtools</module>
       <module>jfxplace.app.sample</module>
       <module>jfxplace.app.tray</module>
   </modules>

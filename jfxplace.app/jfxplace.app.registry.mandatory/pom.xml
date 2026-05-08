@@ -9,10 +9,6 @@
     </parent>
     <artifactId>jfxplace.app.registry.mandatory</artifactId>
 
-    <properties>
-        <devtools.version>1.0.0-SNAPSHOT</devtools.version>
-    </properties>
-
     <build>
         <plugins>
             <plugin>
@@ -34,8 +30,7 @@
                         <description>
                             <image>jfxplace_apps_256x256.png</image>
                             <title>jfxplace applications and plugins Registry</title>
-                            <text>Contains all applications and plugins
-                                mandotory for running</text>
+                            <text>Contains all optional applications and plugins</text>
                         </description>
                         <registries>
                             <registry>
@@ -50,13 +45,6 @@
                                     <groupId>com.treilhes.jfxplace</groupId>
                                     <artifactId>tray.registry</artifactId>
                                     <version>${tray.version}</version>
-                                </dependency>
-                            </registry>
-                            <registry>
-                                <dependency>
-                                    <groupId>com.treilhes.jfxplace</groupId>
-                                    <artifactId>devtools.registry</artifactId>
-                                    <version>${devtools.version}</version>
                                 </dependency>
                             </registry>
                         </registries>

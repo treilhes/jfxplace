@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.treilhes.jfxplace</groupId>
+        <artifactId>jfxplace.app.debugtools</artifactId>
+        <version>${debugtools.version}</version>
+    </parent>
+    <artifactId>debugtools.launcher</artifactId>
+
+    <properties>
+        <debug>false</debug>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.treilhes.jfxplace</groupId>
+                <artifactId>jfxplace-maven-plugin</artifactId>
+                <version>${jfxplace.version}</version>
+                <configuration>
+                    <jfxplaceVersion>${jfxplace.version}</jfxplaceVersion>
+                    <debug>${debug}</debug>
+                    <profiles>
+                        <profile>devlookup,debugtools</profile>
+                    </profiles>
+                    <applicationId>d81e5dd6-7dc2-4ae3-8bb8-448996e359b8</applicationId>
+                    <registry>
+                        <groupId>com.treilhes.jfxplace</groupId>
+                        <artifactId>debugtools.registry</artifactId>
+                        <version>${debugtools.version}</version>
+                    </registry>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

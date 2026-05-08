@@ -1,0 +1,22 @@
+emc4j:
+  maven:
+    directory: ${user.home}/.m2/repository
+    redirectionsEnabled: true
+    redirect:
+      - groupId: com.treilhes.jfxplace
+        artifactId: debugtools\.(?!registry$)(.*)
+        path: ../../../../debugtools.$1/target/classes
+        useRegex: true
+
+server:
+  port: 8080
+
+spring:
+  h2:
+    console:
+      enabled: false
+  jpa:
+    show-sql: false
+
+springdoc:
+  show-actuator: true

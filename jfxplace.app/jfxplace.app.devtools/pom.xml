@@ -29,15 +29,10 @@
         <module>devtools.css</module>
         <module>devtools.model</module>
         <module>devtools.i18n</module>
-        <module>devtools.startup</module>
         <module>devtools.cmpcheck</module>
         <module>devtools.registry</module>
-        <module>devtools.openapi</module>
         <module>devtools.jpms</module>
-        <module>devtools.db</module>
         <module>devtools.projects</module> <!-- -->
-        <module>devtools.starter</module>
-        <!--<module>devtools.metadata</module>-->
         <module>devtools.launcher</module>
         <module>devtools.starter.dependencies</module>
     </modules>

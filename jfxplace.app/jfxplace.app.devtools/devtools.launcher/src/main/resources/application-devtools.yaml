@@ -4,8 +4,9 @@ emc4j:
     redirectionsEnabled: true
     redirect:
       - groupId: com.treilhes.jfxplace
-        artifactId: devtools.app
-        path: ../../../../devtools.app/target/classes
+        artifactId: devtools\.(?!registry$)(.*)
+        path: ../../../../devtools.$1/target/classes
+        useRegex: true
 
 server:
   port: 8080
@@ -13,9 +14,10 @@ server:
 spring:
   h2:
     console:
-      enabled: false
+      enabled: true
   jpa:
-    show-sql: true
+    show-sql: false
 
 springdoc:
   show-actuator: true
+  
