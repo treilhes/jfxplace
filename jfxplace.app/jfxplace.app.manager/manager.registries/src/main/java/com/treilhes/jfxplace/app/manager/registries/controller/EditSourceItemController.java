@@ -51,7 +51,7 @@ import com.treilhes.jfxplace.app.manager.registries.model.SourceModelController;
 import com.treilhes.jfxplace.core.api.i18n.I18N;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationInstanceEvents;
-import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlController;
+import com.treilhes.jfxplace.core.api.ui.controller.AbstractPanelController;
 
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -66,7 +66,7 @@ import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
 
 @ApplicationInstancePrototype
-public class EditSourceItemController extends AbstractFxmlController {
+public class EditSourceItemController extends AbstractPanelController {
 
     private static final String LATEST = SourceModelController.LATEST;
 

@@ -36,7 +36,7 @@ package com.treilhes.jfxplace.fxom.editors.base;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.treilhes.emc4j.boot.api.context.annotation.Prototype;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
 import com.treilhes.jfxplace.core.api.glossary.Glossary;
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
 import com.treilhes.jfxplace.core.fxom.util.JavaLanguage;
@@ -52,7 +52,7 @@ import javafx.event.EventHandler;
  *
  *
  */
-@Prototype
+@ApplicationInstancePrototype
 public class ControllerClassEditor extends AutoSuggestEditor {
 
     private static final String PROPERTY_NAME = "Controller class"; //NOCHECK

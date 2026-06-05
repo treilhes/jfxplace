@@ -38,12 +38,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 import com.treilhes.jfxplace.core.api.About;
-import com.treilhes.jfxplace.core.api.i18n.I18N;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlWindowController;
-import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -54,12 +53,12 @@ import javafx.stage.Modality;
 /**
  *
  */
-@ApplicationSingleton
+@ApplicationInstanceSingleton
 public class AboutWindowController extends AbstractFxmlWindowController implements About {
 
     private final String LOG_FILE_NAME;
 
-    private final ApplicationEvents sceneBuilderManager;
+    private final ApplicationEvents applicationEvents;
 
     private String sbBuildInfo;
     private String sbBuildVersion;
@@ -75,13 +74,9 @@ public class AboutWindowController extends AbstractFxmlWindowController implemen
     @FXML
     private TextArea textArea;
 
-    public AboutWindowController(
-            I18N i18n,
-            ApplicationEvents sceneBuilderManager,
-            IconSetting iconSetting
-            ) {
-        super(i18n, sceneBuilderManager, iconSetting, AboutWindowController.class.getResource("About.fxml"));
-        this.sceneBuilderManager = sceneBuilderManager;
+    public AboutWindowController(ApplicationInstance instance) {
+        super(instance, AboutWindowController.class.getResource("About.fxml"));
+        this.applicationEvents = instance.getApplication().getEvents();
 
         try (InputStream in = getClass().getResourceAsStream("about.properties")) {
 
@@ -104,8 +99,8 @@ public class AboutWindowController extends AbstractFxmlWindowController implemen
     @FXML
     public void onMousePressed(MouseEvent event) {
         if ((event.getClickCount() == 2) && event.isAltDown()) {
-            boolean debug = sceneBuilderManager.debugMode().get();
-            sceneBuilderManager.debugMode().set(!debug);
+            boolean debug = applicationEvents.debugMode().get();
+            applicationEvents.debugMode().set(!debug);
         }
     }
 

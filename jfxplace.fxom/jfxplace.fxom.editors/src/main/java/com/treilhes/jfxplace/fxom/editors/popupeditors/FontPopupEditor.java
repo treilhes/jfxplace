@@ -55,7 +55,7 @@ import com.treilhes.jfxplace.core.api.ui.controller.misc.MessageLogger;
 import com.treilhes.jfxplace.core.api.util.FXMLUtils;
 import com.treilhes.jfxplace.core.fxom.util.PropertyName;
 import com.treilhes.jfxplace.core.metadata.property.ValuePropertyMetadata;
-import com.treilhes.jfxplace.core.metadata.property.base.DoublePropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.DoublePropertyMetadata;
 import com.treilhes.jfxplace.fxom.editors.api.EditorContext;
 import com.treilhes.jfxplace.fxom.editors.api.EditorUtils;
 import com.treilhes.jfxplace.fxom.editors.base.AutoSuggestEditor;

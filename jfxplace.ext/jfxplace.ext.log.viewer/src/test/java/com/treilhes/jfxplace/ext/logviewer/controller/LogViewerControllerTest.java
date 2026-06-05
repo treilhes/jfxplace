@@ -34,45 +34,36 @@
 package com.treilhes.jfxplace.ext.logviewer.controller;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.ContextConfiguration;
 import org.testfx.api.FxRobot;
 
+import com.treilhes.emc4j.test.EmcInject;
+import com.treilhes.emc4j.test.EmcInjectMock;
 import com.treilhes.jfxplace.core.api.ui.controller.menu.ViewMenu;
-import com.treilhes.jfxplace.ext.logviewer.controller.LogViewerController;
-import com.treilhes.jfxplace.testold.JfxAppsTest;
-import com.treilhes.jfxplace.testold.StageBuilder;
-import com.treilhes.jfxplace.testold.StageType;
+import com.treilhes.jfxplace.test.JfxPlaceTest;
+import com.treilhes.jfxplace.test.builder.StageBuilder;
+import com.treilhes.jfxplace.test.builder.StageType;
 
-@JfxAppsTest
-@ContextConfiguration(classes = {LogViewerControllerTest.Config.class ,LogViewerController.class})
+
+@JfxPlaceTest(classes = {LogViewerController.class})
 class LogViewerControllerTest {
 
-    @TestConfiguration
-    static class Config {
-
-        @Bean
-        ViewMenu viewMenuController() {
-            return Mockito.mock(ViewMenu.class);
-        }
-    }
-
-    @Autowired
+    @EmcInjectMock
     ViewMenu viewMenuController;
 
+    @EmcInject
+    StageBuilder builder;
+
     @Test
-    void load_ui_success(StageBuilder builder, FxRobot robot) {
+    void load_ui_success(FxRobot robot) {
 
-        LogViewerController controller = builder
-            .controller(LogViewerController.class)
-            .setup(StageType.Fill)
-            .size(800, 600)
-            .show().getController();
+        try(var stage = builder
+                .controller(LogViewerController.class)
+                .setup(StageType.Fill)
+                .size(800, 600)
+                .show()){
+            var controller = stage.getController();
+        }
 
-        System.out.println();
     }
 
 }

@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.treilhes.emc4j.boot.api.loader.extension.ApplicationExtension;
-import com.treilhes.jfxplace.app.sample.app.init.SampleOpenCommandEventHandler;
+import com.treilhes.jfxplace.app.sample.app.init.SampleCommandEventHandler;
 import com.treilhes.jfxplace.app.sample.app.init.SampleUi;
 import com.treilhes.jfxplace.app.sample.app.init.SampleWindowIconSettings;
 
@@ -55,7 +55,7 @@ public class SampleApiExtension implements ApplicationExtension  {
     public List<Class<?>> localContextClasses() {
         // @formatter:off
         return Arrays.asList(
-                SampleOpenCommandEventHandler.class,
+                SampleCommandEventHandler.class,
                 SampleUi.class,
                 SampleWindowIconSettings.class
                 );

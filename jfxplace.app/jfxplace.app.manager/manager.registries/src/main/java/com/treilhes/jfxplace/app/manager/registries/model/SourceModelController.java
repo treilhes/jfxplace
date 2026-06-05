@@ -36,11 +36,10 @@ package com.treilhes.jfxplace.app.manager.registries.model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.treilhes.emc4j.boot.api.context.ApplicationInstance;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 import com.treilhes.emc4j.boot.api.registry.RegistryArtifactManager;
 import com.treilhes.emc4j.boot.api.registry.model.RegistryArtifact;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -52,17 +51,14 @@ public class SourceModelController {
 
     public static final String LATEST = "Latest";
     private final RegistryArtifactManager registryArtifactManager;
-    private final JfxAppPlatform jfxAppPlatform;
     private final ObservableList<Source> sources = FXCollections.observableArrayList();
     private final ApplicationInstance instance;
 
     public SourceModelController(
             RegistryArtifactManager registryArtifactManager,
-            ApplicationInstance instance,
-            JfxAppPlatform jfxAppPlatform) {
+            ApplicationInstance instance) {
         this.registryArtifactManager = registryArtifactManager;
         this.instance = instance;
-        this.jfxAppPlatform = jfxAppPlatform;
     }
 
     public ObservableList<Source> getSources() {
@@ -178,12 +174,12 @@ public class SourceModelController {
             try {
 
                 var newInfo = registryArtifactManager.loadLatestRegistrySourceInfo(artifact.groupId(), artifact.artifactId());
-                jfxAppPlatform.runOnFxThread(instance, () -> {
+                instance.getExecutor().runOnFxThread(() -> {
                     source.infoProperty().set(newInfo);
                     source.updatingProperty().set(false);
                 });
             } catch (Exception e) {
-                jfxAppPlatform.runOnFxThread(instance, () -> {
+                instance.getExecutor().runOnFxThread(() -> {
                     source.updatingProperty().set(false);
                     handleException(source, e);
                 });

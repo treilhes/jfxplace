@@ -39,7 +39,10 @@ import java.util.UUID;
 
 import com.treilhes.emc4j.boot.api.layer.Layer;
 import com.treilhes.emc4j.boot.api.loader.extension.SealedExtension;
-import com.treilhes.jfxplace.core.fxom.pipeline.DefaultFxomPipeline;
+import com.treilhes.jfxplace.core.fxom.pipeline.impl.DefaultFxmlSerializer;
+import com.treilhes.jfxplace.core.fxom.pipeline.impl.DefaultFxomPipeline;
+import com.treilhes.jfxplace.core.fxom.pipeline.impl.DefaultJavaFxNamespacePreSerializationStep;
+import com.treilhes.jfxplace.core.fxom.pipeline.impl.UpdateImportsPreSerializationStep;
 
 // FIXME this isn't really a RootExtension, but we need it to be initialized very early to apply the necessary module patches
 // the way it must be loaded should be reconsidered
@@ -72,7 +75,10 @@ public class FxomModelExtension implements SealedExtension {
     public List<Class<?>> localContextClasses() {
         return Arrays.asList(
                 //pipeline
-                DefaultFxomPipeline.class
+                DefaultFxomPipeline.class,
+                DefaultFxmlSerializer.class,
+                UpdateImportsPreSerializationStep.class,
+                DefaultJavaFxNamespacePreSerializationStep.class
         );
     }
 }

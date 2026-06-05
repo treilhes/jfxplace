@@ -36,8 +36,8 @@ package com.treilhes.jfxplace.core.metadata.property.value.keycombination;
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
 import com.treilhes.jfxplace.core.fxom.FXOMInstance;
 import com.treilhes.jfxplace.core.fxom.util.PropertyName;
-import com.treilhes.jfxplace.core.metadata.property.base.EnumerationPropertyMetadata;
 import com.treilhes.jfxplace.core.metadata.property.value.ComplexPropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.EnumerationPropertyMetadata;
 
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;

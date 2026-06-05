@@ -7,7 +7,6 @@ module jfxplace.fxom.metadata {
     exports com.treilhes.jfxplace.core.metadata.component;
     exports com.treilhes.jfxplace.core.metadata.klass;
     exports com.treilhes.jfxplace.core.metadata.property;
-    exports com.treilhes.jfxplace.core.metadata.property.base;
     exports com.treilhes.jfxplace.core.metadata.property.value;
     exports com.treilhes.jfxplace.core.metadata.property.value.effect;
     exports com.treilhes.jfxplace.core.metadata.property.value.effect.light;

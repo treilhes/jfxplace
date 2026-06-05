@@ -35,7 +35,7 @@ package com.treilhes.jfxplace.core.preferences.action;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 import com.treilhes.jfxplace.core.api.action.Action;
-import com.treilhes.jfxplace.core.api.action.ActionFactory;
+import com.treilhes.jfxplace.core.api.instance.ActionFactory;
 import com.treilhes.jfxplace.core.api.preference.PreferenceActionFactory;
 
 @ApplicationInstanceSingleton

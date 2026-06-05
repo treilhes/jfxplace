@@ -48,7 +48,7 @@ import com.treilhes.emc4j.boot.api.platform.EmcPlatform;
 import com.treilhes.jfxplace.core.accelerators.preference.AcceleratorsMapPreference;
 import com.treilhes.jfxplace.core.accelerators.preference.FocusedAcceleratorsMapPreference;
 import com.treilhes.jfxplace.core.api.action.Action;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.lifecycle.InitWithDocument;
 import com.treilhes.jfxplace.core.api.preference.Preference;
 import com.treilhes.jfxplace.core.api.shortcut.Accelerator;
@@ -59,6 +59,7 @@ import com.treilhes.jfxplace.core.api.ui.MainInstanceWindow;
 import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlViewController;
 import com.treilhes.jfxplace.core.api.ui.controller.AbstractInstanceUiController;
 
+import jakarta.annotation.PreDestroy;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -89,27 +90,25 @@ public class AcceleratorsController implements Accelerators, InitWithDocument {
     private final FocusedAcceleratorsMapPreference focusedAcceleratorsMapPreference;
     private final Optional<List<AcceleratorProvider>> acceleratorProviders;
 
-    private ApplicationInstanceEvents documentManager;
-    private MainInstanceWindow documentWindow;
+    private final ApplicationInstance instance;
+    private final ApplicationInstanceEvents instanceEvents;
+    private final MainInstanceWindow documentWindow;
 
-    private Map<Action, List<KeyCombination>> defaultGlobalAccelerators = new HashMap<>();
-    private Map<Class<? extends AbstractInstanceUiController>, Map<Action, List<KeyCombination>>> defaultFocusedAccelerators = new HashMap<>();
-
-    private final JfxAppPlatform platform;
+    private final Map<Action, List<KeyCombination>> defaultGlobalAccelerators = new HashMap<>();
+    private final Map<Class<? extends AbstractInstanceUiController>, Map<Action, List<KeyCombination>>> defaultFocusedAccelerators = new HashMap<>();
 
     public AcceleratorsController(
-            JfxAppPlatform platform,
-            ApplicationInstanceEvents documentManager,
+            ApplicationInstance instance,
             @Lazy MainInstanceWindow documentWindow,
             AcceleratorsMapPreference acceleratorsMapPreference,
             FocusedAcceleratorsMapPreference focusedAcceleratorsMapPreference,
             Optional<List<AcceleratorProvider>> acceleratorProviders) {
         super();
-        this.platform = platform;
         this.acceleratorsMapPreference = acceleratorsMapPreference;
         this.focusedAcceleratorsMapPreference = focusedAcceleratorsMapPreference;
         this.acceleratorProviders = acceleratorProviders;
-        this.documentManager = documentManager;
+        this.instance = instance;
+        this.instanceEvents = instance.getEvents();
         this.documentWindow = documentWindow;
 
         defaultFocusedAccelerators.put(null, defaultGlobalAccelerators);
@@ -119,7 +118,7 @@ public class AcceleratorsController implements Accelerators, InitWithDocument {
 
     @Override
     public void initWithDocument() {
-        documentManager.dependenciesLoaded().subscribe((b) -> {
+        instanceEvents.dependenciesLoaded().subscribe((b) -> {
             if (b) {
                 this.setup();
             }
@@ -128,8 +127,8 @@ public class AcceleratorsController implements Accelerators, InitWithDocument {
 
     private void setup() {
         initializeProviders(acceleratorProviders);
-        documentManager.focusedView().subscribe(this::onViewFocused);
-        platform.runOnFxThreadWithActiveScope(() -> resetAll(null));
+        instanceEvents.focusedView().subscribe(this::onViewFocused);
+        instance.getExecutor().runOnFxThread(() -> resetAll(null));
     }
 
     /**
@@ -295,6 +294,11 @@ public class AcceleratorsController implements Accelerators, InitWithDocument {
         public void run() {
             action.checkAndPerform();
         }
+    }
+
+    @PreDestroy
+    void cleanup() {
+        documentWindow.getScene().getAccelerators().clear();
     }
 
 }

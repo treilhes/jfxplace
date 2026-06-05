@@ -47,9 +47,8 @@ import com.treilhes.jfxplace.core.document.action.impl.SaveAsAction;
 import com.treilhes.jfxplace.core.document.action.impl.SaveOrSaveAsAction;
 import com.treilhes.jfxplace.core.document.controller.ClassLoaderController;
 import com.treilhes.jfxplace.core.document.controller.DocumentControllerImpl;
-import com.treilhes.jfxplace.core.document.controller.FxmlSerializer;
-import com.treilhes.jfxplace.core.document.preference.CompressFxmlPreference;
-import com.treilhes.jfxplace.core.document.preference.UseSampleDataPreference;
+import com.treilhes.jfxplace.core.document.controller.JavaFxNamespacePreSerializationStep;
+import com.treilhes.jfxplace.core.document.controller.WildcardImportsPreSerializationStep;
 import com.treilhes.jfxplace.core.document.preference.WildcardImportsPreference;
 
 public class DocumentExtension implements OpenExtension {
@@ -76,11 +75,9 @@ public class DocumentExtension implements OpenExtension {
      // @formatter:off
         return List.of(
                 ClassLoaderController.class,
-                CompressFxmlPreference.class,
                 DefaultDocumentFactory.class,
                 DocumentActionFactoryImpl.class,
                 DocumentControllerImpl.class,
-                FxmlSerializer.class,
                 LoadBlankAction.class,
                 LoadFileAction.class,
                 LoadUrlAction.class,
@@ -88,8 +85,10 @@ public class DocumentExtension implements OpenExtension {
                 SaveAction.class,
                 SaveAsAction.class,
                 SaveOrSaveAsAction.class,
-                UseSampleDataPreference.class,
-                WildcardImportsPreference.class
+
+                WildcardImportsPreference.class,
+                WildcardImportsPreSerializationStep.class,
+                JavaFxNamespacePreSerializationStep.class
             );
      // @formatter:on
     }

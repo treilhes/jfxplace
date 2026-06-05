@@ -34,6 +34,7 @@
 package com.treilhes.jfxplace.core.fxom.pipeline;
 
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
+import com.treilhes.jfxplace.core.fxom.pipeline.impl.DefaultFxmlSerializer;
 
 @FunctionalInterface
 public interface FXOMSerializer {

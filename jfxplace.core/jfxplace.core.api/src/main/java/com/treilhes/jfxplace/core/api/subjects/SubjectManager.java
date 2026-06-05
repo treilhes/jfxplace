@@ -55,11 +55,11 @@ import io.reactivex.rxjava3.subjects.Subject;
 public class SubjectManager {
     private static Logger logger = LoggerFactory.getLogger(SubjectManager.class);
 
-    public static Recorder RECORDER = new Recorder();
-    public static Player PLAYER = new Player();
+    public Recorder RECORDER = new Recorder();
+    public Player PLAYER = new Player();
 
     @SuppressWarnings("rawtypes")
-    private static Map<String, Map<String, Subject>> subjects = new ConcurrentHashMap<>();
+    private Map<String, Map<String, Subject>> subjects = new ConcurrentHashMap<>();
 
     private ObjectMapper mapper = new ObjectMapper();
 
@@ -153,7 +153,7 @@ public class SubjectManager {
 
     }
 
-    public static class Recorder {
+    class Recorder {
         private long startTimecode;
         private OutputStream recordStream;
         private ObjectMapper mapper;
@@ -199,7 +199,7 @@ public class SubjectManager {
         }
     }
 
-    public static class Player {
+    class Player {
         private long startTimecode;
         private long timecode;
         private InputStream recordStream;
@@ -239,7 +239,7 @@ public class SubjectManager {
 
                         }
 
-                        SubjectManager.subjects.get(evt.getSubjectClass()).get(evt.getSubjectName())
+                        subjects.get(evt.getSubjectClass()).get(evt.getSubjectName())
                                 .onNext(evt.getSubjectEventValue());
                     }
                 } catch (Exception e) {

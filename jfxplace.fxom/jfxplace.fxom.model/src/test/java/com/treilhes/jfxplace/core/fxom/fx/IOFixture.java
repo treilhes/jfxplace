@@ -41,15 +41,12 @@ import java.io.IOException;
 
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
 import com.treilhes.jfxplace.core.fxom.fx.script.FxomFxScriptTagTest;
-import com.treilhes.jfxplace.core.fxom.pipeline.DefaultFxmlSerializer;
 import com.treilhes.jfxplace.core.fxom.pipeline.FXOMDocumentFactory;
-import com.treilhes.jfxplace.core.fxom.pipeline.FXOMSerializer;
+import com.treilhes.jfxplace.core.fxom.pipeline.impl.DefaultFxomPipeline;
 
 import javafx.fxml.FXMLLoader;
 
 public class IOFixture {
-
-    public static final String JFX_VERSION = "xxx";
 
     public static void testIsLoadableByJavafx(Object owner, String fileName, boolean failureExpected) {
         try (var stream = owner.getClass().getResourceAsStream(fileName)) {
@@ -75,11 +72,11 @@ public class IOFixture {
     }
 
     public static void testIsFxomSerializable(Object owner, String fileName, boolean failureExpected) {
-        FXOMSerializer serializer = new DefaultFxmlSerializer(false, JFX_VERSION, false);
+        var pipeline = DefaultFxomPipeline.BASIC;
         try (var stream = owner.getClass().getResourceAsStream(fileName)) {
             FXOMDocument fxomDocument = FXOMDocumentFactory.DEFAULT.newDocument(new String(stream.readAllBytes()),
                     owner.getClass().getResource(fileName), FxomFxScriptTagTest.class.getClassLoader(), null);
-            serializer.serialize(fxomDocument);
+            pipeline.serialize(fxomDocument);
         } catch (IOException e) {
             if (!failureExpected) {
                 fail(e);
@@ -93,8 +90,8 @@ public class IOFixture {
             FXOMDocument fxomDocument = FXOMDocumentFactory.DEFAULT.newDocument(content, owner.getClass().getResource(fileName),
                     IOFixture.class.getClassLoader(), null);
 
-            FXOMSerializer serializer = new DefaultFxmlSerializer(false, JFX_VERSION, false);
-            String serializedContent = serializer.serialize(fxomDocument);
+            var pipeline = DefaultFxomPipeline.BASIC;
+            String serializedContent = pipeline.serialize(fxomDocument);
             assertNotNull(serializedContent);
             var source = content.replaceAll("\\r", "").trim();
             var serialized = serializedContent.replaceAll("\\r", "").trim();

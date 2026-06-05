@@ -37,26 +37,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.context.annotation.Configuration;
 import org.testfx.api.FxRobot;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.platform.EmcPlatform;
+import com.treilhes.emc4j.test.EmcInject;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
 import com.treilhes.jfxplace.core.ui.dialog.ModalWindowImpl;
-import com.treilhes.jfxplace.core.ui.dialog.instance.TextViewDialog;
-import com.treilhes.jfxplace.testold.JfxAppsTest;
-import com.treilhes.jfxplace.testold.StageBuilder;
-import com.treilhes.jfxplace.testold.StageType;
+import com.treilhes.jfxplace.test.JfxPlaceTest;
+import com.treilhes.jfxplace.test.builder.StageBuilder;
+import com.treilhes.jfxplace.test.builder.StageType;
 
-@JfxAppsTest
-@ContextConfiguration(classes = { TextViewDialogTest.Config.class, TextViewDialog.class, ModalWindowImpl.class })
+@JfxPlaceTest(classes = { TextViewDialogTest.Config.class, TextViewDialog.class, ModalWindowImpl.class })
 class TextViewDialogTest {
 
 
-    @TestConfiguration
+    @Configuration
     static class Config {
         @Bean
         IconSetting iconSetting() {
@@ -71,8 +69,11 @@ class TextViewDialogTest {
         }
     }
 
+    @EmcInject
+    StageBuilder builder;
+
     @Test
-    void must_show_the_text_view_dialog(StageBuilder builder, FxRobot robot, EmContext context) {
+    void must_show_the_text_view_dialog(FxRobot robot, EmContext context) {
         try (var testStage = builder.controller().setup(StageType.Center).size(800, 600).show()) {
 
             TextViewDialog textView = context.getBean(TextViewDialog.class);

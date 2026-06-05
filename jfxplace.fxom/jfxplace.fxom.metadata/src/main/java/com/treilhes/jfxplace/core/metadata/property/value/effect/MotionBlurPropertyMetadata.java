@@ -37,9 +37,9 @@ package com.treilhes.jfxplace.core.metadata.property.value.effect;
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
 import com.treilhes.jfxplace.core.fxom.FXOMInstance;
 import com.treilhes.jfxplace.core.fxom.util.PropertyName;
-import com.treilhes.jfxplace.core.metadata.property.base.DoublePropertyMetadata.AngleDoublePropertyMetadata;
-import com.treilhes.jfxplace.core.metadata.property.base.DoublePropertyMetadata.SizeDoublePropertyMetadata;
 import com.treilhes.jfxplace.core.metadata.property.value.ComplexPropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.DoublePropertyMetadata.AngleDoublePropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.DoublePropertyMetadata.SizeDoublePropertyMetadata;
 
 import javafx.scene.effect.MotionBlur;
 

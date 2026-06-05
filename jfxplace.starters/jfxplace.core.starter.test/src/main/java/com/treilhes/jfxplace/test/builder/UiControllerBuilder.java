@@ -297,7 +297,7 @@ public class UiControllerBuilder<T extends UiController> {
 
         });
 
-        return new TestStage<>(stage, instance, docRef.get());
+        return new TestStage<>(context, stage, instance, docRef.get());
     }
 
 }

@@ -44,10 +44,11 @@ import org.springframework.core.PriorityOrdered;
 
 import com.treilhes.emc4j.boot.api.context.Application;
 import com.treilhes.emc4j.boot.api.context.annotation.DeportedSingleton;
-import com.treilhes.jfxplace.core.api.application.ApplicationInstance;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstanceUi;
 
 /**
- * This class is a Spring BeanPostProcessor that processes beans of type {@link Application} and {@link ApplicationInstance}.
+ * This class is a Spring BeanPostProcessor that processes beans of type {@link Application} and {@link ApplicationInstanceUi}.
  * It sets the opened application and document opened events in the {@link ApplicationEvents} class.
  */
 @DeportedSingleton

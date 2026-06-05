@@ -47,7 +47,8 @@ import org.slf4j.LoggerFactory;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 import com.treilhes.jfxplace.core.api.fs.FileSystem.WatchingCallback;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
+import com.treilhes.jfxplace.core.api.javafx.JfxPlaceExecutor;
 import com.treilhes.jfxplace.core.api.ui.MainInstanceWindow;
 import com.treilhes.jfxplace.core.fs.util.FileWatcher;
 
@@ -63,14 +64,13 @@ public class FileWatchController implements FileWatcher.Delegate {
     private final FileWatcher fileWatcher = new FileWatcher(2000 /* ms */, this,
             FileSystemController.class.getSimpleName());
 
-    private final JfxAppPlatform jfxAppPlatform;
+    private final JfxPlaceExecutor executor;
 
 
     // @formatter:off
-    public FileWatchController(
-            JfxAppPlatform jfxAppPlatform) {
+    public FileWatchController(ApplicationInstance instance) {
      // @formatter:on
-        this.jfxAppPlatform = jfxAppPlatform;
+        this.executor = instance.getExecutor();
     }
 
     public void watch(MainInstanceWindow document, Set<Path> files, WatchingCallback callback) {
@@ -166,7 +166,7 @@ public class FileWatchController implements FileWatcher.Delegate {
         logger.info("File Event : file created ({})", target.toFile().getName());
         if (watchCallbacks.containsKey(target)) {
             logger.info("File Event sent : file created ({})", target.toFile().getName());
-            jfxAppPlatform.runOnFxThreadWithActiveScope(() -> watchCallbacks.get(target).forEach(c -> c.created(target)));
+            executor.runOnFxThread(() -> watchCallbacks.get(target).forEach(c -> c.created(target)));
         }
     }
 
@@ -177,7 +177,7 @@ public class FileWatchController implements FileWatcher.Delegate {
         logger.info("File Event : file deleted ({})", target.toFile().getName());
         if (watchCallbacks.containsKey(target)) {
             logger.info("File Event sent : file deleted ({})", target.toFile().getName());
-            jfxAppPlatform.runOnFxThreadWithActiveScope(() -> watchCallbacks.get(target).forEach(c -> c.deleted(target)));
+            executor.runOnFxThread(() -> watchCallbacks.get(target).forEach(c -> c.deleted(target)));
         }
     }
 
@@ -188,7 +188,7 @@ public class FileWatchController implements FileWatcher.Delegate {
         logger.info("File Event : file modified ({})", target.toFile().getName());
         if (watchCallbacks.containsKey(target)) {
             logger.info("File Event sent : file modified ({})", target.toFile().getName());
-            jfxAppPlatform.runOnFxThreadWithActiveScope(() -> watchCallbacks.get(target).forEach(c -> c.modified(target)));
+            executor.runOnFxThread(() -> watchCallbacks.get(target).forEach(c -> c.modified(target)));
         }
     }
 }

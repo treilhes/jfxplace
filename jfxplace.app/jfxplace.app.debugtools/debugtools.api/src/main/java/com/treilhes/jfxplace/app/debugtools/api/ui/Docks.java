@@ -46,6 +46,9 @@ public final class Docks {
     public static final String RIGHT_DOCK_ID = "4d0089a2-ad23-477f-b124-52ac52786f9a";
     public static final UUID RIGHT_DOCK_UUID = UUID.fromString(RIGHT_DOCK_ID);
 
+    public static final String BOTTOM_DOCK_ID = "6453f577-12d1-48b8-bcdd-9b5e4b633d12";
+    public static final UUID BOTTOM_DOCK_UUID = UUID.fromString(BOTTOM_DOCK_ID);
+
     private Docks() {
         // prevent instantiation
     }

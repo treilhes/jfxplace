@@ -1,8 +1,8 @@
 package com.treilhes.jfxplace.core.selection.impl;
 
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 import com.treilhes.jfxplace.core.api.action.Action;
-import com.treilhes.jfxplace.core.api.action.ActionFactory;
+import com.treilhes.jfxplace.core.api.instance.ActionFactory;
 import com.treilhes.jfxplace.core.api.selection.SelectionActionsFactory;
 import com.treilhes.jfxplace.core.selection.action.SelectAllAction;
 import com.treilhes.jfxplace.core.selection.action.SelectNextAction;
@@ -10,7 +10,7 @@ import com.treilhes.jfxplace.core.selection.action.SelectNoneAction;
 import com.treilhes.jfxplace.core.selection.action.SelectParentAction;
 import com.treilhes.jfxplace.core.selection.action.SelectPreviousAction;
 
-@ApplicationSingleton
+@ApplicationInstanceSingleton
 public class SelectionActionsFactoryImpl implements SelectionActionsFactory {
 
     private final ActionFactory actionFactory;

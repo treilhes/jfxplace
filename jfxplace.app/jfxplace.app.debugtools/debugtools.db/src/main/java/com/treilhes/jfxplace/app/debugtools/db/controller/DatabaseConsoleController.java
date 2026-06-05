@@ -48,6 +48,7 @@ import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlViewController;
 import com.treilhes.jfxplace.core.api.ui.controller.dock.annotation.ViewAttachment;
 import com.treilhes.jfxplace.core.api.ui.controller.menu.ViewMenu;
 
+import jakarta.annotation.PreDestroy;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -128,6 +129,11 @@ public class DatabaseConsoleController extends AbstractFxmlViewController {
 
     private String getUri() {
         return restClient.rootUri() + "/" + H2_CONSOLE_PATH;
+    }
+
+    @PreDestroy
+    public void destroy() {
+
     }
 
 }

@@ -198,8 +198,6 @@ public class JfxAppsExtension implements BeforeEachCallback, AfterEachCallback, 
 
         @Override
         public ApplicationContext loadContext(MergedContextConfiguration mergedConfig) throws Exception {
-            EmContextImpl.applicationScope.clear();
-
             var contextId = SealedExtension.ROOT_ID;
             var parent = Mockito.mock(ExtensionContext.class);
             var loader = Mockito.mock(ServiceLoader.class);
@@ -227,7 +225,6 @@ public class JfxAppsExtension implements BeforeEachCallback, AfterEachCallback, 
                     // FIXME MockitoPostProcessor.class generates:NoSuchMethodException: org.springframework.boot.test.mock.mockito.MockitoPostProcessor.<init>()
                     //MockitoPostProcessor.class,
 
-                    com.treilhes.jfxplace.core.api.javafx.internal.JfxAppPlatformImpl.class,
                     I18NTestConfig.class,
                     LifecyclePostProcessor.class,
 

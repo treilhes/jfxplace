@@ -33,12 +33,15 @@
  */
 package com.treilhes.jfxplace.core.api.javafx.internal;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Role;
-import org.springframework.lang.NonNull;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.context.annotation.Singleton;
@@ -48,17 +51,8 @@ import jakarta.annotation.PostConstruct;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
-import javafx.collections.ListChangeListener.Change;
-import javafx.event.Event;
-import javafx.event.EventDispatchChain;
-import javafx.event.EventDispatcher;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.MenuItem;
-import javafx.stage.PopupWindow;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.stage.WindowEvent;
 
 @Singleton
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
@@ -67,29 +61,31 @@ public class JavafxThreadBootstrapper implements ApplicationListener<StageReadyE
     private static final Logger logger = LoggerFactory.getLogger(JavafxThreadBootstrapper.class);
 
     private static EmContext context;
-    private final JavafxThreadClassloaderDispatcherImpl fxThreadClassloaderDispatcher;
-
     private static Application javafxApplication;
+
+    private final JavaFxWindowManager javaFxWindowManager;
 
     private boolean started;
 
-    private Runnable whenStarted;
+    private List<Runnable> whenStarted = new ArrayList<>();
 
     private Stage primaryStage;
 
+
+
     // @formatter:off
     public JavafxThreadBootstrapper(
-            JavafxThreadClassloaderDispatcherImpl fxThreadClassloaderDispatcher,
+            JavaFxWindowManager javaFxWindowManager,
             EmContext context) {
      // @formatter:on
-        this.fxThreadClassloaderDispatcher = fxThreadClassloaderDispatcher;
+        this.javaFxWindowManager = javaFxWindowManager;
 
         JavafxThreadBootstrapper.context = context;
     }
 
     @PostConstruct
     protected void javafxThreadLaunch() {
-        new Thread(() -> Application.launch(JavafxApplication.class, new String[0])).start();
+        new Thread(() -> Application.launch(JavafxApplication.class)).start();
     }
 
     @Override
@@ -100,25 +96,20 @@ public class JavafxThreadBootstrapper implements ApplicationListener<StageReadyE
         started = stageReadyEvent.getStage() != null;
         primaryStage = stageReadyEvent.getStage();
 
-        var primaryDispatcher = new ContextClassLoaderEventDispatcher(primaryStage, fxThreadClassloaderDispatcher);
-        primaryStage.setEventDispatcher(primaryDispatcher);
-
-        Window.getWindows().addListener((Change<? extends Window> c) -> {
-            while (c.next()) {
-                c.getAddedSubList().forEach( w -> {
-                    var windowDispatcher = new ContextClassLoaderEventDispatcher(w, fxThreadClassloaderDispatcher);
-                    w.setEventDispatcher(windowDispatcher);
-                    fxThreadClassloaderDispatcher.listenFocus(w);
-                });
-
-                //c.getRemoved().forEach(fxThreadClassloaderDispatcher::unregister);
-            }
-        });
+        javaFxWindowManager.start(primaryStage);
 
         logger.info("Javafx primary stage set !");
 
-        if (this.whenStarted != null) {
-            this.whenStarted.run();
+        if (!this.whenStarted.isEmpty()) {
+            Runnable runWhenStarted = () -> {
+                while (!this.whenStarted.isEmpty()) {
+                    Runnable current = this.whenStarted.remove(0);
+                    current.run();
+                }
+            };
+            var thread = new Thread(runWhenStarted);
+            thread.setDaemon(true);
+            thread.start();
         }
     }
 
@@ -144,10 +135,10 @@ public class JavafxThreadBootstrapper implements ApplicationListener<StageReadyE
 
     @Override
     public void whenStarted(Runnable runnable) {
-        this.whenStarted = runnable;
-
         if (hasStarted()) {
-            this.whenStarted.run();
+            runnable.run();
+        } else {
+            this.whenStarted.add(runnable);
         }
     }
 
@@ -168,6 +159,11 @@ public class JavafxThreadBootstrapper implements ApplicationListener<StageReadyE
 
             logger.info("Underlying javafx application started !");
 
+            // force webview initialization to avoid classloader issues later on
+            // Initializing the WebView class on the core api module classloader will cause it to be loaded by that classloader, and then when the application tries to use it, it will be loaded by the javafx classloader, which will cause a ClassCastException. By initializing it here, we ensure that it is loaded by the javafx classloader and can be used later on without issues.
+            // allowing applications classloader/layer to be destroyed and reloaded without issues
+            new WebView().getEngine();
+
             // we can't use injection here so publish an event
             context.publishEvent(new StageReadyEvent(primaryStage));
 
@@ -175,63 +171,4 @@ public class JavafxThreadBootstrapper implements ApplicationListener<StageReadyE
 
     }
 
-    private class ContextClassLoaderEventDispatcher implements EventDispatcher {
-
-        private static final Logger log = LoggerFactory.getLogger(ContextClassLoaderEventDispatcher.class);
-
-        private final Window window;
-        private final JavafxThreadClassloaderDispatcherImpl dispatcher;
-        private final EventDispatcher originalDispatcher;
-
-
-
-
-        public ContextClassLoaderEventDispatcher(Window window, JavafxThreadClassloaderDispatcherImpl dispatcher) {
-            this.window = window;
-            this.dispatcher = dispatcher;
-            this.originalDispatcher = window.getEventDispatcher();
-        }
-
-        private Window windowFromSource(Object source) {
-            Window window = switch (source) {
-                case null -> null;
-                case Node o -> windowFromSource(o.getScene().getWindow());
-                case Scene o -> windowFromSource(o.getWindow());
-                case MenuItem o -> windowFromSource(o.getParentPopup());
-                case PopupWindow o -> windowFromSource(o.getOwnerWindow());
-                case Window o -> o;
-                default -> null;
-            };
-
-            return window == null ? null : window.getScene().getWindow();
-        }
-        @Override
-        public Event dispatchEvent(Event event, EventDispatchChain tail) {
-
-            Window sourceWindow = windowFromSource(event.getTarget());
-
-            if (sourceWindow == null) {
-                sourceWindow = windowFromSource(window);
-            }
-
-            try {
-                if (event instanceof WindowEvent we
-                        && we.getEventType() == WindowEvent.WINDOW_HIDDEN
-                        && window == we.getSource() && window == we.getTarget()) {
-                    tail.append((e,t) -> {
-                        dispatcher.unregister(window);
-                        return e;
-                    });
-                }
-
-                return dispatcher.callWith(sourceWindow, () -> {
-                    return originalDispatcher.dispatchEvent(event, tail);
-                });
-            } catch (Exception e) {
-                log.error("Error dispatching event", event, e);
-            }
-
-            return null;
-        }
-    }
 }

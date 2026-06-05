@@ -4,8 +4,12 @@ emc4j:
     redirectionsEnabled: true
     redirect:
       - groupId: com.treilhes.jfxplace
-        artifactId: devtools\.(?!registry$)(.*)
+        artifactId: devtools\.(?!registry$)(?!starter$)(.*)
         path: ../../../../devtools.$1/target/classes
+        useRegex: true
+      - groupId: com.treilhes.jfxplace
+        artifactId: jfxplace\.core\.(?!registry$)(?!starter$)(.*)
+        path: ../../../../../../jfxplace.core/jfxplace.core.$1/target/classes
         useRegex: true
 
 server:

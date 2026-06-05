@@ -47,8 +47,8 @@ import org.testfx.framework.junit5.ApplicationExtension;
 
 import com.treilhes.jfxplace.core.api.i18n.I18N;
 import com.treilhes.jfxplace.core.fxom.util.PropertyName;
-import com.treilhes.jfxplace.core.metadata.property.base.StringPropertyMetadata;
-import com.treilhes.jfxplace.core.metadata.property.base.StringPropertyMetadata.MultilineI18nStringPropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.StringPropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.StringPropertyMetadata.MultilineI18nStringPropertyMetadata;
 import com.treilhes.jfxplace.fxom.editors.api.EditorContext;
 import com.treilhes.jfxplace.fxom.editors.control.StringEditor;
 

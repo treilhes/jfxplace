@@ -8,13 +8,13 @@ import java.util.function.Predicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.treilhes.jfxplace.core.api.JfxplaceCoreApiExtension;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
 import com.treilhes.emc4j.boot.api.loader.ApplicationManager;
 import com.treilhes.emc4j.boot.api.loader.OpenCommandEvent;
 import com.treilhes.emc4j.boot.api.registry.RegistryManager;
 import com.treilhes.emc4j.boot.api.registry.model.ApplicationInfo;
 import com.treilhes.jfxplace.app.tray.app.utils.SystemTrayJavaFxProvider;
+import com.treilhes.jfxplace.core.api.JfxplaceCoreApiExtension;
 
 import dorkbox.jna.rendering.RenderProvider;
 import dorkbox.systemTray.Menu;
@@ -64,7 +64,7 @@ public class TrayMenuManager {
         //systemTray.setStatus("App Running");
 
         // Add some menu items
-        systemTray.getMenu().add(new MenuItem("Manage", (ActionEvent e) -> {
+        systemTray.getMenu().add(new MenuItem("Manage", (ActionEvent _) -> {
             var mngrId = JfxplaceCoreApiExtension.MANAGER_APP_ID;
             applicationManager.startApplication(mngrId);
             applicationManager.send(new OpenCommandEvent(mngrId, List.of()));
@@ -79,7 +79,7 @@ public class TrayMenuManager {
         var stopMenu = new Menu("Stop");
         systemTray.getMenu().add(stopMenu);
 
-        systemTray.getMenu().add(new MenuItem("Force Quit", (ActionEvent e) -> {
+        systemTray.getMenu().add(new MenuItem("Force Quit", (ActionEvent _) -> {
             systemTray.shutdown();  // removes the tray icon
             System.exit(0);
         }));
@@ -87,13 +87,13 @@ public class TrayMenuManager {
         TrayMouseListener trayListener = new TrayMouseListener((evt, src) -> {
 
             if (src == startMenu && evt.getID() == MouseEvent.MOUSE_ENTERED) {
-                startMenu.getEntries().forEach(e -> startMenu.remove(e));
+                startMenu.getEntries().forEach(startMenu::remove);
                 registryManager.listApplicationsInfo().stream()
                     .filter(ApplicationInfo::isInstalled)
                     .filter(Predicate.not(ApplicationInfo::isDaemon))
                     .filter(app -> !applicationManager.isStarted(app.getUuid()))
                     .forEach(app -> {
-                        startMenu.add(new MenuItem(app.getTitle(), (ActionEvent e) -> {
+                        startMenu.add(new MenuItem(app.getTitle(), (ActionEvent _) -> {
                             applicationManager.startApplication(app.getUuid());
                             applicationManager.send(new OpenCommandEvent(app.getUuid(), List.of()));
                         }));
@@ -101,27 +101,26 @@ public class TrayMenuManager {
             }
 
             if (src == restartMenu && evt.getID() == MouseEvent.MOUSE_ENTERED) {
-                restartMenu.getEntries().forEach(e -> restartMenu.remove(e));
+                restartMenu.getEntries().forEach(restartMenu::remove);
                 registryManager.listApplicationsInfo().stream()
                     .filter(ApplicationInfo::isInstalled)
                     .filter(Predicate.not(ApplicationInfo::isDaemon))
                     .filter(app -> applicationManager.isStarted(app.getUuid()))
                     .forEach(app -> {
-                        restartMenu.add(new MenuItem(app.getTitle(), (ActionEvent e) -> {
-                            applicationManager.startApplication(app.getUuid());
-                            applicationManager.send(new OpenCommandEvent(app.getUuid(), List.of()));
+                        restartMenu.add(new MenuItem(app.getTitle(), (ActionEvent _) -> {
+                            applicationManager.reloadApplication(app.getUuid());
                         }));
                     });
             }
 
             if (src == stopMenu && evt.getID() == MouseEvent.MOUSE_ENTERED) {
-                stopMenu.getEntries().forEach(e -> stopMenu.remove(e));
+                stopMenu.getEntries().forEach(stopMenu::remove);
                 registryManager.listApplicationsInfo().stream()
                     .filter(ApplicationInfo::isInstalled)
                     .filter(Predicate.not(ApplicationInfo::isDaemon))
                     .filter(app -> applicationManager.isStarted(app.getUuid()))
                     .forEach(app -> {
-                        stopMenu.add(new MenuItem(app.getTitle(), (ActionEvent e) -> {
+                        stopMenu.add(new MenuItem(app.getTitle(), (ActionEvent _) -> {
                             applicationManager.stopApplication(app.getUuid());
                         }));
                     });

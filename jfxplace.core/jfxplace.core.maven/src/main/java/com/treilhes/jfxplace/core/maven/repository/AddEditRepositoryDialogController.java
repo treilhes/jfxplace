@@ -41,14 +41,12 @@ import java.util.Set;
 import com.treilhes.emc4j.boot.api.context.annotation.Prototype;
 import com.treilhes.emc4j.boot.api.maven.Repository;
 import com.treilhes.emc4j.boot.api.maven.RepositoryType;
-import com.treilhes.jfxplace.core.api.i18n.I18N;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.maven.MavenClient;
 import com.treilhes.jfxplace.core.api.maven.RepositoryTypeProvider;
 import com.treilhes.jfxplace.core.api.settings.MavenSetting;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.ui.InstanceWindow;
 import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlWindowController;
-import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.MessageLogger;
 import com.treilhes.jfxplace.core.maven.preference.MavenRepositoriesPreferences;
 
@@ -132,18 +130,15 @@ public class AddEditRepositoryDialogController extends AbstractFxmlWindowControl
 
  // @formatter:off
     protected AddEditRepositoryDialogController(
-            I18N i18n,
+            ApplicationInstance instance,
             MavenClient mavenClient,
-            ApplicationEvents sceneBuilderManager,
-            IconSetting iconSetting,
             MessageLogger messageLogger,
             MavenSetting mavenSetting,
             MavenRepositoriesPreferences repositoryPreferences,
             Optional<List<RepositoryTypeProvider>> repositoryTypes,
             InstanceWindow owner) {
      // @formatter:on
-        super(i18n, sceneBuilderManager, iconSetting,
-                AddEditRepositoryDialogController.class.getResource("AddEditRepositoryDialog.fxml"), owner);
+        super(instance, AddEditRepositoryDialogController.class.getResource("AddEditRepositoryDialog.fxml"), owner);
         this.owner = owner;
         this.mavenClient = mavenClient;
         this.messageLogger = messageLogger;

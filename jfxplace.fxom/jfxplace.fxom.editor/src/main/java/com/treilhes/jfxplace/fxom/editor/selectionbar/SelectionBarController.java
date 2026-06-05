@@ -54,7 +54,7 @@ import com.treilhes.jfxplace.core.api.selection.Selection;
 import com.treilhes.jfxplace.core.api.selection.SelectionGroup;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationInstanceEvents;
-import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlController;
+import com.treilhes.jfxplace.core.api.ui.controller.AbstractPanelController;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.SelectionBar;
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
 import com.treilhes.jfxplace.core.fxom.FXOMObject;
@@ -74,7 +74,7 @@ import javafx.scene.layout.StackPane;
  *
  */
 @ApplicationInstanceSingleton
-public class SelectionBarController extends AbstractFxmlController implements SelectionBar {
+public class SelectionBarController extends AbstractPanelController implements SelectionBar {
 
     private static final Logger logger = LoggerFactory.getLogger(SelectionBarController.class);
 

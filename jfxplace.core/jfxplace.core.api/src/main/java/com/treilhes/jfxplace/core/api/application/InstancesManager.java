@@ -38,6 +38,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 
 @ApplicationSingleton
 public interface InstancesManager {
@@ -66,6 +67,15 @@ public interface InstancesManager {
 	 */
 	@Deprecated
     ApplicationInstance lookupUnusedInstance(Collection<ApplicationInstance> ignored);
+
+	/**
+	 * ApplicationInstance that is currently focused, or null if no instance is focused.
+	 *
+	 * Deprecation: Application will have their own dialogs, so the concept of "front instance" will be removed.
+     * @return the front instance
+     * @deprecated must be removed and set to private in immplementor
+     */
+	@Deprecated(forRemoval = true)
     ApplicationInstance getFrontInstance();
 
     List<ApplicationInstance> getInstances();

@@ -35,12 +35,12 @@ package com.treilhes.jfxplace.app.devtools.projects.action;
 
 import java.io.File;
 
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 import com.treilhes.jfxplace.app.devtools.api.project.ProjectActionFactory;
 import com.treilhes.jfxplace.core.api.action.Action;
-import com.treilhes.jfxplace.core.api.action.ActionFactory;
+import com.treilhes.jfxplace.core.api.instance.ActionFactory;
 
-@ApplicationSingleton
+@ApplicationInstanceSingleton
 public class ProjectActionFactoryImpl implements ProjectActionFactory {
 
     private final ActionFactory actionFactory;

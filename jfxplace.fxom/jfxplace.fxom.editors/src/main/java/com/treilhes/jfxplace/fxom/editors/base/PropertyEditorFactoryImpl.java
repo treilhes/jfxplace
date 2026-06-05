@@ -42,7 +42,7 @@ import java.util.Stack;
 import java.util.function.Consumer;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 import com.treilhes.jfxplace.core.fxom.util.PropertyName;
 import com.treilhes.jfxplace.core.metadata.property.PropertyMetadata;
 import com.treilhes.jfxplace.core.metadata.property.ValuePropertyMetadata;
@@ -51,7 +51,7 @@ import com.treilhes.jfxplace.fxom.editors.api.PropertyEditor;
 import com.treilhes.jfxplace.fxom.editors.api.PropertyEditorFactory;
 import com.treilhes.jfxplace.fxom.editors.api.PropertyEditorFactorySession;
 
-@ApplicationSingleton
+@ApplicationInstanceSingleton
 public class PropertyEditorFactoryImpl implements PropertyEditorFactory {
 
     // Map metadata class to editor class

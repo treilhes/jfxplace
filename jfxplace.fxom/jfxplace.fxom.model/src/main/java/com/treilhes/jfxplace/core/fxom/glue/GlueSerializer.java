@@ -62,10 +62,7 @@ class GlueSerializer {
 
     @Override
     public String toString() {
-        return toString(false);
-    }
-    public String toString(boolean compress) {
-        final XMLBuffer result = new XMLBuffer(compress);
+        final XMLBuffer result = new XMLBuffer();
 
         result.addLineSeparator();
         result.addLineSeparator();

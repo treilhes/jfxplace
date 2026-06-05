@@ -37,12 +37,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.treilhes.emc4j.boot.api.context.annotation.Prototype;
-import com.treilhes.jfxplace.core.api.i18n.I18N;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationInstanceEvents;
+import com.treilhes.jfxplace.core.api.application.Application;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.ui.controller.AbstractInstanceUiController;
-import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
 import com.treilhes.jfxplace.core.api.ui.dialog.ModalWindow;
 
 import javafx.event.ActionEvent;
@@ -70,13 +67,10 @@ public class TextViewDialog extends AbstractInstanceUiController {
      */
 
     protected TextViewDialog(
-            JfxAppPlatform jfxAppPlatform,
-            I18N i18n,
-            ApplicationEvents applicationEvents,
-            ApplicationInstanceEvents instanceEvents,
-            IconSetting iconSetting,
+            Application application,
+            ApplicationInstance instance,
             ModalWindow modalWindow) {
-        super(i18n, applicationEvents, instanceEvents, TextViewDialog.class.getResource("TextViewDialog.fxml"));
+        super(application.getI18n(), application.getEvents(), instance.getEvents(), TextViewDialog.class.getResource("TextViewDialog.fxml"));
         this.modalWindow = modalWindow;
     }
 

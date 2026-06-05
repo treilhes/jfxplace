@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testfx.api.FxToolkit;
 
-import com.treilhes.jfxplace.testold.StageBuilder;
+import com.treilhes.jfxplace.test.builder.StageBuilder;
 
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
@@ -48,8 +48,9 @@ public class JfxPlaceExtension implements BeforeAllCallback, BeforeEachCallback,
      */
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
-        var root = FxToolkit.toolkitContext().getRegisteredStage().getScene().getRoot();
-        if (root instanceof Pane r) {
+        var stage = FxToolkit.toolkitContext().getRegisteredStage();
+        var scene = stage.getScene();
+        if (scene != null && scene.getRoot() instanceof Pane r) {
             Platform.runLater(() -> {
                 r.getChildren().clear();
             });

@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.treilhes.emc4j.boot.api.loader.extension.ApplicationExtension;
+import com.treilhes.jfxplace.app.debugtools.api.events.DebugEvents.DebugEventsImpl;
 
 public class DebugtoolsApiExtension implements ApplicationExtension  {
 
@@ -49,7 +50,9 @@ public class DebugtoolsApiExtension implements ApplicationExtension  {
 
     @Override
     public List<Class<?>> localContextClasses() {
-        return List.of();
+        return List.of(
+                DebugEventsImpl.class
+                );
     }
 
 }

@@ -242,7 +242,7 @@ public class BaseBuilder {
 
         });
 
-        return new TestStage<>(stage, (T) instance, docRef.get());
+        return new TestStage<>(context, stage, (T) instance, docRef.get());
     }
 
 }

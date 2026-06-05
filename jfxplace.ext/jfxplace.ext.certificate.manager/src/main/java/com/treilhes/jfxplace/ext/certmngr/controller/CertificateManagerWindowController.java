@@ -37,18 +37,17 @@ import java.security.cert.X509Certificate;
 import java.util.Stack;
 
 import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
-import org.springframework.context.annotation.Lazy;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
-import com.treilhes.emc4j.boot.api.context.annotation.Singleton;
-import com.treilhes.jfxplace.core.api.i18n.I18N;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
+import com.treilhes.jfxplace.core.api.application.Application;
 import com.treilhes.jfxplace.core.api.subjects.NetworkManager;
 import com.treilhes.jfxplace.core.api.ui.MainInstanceWindow;
-import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlWindowController;
-import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
+import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlApplicationWindowController;
 
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.disposables.Disposable;
+import jakarta.annotation.PreDestroy;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -57,7 +56,7 @@ import javafx.scene.control.TextArea;
  *
  */
 @ApplicationSingleton
-public class CertificateManagerWindowController extends AbstractFxmlWindowController {
+public class CertificateManagerWindowController extends AbstractFxmlApplicationWindowController {
 
     @FXML
     private TextArea textArea;
@@ -70,13 +69,13 @@ public class CertificateManagerWindowController extends AbstractFxmlWindowContro
 
     private final EmContext context;
 
+    private @NonNull Disposable subscription;
+
     public CertificateManagerWindowController(
-            I18N i18n,
-            ApplicationEvents applicationEvents,
-            IconSetting iconSetting,
+            Application application,
             NetworkManager networManager,
             EmContext context) {
-        super(i18n, applicationEvents, iconSetting, CertificateManagerWindowController.class.getResource("CertificateManagerWindow.fxml"), null); // NOI18N
+        super(application, CertificateManagerWindowController.class.getResource("CertificateManagerWindow.fxml")); // NOI18N
         this.networkManager = networManager;
         this.context = context;
     }
@@ -90,7 +89,7 @@ public class CertificateManagerWindowController extends AbstractFxmlWindowContro
         super.controllerDidLoadFxml();
         assert textArea != null;
 
-        networkManager.trustRequest().observeOn(JavaFxScheduler.platform()).subscribe(certificates -> {
+        subscription = networkManager.trustRequest().observeOn(JavaFxScheduler.platform()).subscribe(certificates -> {
             pendingCertificates.add(certificates);
             if (!this.getStage().isShowing()) {
                 this.getStage(true).initOwner(context.getBean(MainInstanceWindow.class).getStage());
@@ -163,4 +162,10 @@ public class CertificateManagerWindowController extends AbstractFxmlWindowContro
         update();
     }
 
+    @PreDestroy
+    protected void cleanup() {
+        if (subscription != null && !subscription.isDisposed()) {
+            subscription.dispose();
+        }
+    }
 }

@@ -38,29 +38,24 @@ import static org.junit.Assert.assertFalse;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.context.annotation.Configuration;
 import org.testfx.api.FxRobot;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.platform.EmcPlatform;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
 import com.treilhes.jfxplace.core.ui.dialog.ModalWindowImpl;
-import com.treilhes.jfxplace.core.ui.dialog.application.ApplicationDialogController;
-import com.treilhes.jfxplace.core.ui.dialog.application.ApplicationMessageController;
-import com.treilhes.jfxplace.core.ui.dialog.application.ApplicationMessageDialog;
-import com.treilhes.jfxplace.testold.JfxAppsTest;
+import com.treilhes.jfxplace.test.JfxPlaceTest;
 
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-@JfxAppsTest
-@ContextConfiguration(classes = { ApplicationDialogControllerTest.Config.class, ApplicationDialogController.class,
+@JfxPlaceTest(classes = { ApplicationDialogControllerTest.Config.class, ApplicationDialogController.class,
         ApplicationMessageController.class, ApplicationMessageDialog.class, ModalWindowImpl.class })
 class ApplicationDialogControllerTest {
 
-    @TestConfiguration
+    @Configuration
     static class Config {
         @Bean
         IconSetting iconSetting() {

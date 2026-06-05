@@ -43,6 +43,10 @@ import javafx.beans.property.SimpleObjectProperty;
 
 public class JfxAppMock {
 
+    private JfxAppMock() {
+        /* This utility class should not be instantiated */
+    }
+
     public static <T extends Preference<U>, U> T mockPreference(Class<T> clazz) {
         return mockPreference(clazz, null);
     }
@@ -50,7 +54,7 @@ public class JfxAppMock {
         var mock = Mockito.mock(clazz);
         var value =  defaultValue != null ? defaultValue.get() : null;
         var observable = new SimpleObjectProperty<>(value);
-        Mockito.when(mock.getObservableValue()).thenReturn(observable);
-        Mockito.when(mock.getValue()).thenReturn(observable.get());
+        Mockito.lenient().when(mock.getObservableValue()).thenReturn(observable);
+        Mockito.lenient().when(mock.getValue()).thenReturn(observable.get());
         return mock;
     }}

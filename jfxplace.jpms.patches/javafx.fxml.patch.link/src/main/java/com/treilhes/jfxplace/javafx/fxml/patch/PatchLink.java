@@ -35,6 +35,7 @@ package com.treilhes.jfxplace.javafx.fxml.patch;
 
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Patch;
+import javafx.fxml.BeanAdapterGlobalCacheCleaner;
 
 public class PatchLink {
 
@@ -48,5 +49,9 @@ public class PatchLink {
 
     public static void setStaticLoad(FXMLLoader fxmlLoader, boolean staticLoad) {
         Patch.setStaticLoad(fxmlLoader, staticLoad);
+    }
+
+    public static void cleanBeanAdapterGlobalCache(ModuleLayer layer) {
+        BeanAdapterGlobalCacheCleaner.clean(layer);
     }
 }

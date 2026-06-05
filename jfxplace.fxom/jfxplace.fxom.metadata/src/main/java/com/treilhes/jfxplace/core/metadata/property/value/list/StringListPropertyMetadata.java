@@ -36,7 +36,7 @@ package com.treilhes.jfxplace.core.metadata.property.value.list;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.treilhes.jfxplace.core.metadata.property.base.StringPropertyMetadata.I18nStringPropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.StringPropertyMetadata.I18nStringPropertyMetadata;
 
 import javafx.fxml.FXMLLoader;
 

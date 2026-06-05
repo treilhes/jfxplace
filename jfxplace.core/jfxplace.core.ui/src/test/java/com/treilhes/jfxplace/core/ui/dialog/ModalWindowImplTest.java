@@ -37,42 +37,31 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.ContextConfiguration;
 import org.testfx.api.FxRobot;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.platform.EmcPlatform;
-import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
+import com.treilhes.emc4j.test.EmcInject;
+import com.treilhes.emc4j.test.EmcInjectMock;
 import com.treilhes.jfxplace.core.api.ui.dialog.ModalWindow;
-import com.treilhes.jfxplace.core.ui.dialog.ModalWindowImpl;
-import com.treilhes.jfxplace.testold.JfxAppsTest;
-import com.treilhes.jfxplace.testold.StageBuilder;
-import com.treilhes.jfxplace.testold.StageType;
+import com.treilhes.jfxplace.test.JfxPlaceTest;
+import com.treilhes.jfxplace.test.builder.StageBuilder;
+import com.treilhes.jfxplace.test.builder.StageType;
 
-@JfxAppsTest
-@ContextConfiguration(classes = { ModalWindowImplTest.Config.class, ModalWindowImpl.class })
+
+@JfxPlaceTest(classes = { ModalWindowImpl.class })
 class ModalWindowImplTest {
 
+    @EmcInjectMock
+    EmcPlatform jfxAppsPlatform;
 
-    @TestConfiguration
-    static class Config {
-        @Bean
-        IconSetting iconSetting() {
-            return Mockito.mock(IconSetting.class);
-        }
-
-        @Bean
-        EmcPlatform jfxAppsPlatform() {
-            var mock = Mockito.mock(EmcPlatform.class);
-            Mockito.when(mock.isWindows()).thenReturn(true);
-            return mock;
-        }
-    }
+    @EmcInject
+    StageBuilder builder;
 
     @Test
-    void must_show_the_modal_window(StageBuilder builder, FxRobot robot, EmContext context) {
+    void must_show_the_modal_window(FxRobot robot, EmContext context) {
+        Mockito.when(jfxAppsPlatform.isWindows()).thenReturn(true);
+
         try (var testStage = builder.controller().setup(StageType.Center).size(800, 600).show()) {
 
             ModalWindow modal = context.getBean(ModalWindow.class);

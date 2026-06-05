@@ -63,11 +63,11 @@ public interface NetworkManager {
 
         public NetworkManagerImpl() {
             subjects = new NetworkSubjects();
-            proxy = new SubjectItem<Proxy>(subjects.getProxy());
-            trustRequest = new SubjectItem<X509Certificate[]>(subjects.getTrustRequest());
-            trustedTemporarily = new SubjectItem<X509Certificate[]>(subjects.getTrustedTemporarily());
-            trustedPermanently = new SubjectItem<X509Certificate[]>(subjects.getTrustedPermanently());
-            untrusted = new SubjectItem<X509Certificate[]>(subjects.getUntrusted());
+            proxy = new SubjectItem<>(subjects.getProxy());
+            trustRequest = new SubjectItem<>(subjects.getTrustRequest());
+            trustedTemporarily = new SubjectItem<>(subjects.getTrustedTemporarily());
+            trustedPermanently = new SubjectItem<>(subjects.getTrustedPermanently());
+            untrusted = new SubjectItem<>(subjects.getUntrusted());
         }
 
         @Override

@@ -36,7 +36,7 @@ package com.treilhes.jfxplace.fxom.editors.control;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
 import com.treilhes.jfxplace.core.metadata.property.ValuePropertyMetadata;
-import com.treilhes.jfxplace.core.metadata.property.base.EnumerationPropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.EnumerationPropertyMetadata;
 import com.treilhes.jfxplace.fxom.editors.api.AbstractPropertyEditor;
 import com.treilhes.jfxplace.fxom.editors.api.EditorContext;
 import com.treilhes.jfxplace.fxom.editors.api.EditorUtils;

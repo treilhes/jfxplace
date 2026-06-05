@@ -37,10 +37,8 @@ import java.io.IOException;
 import java.net.URL;
 
 import com.treilhes.emc4j.boot.api.platform.EmcPlatform;
-import com.treilhes.jfxplace.core.api.i18n.I18N;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlWindowController;
-import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
 import com.treilhes.jfxplace.core.api.ui.dialog.ModalWindow.ButtonID;
 
 import javafx.event.ActionEvent;
@@ -76,20 +74,28 @@ public abstract class AbstractModalDialog extends AbstractFxmlWindowController {
      * The following members should be considered as 'private'. They are 'protected'
      * only to please the FXML loader.
      */
+    @Deprecated
     @FXML
     protected StackPane contentPane;
+    @Deprecated
     @FXML
     protected Button okButton;
+    @Deprecated
     @FXML
     protected Button cancelButton;
+    @Deprecated
     @FXML
     protected Button actionButton;
+    @Deprecated
     @FXML
     protected Pane okParent;
+    @Deprecated
     @FXML
     protected Pane actionParent;
+    @Deprecated
     @FXML
     protected ImageView imageView;
+    @Deprecated
     @FXML
     protected Pane imageViewParent;
 
@@ -98,21 +104,21 @@ public abstract class AbstractModalDialog extends AbstractFxmlWindowController {
      */
 
     // @formatter:off
+    @Deprecated
     public AbstractModalDialog(
+            ApplicationInstance instance,
             EmcPlatform appsPlatform,
-            I18N i18n,
-            ApplicationEvents sceneBuilderManager,
-            IconSetting iconSetting,
             URL contentFxmlURL,
             Window owner) {
      // @formatter:on
-        super(i18n, sceneBuilderManager, iconSetting, getContainerFxmlURL(appsPlatform));
+        super(instance, getContainerFxmlURL(appsPlatform));
         this.appsPlatform = appsPlatform;
         this.owner = owner;
         this.contentFxmlURL = contentFxmlURL;
         assert contentFxmlURL != null;
     }
 
+    @Deprecated
     public Parent getContentRoot() {
 
         if (contentRoot == null) {
@@ -134,6 +140,7 @@ public abstract class AbstractModalDialog extends AbstractFxmlWindowController {
         return contentRoot;
     }
 
+    @Deprecated
     public final ButtonID showAndWait() {
 //        center();
         clickedButtonID = ButtonID.CANCEL;
@@ -141,6 +148,7 @@ public abstract class AbstractModalDialog extends AbstractFxmlWindowController {
         return clickedButtonID;
     }
 
+    @Deprecated
     public final ButtonID show() {
 //      center();
       clickedButtonID = ButtonID.CANCEL;
@@ -148,42 +156,52 @@ public abstract class AbstractModalDialog extends AbstractFxmlWindowController {
       return clickedButtonID;
   }
 
+    @Deprecated
     public String getTitle() {
         return getStage().getTitle();
     }
 
+    @Deprecated
     public void setTitle(String title) {
         getStage().setTitle(title);
     }
 
+    @Deprecated
     public String getOKButtonTitle() {
         return getOKButton().getText();
     }
 
+    @Deprecated
     public void setOKButtonTitle(String title) {
         getOKButton().setText(title);
     }
 
+    @Deprecated
     public String getCancelButtonTitle() {
         return getCancelButton().getText();
     }
 
+    @Deprecated
     public void setCancelButtonTitle(String title) {
         getCancelButton().setText(title);
     }
 
+    @Deprecated
     public String getActionButtonTitle() {
         return getActionButton().getText();
     }
 
+    @Deprecated
     public void setActionButtonTitle(String title) {
         getActionButton().setText(title);
     }
 
+    @Deprecated
     public boolean isOKButtonVisible() {
         return getOKButton().getParent() != null;
     }
 
+    @Deprecated
     public void setOKButtonVisible(boolean visible) {
         if (visible != isOKButtonVisible()) {
             if (visible) {
@@ -196,10 +214,12 @@ public abstract class AbstractModalDialog extends AbstractFxmlWindowController {
         }
     }
 
+    @Deprecated
     public boolean isActionButtonVisible() {
         return getActionButton().getParent() != null;
     }
 
+    @Deprecated
     public void setActionButtonVisible(boolean visible) {
         if (visible != isActionButtonVisible()) {
             if (visible) {
@@ -212,28 +232,34 @@ public abstract class AbstractModalDialog extends AbstractFxmlWindowController {
         }
     }
 
+    @Deprecated
     public void setOKButtonDisable(boolean disable) {
         getOKButton().setDisable(disable);
     }
 
+    @Deprecated
     public void setActionButtonDisable(boolean disable) {
         getActionButton().setDisable(disable);
     }
 
+    @Deprecated
     public void setShowDefaultButton(boolean show) {
         showDefaultButton = show;
         updateButtonState();
     }
 
+    @Deprecated
     public void setDefaultButtonID(ButtonID buttonID) {
         defaultButtonID = buttonID;
         updateButtonState();
     }
 
+    @Deprecated
     public boolean isImageViewVisible() {
         return getImageView().getParent() != null;
     }
 
+    @Deprecated
     public void setImageViewVisible(boolean visible) {
         if (visible != isImageViewVisible()) {
             if (visible) {
@@ -246,10 +272,12 @@ public abstract class AbstractModalDialog extends AbstractFxmlWindowController {
         }
     }
 
+    @Deprecated
     public Image getImageViewImage() {
         return getImageView().getImage();
     }
 
+    @Deprecated
     public void setImageViewImage(Image image) {
         getImageView().setImage(image);
     }
@@ -258,6 +286,7 @@ public abstract class AbstractModalDialog extends AbstractFxmlWindowController {
     // However for complex dialogs such a Preferences, Code Skeleton and
     // Preview Background Color we'd better have them focus traversable hence
     // this method.
+    @Deprecated
     public void setButtonsFocusTraversable() {
         if (appsPlatform.isMac()) {
             getOKButton().setFocusTraversable(true);
@@ -271,17 +300,21 @@ public abstract class AbstractModalDialog extends AbstractFxmlWindowController {
      * To be subclassed
      */
 
+    @Deprecated
     protected abstract void controllerDidLoadContentFxml();
 
     /*
      * To be subclassed #2
      */
+    @Deprecated
     @FXML
     protected abstract void okButtonPressed(ActionEvent e);
 
+    @Deprecated
     @FXML
     protected abstract void cancelButtonPressed(ActionEvent e);
 
+    @Deprecated
     @FXML
     protected abstract void actionButtonPressed(ActionEvent e);
 
@@ -289,6 +322,7 @@ public abstract class AbstractModalDialog extends AbstractFxmlWindowController {
      * AbstractWindowController
      */
 
+    @Deprecated
     @Override
     protected void controllerDidCreateStage() {
         if (this.owner == null) {
@@ -305,6 +339,7 @@ public abstract class AbstractModalDialog extends AbstractFxmlWindowController {
      * AbstractFxmlWindowController
      */
 
+    @Deprecated
     @Override
     public void controllerDidLoadFxml() {
         assert contentPane != null;
@@ -337,12 +372,14 @@ public abstract class AbstractModalDialog extends AbstractFxmlWindowController {
         getStage().sizeToScene();
     }
 
+    @Deprecated
     @Override
     public void onCloseRequest() {
         // Closing the window is equivalent to clicking the Cancel button
         cancelButtonPressed(null);
     }
 
+    @Deprecated
     @Override
     public void onFocus() {
     }

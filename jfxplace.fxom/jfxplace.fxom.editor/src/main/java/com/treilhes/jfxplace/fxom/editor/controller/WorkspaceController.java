@@ -52,12 +52,10 @@ import com.treilhes.jfxplace.core.api.fxom.subjects.FxomEvents;
 import com.treilhes.jfxplace.core.api.fxom.ui.controller.misc.Content;
 import com.treilhes.jfxplace.core.api.fxom.ui.controller.misc.Workspace;
 import com.treilhes.jfxplace.core.api.fxom.ui.tool.PickRefiner;
-import com.treilhes.jfxplace.core.api.i18n.I18N;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
+import com.treilhes.jfxplace.core.api.javafx.JfxPlaceExecutor;
 import com.treilhes.jfxplace.core.api.selection.Selection;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationInstanceEvents;
-import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlController;
+import com.treilhes.jfxplace.core.api.ui.controller.AbstractPanelController;
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
 import com.treilhes.jfxplace.core.fxom.FXOMObject;
 import com.treilhes.jfxplace.core.fxom.SceneGraphObject;
@@ -114,7 +112,7 @@ import javafx.util.Duration;
  *
  */
 @ApplicationInstanceSingleton
-public class WorkspaceController extends AbstractFxmlController implements Workspace {
+public class WorkspaceController extends AbstractPanelController implements Workspace {
 
     private static final String I18N_CONTENT_LABEL_STATUS_CANNOT_DISPLAY = "content.label.status.cannot.display";
 
@@ -150,7 +148,7 @@ public class WorkspaceController extends AbstractFxmlController implements Works
 
     private StylesheetProvider stylesheetConfig = null;
 
-    private final FxomEvents documentManager;
+    private final FxomEvents fxomEvents;
     private final ContextMenu contextMenu;
     private final BackgroundImagePreference backgroundImagePreference;
     private final Selection selection;
@@ -158,15 +156,12 @@ public class WorkspaceController extends AbstractFxmlController implements Works
     private final Content content;
     private final ModeManager modeManager;
 
-    private final JfxAppPlatform jfxAppPlatform;
+    private final JfxPlaceExecutor executor;
     private final Driver driver;
     private final Picker picker = new Picker();
 
     public WorkspaceController(
-            I18N i18n,
-            JfxAppPlatform jfxAppPlatform,
-            ApplicationEvents scenebuilderManager,
-            ApplicationInstanceEvents instanceEvents,
+            ApplicationInstance instance,
             FxomEvents documentManager,
             BackgroundImagePreference backgroundImagePreference,
             ContextMenu contextMenu,
@@ -175,9 +170,9 @@ public class WorkspaceController extends AbstractFxmlController implements Works
             Content content,
             ModeManager modeManager,
             Driver driver) {
-        super(i18n, scenebuilderManager, instanceEvents, WorkspaceController.class.getResource("Workspace.fxml"));
-        this.jfxAppPlatform = jfxAppPlatform;
-        this.documentManager = documentManager;
+        super(instance.getApplication().getI18n(), instance.getApplication().getEvents(), instance.getEvents(), WorkspaceController.class.getResource("Workspace.fxml"));
+        this.executor = instance.getExecutor();
+        this.fxomEvents = documentManager;
         this.contextMenu = contextMenu;
         this.backgroundImagePreference = backgroundImagePreference;
         this.maskFactory = maskFactory;
@@ -252,7 +247,7 @@ public class WorkspaceController extends AbstractFxmlController implements Works
         // Setup the context menu
         scrollPane.setContextMenu(contextMenu.getContextMenu());
 
-        documentManager.stylesheetConfig().subscribe(s -> {
+        fxomEvents.stylesheetConfig().subscribe(s -> {
             stylesheetConfig = s;
             applyStylesheetConfig();
         });
@@ -338,7 +333,7 @@ public class WorkspaceController extends AbstractFxmlController implements Works
         contentSubScene.setUserAgentStylesheet(stylesheetConfig.getUserAgentStylesheet());
 
         // Update scenegraph layout, etc
-        FXOMDocument fxomDocument = documentManager.fxomDocument().get();
+        FXOMDocument fxomDocument = fxomEvents.fxomDocument().get();
         if (fxomDocument != null) {
             fxomDocument.refreshSceneGraph();
         }
@@ -422,7 +417,7 @@ public class WorkspaceController extends AbstractFxmlController implements Works
             // visual artifacts. After the two steps are done, we turn the
             // visible by calling revealScalingGroup().
 
-            jfxAppPlatform.runOnFxThreadWithActiveScope(() -> {
+            executor.runOnFxThread(() -> {
                 layoutContent(true /* applyCSS */);
                 adjustWorkspace();
                 revealScalingGroup();
@@ -439,7 +434,7 @@ public class WorkspaceController extends AbstractFxmlController implements Works
          * fxomRoot
          */
 
-        JfxAppPlatform.ensureFxThread(() -> {
+        executor.ensureFxThread(() -> {
             final String statusMessageText, statusStyleClass;
             contentGroup.getChildren().clear();
 
@@ -478,7 +473,7 @@ public class WorkspaceController extends AbstractFxmlController implements Works
 
             // Display background fill of the Window/Scene
             if (canDisplayDocument) {
-                FXOMDocument fxomDocument = documentManager.fxomDocument().get();
+                FXOMDocument fxomDocument = fxomEvents.fxomDocument().get();
 
                 assert fxomDocument != null;
                 assert fxomDocument.getFxomRoot() != null;
@@ -524,7 +519,7 @@ public class WorkspaceController extends AbstractFxmlController implements Works
                 actualScaling = 1.0;
             }
 
-            JfxAppPlatform.ensureFxThread(() -> {
+            executor.runOnFxThread(() -> {
                 scalingGroup.setScaleX(actualScaling);
                 scalingGroup.setScaleY(actualScaling);
 
@@ -691,7 +686,7 @@ public class WorkspaceController extends AbstractFxmlController implements Works
             contentGroup.getStylesheets().setAll(stylesheetConfig.getStylesheets());
         }
 
-        FXOMDocument fxomDocument = documentManager.fxomDocument().get();
+        FXOMDocument fxomDocument = fxomEvents.fxomDocument().get();
         if (fxomDocument != null) {
             contentGroup.getStylesheets().addAll(fxomDocument.getDisplayStylesheets());
         }
@@ -998,7 +993,7 @@ public class WorkspaceController extends AbstractFxmlController implements Works
         final FXOMObject result;
 
         if (content.isDisplayable()) {
-            result = pick(documentManager.fxomDocument().get(), sceneX, sceneY, excludes);
+            result = pick(fxomEvents.fxomDocument().get(), sceneX, sceneY, excludes);
         } else {
             result = null;
         }
@@ -1093,7 +1088,7 @@ public class WorkspaceController extends AbstractFxmlController implements Works
     @Override
     public FXOMObject searchWithNode(Node sceneGraphNode, double sceneX, double sceneY) {
 
-        final FXOMDocument fxomDocument = documentManager.fxomDocument().get();
+        final FXOMDocument fxomDocument = fxomEvents.fxomDocument().get();
         final FXOMObject match = fxomDocument.collect(SceneGraphCollector.findSceneGraphObject(sceneGraphNode)).get();
         /*
          * Refine the search. With the logic above, a click in a 'tab header' returns

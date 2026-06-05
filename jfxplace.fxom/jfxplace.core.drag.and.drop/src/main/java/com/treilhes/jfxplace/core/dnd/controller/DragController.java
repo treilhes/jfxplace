@@ -48,7 +48,8 @@ import com.treilhes.jfxplace.core.api.fxom.editor.selection.DefaultSelectionGrou
 import com.treilhes.jfxplace.core.api.fxom.editor.selection.SelectionJobsFactory;
 import com.treilhes.jfxplace.core.api.fxom.job.base.BatchJob;
 import com.treilhes.jfxplace.core.api.fxom.subjects.FxomEvents;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
+import com.treilhes.jfxplace.core.api.javafx.JfxPlaceExecutor;
 import com.treilhes.jfxplace.core.api.job.Job;
 import com.treilhes.jfxplace.core.api.job.JobManager;
 import com.treilhes.jfxplace.core.api.selection.Selection;
@@ -69,7 +70,7 @@ public class DragController implements Drag {
 
     private static final Logger logger = LoggerFactory.getLogger(DragController.class);
 
-    private final JfxAppPlatform jfxAppPlatform;
+    private final JfxPlaceExecutor executor;
     private final JobManager jobManager;
     private final DefaultSelectionGroupFactory defaultSelectionGroupFactory;
     private final SelectionJobsFactory selectionJobFactory;
@@ -93,7 +94,7 @@ public class DragController implements Drag {
 
     // @formatter:off
     public DragController(
-            JfxAppPlatform jfxAppPlatform,
+            ApplicationInstance instance,
             Selection selection,
             JobManager jobManager,
             FxomEvents documentManager,
@@ -101,7 +102,7 @@ public class DragController implements Drag {
             SelectionJobsFactory selectionJobFactory,
             BatchJob.Factory batchJobFactory) {
      // @formatter:on
-        this.jfxAppPlatform = jfxAppPlatform;
+        this.executor = instance.getExecutor();
         this.selection = selection;
         this.jobManager = jobManager;
         this.documentManager = documentManager;
@@ -316,7 +317,7 @@ public class DragController implements Drag {
         mouseTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                jfxAppPlatform.runOnFxThreadWithActiveScope(() -> {
+                executor.runOnFxThread(() -> {
                     mouseTimer = null;
                     mouseDidStopMoving();
                 });

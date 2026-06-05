@@ -39,6 +39,7 @@ import java.util.UUID;
 
 import com.treilhes.emc4j.boot.api.loader.extension.OpenExtension;
 import com.treilhes.jfxplace.core.fxom.sample.SampleDataEnabledPreference;
+import com.treilhes.jfxplace.fxom.sampledata.action.SampleDataActionFactoryImpl;
 import com.treilhes.jfxplace.fxom.sampledata.action.ToggleSampleDataAction;
 import com.treilhes.jfxplace.fxom.sampledata.data.ChoiceBoxSampleData;
 import com.treilhes.jfxplace.fxom.sampledata.data.ComboBoxSampleData;
@@ -74,6 +75,7 @@ public class FxomSampleDataExtension implements OpenExtension {
     @Override
     public List<Class<?>> exportedContextClasses() {
         return Arrays.asList(
+                SampleDataActionFactoryImpl.class,
                 ChoiceBoxSampleData.class,
                 ComboBoxSampleData.class,
                 ListViewSampleData.class,

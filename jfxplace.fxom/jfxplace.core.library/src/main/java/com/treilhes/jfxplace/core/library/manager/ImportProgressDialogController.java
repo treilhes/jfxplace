@@ -43,9 +43,7 @@ import org.slf4j.LoggerFactory;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 import com.treilhes.emc4j.boot.api.platform.EmcPlatform;
-import com.treilhes.jfxplace.core.api.i18n.I18N;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
-import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.ui.dialog.AbstractModalDialog;
 import com.treilhes.jfxplace.core.api.ui.dialog.Dialog;
 
@@ -93,14 +91,12 @@ public class ImportProgressDialogController extends AbstractModalDialog {
 
     // @formatter:off
     protected ImportProgressDialogController(
+            ApplicationInstance instance,
             EmcPlatform appsPlatform,
-            I18N i18n,
-            ApplicationEvents sceneBuilderManager,
-            IconSetting iconSetting,
             Dialog dialog
             ) {
      // @formatter:on
-        super(appsPlatform, i18n, sceneBuilderManager, iconSetting, ImportProgressDialogController.class.getResource("ImportProgressDialog.fxml"), null);
+        super(instance, appsPlatform, ImportProgressDialogController.class.getResource("ImportProgressDialog.fxml"), null);
         this.dialog = dialog;
     }
 

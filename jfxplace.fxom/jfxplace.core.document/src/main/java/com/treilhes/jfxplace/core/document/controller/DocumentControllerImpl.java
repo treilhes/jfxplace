@@ -59,7 +59,6 @@ import com.treilhes.jfxplace.core.api.fs.FileSystemActionFactory;
 import com.treilhes.jfxplace.core.api.fxom.subjects.FxomEvents;
 import com.treilhes.jfxplace.core.api.i18n.CombinedResourceBundle;
 import com.treilhes.jfxplace.core.api.i18n.I18nResourceProvider;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.fxom.FXOMAssetIndex;
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
@@ -71,7 +70,6 @@ public class DocumentControllerImpl implements DocumentController  {
 
     private static final Logger logger = LoggerFactory.getLogger(DocumentControllerImpl.class);
 
-    private final JfxAppPlatform jfxAppPlatform;
     private final ApplicationEvents applicationEvents;
     private final FxomEvents fxomEvents;
     private final FXOMDocumentFactory fxomDocumentFactory;
@@ -85,7 +83,6 @@ public class DocumentControllerImpl implements DocumentController  {
 
     // @formatter:off
     public DocumentControllerImpl(
-            JfxAppPlatform jfxAppPlatform,
             ApplicationEvents applicationEvents,
             FxomEvents fxomEvents,
             FXOMDocumentFactory fxomDocumentFactory,
@@ -93,7 +90,6 @@ public class DocumentControllerImpl implements DocumentController  {
             FileSystem fileSystem,
             FileSystemActionFactory fileSystemActionFactory) {
      // @formatter:on
-        this.jfxAppPlatform = jfxAppPlatform;
         this.fxomEvents = fxomEvents;
         this.applicationEvents = applicationEvents;
         this.fxomDocumentFactory = fxomDocumentFactory;

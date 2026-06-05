@@ -33,6 +33,9 @@
  */
 package com.treilhes.jfxplace.test.builder;
 
+import java.util.Arrays;
+
+import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.jfxplace.core.api.javafx.UiController;
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
 
@@ -44,8 +47,10 @@ public class TestStage<T extends UiController> implements AutoCloseable {
     Stage stage;
     T controller;
     FXOMDocument document;
+    EmContext context;
 
-    public TestStage(Stage stage, T controller, FXOMDocument document) {
+    public TestStage(EmContext context, Stage stage, T controller, FXOMDocument document) {
+        this.context = context;
         this.stage = stage;
         this.controller = controller;
         this.document = document;
@@ -68,5 +73,11 @@ public class TestStage<T extends UiController> implements AutoCloseable {
         Platform.runLater(() -> {
             stage.close();
         });
+
+        var beanNames = context.getBeanNamesForType(controller.getClass());
+        var beanExist = Arrays.stream(beanNames).anyMatch(n -> context.containsBean(n) && context.isSingleton(n));
+        if (beanExist) {
+            context.destroySingleton(controller);
+        }
     }
 }

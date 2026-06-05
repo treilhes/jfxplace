@@ -26,9 +26,7 @@
     <modules>
         <module>debugtools.api</module>
         <module>debugtools.app</module>
-        <module>debugtools.startup</module>
         <module>debugtools.registry</module>
-        <module>debugtools.openapi</module>
         <module>debugtools.db</module>
         <module>debugtools.starter</module>
         <module>debugtools.launcher</module>

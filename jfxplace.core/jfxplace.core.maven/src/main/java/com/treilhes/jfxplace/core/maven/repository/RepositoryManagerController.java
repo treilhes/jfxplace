@@ -38,13 +38,11 @@ import java.util.stream.Collectors;
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.context.annotation.Prototype;
 import com.treilhes.emc4j.boot.api.maven.Repository;
-import com.treilhes.jfxplace.core.api.i18n.I18N;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.maven.MavenClient;
 import com.treilhes.jfxplace.core.api.maven.RepositoryManager;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.ui.InstanceWindow;
 import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlWindowController;
-import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.MessageLogger;
 
 import javafx.beans.InvalidationListener;
@@ -58,6 +56,7 @@ import javafx.stage.Modality;
 /**
  * Controller for the JAR/FXML Library dialog.
  */
+//FIXME bad scope here
 @Prototype
 public class RepositoryManagerController extends AbstractFxmlWindowController implements RepositoryManager {
 
@@ -79,17 +78,14 @@ public class RepositoryManagerController extends AbstractFxmlWindowController im
 
     // @formatter:off
     protected RepositoryManagerController(
-            I18N i18n,
+            ApplicationInstance instance,
             MavenClient mavenClient,
-            ApplicationEvents sceneBuilderManager,
-            IconSetting iconSetting,
             EmContext context,
             MessageLogger messageLogger,
             AddEditRepositoryDialogController repositoryDialogController,
             InstanceWindow owner) {
      // @formatter:on
-        super(i18n, sceneBuilderManager, iconSetting,
-                RepositoryManagerController.class.getResource("RepositoryManager.fxml"), owner);
+        super(instance, RepositoryManagerController.class.getResource("RepositoryManager.fxml"), owner);
         this.context = context;
         this.owner = owner;
         this.messageLogger = messageLogger;

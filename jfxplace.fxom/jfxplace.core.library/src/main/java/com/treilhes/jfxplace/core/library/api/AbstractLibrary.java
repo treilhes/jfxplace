@@ -61,7 +61,8 @@ import com.treilhes.jfxplace.core.api.fxom.library.Library;
 import com.treilhes.jfxplace.core.api.fxom.library.LibraryArtifact;
 import com.treilhes.jfxplace.core.api.fxom.library.LibraryItem;
 import com.treilhes.jfxplace.core.api.fxom.library.Report;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
+import com.treilhes.jfxplace.core.api.javafx.JfxPlaceExecutor;
 import com.treilhes.jfxplace.core.api.lifecycle.InitWithApplication;
 import com.treilhes.jfxplace.core.api.lifecycle.InitWithDocument;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
@@ -109,7 +110,7 @@ public abstract class AbstractLibrary<R extends Report, I extends LibraryItem>
 
     private final NavigableMap<LocalDateTime, Exploration<R>> explorations = new TreeMap<>();
 
-    private final ApplicationEvents sceneBuilderManager;
+    private final ApplicationEvents applicationEvents;
 
     private final ClassLoaderController classLoaderController;
 
@@ -117,22 +118,23 @@ public abstract class AbstractLibrary<R extends Report, I extends LibraryItem>
 
     private final LibraryStoreConfiguration dialogConfiguration;
 
-    private final JfxAppPlatform jfxAppPlatform;
+    private final ApplicationInstance instance;
+
+    private final JfxPlaceExecutor executor;
 
     /*
      * Public
      */
 
     public AbstractLibrary(
-            EmContext context,
-            JfxAppPlatform jfxAppPlatform,
-            ApplicationEvents sceneBuilderManager,
+            ApplicationInstance instance,
             ClassLoaderController classLoaderController,
             LibraryStore store,
             LibraryStoreConfiguration dialogConfiguration) {
-        this.context = context;
-        this.jfxAppPlatform = jfxAppPlatform;
-        this.sceneBuilderManager = sceneBuilderManager;
+        this.instance = instance;
+        this.context = instance.getContext();
+        this.executor = instance.getExecutor();
+        this.applicationEvents = instance.getApplication().getEvents();
         this.store = store;
         this.classLoaderController = classLoaderController;
         this.dialogConfiguration = dialogConfiguration;
@@ -217,16 +219,16 @@ public abstract class AbstractLibrary<R extends Report, I extends LibraryItem>
                     }
                 });
 
-        ExecutorService executor = Executors.newFixedThreadPool(4);
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
 
         // go back to fx thread for ui update
-        jfxAppPlatform.runOnFxThread(() -> {
+        executor.runOnFxThread(() -> {
 
             setExploring(true);
 
-            List<Task<List<R>>> tasks = Stream.concat(artifactStream, pathStream).peek(t -> executor.execute(t))
+            List<Task<List<R>>> tasks = Stream.concat(artifactStream, pathStream).peek(t -> executorService.execute(t))
                     .collect(Collectors.toList());
-            executor.shutdown();
+            executorService.shutdown();
 
             Exploration<R> exploration = new Exploration<>(LocalDateTime.now(), tasks, this::updateLibrary);
             explorations.put(exploration.getLocalDateTime(), exploration);
@@ -352,17 +354,18 @@ public abstract class AbstractLibrary<R extends Report, I extends LibraryItem>
     }
 
     public void setExploring(boolean value) {
-        if (Platform.isFxApplicationThread())
+        if (Platform.isFxApplicationThread()) {
             exploringProperty().set(value);
-        else
-            jfxAppPlatform.runOnFxThread(() -> setExploring(value));
+        } else {
+            executor.runOnFxThread(() -> setExploring(value));
+        }
     }
 
     protected void setItems(Collection<I> items) {
         if (Platform.isFxApplicationThread()) {
             itemsProperty.setAll(items);
         } else {
-            jfxAppPlatform.runOnFxThread(() -> {
+            executor.runOnFxThread(() -> {
                 itemsProperty.setAll(items);
             });
         }
@@ -372,7 +375,7 @@ public abstract class AbstractLibrary<R extends Report, I extends LibraryItem>
         if (Platform.isFxApplicationThread()) {
             itemsProperty.addAll(items);
         } else {
-            jfxAppPlatform.runOnFxThread(() -> itemsProperty.addAll(items));
+            executor.runOnFxThread(() -> itemsProperty.addAll(items));
         }
     }
 
@@ -380,7 +383,7 @@ public abstract class AbstractLibrary<R extends Report, I extends LibraryItem>
         if (Platform.isFxApplicationThread()) {
             explorationCountProperty.add(1);
         } else {
-            jfxAppPlatform.runOnFxThread(() -> explorationCountProperty.add(1));
+            executor.runOnFxThread(() -> explorationCountProperty.add(1));
         }
     }
 
@@ -388,7 +391,7 @@ public abstract class AbstractLibrary<R extends Report, I extends LibraryItem>
         if (Platform.isFxApplicationThread()) {
             explorationDateProperty.set(date);
         } else {
-            jfxAppPlatform.runOnFxThread(() -> explorationDateProperty.set(date));
+            executor.runOnFxThread(() -> explorationDateProperty.set(date));
         }
     }
 
@@ -396,7 +399,7 @@ public abstract class AbstractLibrary<R extends Report, I extends LibraryItem>
         if (Platform.isFxApplicationThread()) {
             firstExplorationCompleted.set(true);
         } else {
-            jfxAppPlatform.runOnFxThread(() -> firstExplorationCompleted.set(true));
+            executor.runOnFxThread(() -> firstExplorationCompleted.set(true));
         }
     }
 

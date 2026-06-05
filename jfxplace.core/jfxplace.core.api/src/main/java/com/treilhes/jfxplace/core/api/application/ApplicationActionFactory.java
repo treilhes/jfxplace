@@ -33,11 +33,11 @@
  */
 package com.treilhes.jfxplace.core.api.application;
 
-import java.net.URI;
 import java.net.URL;
 import java.util.function.Consumer;
 
 import com.treilhes.jfxplace.core.api.action.Action;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 
 public interface ApplicationActionFactory {
 
@@ -55,7 +55,7 @@ public interface ApplicationActionFactory {
      * @return the new instance action
      */
     Action newInstance(Consumer<ApplicationInstance> consumer);
-    
+
     /**
 	 * Lookup for an unused instance (no document loaded nor being edited)
 	 * and set the focus on it changing the current scope.

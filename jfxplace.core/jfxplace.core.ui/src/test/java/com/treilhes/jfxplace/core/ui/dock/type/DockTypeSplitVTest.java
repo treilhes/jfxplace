@@ -40,13 +40,12 @@ import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.context.annotation.Configuration;
 import org.testfx.api.FxRobot;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
+import com.treilhes.emc4j.test.EmcInject;
 import com.treilhes.jfxplace.core.api.subjects.ViewManager;
 import com.treilhes.jfxplace.core.api.subjects.ViewManager.DockRequest;
 import com.treilhes.jfxplace.core.api.ui.DockActionFactory;
@@ -57,16 +56,14 @@ import com.treilhes.jfxplace.core.ui.dock.DockPanelController;
 import com.treilhes.jfxplace.core.ui.dock.preference.DockMinimizedPreference;
 import com.treilhes.jfxplace.core.ui.dock.preference.LastDockDockTypePreference;
 import com.treilhes.jfxplace.core.ui.dock.preference.LastDockUuidPreference;
-import com.treilhes.jfxplace.core.ui.dock.type.DockTypeSplitV;
+import com.treilhes.jfxplace.test.JfxPlaceTest;
+import com.treilhes.jfxplace.test.builder.StageBuilder;
+import com.treilhes.jfxplace.test.builder.StageType;
 import com.treilhes.jfxplace.testold.JfxAppMock;
-import com.treilhes.jfxplace.testold.JfxAppsTest;
-import com.treilhes.jfxplace.testold.StageBuilder;
-import com.treilhes.jfxplace.testold.StageType;
 
 import javafx.collections.FXCollections;
 
-@JfxAppsTest
-@ContextConfiguration(classes = {
+@JfxPlaceTest(classes = {
         DockTypeSplitVTest.Config.class,
         TestApp.class, // a fake app to load a dock
         TestViewUnbounded.class, // a fake view to load some content
@@ -76,7 +73,7 @@ import javafx.collections.FXCollections;
         })
 class DockTypeSplitVTest {
 
-    @TestConfiguration
+    @Configuration
     static class Config {
 
         @Bean
@@ -113,18 +110,21 @@ class DockTypeSplitVTest {
         }
     }
 
-    @Autowired
+    @EmcInject
     ViewManager viewManager;
 
+    @EmcInject
+    StageBuilder stageBuilder;
+
     @Test
-    void should_load_the_fxml(StageBuilder stageBuilder) {
+    void should_load_the_fxml() {
         try (var testStage = stageBuilder.controller(TestApp.class).show()) {
             assertNotNull(testStage.getController().getRoot());
         }
     }
 
     @Test
-    void must_show_the_view(StageBuilder stageBuilder, FxRobot robot, EmContext context) {
+    void must_show_the_view(FxRobot robot, EmContext context) {
 
         try (var testStage = stageBuilder.controller(TestApp.class)
                 .size(800, 600)

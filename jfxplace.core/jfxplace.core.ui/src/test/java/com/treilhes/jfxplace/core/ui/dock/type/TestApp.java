@@ -36,10 +36,8 @@ package com.treilhes.jfxplace.core.ui.dock.type;
 import java.util.UUID;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
-import com.treilhes.jfxplace.core.api.i18n.I18N;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.ui.controller.dock.Dock;
-import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
 import com.treilhes.jfxplace.core.ui.dock.DockPanelController;
 import com.treilhes.jfxplace.testold.TestAppWindow;
 
@@ -57,8 +55,8 @@ public class TestApp extends TestAppWindow {
 
     Dock targetDock;
 
-    public TestApp(I18N i18n, ApplicationEvents sceneBuilderManager, IconSetting iconSetting, DockPanelController dock) {
-        super(i18n, sceneBuilderManager, iconSetting, TestApp.class, """
+    public TestApp(ApplicationInstance instance, DockPanelController dock) {
+        super(instance, TestApp.class, """
                 <?import java.net.URL?>
                 <?import javafx.scene.layout.AnchorPane?>
                 <?import javafx.scene.layout.HBox?>

@@ -50,7 +50,8 @@ import com.treilhes.emc4j.boot.api.maven.RepositoryType;
 import com.treilhes.emc4j.boot.api.maven.ResolvedArtifact;
 import com.treilhes.emc4j.boot.api.maven.UniqueArtifact;
 import com.treilhes.emc4j.boot.api.platform.EmcPlatform;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
+import com.treilhes.jfxplace.core.api.application.Application;
+import com.treilhes.jfxplace.core.api.javafx.JfxPlaceExecutor;
 import com.treilhes.jfxplace.core.maven.preference.MavenRepositoriesPreferences;
 import com.treilhes.jfxplace.core.maven.preference.MavenRepositoryPathPreference;
 
@@ -67,15 +68,15 @@ public class MavenClientController implements com.treilhes.jfxplace.core.api.mav
     private final MavenRepositoriesPreferences repositoryPreferences;
     private final MavenRepositoryPathPreference repositoryPathPreference;
     private final BooleanProperty searching = new SimpleBooleanProperty();
-    private EmcPlatform platform;
-    private JfxAppPlatform jfxAppPlatform;
+    private final EmcPlatform platform;
+    private final JfxPlaceExecutor executor;
 
     // @formatter:off
     public MavenClientController(
+            Application application,
             RepositoryClient client,
             RepositoryManager repositoryManager,
             EmcPlatform platform,
-            JfxAppPlatform jfxAppPlatform,
             MavenRepositoriesPreferences repositoryPreferences,
             MavenRepositoryPathPreference repositoryPathPreference
             ) {
@@ -84,7 +85,7 @@ public class MavenClientController implements com.treilhes.jfxplace.core.api.mav
         this.client = client;
         this.repositoryManager = repositoryManager;
         this.platform = platform;
-        this.jfxAppPlatform = jfxAppPlatform;
+        this.executor = application.getExecutor();
         this.repositoryPreferences = repositoryPreferences;
         this.repositoryPathPreference = repositoryPathPreference;
     }
@@ -169,9 +170,9 @@ public class MavenClientController implements com.treilhes.jfxplace.core.api.mav
 
     @Override
     public Set<Artifact> search(String query) {
-        jfxAppPlatform.runOnFxThread(() -> searching.set(true));
+        executor.runOnFxThread(() -> searching.set(true));
         Set<Artifact> result = client.search(query);
-        jfxAppPlatform.runOnFxThread(() -> searching.set(false));
+        executor.runOnFxThread(() -> searching.set(false));
         return result;
     }
 

@@ -530,11 +530,11 @@ public class FxomSelectionImpl implements FxomSelection {
     }
     @Override
     public void toggleSelection(SelectionGroup toggleGroup) {
-        toggleSelection(toggleGroup);
+        selection.toggleSelection(toggleGroup);
     }
     @Override
     public void clear() {
-        clear();
+        selection.clear();
     }
     @Override
     public long getLastListenerInvocationTime() {

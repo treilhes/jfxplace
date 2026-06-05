@@ -43,13 +43,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 
+import com.treilhes.emc4j.boot.api.context.ContextManager;
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
 import com.treilhes.emc4j.boot.api.context.annotation.Lazy;
-import com.treilhes.jfxplace.core.api.application.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.application.InstancesManager;
 import com.treilhes.jfxplace.core.api.i18n.I18N;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationInstanceEvents;
 import com.treilhes.jfxplace.core.api.ui.dialog.Dialog;
@@ -68,7 +68,6 @@ public class InstancesControllerImpl implements InstancesManager {
     private final I18N i18n;
 
     private final EmContext context;
-    private final JfxAppPlatform jfxAppPlatform;
     private final Provider<Dialog> dialog;
 
     // private IconSetting windowIconSetting;
@@ -76,6 +75,8 @@ public class InstancesControllerImpl implements InstancesManager {
     // private RecentItemsPreference recentItemsPreference;
 
     private final ObservableList<ApplicationInstance> instances = FXCollections.observableArrayList();
+
+    private final ContextManager contextManager;
 
     // private UserLibrary userLibrary;
 
@@ -89,14 +90,14 @@ public class InstancesControllerImpl implements InstancesManager {
     public InstancesControllerImpl(
             I18N i18n,
             EmContext context,
-            JfxAppPlatform jfxAppPlatform,
+            ContextManager contextManager,
             //IconSetting windowIconSetting,
             //FileSystem fileSystem,
             Provider<Dialog> dialog) {
       //@formatter:on
         this.i18n = i18n;
         this.context = context;
-        this.jfxAppPlatform = jfxAppPlatform;
+        this.contextManager = contextManager;
         // this.windowIconSetting = windowIconSetting;
         // this.fileSystem = fileSystem;
         this.dialog = dialog;
@@ -122,9 +123,10 @@ public class InstancesControllerImpl implements InstancesManager {
     }
 
     @Override
-    public void notifyInstanceClosed(ApplicationInstance document) {
-        assert instances.contains(document);
-        instances.remove(document);
+    public void notifyInstanceClosed(ApplicationInstance instance) {
+        assert instances.contains(instance);
+        contextManager.close(instance.getContext().getUuid());
+        instances.remove(instance);
     }
 
     // TODO comment this
@@ -149,7 +151,7 @@ public class InstancesControllerImpl implements InstancesManager {
         ApplicationInstance result = null;
         try {
             for (ApplicationInstance dwc : instances) {
-                final URL docLocation = dwc.getUniqueId();
+                final URL docLocation = dwc.getUi().getUniqueId();
                 if ((docLocation != null) && uniqueId.equals(docLocation)) {
                     result = dwc;
                     break;
@@ -173,7 +175,7 @@ public class InstancesControllerImpl implements InstancesManager {
         ApplicationInstance result = null;
 
         for (ApplicationInstance dwc : instances) {
-            if (dwc.isUnused() && !ignored.contains(dwc)) {
+            if (dwc.getUi().isUnused() && !ignored.contains(dwc)) {
                 result = dwc;
                 break;
             }
@@ -492,21 +494,22 @@ public class InstancesControllerImpl implements InstancesManager {
      */
     @Override
     public ApplicationInstance newInstance() {
-        context.getApplicationInstanceExecutor().unbindScope();
 
-        final ApplicationInstance result = context.getBean(ApplicationInstance.class);
-        final ApplicationEvents applicationEvents = context.getBean(ApplicationEvents.class);
-        final ApplicationInstanceEvents instanceEvents = context.getBean(ApplicationInstanceEvents.class);
+        var instanceContext = contextManager.createInstance(context.getUuid());
 
-        applicationEvents.documentScoped().set(result);
+        final ApplicationInstance instance = instanceContext.getBean(ApplicationInstance.class);
+        final ApplicationEvents applicationEvents = instanceContext.getBean(ApplicationEvents.class);
+        final ApplicationInstanceEvents instanceEvents = instanceContext.getBean(ApplicationInstanceEvents.class);
+
+        applicationEvents.documentScoped().set(instance);
         instanceEvents.dependenciesLoaded().set(true);
 
         // TODO checkme: can be deleted, already handled by documentWidowController
         // SbPlatform.runOnFxThreadWithActiveScope(() ->
         // windowIconSetting.setWindowIcon(result.getDocumentWindow().getStage()));
 
-        instances.add(result);
-        return result;
+        instances.add(instance);
+        return instance;
     }
 
     private static String displayName(String pathString) {
@@ -551,7 +554,7 @@ public class InstancesControllerImpl implements InstancesManager {
 //            }
 //        }
         try {
-            return (ApplicationInstance) context.getApplicationInstanceExecutor().getCurrentScopedObject();
+            return instances.stream().filter(i -> i.getUi().getDocumentWindow().getStage().isFocused()).findFirst().orElse(null);
         } catch (Exception e) {
             return null;
         }
@@ -692,7 +695,8 @@ public class InstancesControllerImpl implements InstancesManager {
 
     @Override
     public void close() {
-        getInstances().forEach(ApplicationInstance::close);
+        var tmpInstances = List.copyOf(instances);
+        tmpInstances.forEach(i -> i.getUi().close());
     }
 
 }

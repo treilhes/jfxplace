@@ -40,7 +40,7 @@ import java.util.List;
 import java.util.ServiceLoader;
 import java.util.Set;
 
-import com.treilhes.jfxplace.core.fxom.pipeline.FXOMSerializer;
+import com.treilhes.jfxplace.core.fxom.pipeline.impl.DefaultFxomPipeline;
 import com.treilhes.jfxplace.core.fxom.util.PropertyName;
 
 import javafx.scene.Node;
@@ -68,7 +68,8 @@ class FXOMRefresher {
     public void refresh(FXOMDocument document) {
         String fxmlText = null;
         try {
-            fxmlText = FXOMSerializer.DEFAULT_FXML.serialize(document);
+            //fxmlText = FXOMSerializer.DEFAULT_FXML.serialize(document);
+            fxmlText = DefaultFxomPipeline.BASIC.serialize(document);
             final FXOMDocument newDocument = document.getFactory().newDocument(fxmlText,
                     document.getLocation(),
                     document.getClassLoader(),

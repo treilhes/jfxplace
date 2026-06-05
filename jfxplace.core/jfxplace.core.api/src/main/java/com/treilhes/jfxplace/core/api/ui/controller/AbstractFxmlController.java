@@ -34,11 +34,12 @@
 package com.treilhes.jfxplace.core.api.ui.controller;
 
 import java.net.URL;
+import java.util.ResourceBundle;
+
+import org.springframework.lang.NonNull;
 
 import com.treilhes.jfxplace.core.api.i18n.I18N;
 import com.treilhes.jfxplace.core.api.javafx.FxmlController;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationInstanceEvents;
 
 /**
  * AbstractFxmlController is the abstract base class for all the
@@ -50,10 +51,10 @@ import com.treilhes.jfxplace.core.api.subjects.ApplicationInstanceEvents;
  *
  *
  */
-public abstract class AbstractFxmlController extends AbstractPanelController implements FxmlController{
-//
-//    private final I18N i18n;
-//    private final URL fxmlURL;
+public abstract class AbstractFxmlController implements FxmlController{
+
+    private final I18N i18n;
+    private final URL fxmlURL;
 
     /**
      * Base constructor for invocation by the subclasses.
@@ -65,57 +66,53 @@ public abstract class AbstractFxmlController extends AbstractPanelController imp
     // @formatter:off
     protected AbstractFxmlController(
             I18N i18n,
-            ApplicationEvents applicationEvents,
-            ApplicationInstanceEvents instanceEvents,
             URL fxmlURL) {
         // @formatter:on
-        super(i18n, applicationEvents, instanceEvents, fxmlURL);
-//        this.i18n = i18n;
-//        this.fxmlURL = fxmlURL;
-//        assert fxmlURL != null : "Check the name of the FXML file used by " + getClass().getSimpleName();
+        this.i18n = i18n;
+        this.fxmlURL = fxmlURL;
+        //assert fxmlURL != null : "Check the name of the FXML file used by " + getClass().getSimpleName();
     }
-//
-//    @Override
-//    public URL getFxmlURL() {
-//        return fxmlURL;
-//    }
-//
-//    @Override
-//    public ResourceBundle getResources() {
-//        return i18n.getBundle();
-//    }
-//
-//    @Override
-//    public I18N getI18n() {
-//        return i18n;
-//    }
-//
-//    /**
-//     * Returns the I18N property.
-//     * This property is bound to the I18N instance of the application
-//     * to allow i18n expression binding using ${controller.i18n.some.key}
-//     * @return
-//     */
-//    @Override
-//    public I18N i18nProperty() {
-//        return i18n;
-//    }
-//
-//    /*
-//     * Protected
-//     */
-//
-//    /**
-//     * Called by {@link SceneBuilderBeanFactoryPostProcessor#postProcessBeanFactory(org.springframework.beans.factory.config.ConfigurableListableBeanFactory) } after
-//     * the FXML file has been successfully loaded.
-//     * Warning : this routine may be invoked outside of the event thread.
-//     */
-//    @Override
-//    public abstract void controllerDidLoadFxml();
-//
-//    // Note : remember that here:
-//    // 1) getHost() might be null
-//    // 2) getRoot().getScene() might be null
-//    // 3) getRoot().getScene().getWindow() might be null
+
+    @Override
+    @NonNull
+    public URL getFxmlURL() {
+        return fxmlURL;
+    }
+
+    @Override
+    public ResourceBundle getResources() {
+        return i18n.getBundle();
+    }
+
+    public I18N getI18n() {
+        return i18n;
+    }
+
+    /**
+     * Returns the I18N property.
+     * This property is bound to the I18N instance of the application
+     * to allow i18n expression binding using ${controller.i18n.some.key}
+     * @return
+     */
+    public I18N i18nProperty() {
+        return i18n;
+    }
+
+    /*
+     * Protected
+     */
+
+    /**
+     * Called by {@link SceneBuilderBeanFactoryPostProcessor#postProcessBeanFactory(org.springframework.beans.factory.config.ConfigurableListableBeanFactory) } after
+     * the FXML file has been successfully loaded.
+     * Warning : this routine may be invoked outside of the event thread.
+     */
+    @Override
+    public abstract void controllerDidLoadFxml();
+
+    // Note : remember that here:
+    // 1) getHost() might be null
+    // 2) getRoot().getScene() might be null
+    // 3) getRoot().getScene().getWindow() might be null
 
 }

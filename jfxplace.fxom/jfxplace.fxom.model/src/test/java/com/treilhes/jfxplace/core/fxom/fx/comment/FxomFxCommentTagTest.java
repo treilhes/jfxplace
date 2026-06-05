@@ -53,9 +53,8 @@ import com.treilhes.jfxplace.core.fxom.FXOMDocument;
 import com.treilhes.jfxplace.core.fxom.collector.CommentCollector;
 import com.treilhes.jfxplace.core.fxom.fx.CloneFixture;
 import com.treilhes.jfxplace.core.fxom.fx.IOFixture;
-import com.treilhes.jfxplace.core.fxom.pipeline.DefaultFxmlSerializer;
 import com.treilhes.jfxplace.core.fxom.pipeline.FXOMDocumentFactory;
-import com.treilhes.jfxplace.core.fxom.pipeline.FXOMSerializer;
+import com.treilhes.jfxplace.core.fxom.pipeline.impl.DefaultFxomPipeline;
 
 import javafx.stage.Stage;
 
@@ -64,6 +63,7 @@ import javafx.stage.Stage;
  */
 @ExtendWith(ApplicationExtension.class)
 @SetSystemProperty(key = "javafx.allowjs", value = "true")
+@SetSystemProperty(key = "javafx.version", value = "xxx")// set default to test resource value
 public class FxomFxCommentTagTest {
 
     private static final boolean FAILURE_EXPECTED = true;
@@ -143,8 +143,8 @@ public class FxomFxCommentTagTest {
             comment = comment.replace("this is some", "there is some");
             comments.get(0).setComment(comment);
 
-            FXOMSerializer serializer = new DefaultFxmlSerializer(false, IOFixture.JFX_VERSION, false);
-            String serializedContent = serializer.serialize(fxomDocument);
+            var pipeline = DefaultFxomPipeline.BASIC;
+            String serializedContent = pipeline.serialize(fxomDocument);
 
             assertNotNull(serializedContent);
 

@@ -1,0 +1,13 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread][%8.-8X{application}/%8.-8X{instance}] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.treilhes.emc4j.boot.context.scope" level="DEBUG" />
+    <logger name="com.treilhes.jfxplace.core.appmngr.impl" level="DEBUG" />
+    <root level="ERROR">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.treilhes.emc4j.boot.api.loader.extension.OpenExtension;
-import com.treilhes.jfxplace.core.ui.controller.ApplicationInstanceController;
+import com.treilhes.jfxplace.core.ui.controller.ApplicationInstanceUiController;
 import com.treilhes.jfxplace.core.ui.controller.ApplicationWindowTracker;
 import com.treilhes.jfxplace.core.ui.dialog.ModalWindowImpl;
 import com.treilhes.jfxplace.core.ui.dialog.application.ApplicationDialogController;
@@ -104,7 +104,7 @@ public class BaseUiExtension implements OpenExtension {
                 //temp EditorController.class,
                 AlertDialog.class,
                 AnnotatedViewAttachmentProvider.class,
-                ApplicationInstanceController.class,
+                ApplicationInstanceUiController.class,
                 ApplicationWindowTracker.class,
                 ApplicationDialogController.class,
                 ApplicationMessageDialog.class,

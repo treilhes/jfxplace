@@ -33,9 +33,7 @@
  */
 package com.treilhes.jfxplace.core.api.javafx.internal;
 
-import java.io.IOException;
 import java.lang.annotation.Annotation;
-import java.util.concurrent.FutureTask;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -137,39 +135,37 @@ public class FxmlControllerBeanPostProcessor implements PriorityOrdered, BeanPos
             loader.setResources(controller.getResources());
             loader.setClassLoader(bean.getClass().getClassLoader());
 
-            try {
-
-                final Parent parent;
-                if (loadOnFxThread && !Platform.isFxApplicationThread()) {
-                    var future = new FutureTask<>(() -> handleLoad(controller, loader));
-                    Platform.runLater(future);
-                    parent = future.get();
-                } else {
-                    parent = handleLoad(controller, loader);
-                }
-                controller.setRoot(parent);
-                controller.controllerDidLoadFxml();
-            } catch (Exception x) {
-                logger.error("Failed to load {} with {}", loader.getLocation(), loader.getController(), x); // NOI18N
-                throw new RuntimeException(
-                        String.format("Failed to load %s with %s",
-                                loader.getLocation(), loader.getController()), x); // NOI18N
+            if (loadOnFxThread && !Platform.isFxApplicationThread()) {
+                Platform.runLater(() -> handleLoad(controller, loader));
+            } else {
+                handleLoad(controller, loader);
             }
         }
 
         return bean;
     }
 
-    private Parent handleLoad(FxmlController controller, FXMLLoader loader) throws IOException {
-        if (controller.isFxmlFromStream()) {
-            try (var inputStream = controller.getFxmlStream()) {
-                return (Parent) loader.load(inputStream);
-            } catch (Exception e) {
-                logger.error("Failed to load FXML from stream for controller: {}", controller.getClass().getName(), e);
-            }
+    private void handleLoad(FxmlController controller, FXMLLoader loader) {
+        try {
+            Parent parent = null;
+            if (controller.isFxmlFromStream()) {
+                try (var inputStream = controller.getFxmlStream()) {
+                    parent = (Parent) loader.load(inputStream);
+                } catch (Exception e) {
+                    logger.error("Failed to load FXML from stream for controller: {}", controller.getClass().getName(), e);
+                }
 
+            } else {
+                parent = (Parent) loader.load();
+            }
+            controller.setRoot(parent);
+            controller.controllerDidLoadFxml();
+        } catch (Exception x) {
+            logger.error("Failed to load {} with {}", loader.getLocation(), loader.getController(), x); // NOI18N
+            throw new RuntimeException(
+                    String.format("Failed to load %s with %s",
+                            loader.getLocation(), loader.getController()), x); // NOI18N
         }
-        return (Parent) loader.load();
     }
 
     @Override

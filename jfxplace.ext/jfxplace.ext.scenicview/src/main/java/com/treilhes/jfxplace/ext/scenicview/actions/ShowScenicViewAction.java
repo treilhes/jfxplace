@@ -33,13 +33,12 @@
  */
 package com.treilhes.jfxplace.ext.scenicview.actions;
 
-import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
 import com.treilhes.jfxplace.core.api.action.AbstractAction;
 import com.treilhes.jfxplace.core.api.action.ActionExtensionFactory;
 import com.treilhes.jfxplace.core.api.action.ActionMeta;
 import com.treilhes.jfxplace.core.api.i18n.I18N;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.ext.scenicview.controller.ScenicViewStarter;
 
 @ApplicationInstancePrototype
@@ -48,18 +47,14 @@ public class ShowScenicViewAction extends AbstractAction {
 
     public static final String SCENICVIEW_MENU_ID = "scenicMenu"; //NOCHECK
 
-    private final EmContext context;
-
-    private final JfxAppPlatform jfxAppPlatform;
+    private final ApplicationInstance instance;
 
     public ShowScenicViewAction(
             I18N i18n,
-            ActionExtensionFactory extensionFactory,
-            EmContext context,
-            JfxAppPlatform jfxAppPlatform) {
+            ApplicationInstance instance,
+            ActionExtensionFactory extensionFactory) {
         super(i18n, extensionFactory);
-        this.context = context;
-        this.jfxAppPlatform = jfxAppPlatform;
+        this.instance = instance;
     }
 
     @Override
@@ -74,7 +69,9 @@ public class ShowScenicViewAction extends AbstractAction {
         // NetBeans: set it on [VM Options] line in [Run] category of project's Properties.
         //if (System.getProperty("scenic") != null) //NOCHECK
 //        {
-        jfxAppPlatform.runOnFxThread(new ScenicViewStarter(context));
+        var context = instance.getContext();
+        var executor = instance.getExecutor();
+        executor.runOnFxThread(new ScenicViewStarter(instance, context));
 //        }
         //new ScenicViewStarter(context).run();
         return ActionStatus.DONE;

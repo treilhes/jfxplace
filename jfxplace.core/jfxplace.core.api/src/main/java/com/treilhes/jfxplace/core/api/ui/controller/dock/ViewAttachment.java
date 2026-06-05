@@ -79,7 +79,7 @@ public interface ViewAttachment {
 
         assert annotation != null;
 
-        ViewAttachment viewAttachment = ViewAttachment.create(
+        return ViewAttachment.create(
                 viewClass,
                 UUID.fromString(annotation.id()),
                 annotation.name(),
@@ -91,7 +91,6 @@ public interface ViewAttachment {
                 annotation.iconX2().isBlank() ? null: cls.getResource(annotation.iconX2()),
                 annotation.debug());
 
-        return viewAttachment;
     }
 
     static ViewAttachment create(Class<AbstractFxmlViewController> view, UUID viewId, String name, UUID defaultDockId, boolean openOnStart,

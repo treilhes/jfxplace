@@ -90,6 +90,11 @@
             <artifactId>jfxplace.starter</artifactId>
         </dependency>-->
 
+        <dependency>
+            <groupId>com.treilhes.jfxplace</groupId>
+            <artifactId>javafx.fxml.patch.link</artifactId>
+        </dependency>
+        
         <!-- 
             patch dependencies must be delivered but in the end they contains a patch.jpms file
             so at runtime they will be used by emc4j to patch the JavaFX modules in the extension's module path

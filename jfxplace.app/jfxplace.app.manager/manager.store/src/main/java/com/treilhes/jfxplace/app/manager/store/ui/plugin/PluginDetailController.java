@@ -47,7 +47,7 @@ import com.treilhes.jfxplace.app.manager.store.ui.root.RootModel;
 import com.treilhes.jfxplace.core.api.i18n.I18N;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationInstanceEvents;
-import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlController;
+import com.treilhes.jfxplace.core.api.ui.controller.AbstractPanelController;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.ObjectBinding;
@@ -66,7 +66,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
 @ApplicationInstancePrototype
-public class PluginDetailController extends AbstractFxmlController {
+public class PluginDetailController extends AbstractPanelController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PluginDetailController.class);
 

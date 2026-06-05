@@ -60,6 +60,7 @@ open module jfxplace.core.api {
     exports com.treilhes.jfxplace.core.api.glossary;
     exports com.treilhes.jfxplace.core.api.guide;
     exports com.treilhes.jfxplace.core.api.i18n;
+    exports com.treilhes.jfxplace.core.api.instance;
 
     exports com.treilhes.jfxplace.core.api.maven;
     exports com.treilhes.jfxplace.core.api.ui;
@@ -108,6 +109,7 @@ open module jfxplace.core.api {
     requires transitive io.reactivex.rxjava3;
     requires transitive org.reactivestreams;
     requires transitive org.pdfsam.rxjavafx;
+    requires jfxplace.javafx.fxml.patch.link;
     //requires jfxplace.javafx.fxml.patch.link;
 
     provides Extension with JfxplaceCoreApiExtension;

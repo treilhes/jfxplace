@@ -46,7 +46,7 @@ import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSinglet
 import com.treilhes.emc4j.boot.api.platform.EmcPlatform;
 import com.treilhes.jfxplace.core.api.action.AbstractAction;
 import com.treilhes.jfxplace.core.api.action.Action;
-import com.treilhes.jfxplace.core.api.action.ActionFactory;
+import com.treilhes.jfxplace.core.api.instance.ActionFactory;
 import com.treilhes.jfxplace.core.api.shortcut.Accelerator;
 import com.treilhes.jfxplace.core.api.shortcut.AcceleratorProvider;
 import com.treilhes.jfxplace.core.api.ui.controller.AbstractInstanceUiController;

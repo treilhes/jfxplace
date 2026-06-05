@@ -33,7 +33,6 @@
  */
 package com.treilhes.jfxplace.core.appmngr.action.impl;
 
-import java.net.URI;
 import java.net.URL;
 import java.util.function.Consumer;
 
@@ -45,16 +44,14 @@ import com.treilhes.jfxplace.core.api.action.AbstractAction;
 import com.treilhes.jfxplace.core.api.action.ActionExtensionFactory;
 import com.treilhes.jfxplace.core.api.action.ActionMeta;
 import com.treilhes.jfxplace.core.api.application.ApplicationActionFactory;
-import com.treilhes.jfxplace.core.api.application.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.application.InstancesManager;
 import com.treilhes.jfxplace.core.api.i18n.I18N;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 
 @ApplicationPrototype("com.treilhes.jfxplace.core.appmngr.action.impl.LookupUnusedInstanceAction")
 @ActionMeta(
         nameKey = "action.name.save",
         descriptionKey = "action.description.save")
-//FIXME better to move it in a container related module
 public class LookupUnusedInstanceAction extends AbstractAction {
 
     //public static final String NEWFILE_MENU_ID = "newMenu";
@@ -62,7 +59,6 @@ public class LookupUnusedInstanceAction extends AbstractAction {
 
     private final InstancesManager main;
     private final ApplicationActionFactory applicationActionFactory;
-    private final JfxAppPlatform jfxAppPlatform;
 
     private Consumer<ApplicationInstance> consumer;
 
@@ -73,13 +69,11 @@ public class LookupUnusedInstanceAction extends AbstractAction {
             I18N i18n,
             ActionExtensionFactory extensionFactory,
             ApplicationActionFactory applicationActionFactory,
-            InstancesManager main,
-            JfxAppPlatform jfxAppPlatform) {
+            InstancesManager main) {
     // @formatter:on
         super(i18n, extensionFactory);
         this.main = main;
         this.applicationActionFactory = applicationActionFactory;
-        this.jfxAppPlatform = jfxAppPlatform;
     }
 
     @Override
@@ -90,15 +84,15 @@ public class LookupUnusedInstanceAction extends AbstractAction {
     @Override
     public ActionStatus doPerform() {
 
-        final ApplicationInstance locationInstance = location != null ? main.lookupInstance(location) : null;
+        var locationInstance = location != null ? main.lookupInstance(location) : null;
 
         if (locationInstance != null) {
             logger.info("Location {} is already opened, focusing", location);
             // location is already opened
-            locationInstance.getDocumentWindow().getStage().toFront();
+            locationInstance.getUi().getDocumentWindow().getStage().toFront();
         } else {
 
-            final ApplicationInstance unusedInstance = main.lookupUnusedInstance();
+            var unusedInstance = main.lookupUnusedInstance();
 
             if (unusedInstance == null) {
                 logger.info("Assign {} to new instance", location);

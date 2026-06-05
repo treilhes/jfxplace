@@ -45,13 +45,13 @@ import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototy
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
 import com.treilhes.jfxplace.core.api.factory.AbstractFactory;
 import com.treilhes.jfxplace.core.api.util.FXMLUtils;
-import com.treilhes.jfxplace.core.fxom.FXOMInstance;
+import com.treilhes.jfxplace.core.fxom.FXOMElement;
 import com.treilhes.jfxplace.core.fxom.util.PropertyName;
 import com.treilhes.jfxplace.core.metadata.AbstractMetadata;
 import com.treilhes.jfxplace.core.metadata.property.PropertyMetadata;
 import com.treilhes.jfxplace.core.metadata.property.ValuePropertyMetadata;
-import com.treilhes.jfxplace.core.metadata.property.base.DoublePropertyMetadata;
 import com.treilhes.jfxplace.core.metadata.property.value.DoubleBoundedPropertyGroupMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.DoublePropertyMetadata;
 import com.treilhes.jfxplace.fxom.editors.api.EditorContext;
 import com.treilhes.jfxplace.fxom.editors.api.EditorUtils;
 import com.treilhes.jfxplace.fxom.editors.base.AutoSuggestEditor;
@@ -229,7 +229,8 @@ public class BoundedDoubleEditor extends AutoSuggestEditor {
         super.reset(propMeta, new ArrayList<>(propMeta.getConstants().keySet()));
         this.constants = propMeta.getConstants();
         //TODO check those specific cases and delete
-        handleSpecificCases(propMeta, null);//selectionState.getSelectedInstances());
+        var selInstances = getEditorContext().getSelectedInstances();
+        handleSpecificCases(propMeta, selInstances);
         configureSlider(propMeta);
     }
 
@@ -283,12 +284,13 @@ public class BoundedDoubleEditor extends AutoSuggestEditor {
         EditorUtils.doNextFrame(() -> getTextField().requestFocus());
     }
 
-    private void handleSpecificCases(PropertyMetadata propMeta, Set<FXOMInstance> selectedInstances) {
+    private void handleSpecificCases(PropertyMetadata propMeta, Set<FXOMElement> selectedInstances) {
         //TODO handle using groups
         if (true) {
             return;
         }
 
+        // TODO check case below
         // Specific case for ScrollPane hValue/vValue, that have their bounds
         // related to properties (hMin/hMax, vMin/Vmax)
         // Since we only have one case of this, the generic case
@@ -313,7 +315,7 @@ public class BoundedDoubleEditor extends AutoSuggestEditor {
             // Set min and max
             Object propValue = null;
             boolean different = false;
-            for (FXOMInstance instance : selectedInstances) {
+            for (FXOMElement instance : selectedInstances) {
                 Object valueCurr = metadata.queryValueProperty(instance, new PropertyName(minMaxProp))
                         .getValueInSceneGraphObject(instance);
                 if (propValue != null && valueCurr != propValue) {

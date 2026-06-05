@@ -35,7 +35,7 @@ package com.treilhes.jfxplace.core.ui.dock;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
-import com.treilhes.jfxplace.core.api.application.ApplicationInstance;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstanceUi;
 
 import jakarta.inject.Provider;
 
@@ -43,11 +43,11 @@ import jakarta.inject.Provider;
 public class DockWindowFactory {
 
     private final EmContext context;
-    private final Provider<ApplicationInstance> document;
+    private final Provider<ApplicationInstanceUi> document;
 
     protected DockWindowFactory(
             EmContext context,
-            Provider<ApplicationInstance> document) {
+            Provider<ApplicationInstanceUi> document) {
         this.context = context;
         this.document = document;
     }

@@ -41,11 +41,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
-import com.treilhes.emc4j.boot.api.context.annotation.Prototype;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
 import com.treilhes.jfxplace.core.api.fs.FileSystem;
 import com.treilhes.jfxplace.core.api.fxom.library.LibraryArtifact;
-import com.treilhes.jfxplace.core.api.i18n.I18N;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
+import com.treilhes.jfxplace.core.api.javafx.JfxPlaceExecutor;
 import com.treilhes.jfxplace.core.api.maven.GetMavenArtifactDialog;
 import com.treilhes.jfxplace.core.api.maven.RepositoryManager;
 import com.treilhes.jfxplace.core.api.maven.SearchMavenArtifactDialog;
@@ -73,7 +73,7 @@ import javafx.stage.Stage;
 /**
  * Controller for the JAR/FXML Library dialog.
  */
-@Prototype
+@ApplicationInstancePrototype
 public class LibraryDialogController extends AbstractFxmlWindowController{
 
         //private LibraryStoreConfiguration libraryConfiguration;
@@ -92,7 +92,7 @@ public class LibraryDialogController extends AbstractFxmlWindowController{
     // libraryPanelController.copyFilesToUserLibraryDir(files)
     private final FileSystem fileSystem;
     private final EmContext context;
-    private final JfxAppPlatform jfxAppPlatform;
+    private final JfxPlaceExecutor executor;
     private final ListChangeListener<? super LibraryArtifact> artifactListener = c -> loadLibraryList();
     private final ListChangeListener<? super Path> fileOrFolderListener = c -> loadLibraryList();
 
@@ -132,10 +132,7 @@ public class LibraryDialogController extends AbstractFxmlWindowController{
 
 
     public LibraryDialogController(
-            I18N i18n,
-            EmContext context,
-            JfxAppPlatform jfxAppPlatform,
-            ApplicationEvents sceneBuilderManager,
+            ApplicationInstance instance,
             IconSetting iconSetting,
 
             MessageLogger messageLogger,
@@ -147,11 +144,11 @@ public class LibraryDialogController extends AbstractFxmlWindowController{
             SearchMavenArtifactDialog searchMavenArtifactDialog,
             GetMavenArtifactDialog getMavenArtifactDialog,
             LibraryMappers mappers) {
-        super(i18n, sceneBuilderManager, iconSetting, LibraryDialogController.class.getResource("LibraryDialog.fxml"),document); // NOI18N
+        super(instance, LibraryDialogController.class.getResource("LibraryDialog.fxml"),document); // NOI18N
         this.owner = document.getStage();
-        this.context = context;
-        this.jfxAppPlatform = jfxAppPlatform;
-        this.sceneBuilderManager = sceneBuilderManager;
+        this.context = instance.getContext();
+        this.executor = instance.getExecutor();
+        this.sceneBuilderManager = instance.getApplication().getEvents();
         this.iconSetting = iconSetting;
         this.messageLogger = messageLogger;
         this.mavenPreferences = mavenPreferences;
@@ -250,7 +247,7 @@ public class LibraryDialogController extends AbstractFxmlWindowController{
         Stream<DialogListItem> filesStream = library.getStore().getFilesOrFolders().stream()
             .map(f -> new LibraryDialogListItem(this, f));
 
-        jfxAppPlatform.runOnFxThread(() -> {
+        executor.runOnFxThread(() -> {
             libraryListView.getItems().setAll(Stream.concat(artifactStream, filesStream)
                     .sorted(new DialogListItemComparator())
                     .collect(Collectors.toList()));

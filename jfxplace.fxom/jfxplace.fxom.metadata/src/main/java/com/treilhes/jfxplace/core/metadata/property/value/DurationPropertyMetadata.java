@@ -34,7 +34,6 @@
 
 package com.treilhes.jfxplace.core.metadata.property.value;
 
-import com.treilhes.jfxplace.core.metadata.property.base.TextEncodablePropertyMetadata;
 import com.treilhes.jfxplace.core.metadata.util.SBDuration;
 
 public class DurationPropertyMetadata<VC> extends TextEncodablePropertyMetadata<SBDuration, VC> {

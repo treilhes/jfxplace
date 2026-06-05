@@ -49,9 +49,10 @@ import org.slf4j.LoggerFactory;
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 import com.treilhes.emc4j.boot.api.platform.EmcPlatform;
-import com.treilhes.jfxplace.core.api.application.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.application.InstancesManager;
 import com.treilhes.jfxplace.core.api.i18n.I18N;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstanceUi;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.ui.controller.menu.Attachment;
 import com.treilhes.jfxplace.core.api.ui.controller.menu.MenuAttachment;
@@ -83,12 +84,20 @@ public class MenuBarController implements com.treilhes.jfxplace.core.api.ui.cont
 
     private static final Logger logger = LoggerFactory.getLogger(MenuBarController.class);
 
-    private static MenuBarController systemMenuBarController; // For Mac only
+    // FIXME : this was a static variable in the previous implementation. It is now
+    // an instance variable, but it should be shared between all the instances of
+    // MenuBarController.
+    // TODO : test the static change on MacOS and check if it is still working as
+    // expected. If not, we may need to find another way to share the system menu
+    // bar controller between instances.
+    private MenuBarController systemMenuBarController; // For Mac only
 
 
     private final I18N i18n;
+
+    private final ApplicationInstance instance;
     private final EmContext context;
-    private final ApplicationEvents sceneBuilderManager;
+    private final ApplicationEvents applicationEvents;
     private final Optional<List<MenuProvider>> menuProviders;
     private final Optional<List<MenuItemProvider>> menuItemProviders;
 
@@ -100,15 +109,15 @@ public class MenuBarController implements com.treilhes.jfxplace.core.api.ui.cont
     private Menu windowMenu;
 
     public MenuBarController(
-            I18N i18n,
-            EmContext context,
-            ApplicationEvents sceneBuilderManager,
+            ApplicationInstance instance,
             Optional<List<MenuProvider>> menuProviders,
             Optional<List<MenuItemProvider>> menuItemProviders,
             InstancesManager main) {
-        this.i18n = i18n;
-        this.context = context;
-        this.sceneBuilderManager = sceneBuilderManager;
+        this.instance = instance;
+        this.context = instance.getContext();
+        this.i18n = instance.getApplication().getI18n();
+        this.applicationEvents = instance.getApplication().getEvents();
+
         this.menuProviders = menuProviders;
         this.menuItemProviders = menuItemProviders;
         this.main = main;
@@ -482,7 +491,7 @@ public class MenuBarController implements com.treilhes.jfxplace.core.api.ui.cont
         return menuBar;
     }
 
-    public static synchronized MenuBarController getSystemMenuBarController() {
+    public synchronized MenuBarController getSystemMenuBarController() {
         assert systemMenuBarController != null;
         // TODO uncomment below and springify
 //        if (systemMenuBarController == null) {
@@ -539,27 +548,27 @@ public class MenuBarController implements com.treilhes.jfxplace.core.api.ui.cont
     private void handleOnWindowMenuValidation() {
         windowMenu.getItems().clear();
 
-        final List<ApplicationInstance> documentWindowControllers = main.getInstances();
-        if (documentWindowControllers.isEmpty()) {
+        var instances = main.getInstances();
+        if (instances.isEmpty()) {
             // Adds the "No window" menu item
             windowMenu.getItems().add(makeWindowMenuItem(null));
         } else {
-            final List<ApplicationInstance> sortedControllers = new ArrayList<>(documentWindowControllers);
-            Collections.sort(sortedControllers, new ApplicationInstance.TitleComparator());
+            var sortedControllers = instances.stream().map(i -> i.getUi())
+                    .sorted(new ApplicationInstanceUi.TitleComparator()).toList();
 
-            for (ApplicationInstance dwc : sortedControllers) {
+            for (var dwc : sortedControllers) {
                 windowMenu.getItems().add(makeWindowMenuItem(dwc));
             }
         }
     }
 
-    private MenuItem makeWindowMenuItem(final ApplicationInstance dwc) {
+    private MenuItem makeWindowMenuItem(final ApplicationInstanceUi dwc) {
         final RadioMenuItem result = new RadioMenuItem();
         if (dwc != null) {
             result.setText(dwc.getDocumentWindow().getStage().getTitle());
             result.setDisable(false);
             result.setSelected(dwc.getDocumentWindow().getStage().isFocused());
-            result.setOnAction(new WindowMenuEventHandler(context, dwc, sceneBuilderManager));
+            result.setOnAction(new WindowMenuEventHandler(instance));
         } else {
             result.setText(i18n.getString(I18N_MENU_TITLE_NO_WINDOW));
             result.setDisable(true);
@@ -571,24 +580,19 @@ public class MenuBarController implements com.treilhes.jfxplace.core.api.ui.cont
 
     private static class WindowMenuEventHandler implements EventHandler<ActionEvent> {
 
-        private final ApplicationInstance dwc;
-        private final ApplicationEvents sceneBuilderManager;
-        private final EmContext context;
+        private final ApplicationEvents applicationEvents;
+        private final ApplicationInstance instance;
 
-        public WindowMenuEventHandler(
-                EmContext context,
-                ApplicationInstance dwc,
-                ApplicationEvents sceneBuilderManager) {
-            this.dwc = dwc;
-            this.context = context;
-            this.sceneBuilderManager = sceneBuilderManager;
+        public WindowMenuEventHandler(ApplicationInstance instance) {
+            this.instance = instance;
+            this.applicationEvents = instance.getApplication().getEvents();
         }
 
         @Override
         public void handle(ActionEvent t) {
-            context.getApplicationInstanceExecutor().setCurrentScope(dwc);// TODO realy necessary ?, check if onFocus is not sufficient
-            sceneBuilderManager.documentScoped().set(dwc);
-            dwc.getDocumentWindow().getStage().toFront();
+            var ui = instance.getUi();
+            applicationEvents.documentScoped().set(instance);
+            ui.getDocumentWindow().getStage().toFront();
         }
     }
 

@@ -34,7 +34,6 @@
 package com.treilhes.jfxplace.core.metadata.property.value;
 
 import com.treilhes.jfxplace.core.fxom.FXOMElement;
-import com.treilhes.jfxplace.core.metadata.property.base.TextEncodablePropertyMetadata;
 
 /**
  *

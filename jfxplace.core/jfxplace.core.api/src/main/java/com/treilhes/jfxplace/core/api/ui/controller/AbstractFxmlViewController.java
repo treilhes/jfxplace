@@ -68,7 +68,7 @@ import javafx.scene.control.MenuButton;
  * It provides input controls for filtering, a placeholder menu and basic
  * docking functionalities
  */
-public abstract class AbstractFxmlViewController extends AbstractFxmlController implements View, ViewContent { // ,
+public abstract class AbstractFxmlViewController extends AbstractPanelController implements View, ViewContent { // ,
                                                                                                                     // ViewMenuProvider
                                                                                                                     // {
 

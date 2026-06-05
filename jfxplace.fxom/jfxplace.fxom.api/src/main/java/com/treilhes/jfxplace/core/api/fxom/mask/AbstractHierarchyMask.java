@@ -58,7 +58,7 @@ import com.treilhes.jfxplace.core.metadata.AbstractMetadata;
 import com.treilhes.jfxplace.core.metadata.klass.ComponentClassMetadata;
 import com.treilhes.jfxplace.core.metadata.property.ComponentPropertyMetadata;
 import com.treilhes.jfxplace.core.metadata.property.ValuePropertyMetadata;
-import com.treilhes.jfxplace.core.metadata.property.base.StringPropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.StringPropertyMetadata;
 
 import javafx.scene.Node;
 

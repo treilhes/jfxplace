@@ -43,11 +43,11 @@ import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototy
 import com.treilhes.jfxplace.core.api.action.AbstractAction;
 import com.treilhes.jfxplace.core.api.action.ActionExtensionFactory;
 import com.treilhes.jfxplace.core.api.action.ActionMeta;
-import com.treilhes.jfxplace.core.api.application.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.application.InstancesManager;
 import com.treilhes.jfxplace.core.api.document.DocumentController;
 import com.treilhes.jfxplace.core.api.fxom.subjects.FxomEvents;
 import com.treilhes.jfxplace.core.api.i18n.I18N;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstanceUi;
 import com.treilhes.jfxplace.core.api.ui.MainInstanceWindow;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.InlineEdit;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.MessageLogger;
@@ -60,7 +60,7 @@ import com.treilhes.jfxplace.core.fxom.FXOMDocument;
 @ActionMeta(nameKey = "action.name.save", descriptionKey = "action.description.save")
 public class SaveAction extends AbstractAction {
 
-    private final ApplicationInstance document;
+    private final ApplicationInstanceUi document;
     private final InlineEdit inlineEdit;
     private final Dialog dialog;
     private final MainInstanceWindow documentWindow;
@@ -73,7 +73,7 @@ public class SaveAction extends AbstractAction {
     public SaveAction(
             I18N i18n,
             ActionExtensionFactory extensionFactory,
-            ApplicationInstance document,
+            ApplicationInstanceUi document,
             FxomEvents documentManager,
             MainInstanceWindow documentWindow,
             InstancesManager editor,

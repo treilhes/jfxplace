@@ -34,7 +34,7 @@
 package com.treilhes.jfxplace.core.metadata.property.value.list;
 
 import com.treilhes.jfxplace.core.fxom.util.PropertyName;
-import com.treilhes.jfxplace.core.metadata.property.base.ObjectPropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.ObjectPropertyMetadata;
 
 /**
  *

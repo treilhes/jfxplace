@@ -49,9 +49,9 @@ import com.treilhes.jfxplace.core.api.i18n.I18N;
 import com.treilhes.jfxplace.core.fxom.util.PropertyName;
 import com.treilhes.jfxplace.core.metadata.property.PropertyGroupMetadata;
 import com.treilhes.jfxplace.core.metadata.property.ValuePropertyMetadata;
-import com.treilhes.jfxplace.core.metadata.property.base.IntegerPropertyMetadata;
-import com.treilhes.jfxplace.core.metadata.property.base.StringPropertyMetadata;
-import com.treilhes.jfxplace.core.metadata.property.base.StringPropertyMetadata.MultilineI18nStringPropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.IntegerPropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.StringPropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.StringPropertyMetadata.MultilineI18nStringPropertyMetadata;
 import com.treilhes.jfxplace.fxom.editors.api.AbstractPropertyEditor;
 import com.treilhes.jfxplace.fxom.editors.api.EditorContext;
 

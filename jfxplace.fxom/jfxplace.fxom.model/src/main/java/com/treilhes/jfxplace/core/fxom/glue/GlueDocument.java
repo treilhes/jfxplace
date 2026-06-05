@@ -165,16 +165,12 @@ public class GlueDocument extends GlueNode {
 
     @Override
     public String toString() {
-        return toString(false);
-    }
-
-    public String toString(boolean compress) {
         final String result;
         if (mainElement == null) {
             result = ""; //NOCHECK
         } else {
             final GlueSerializer serializer = new GlueSerializer(this);
-            result = serializer.toString(compress);
+            result = serializer.toString();
         }
         return result;
     }

@@ -41,7 +41,6 @@ import org.slf4j.LoggerFactory;
 
 import com.treilhes.jfxplace.core.api.i18n.I18N;
 import com.treilhes.jfxplace.core.api.javafx.FxmlController;
-import com.treilhes.jfxplace.core.api.javafx.UiController;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationInstanceEvents;
 import com.treilhes.jfxplace.core.api.tooltheme.ToolStylesheetProvider;
@@ -50,7 +49,7 @@ import javafx.application.Platform;
 import javafx.scene.Parent;
 
 // TODO : try to move this class hierarchy to aop style loading (or something else) to allow behaviour composition instead of hardcoded inheritance
-public abstract class AbstractApplicationUiController extends AbstractFxmlController2 implements UiController {
+public abstract class AbstractApplicationUiController extends AbstractFxmlController {
 
     /** The Constant logger. */
     private static final Logger logger = LoggerFactory.getLogger(AbstractApplicationUiController.class);

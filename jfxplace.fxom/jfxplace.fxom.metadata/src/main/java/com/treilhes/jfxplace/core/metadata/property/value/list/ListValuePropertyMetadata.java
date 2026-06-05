@@ -48,7 +48,7 @@ import com.treilhes.jfxplace.core.fxom.FXOMPropertyC;
 import com.treilhes.jfxplace.core.fxom.FXOMPropertyT;
 import com.treilhes.jfxplace.core.fxom.util.PrefixedValue;
 import com.treilhes.jfxplace.core.metadata.property.ValuePropertyMetadata;
-import com.treilhes.jfxplace.core.metadata.property.base.SingleValuePropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.SingleValuePropertyMetadata;
 
 import javafx.fxml.FXMLLoader;
 

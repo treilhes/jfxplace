@@ -44,15 +44,14 @@ import com.treilhes.emc4j.boot.api.context.annotation.Prototype;
 import com.treilhes.emc4j.boot.api.maven.Artifact;
 import com.treilhes.emc4j.boot.api.maven.ResolvedArtifact;
 import com.treilhes.emc4j.boot.api.maven.UniqueArtifact;
-import com.treilhes.jfxplace.core.api.i18n.I18N;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.maven.ArtefactHandler;
 import com.treilhes.jfxplace.core.api.maven.MavenClient;
 import com.treilhes.jfxplace.core.api.maven.SearchMavenArtifactDialog;
 import com.treilhes.jfxplace.core.api.settings.MavenSetting;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.ui.InstanceWindow;
+import com.treilhes.jfxplace.core.api.ui.MainInstanceWindow;
 import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlWindowController;
-import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.MessageLogger;
 import com.treilhes.jfxplace.core.maven.preference.MavenRepositoriesPreferences;
 
@@ -116,17 +115,14 @@ public class SearchMavenArtifactDialogController extends AbstractFxmlWindowContr
 
  // @formatter:off
     protected SearchMavenArtifactDialogController(
-            I18N i18n,
+            ApplicationInstance instance,
             MavenClient mavenClient,
-            ApplicationEvents sceneBuilderManager,
-            IconSetting iconSetting,
             MessageLogger messageLogger,
             MavenSetting mavenSetting,
             MavenRepositoriesPreferences repositoryPreferences,
-            InstanceWindow owner) {
+            MainInstanceWindow owner) {
      // @formatter:on
-        super(i18n, sceneBuilderManager, iconSetting,
-                SearchMavenArtifactDialogController.class.getResource("SearchMavenArtifactDialog.fxml"),owner);
+        super(instance, SearchMavenArtifactDialogController.class.getResource("SearchMavenArtifactDialog.fxml"),owner);
         this.mavenClient = mavenClient;
         this.owner = owner;
         this.messageLogger = messageLogger;

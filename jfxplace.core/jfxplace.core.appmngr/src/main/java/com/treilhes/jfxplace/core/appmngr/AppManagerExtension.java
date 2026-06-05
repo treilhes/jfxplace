@@ -43,7 +43,9 @@ import com.treilhes.jfxplace.core.appmngr.action.impl.CloseAllInstancesAction;
 import com.treilhes.jfxplace.core.appmngr.action.impl.CloseInstanceAction;
 import com.treilhes.jfxplace.core.appmngr.action.impl.LookupUnusedInstanceAction;
 import com.treilhes.jfxplace.core.appmngr.action.impl.NewInstanceAction;
-import com.treilhes.jfxplace.core.appmngr.impl.CommandHandlerImpl;
+import com.treilhes.jfxplace.core.appmngr.impl.ApplicationCommandHandlerImpl;
+import com.treilhes.jfxplace.core.appmngr.impl.ApplicationImpl;
+import com.treilhes.jfxplace.core.appmngr.impl.ApplicationInstanceImpl;
 import com.treilhes.jfxplace.core.appmngr.impl.InstancesControllerImpl;
 
 public class AppManagerExtension implements OpenExtension {
@@ -70,7 +72,9 @@ public class AppManagerExtension implements OpenExtension {
      // @formatter:off
         return Arrays.asList(
                 ApplicationActionFactoryImpl.class,
-                CommandHandlerImpl.class,
+                ApplicationImpl.class,
+                ApplicationInstanceImpl.class,
+                ApplicationCommandHandlerImpl.class,
                 InstancesControllerImpl.class,
                 CloseInstanceAction.class,
                 CloseAllInstancesAction.class,

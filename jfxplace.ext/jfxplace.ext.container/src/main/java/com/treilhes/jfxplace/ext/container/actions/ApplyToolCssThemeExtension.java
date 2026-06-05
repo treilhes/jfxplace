@@ -36,14 +36,14 @@ package com.treilhes.jfxplace.ext.container.actions;
 import org.springframework.context.annotation.Lazy;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
-import com.treilhes.emc4j.boot.api.context.annotation.Prototype;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationPrototype;
 import com.treilhes.jfxplace.core.api.action.AbstractActionExtension;
-import com.treilhes.jfxplace.core.api.action.ActionFactory;
+import com.treilhes.jfxplace.core.api.application.ActionFactory;
 import com.treilhes.jfxplace.core.api.lifecycle.InitWithDocument;
 import com.treilhes.jfxplace.core.api.tooltheme.ToolTheme;
 import com.treilhes.jfxplace.ext.container.preferences.global.ToolThemePreference;
 
-@Prototype
+@ApplicationPrototype
 public class ApplyToolCssThemeExtension extends AbstractActionExtension<ApplyToolCssAction> implements InitWithDocument {
 
 	private final ToolThemePreference toolThemePreference;

@@ -78,7 +78,10 @@ public class DeclaredClassCollector {
 
         @Override
         public void collect(FXOMProperty property) {
-
+            var name = property.getName();
+            if (name.getResidenceClass() != null) {
+                result.add(name.getResidenceClass());
+            }
         }
 
         @Override

@@ -36,10 +36,10 @@ package com.treilhes.jfxplace.core.document.action;
 import java.io.File;
 import java.net.URL;
 
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 import com.treilhes.jfxplace.core.api.action.Action;
-import com.treilhes.jfxplace.core.api.action.ActionFactory;
 import com.treilhes.jfxplace.core.api.document.DocumentActionFactory;
+import com.treilhes.jfxplace.core.api.instance.ActionFactory;
 import com.treilhes.jfxplace.core.document.action.impl.LoadBlankAction;
 import com.treilhes.jfxplace.core.document.action.impl.LoadFileAction;
 import com.treilhes.jfxplace.core.document.action.impl.LoadUrlAction;
@@ -48,7 +48,7 @@ import com.treilhes.jfxplace.core.document.action.impl.SaveAction;
 import com.treilhes.jfxplace.core.document.action.impl.SaveAsAction;
 import com.treilhes.jfxplace.core.document.action.impl.SaveOrSaveAsAction;
 
-@ApplicationSingleton
+@ApplicationInstanceSingleton
 public class DocumentActionFactoryImpl implements DocumentActionFactory {
 
     private final ActionFactory actionFactory;

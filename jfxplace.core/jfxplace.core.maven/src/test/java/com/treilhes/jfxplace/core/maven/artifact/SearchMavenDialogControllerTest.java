@@ -33,89 +33,81 @@
  */
 package com.treilhes.jfxplace.core.maven.artifact;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import java.util.List;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.testfx.api.FxRobot;
-import org.testfx.framework.junit5.ApplicationExtension;
-import org.testfx.framework.junit5.Start;
 
-import com.treilhes.jfxplace.core.api.i18n.I18N;
-import com.treilhes.jfxplace.core.api.maven.SearchMavenArtifactDialog;
+import com.treilhes.emc4j.test.EmcInject;
+import com.treilhes.emc4j.test.EmcInjectMock;
+import com.treilhes.jfxplace.core.api.maven.MavenClient;
 import com.treilhes.jfxplace.core.api.settings.MavenSetting;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
-import com.treilhes.jfxplace.core.api.ui.InstanceWindow;
+import com.treilhes.jfxplace.core.api.ui.MainInstanceWindow;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.MessageLogger;
-import com.treilhes.jfxplace.core.maven.artifact.SearchMavenArtifactDialogController;
-import com.treilhes.jfxplace.core.maven.impl.MavenClientController;
 import com.treilhes.jfxplace.core.maven.preference.MavenRepositoriesPreferences;
-import com.treilhes.jfxplace.testold.FxmlControllerLoader;
+import com.treilhes.jfxplace.test.JfxPlaceTest;
+import com.treilhes.jfxplace.test.builder.StageBuilder;
+import com.treilhes.jfxplace.test.builder.StageType;
 
-import javafx.scene.Parent;
-import javafx.stage.Stage;
+import javafx.beans.property.SimpleBooleanProperty;
 
-@ExtendWith({ ApplicationExtension.class, MockitoExtension.class })
+@JfxPlaceTest(classes = {SearchMavenArtifactDialogController.class})
 class SearchMavenDialogControllerTest {
 
-    private MavenClientController mc = new MavenClientController(null, null, null, null, null, null);
+    @EmcInjectMock
+    MavenClient mc;
 
-    private ApplicationEvents sbm = new ApplicationEvents.ApplicationEventsImpl();
+    @EmcInjectMock
+    IconSetting iconSetting;
 
-    private I18N i18n = new I18N(List.of(), true);
+    @EmcInjectMock
+    MessageLogger messageLogger;
 
-    @Mock
-    private IconSetting iconSetting;
+    @EmcInjectMock
+    MavenSetting mavenSetting;
 
-    @Mock
-    private MessageLogger messageLogger;
+    @EmcInjectMock
+    MavenRepositoriesPreferences repositoryPreferences;
 
-    @Mock
-    private MavenSetting mavenSetting;
+    @EmcInjectMock
+    MainInstanceWindow mainWindow;
 
-    @Mock
-    private MavenRepositoriesPreferences repositoryPreferences;
-
-    @Mock
-    private InstanceWindow owner;
-
-    private Stage stage;
-
-    /**
-     * Will be called with {@code @Before} semantics, i. e. before each test method.
-     *
-     * @param stage - Will be injected by the test runner.
-     */
-    @Start
-    private void start(Stage stage) {
-        this.stage = stage;
-    }
+    @EmcInject
+    StageBuilder builder;
 
     @Test
     void should_load_the_hud_fxml() {
-        Parent ui = FxmlControllerLoader.controller(new SearchMavenArtifactDialogController(i18n, mc, sbm, iconSetting,
-                messageLogger, mavenSetting, repositoryPreferences, owner)).loadFxml();
-        assertNotNull(ui);
+        try (var testStage = builder.controller(SearchMavenArtifactDialogController.class).show()) {
+            assertNotNull(testStage.getController().getRoot());
+        }
     }
 
     @Test
     void show_ui(FxRobot robot) {
-        Mockito.when(owner.getStage()).thenReturn(stage);
+        try (var testStage = builder
+                .controller(SearchMavenArtifactDialogController.class)
+                .setup(StageType.None)
+                .size(600, 800)
+                .show()){
 
-        SearchMavenArtifactDialog dialog = FxmlControllerLoader.controller(new SearchMavenArtifactDialogController(i18n,
-                mc, sbm, iconSetting, messageLogger, mavenSetting, repositoryPreferences, owner)).darkTheme(sbm).load();
+                Mockito.when(mainWindow.getStage()).thenReturn(testStage.getStage());
+                Mockito.when(mc.searchingProperty()).thenReturn(new SimpleBooleanProperty(false));
 
-        robot.interact(() -> {
-            dialog.openWindow(null);
-        });
+                var controller = testStage.getController();
 
-        System.out.println();
+                robot.interact(() -> controller.openWindow(null));
+
+                assertTrue(controller.isOpen());
+
+                robot.interact(controller::closeWindow);
+
+                assertFalse(controller.isOpen());
+            }
+
     }
 
 }

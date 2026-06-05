@@ -37,7 +37,6 @@ package com.treilhes.jfxplace.core.metadata.property.value;
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
 import com.treilhes.jfxplace.core.fxom.FXOMInstance;
 import com.treilhes.jfxplace.core.fxom.util.PrefixedValue;
-import com.treilhes.jfxplace.core.metadata.property.base.SingleValuePropertyMetadata;
 
 import javafx.scene.control.ToggleGroup;
 

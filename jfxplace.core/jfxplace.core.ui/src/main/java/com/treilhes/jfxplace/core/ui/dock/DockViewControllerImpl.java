@@ -48,6 +48,8 @@ import org.slf4j.LoggerFactory;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
+import com.treilhes.jfxplace.core.api.javafx.JfxPlaceExecutor;
 import com.treilhes.jfxplace.core.api.lifecycle.InitWithDocument;
 import com.treilhes.jfxplace.core.api.subjects.DockManager;
 import com.treilhes.jfxplace.core.api.subjects.ViewManager;
@@ -69,6 +71,8 @@ public class DockViewControllerImpl implements InitWithDocument, DockViewControl
 
     private static final Logger logger = LoggerFactory.getLogger(DockViewControllerImpl.class);
 
+    private final ApplicationInstance instance;
+    private final JfxPlaceExecutor executor;
     private final EmContext context;
     private final DockManager dockManager;
     private final ViewManager viewManager;
@@ -82,7 +86,7 @@ public class DockViewControllerImpl implements InitWithDocument, DockViewControl
     private final LastViewVisibilityPreference lastViewVisibilityPreference;
 
     public DockViewControllerImpl(
-            EmContext context,
+            ApplicationInstance instance,
             DockManager dockManager,
             ViewManager viewManager,
             DockWindowFactory dockWindowFactory,
@@ -90,7 +94,9 @@ public class DockViewControllerImpl implements InitWithDocument, DockViewControl
             LastViewVisibilityPreference lastViewVisibilityPreference,
             LastDockUuidPreference lastDockUuidPreference
             ) {
-        this.context = context;
+        this.instance = instance;
+        this.executor = instance.getExecutor();
+        this.context = instance.getContext();
         this.dockManager = dockManager;
         this.viewManager = viewManager;
         this.lastDockUuidPreference = lastDockUuidPreference;
@@ -190,54 +196,62 @@ public class DockViewControllerImpl implements InitWithDocument, DockViewControl
 
         performCloseView(view);
 
-        view.visibleProperty().set(true);
-        view.visibleProperty().addListener((ob, o , n) -> { if (n == false) this.performCloseView(view);});
+        executor.runOnFxThread(() -> {
+            view.visibleProperty().set(true);
+            view.visibleProperty().addListener((ob, o , n) -> { if (n == false) {
+                this.performCloseView(view);
+            }});
 
-        // get last saved dock target
-        UUID targetDock = lastDockUuidPreference.getValue().get(view.getId());
+            // get last saved dock target
+            UUID targetDock = lastDockUuidPreference.getValue().get(view.getId());
 
-        if (targetDock == null) {// no preference so use the default for view
-            targetDock = vi.getPrefDockId();
-        }
-
-        if (targetDock == null) {// still nothing so target a new window
-            performUndock(view);
-            return;
-        }
-
-        Dock dock = createdDocks.get(targetDock);
-        final UUID checkTargetDock = targetDock;
-
-        if (dock == null) {
-            // the dock is not a default one, so we create a window and update
-            // all other views using the same dockid to the new dockid
-            DockWindowController dwc = dockWindowFactory.newDockWindow();
-            lastDockUuidPreference.getValue().replaceAll((k,v) -> v.equals(checkTargetDock) ? dwc.getDock().getId() : v);
-
-            viewManager.dock().onNext(new DockRequest(vi, view, dwc.getDock().getId(), selectView));
-
-            dwc.openWindow();
-        } else {
-            viewManager.dock().onNext(new DockRequest(vi, view, targetDock, selectView));
-
-            if (dock.isWindow() && !activeWindows.get(dock.getParentWindow())) {
-                // if the target is a inactive window, activate it if needed
-                dockManager.dockShow().onNext(dock);
-                dock.getParentWindow().openWindow();
+            if (targetDock == null) {// no preference so use the default for view
+                targetDock = vi.getPrefDockId();
             }
-        }
-        lastViewVisibilityPreference.getValue().put(view.getId(), Boolean.TRUE);
+
+            if (targetDock == null) {// still nothing so target a new window
+                performUndock(view);
+                return;
+            }
+
+            Dock dock = createdDocks.get(targetDock);
+            final UUID checkTargetDock = targetDock;
+
+            if (dock == null) {
+                // the dock is not a default one, so we create a window and update
+                // all other views using the same dockid to the new dockid
+                DockWindowController dwc = dockWindowFactory.newDockWindow();
+                lastDockUuidPreference.getValue().replaceAll((k,v) -> v.equals(checkTargetDock) ? dwc.getDock().getId() : v);
+
+                viewManager.dock().onNext(new DockRequest(vi, view, dwc.getDock().getId(), selectView));
+
+                dwc.openWindow();
+            } else {
+                viewManager.dock().onNext(new DockRequest(vi, view, targetDock, selectView));
+
+                if (dock.isWindow() && !activeWindows.get(dock.getParentWindow())) {
+                    // if the target is a inactive window, activate it if needed
+                    dockManager.dockShow().onNext(dock);
+                    dock.getParentWindow().openWindow();
+                }
+            }
+            lastViewVisibilityPreference.getValue().put(view.getId(), Boolean.TRUE);
+        });
+
     }
 
     @Override
     public void performCloseView(View view) {
-        viewManager.undock().onNext(view);
-        lastViewVisibilityPreference.getValue().put(view.getId(), Boolean.FALSE);
-        view.visibleProperty().set(false);
+        executor.runOnFxThread(() -> {
+            viewManager.undock().onNext(view);
+            lastViewVisibilityPreference.getValue().put(view.getId(), Boolean.FALSE);
+            view.visibleProperty().set(false);
+        });
     }
 
     @Override
     public void performUndock(View view) {
+
         viewManager.undock().onNext(view);
 
         DockWindowController dwc = dockWindowFactory.newDockWindow();
@@ -246,7 +260,9 @@ public class DockViewControllerImpl implements InitWithDocument, DockViewControl
         ViewAttachment va = viewItems.get(view.getClass());
         viewManager.dock().onNext(new DockRequest(va, view, dwc.getDock().getId(), true));
 
-        dwc.openWindow();
+        executor.runOnFxThread(() -> {
+            dwc.openWindow();
+        });
     }
 
     @Override

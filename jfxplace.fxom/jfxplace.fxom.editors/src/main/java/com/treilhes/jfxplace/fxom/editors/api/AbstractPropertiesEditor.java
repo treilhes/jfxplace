@@ -61,6 +61,7 @@ import javafx.util.Duration;
 public abstract class AbstractPropertiesEditor extends AbstractEditor {
 
     private static final String I18N_INSPECTOR_EDITORS_RESETVALUE = "inspector.editors.resetvalue";
+    private final EditorContext context;
     private final I18N i18n;
     private final String name;
     private final HBox nameNode;
@@ -72,10 +73,11 @@ public abstract class AbstractPropertiesEditor extends AbstractEditor {
 
 
 
-    public AbstractPropertiesEditor(I18N i18n, String name) {
+    public AbstractPropertiesEditor(EditorContext context, String name) {
         // HBox for consistency with PropertyEditor, and potentially have an hyperlink
         this.name = name;
-        this.i18n = i18n;
+        this.context = context;
+        this.i18n = context.i18n();
         this.resetvalueMenuItem = new MenuItem(i18n.getString(I18N_INSPECTOR_EDITORS_RESETVALUE));
 
         nameNode = new HBox();
@@ -88,6 +90,9 @@ public abstract class AbstractPropertiesEditor extends AbstractEditor {
 
     protected I18N getI18n() {
         return i18n;
+    }
+    protected EditorContext getEditorContext() {
+        return context;
     }
 
     @Override

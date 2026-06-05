@@ -1,9 +1,9 @@
 package com.treilhes.jfxplace.core.selection;
 
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 import com.treilhes.jfxplace.core.api.action.Action;
-import com.treilhes.jfxplace.core.api.action.ActionFactory;
 import com.treilhes.jfxplace.core.api.fxom.editor.selection.FxomSelectionActionsFactory;
+import com.treilhes.jfxplace.core.api.instance.ActionFactory;
 import com.treilhes.jfxplace.core.selection.action.BringForwardAction;
 import com.treilhes.jfxplace.core.selection.action.BringToFrontAction;
 import com.treilhes.jfxplace.core.selection.action.CopyAction;
@@ -16,7 +16,7 @@ import com.treilhes.jfxplace.core.selection.action.SendBackwardAction;
 import com.treilhes.jfxplace.core.selection.action.SendToBackAction;
 import com.treilhes.jfxplace.core.selection.action.TrimAction;
 
-@ApplicationSingleton
+@ApplicationInstanceSingleton
 public class FxomSelectionActionsFactoryImpl implements FxomSelectionActionsFactory {
 
     private final ActionFactory actionFactory;

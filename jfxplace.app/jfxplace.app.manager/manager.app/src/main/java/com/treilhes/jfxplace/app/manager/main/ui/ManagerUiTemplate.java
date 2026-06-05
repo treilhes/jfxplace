@@ -41,8 +41,7 @@ import org.slf4j.LoggerFactory;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 import com.treilhes.jfxplace.app.manager.api.ui.Docks;
-import com.treilhes.jfxplace.core.api.i18n.I18N;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.ui.MainInstanceWindow;
 import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlWindowController;
 import com.treilhes.jfxplace.core.api.ui.controller.dock.Dock;
@@ -50,7 +49,6 @@ import com.treilhes.jfxplace.core.api.ui.controller.dock.DockFactory;
 import com.treilhes.jfxplace.core.api.ui.controller.dock.View;
 import com.treilhes.jfxplace.core.api.ui.controller.dock.type.LastSurvivor;
 import com.treilhes.jfxplace.core.api.ui.controller.menu.MenuBar;
-import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.ViewLinks;
 
 import javafx.event.EventHandler;
@@ -79,13 +77,11 @@ public class ManagerUiTemplate extends AbstractFxmlWindowController implements M
 
     // @formatter:off
     public ManagerUiTemplate(
-            I18N i18n,
-            ApplicationEvents sceneBuilderManager,
-            IconSetting iconSetting,
+            ApplicationInstance instance,
             DockFactory dockFactory,
             MenuBar menuBar,
             ViewLinks viewLinks) {
-        super(i18n, sceneBuilderManager, iconSetting, ManagerUiTemplate.class.getResource("ManagerUiTemplate.fxml"), false);
+        super(instance, ManagerUiTemplate.class.getResource("ManagerUiTemplate.fxml"), false);
         // @formatter:on
 
         this.menuBar = menuBar;

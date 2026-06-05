@@ -51,6 +51,7 @@ import javafx.stage.Stage;
  */
 @ExtendWith(ApplicationExtension.class)
 @SetSystemProperty(key = "javafx.allowjs", value = "true")
+@SetSystemProperty(key = "javafx.version", value = "xxx")// set default to test resource value
 public class FxMiscCasesTest {
 
     private static final boolean FAILURE_EXPECTED = true;

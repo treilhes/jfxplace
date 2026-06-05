@@ -38,9 +38,9 @@ import java.util.function.Consumer;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
 import com.treilhes.jfxplace.core.api.action.Action;
-import com.treilhes.jfxplace.core.api.action.ActionFactory;
+import com.treilhes.jfxplace.core.api.application.ActionFactory;
 import com.treilhes.jfxplace.core.api.application.ApplicationActionFactory;
-import com.treilhes.jfxplace.core.api.application.ApplicationInstance;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.core.appmngr.action.impl.CloseAllInstancesAction;
 import com.treilhes.jfxplace.core.appmngr.action.impl.CloseInstanceAction;
 import com.treilhes.jfxplace.core.appmngr.action.impl.LookupUnusedInstanceAction;
@@ -70,6 +70,7 @@ public class ApplicationActionFactoryImpl implements ApplicationActionFactory {
         return actionFactory.create(LookupUnusedInstanceAction.class, a -> a.setParameters(uniqueId, consumer));
     }
 
+    //FIXME this is an instance action, not an application action, so it can't be instanciated here. REMOVE/MOVE IT
     @Override
     public Action closeInstance() {
         return actionFactory.create(CloseInstanceAction.class);

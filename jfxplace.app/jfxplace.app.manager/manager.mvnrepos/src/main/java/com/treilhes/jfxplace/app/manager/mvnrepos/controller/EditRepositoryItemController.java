@@ -42,13 +42,13 @@ import org.slf4j.LoggerFactory;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
 import com.treilhes.emc4j.boot.api.maven.Repository.Content;
+import com.treilhes.emc4j.boot.api.maven.RepositoryClient;
+import com.treilhes.emc4j.boot.api.maven.RepositoryType;
 import com.treilhes.jfxplace.app.manager.mvnrepos.model.Repository;
 import com.treilhes.jfxplace.core.api.i18n.I18N;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationInstanceEvents;
-import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlController;
-import com.treilhes.emc4j.boot.api.maven.RepositoryClient;
-import com.treilhes.emc4j.boot.api.maven.RepositoryType;
+import com.treilhes.jfxplace.core.api.ui.controller.AbstractPanelController;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -60,7 +60,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 @ApplicationInstancePrototype
-public class EditRepositoryItemController extends AbstractFxmlController {
+public class EditRepositoryItemController extends AbstractPanelController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EditRepositoryItemController.class);
 

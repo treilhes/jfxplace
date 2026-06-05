@@ -7,7 +7,7 @@ import com.treilhes.jfxplace.core.fxom.ext.LoaderCapabilitiesManager;
 import com.treilhes.jfxplace.core.fxom.ext.TransientStateBackup;
 import com.treilhes.jfxplace.core.fxom.ext.WeakProperty;
 
-module jfxplace.fxom.model {
+open module jfxplace.fxom.model {
 
     exports com.treilhes.jfxplace.core.fxom;
     exports com.treilhes.jfxplace.core.fxom.collector;

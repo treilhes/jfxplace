@@ -6,6 +6,10 @@ emc4j:
       - groupId: com.treilhes.jfxplace
         artifactId: sample.app
         path: ../../../../sample.app/target/classes
+      - groupId: com.treilhes.jfxplace
+        artifactId: jfxplace\.core\.(?!registry$)(?!starter$)(.*)
+        path: ../../../../../../jfxplace.core/jfxplace.core.$1/target/classes
+        useRegex: true
 
 server:
   port: 8080

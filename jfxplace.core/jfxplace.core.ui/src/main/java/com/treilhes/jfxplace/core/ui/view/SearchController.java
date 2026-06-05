@@ -40,7 +40,7 @@ import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototy
 import com.treilhes.jfxplace.core.api.i18n.I18N;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationInstanceEvents;
-import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlController;
+import com.treilhes.jfxplace.core.api.ui.controller.AbstractPanelController;
 import com.treilhes.jfxplace.core.api.ui.controller.dock.ViewSearch;
 
 import javafx.beans.property.StringProperty;
@@ -56,7 +56,7 @@ import javafx.scene.layout.StackPane;
  *
  */
 @ApplicationInstancePrototype
-public class SearchController extends AbstractFxmlController implements ViewSearch {
+public class SearchController extends AbstractPanelController implements ViewSearch {
 
     private static final Logger logger = LoggerFactory.getLogger(SearchController.class);
 

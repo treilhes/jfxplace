@@ -47,11 +47,9 @@ import org.testfx.api.FxRobot;
 import com.treilhes.emc4j.boot.api.maven.RepositoryClient;
 import com.treilhes.emc4j.boot.api.maven.RepositoryType;
 import com.treilhes.jfxplace.app.manager.api.ManagerApiExtension;
-import com.treilhes.jfxplace.app.manager.mvnrepos.controller.EditRepositoryItemController;
 import com.treilhes.jfxplace.app.manager.mvnrepos.i18n.I18NManagerMvnRepos;
 import com.treilhes.jfxplace.app.manager.mvnrepos.model.RepositoryMapperImpl;
 import com.treilhes.jfxplace.app.manager.mvnrepos.model.RepositoryModelController;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
 import com.treilhes.jfxplace.core.api.ui.controller.menu.ViewMenu;
 import com.treilhes.jfxplace.testold.JfxAppsTest;
 import com.treilhes.jfxplace.testold.StageBuilder;
@@ -64,11 +62,6 @@ class EditRepositoryItemControllerTest {
 
     @TestConfiguration
     static class Config {
-
-        @Bean
-        JfxAppPlatform jfxAppPlatform() {
-            return Mockito.mock(JfxAppPlatform.class);
-        }
 
         @Bean
         ViewMenu viewMenuController() {

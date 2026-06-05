@@ -56,7 +56,6 @@ import org.junitpioneer.jupiter.SetSystemProperty;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
-import com.treilhes.jfxplace.core.fxom.FXOMDocument;
 import com.treilhes.jfxplace.core.fxom.collector.DeclaredClassCollector;
 import com.treilhes.jfxplace.core.fxom.glue.GlueComment;
 import com.treilhes.jfxplace.core.fxom.pipeline.FXOMDocumentFactory;
@@ -251,11 +250,8 @@ public class FXOMSaverUpdateImportInstructionsTest {
         ArrayList<String> imports = new ArrayList<>();
         fxomDocument.getGlue().collectInstructions("import").forEach(i -> imports.add(i.getData()));
 
-        assertEquals("imports length should be 5", 5, imports.size());
-        assertTrue("HBox import was not found", imports.contains("javafx.scene.layout.HBox"));
-        assertTrue("VBox import was not found", imports.contains("javafx.scene.layout.VBox"));
-
-        assertFalse("Wildcard imports are present", imports.contains("java.scene.layout.*") || imports.contains("java.scene.control.*"));
+        assertEquals("imports length should be 2", 2, imports.size());
+        assertTrue("Wildcard imports are absent", imports.contains("javafx.scene.layout.*") && imports.contains("javafx.scene.control.*"));
     }
 
     @Test

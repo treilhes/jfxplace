@@ -51,9 +51,8 @@ import com.treilhes.jfxplace.app.manager.store.action.SwitchNextAction;
 import com.treilhes.jfxplace.app.manager.store.ui.component.SwitchFactory;
 import com.treilhes.jfxplace.app.manager.store.ui.root.RootController;
 import com.treilhes.jfxplace.core.api.action.ActionExtensionFactory;
-import com.treilhes.jfxplace.core.api.action.ActionFactory;
+import com.treilhes.jfxplace.core.api.instance.ActionFactory;
 import com.treilhes.jfxplace.core.api.javafx.DisableAutomaticFxmlLoading;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
 import com.treilhes.jfxplace.core.api.ui.controller.menu.ViewMenu;
 import com.treilhes.jfxplace.testold.JfxAppsTest;
 import com.treilhes.jfxplace.testold.StageBuilder;
@@ -68,11 +67,6 @@ class StoreControllerTest {
 
     @TestConfiguration
     static class Config {
-
-        @Bean
-        JfxAppPlatform jfxAppPlatform() {
-            return Mockito.mock(JfxAppPlatform.class);
-        }
 
         @Bean
         ViewMenu viewMenuController() {

@@ -38,6 +38,7 @@ open module jfxplace.core.appmngr {
 
     requires transitive jfxplace.core.api;
     requires jakarta.inject;
+    requires emc4j.spring.core.patch.link;
 
 
     provides Extension with AppManagerExtension;

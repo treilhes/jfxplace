@@ -33,27 +33,24 @@
  */
 package com.treilhes.jfxplace.core.appmngr.action.impl;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationPrototype;
 import com.treilhes.jfxplace.core.api.action.AbstractAction;
 import com.treilhes.jfxplace.core.api.action.ActionExtensionFactory;
-import com.treilhes.jfxplace.core.api.action.ActionFactory;
 import com.treilhes.jfxplace.core.api.action.ActionMeta;
-import com.treilhes.jfxplace.core.api.application.ApplicationInstance;
+import com.treilhes.jfxplace.core.api.application.ActionFactory;
 import com.treilhes.jfxplace.core.api.application.InstancesManager;
 import com.treilhes.jfxplace.core.api.i18n.I18N;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstanceUi;
 import com.treilhes.jfxplace.core.api.ui.dialog.Alert;
 import com.treilhes.jfxplace.core.api.ui.dialog.Dialog;
 
-import javafx.application.Platform;
-
-@ApplicationInstancePrototype("com.treilhes.jfxplace.core.appmngr.action.impl.CloseAllInstancesAction")
+@ApplicationPrototype("com.treilhes.jfxplace.core.appmngr.action.impl.CloseAllInstancesAction")
 @ActionMeta(nameKey = "action.name.toggle.dock", descriptionKey = "action.description.toggle.dock")
 public class CloseAllInstancesAction extends AbstractAction {
 
@@ -65,17 +62,13 @@ public class CloseAllInstancesAction extends AbstractAction {
     private final Dialog dialog;
     private final ActionFactory actionFactory;
 
-    private final JfxAppPlatform jfxAppPlatform;
-
     public CloseAllInstancesAction(
             I18N i18n,
-            JfxAppPlatform jfxAppPlatform,
             ActionExtensionFactory extensionFactory,
             ActionFactory actionFactory,
             InstancesManager main,
             Dialog dialog) {
         super(i18n, extensionFactory);
-        this.jfxAppPlatform = jfxAppPlatform;
         this.main = main;
         this.dialog = dialog;
         this.actionFactory = actionFactory;
@@ -90,12 +83,12 @@ public class CloseAllInstancesAction extends AbstractAction {
     public ActionStatus doPerform() {
 
         // Check if an editing session is on going
-        if (main.getInstances().stream().anyMatch(ApplicationInstance::isEditing)) {
+        if (main.getInstances().stream().map(ApplicationInstance::getUi).anyMatch(ApplicationInstanceUi::isEditing)) {
             return ActionStatus.CANCELLED;
         }
 
         // Collects the documents with pending changes
-        final List<ApplicationInstance> pendingDocs = main.getInstances().stream().filter(ApplicationInstance::isDocumentDirty)
+        final var pendingDocs = main.getInstances().stream().filter(i -> i.getUi().isDocumentDirty())
                 .collect(Collectors.toList());
 
         // Notifies the user if some documents are dirty
@@ -107,8 +100,9 @@ public class CloseAllInstancesAction extends AbstractAction {
         }
 
         case 1: {
-            final ApplicationInstance dwc0 = pendingDocs.get(0);
-            ActionStatus result = jfxAppPlatform.runWithScope(dwc0, () -> actionFactory.create(CloseInstanceAction.class).checkAndPerform());
+            final ApplicationInstance instance = pendingDocs.get(0);
+            var context = instance.getContext();
+            var result = context.getBean(CloseInstanceAction.class).checkAndPerform();
             exitConfirmed = result == ActionStatus.DONE;
             break;
         }
@@ -131,7 +125,9 @@ public class CloseAllInstancesAction extends AbstractAction {
                 int i = 0;
                 ActionStatus status;
                 do {
-                    status = jfxAppPlatform.runWithScope(pendingDocs.get(i++), () -> actionFactory.create(CloseInstanceAction.class).checkAndPerform());
+                    var instance = pendingDocs.get(i++);
+                    var context = instance.getContext();
+                    status = context.getBean(CloseInstanceAction.class).checkAndPerform();
                 } while ((status == ActionStatus.DONE) && (i < pendingDocs.size()));
                 exitConfirmed = (status == ActionStatus.DONE);
                 break;
@@ -154,8 +150,8 @@ public class CloseAllInstancesAction extends AbstractAction {
             main.close();
 
             // TODO (elp): something else here ?
-            logger.info(getI18n().getString("log.stop"));
-            Platform.exit();
+//            logger.info(getI18n().getString("log.stop"));
+//            Platform.exit();
         }
 
 

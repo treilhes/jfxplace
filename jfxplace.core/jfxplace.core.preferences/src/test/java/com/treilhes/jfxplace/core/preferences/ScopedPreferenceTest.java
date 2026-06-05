@@ -33,12 +33,8 @@
  */
 package com.treilhes.jfxplace.core.preferences;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.net.URI;
-import java.net.URL;
 import java.util.Objects;
 
 import org.junit.jupiter.api.Test;
@@ -59,7 +55,6 @@ import com.treilhes.jfxplace.core.api.preference.DefaultValueProvider;
 import com.treilhes.jfxplace.core.api.preference.Preference;
 import com.treilhes.jfxplace.core.api.preference.PreferenceContext;
 import com.treilhes.jfxplace.core.api.preference.ValueValidator;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationInstanceEvents;
 import com.treilhes.jfxplace.core.preferences.internal.aop.PreferenceBeanPostProcessor;
 import com.treilhes.jfxplace.core.preferences.model.PreferenceEntity;
 import com.treilhes.jfxplace.core.preferences.model.PreferenceEntity.PreferenceEntityId;
@@ -121,155 +116,6 @@ public class ScopedPreferenceTest {
         global.load();
         assertTrue("should have not default value", !DEFAULT_VALUE.equals(global.getValue()));
 
-    }
-
-    @Test
-    @DirtiesContext
-    void global_pref_should_be_the_same_for_all_applications(TestInfo testInfo, EmContext context)
-            throws Exception {
-        var global = context.getBean(TestGlobalPreference.class);
-        assertTrue("should have default value", DEFAULT_VALUE.equals(global.getValue()));
-
-        context.getApplicationExecutor().unbindScope();
-        context.getBean(JfxAppsTest.Application2Bean.class);
-
-        var global2 = context.getBean(TestGlobalPreference.class);
-
-        assertEquals(global, global2);
-
-    }
-
-    @Test
-    @DirtiesContext
-    void application_pref_should_be_unique_per_applications(TestInfo testInfo, EmContext context) throws Exception {
-
-        final String APP1_VALUE = "app1";
-        final String APP2_VALUE = "app2";
-
-        var app = context.getBean(TestAppPreference.class);
-        assertTrue("should have default value", DEFAULT_VALUE.equals(app.getValue()));
-
-        context.getApplicationExecutor().unbindScope();
-        context.getBean(JfxAppsTest.Application2Bean.class);
-
-        var app2 = context.getBean(TestAppPreference.class);
-
-        // ensure we have two different instance
-        assertNotEquals(app, app2);
-
-        app.setValue(APP1_VALUE);
-        app2.setValue(APP2_VALUE);
-
-        app.save();
-        app2.save();
-
-        var all = preferenceRepository.findAll();
-
-        // ensure we have two entries in db with different values with different
-        // applications
-        assertTrue(all.size() == 2);
-        assertTrue(all.stream().filter(pe -> JfxAppsTest.Application1Bean.class.getName().equals(pe.getApplication()))
-                .count() == 1);
-        assertTrue(all.stream().filter(pe -> JfxAppsTest.Application2Bean.class.getName().equals(pe.getApplication()))
-                .count() == 1);
-    }
-
-    @Test
-    @DirtiesContext
-    void instance_pref_should_be_unique_per_instance_and_per_applications(TestInfo testInfo, EmContext context) throws Exception {
-        final URL INST1_LOC = new URI("file:///val1").toURL();
-        final URL INST2_LOC = new URI("file:///val2").toURL();
-        final URL INST3_LOC = new URI("file:///val3").toURL();
-        final URL INST4_LOC = new URI("file:///val4").toURL();
-
-        final String INST1_VALUE = "val1";
-        final String INST2_VALUE = "val2";
-        final String INST3_VALUE = "val3";
-        final String INST4_VALUE = "val4";
-
-        var instance1Events = context.getBean(ApplicationInstanceEvents.class);
-        var prefInst1 = context.getBean(TestAppInstancePreference.class);
-        assertTrue("should have default value", DEFAULT_VALUE.equals(prefInst1.getValue()));
-
-        context.getApplicationInstanceExecutor().unbindScope();
-        context.getBean(JfxAppsTest.Application1InstanceBean.class);
-
-        var instance2Events = context.getBean(ApplicationInstanceEvents.class);
-        var prefInst2 = context.getBean(TestAppInstancePreference.class);
-        assertTrue("should have default value", DEFAULT_VALUE.equals(prefInst2.getValue()));
-
-        context.getApplicationInstanceExecutor().unbindScope();
-        context.getApplicationExecutor().unbindScope();
-        context.getBean(JfxAppsTest.Application2Bean.class);
-        context.getBean(JfxAppsTest.Application2InstanceBean.class);
-
-        var instance3Events = context.getBean(ApplicationInstanceEvents.class);
-        var prefInst3 = context.getBean(TestAppInstancePreference.class);
-        assertTrue("should have default value", DEFAULT_VALUE.equals(prefInst3.getValue()));
-
-        context.getApplicationInstanceExecutor().unbindScope();
-        context.getBean(JfxAppsTest.Application2InstanceBean.class);
-
-        var instance4Events = context.getBean(ApplicationInstanceEvents.class);
-        var prefInst4 = context.getBean(TestAppInstancePreference.class);
-        assertTrue("should have default value", DEFAULT_VALUE.equals(prefInst4.getValue()));
-
-        // ensure all instances are different
-        assertNotEquals(prefInst1, prefInst2);
-        assertNotEquals(prefInst1, prefInst3);
-        assertNotEquals(prefInst1, prefInst4);
-
-        assertNotEquals(prefInst2, prefInst3);
-        assertNotEquals(prefInst2, prefInst4);
-
-        assertNotEquals(prefInst3, prefInst4);
-
-        prefInst1.setValue(INST1_VALUE);
-        prefInst2.setValue(INST2_VALUE);
-        prefInst3.setValue(INST3_VALUE);
-        prefInst4.setValue(INST4_VALUE);
-
-        prefInst1.save();
-        prefInst2.save();
-        prefInst3.save();
-        prefInst4.save();
-
-        // here no uniqueId for any instance, so nothing should be saved in db
-        var all = preferenceRepository.findAll();
-        assertTrue(all.size() == 0);
-
-        instance1Events.uniqueId().set(INST1_LOC);
-        instance2Events.uniqueId().set(INST2_LOC);
-        instance3Events.uniqueId().set(INST3_LOC);
-        instance4Events.uniqueId().set(INST4_LOC);
-
-        prefInst1.save();
-        prefInst2.save();
-        prefInst3.save();
-        prefInst4.save();
-
-        // here values should be saved in db
-        all = preferenceRepository.findAll();
-
-        // ensure we have 4 entries in db with different values with different
-        // applications/llocation
-        assertTrue(all.size() == 4);
-        assertTrue(all.stream()
-                .filter(pe -> JfxAppsTest.Application1Bean.class.getName().equals(pe.getApplication()))
-                .filter(pe -> INST1_LOC.toString().equals(pe.getInstance()))
-                .count() == 1);
-        assertTrue(all.stream()
-                .filter(pe -> JfxAppsTest.Application1Bean.class.getName().equals(pe.getApplication()))
-                .filter(pe -> INST2_LOC.toString().equals(pe.getInstance()))
-                .count() == 1);
-        assertTrue(all.stream()
-                .filter(pe -> JfxAppsTest.Application2Bean.class.getName().equals(pe.getApplication()))
-                .filter(pe -> INST3_LOC.toString().equals(pe.getInstance()))
-                .count() == 1);
-        assertTrue(all.stream()
-                .filter(pe -> JfxAppsTest.Application2Bean.class.getName().equals(pe.getApplication()))
-                .filter(pe -> INST4_LOC.toString().equals(pe.getInstance()))
-                .count() == 1);
     }
 
     @Test

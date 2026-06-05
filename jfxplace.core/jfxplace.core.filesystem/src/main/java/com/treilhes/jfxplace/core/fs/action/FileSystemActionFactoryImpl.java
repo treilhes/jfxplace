@@ -39,8 +39,8 @@ import java.util.List;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 import com.treilhes.jfxplace.core.api.action.Action;
-import com.treilhes.jfxplace.core.api.action.ActionFactory;
 import com.treilhes.jfxplace.core.api.fs.FileSystemActionFactory;
+import com.treilhes.jfxplace.core.api.instance.ActionFactory;
 import com.treilhes.jfxplace.core.fs.action.impl.ClearRecentItemsAction;
 import com.treilhes.jfxplace.core.fs.action.impl.OpenAction;
 import com.treilhes.jfxplace.core.fs.action.impl.OpenFileWithSystemDefaultAction;

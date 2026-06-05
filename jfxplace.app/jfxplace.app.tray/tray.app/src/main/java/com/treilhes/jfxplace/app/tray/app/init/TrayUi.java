@@ -36,9 +36,10 @@ package com.treilhes.jfxplace.app.tray.app.init;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.treilhes.jfxplace.core.api.ui.MainInstanceWindow;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
 import com.treilhes.jfxplace.app.tray.app.menu.TrayMenuManager;
+import com.treilhes.jfxplace.core.api.application.ApplicationClassloader;
+import com.treilhes.jfxplace.core.api.ui.MainInstanceWindow;
 
 import jakarta.annotation.PostConstruct;
 import javafx.application.Platform;
@@ -57,19 +58,28 @@ public class TrayUi implements MainInstanceWindow {
     private Stage stage;
     private Scene scene;
 
+    private ApplicationClassloader applicationClassloader;
+
 
     // @formatter:off
     public TrayUi(
-            TrayMenuManager trayMenuManager
+            TrayMenuManager trayMenuManager,
+            ApplicationClassloader applicationClassloader
             ) {
      // @formatter:on
         super();
         this.trayMenuManager = trayMenuManager;
+        this.applicationClassloader = applicationClassloader;
     }
 
     @PostConstruct
     public void initialize() {
-        Platform.runLater(() -> addTrayIcon());
+        Platform.runLater(() -> {
+            var bck = Thread.currentThread().getContextClassLoader();
+            Thread.currentThread().setContextClassLoader(applicationClassloader);
+            addTrayIcon();
+            Thread.currentThread().setContextClassLoader(bck);
+        });
     }
 
     private void addTrayIcon() {

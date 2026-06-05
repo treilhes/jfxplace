@@ -38,13 +38,11 @@ import java.util.function.Consumer;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationPrototype;
 import com.treilhes.emc4j.boot.api.platform.EmcPlatform;
-import com.treilhes.jfxplace.core.api.i18n.I18N;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
-import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlWindowController;
-import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
+import com.treilhes.jfxplace.core.api.application.Application;
+import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlApplicationWindowController;
 import com.treilhes.jfxplace.core.api.ui.dialog.ModalWindow;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -62,7 +60,7 @@ import javafx.stage.Window;
  *
  */
 @ApplicationPrototype
-public class ModalWindowImpl extends AbstractFxmlWindowController implements ModalWindow {
+public class ModalWindowImpl extends AbstractFxmlApplicationWindowController implements ModalWindow {
 
     private final EmcPlatform appsPlatform;
     private ButtonID clickedButtonID;
@@ -95,7 +93,6 @@ public class ModalWindowImpl extends AbstractFxmlWindowController implements Mod
     private Consumer<ActionEvent> onCancelButtonPressed;
     private Consumer<ActionEvent> onActionButtonPressed;
     private Window owner;
-    private final JfxAppPlatform jfxAppPlatform;
 
     /*
      * Public
@@ -103,15 +100,11 @@ public class ModalWindowImpl extends AbstractFxmlWindowController implements Mod
 
     // @formatter:off
     public ModalWindowImpl(
-            EmcPlatform appsPlatform,
-            JfxAppPlatform jfxAppPlatform,
-            I18N i18n,
-            ApplicationEvents applicationEvents,
-            IconSetting iconSetting) {
+            Application application,
+            EmcPlatform appsPlatform) {
      // @formatter:on
-        super(i18n, applicationEvents, iconSetting, getContainerFxmlURL(appsPlatform));
+        super(application, getContainerFxmlURL(appsPlatform));
         this.appsPlatform = appsPlatform;
-        this.jfxAppPlatform = jfxAppPlatform;
     }
 
     private void initStage() {
@@ -379,7 +372,7 @@ public class ModalWindowImpl extends AbstractFxmlWindowController implements Mod
         // Setup default state and focus
         updateButtonState();
 
-        jfxAppPlatform.runOnFxThread(() -> {
+        Platform.runLater(() -> {
             // Size everything
             getStage().sizeToScene();
         });

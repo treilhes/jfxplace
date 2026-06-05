@@ -34,14 +34,15 @@
 package com.treilhes.jfxplace.core.ui.dialog.instance;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
 import com.treilhes.jfxplace.core.api.i18n.I18N;
 import com.treilhes.jfxplace.core.api.ui.dialog.Alert;
 import com.treilhes.jfxplace.core.api.ui.dialog.Dialog;
 
 import javafx.stage.Window;
 
-@ApplicationInstanceSingleton
+//@ApplicationInstanceSingleton
+@ApplicationSingleton
 public class DialogController implements Dialog {
 
     private final I18N i18n;

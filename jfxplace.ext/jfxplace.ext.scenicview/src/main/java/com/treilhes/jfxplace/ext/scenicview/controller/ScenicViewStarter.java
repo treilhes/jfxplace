@@ -40,7 +40,8 @@ import org.slf4j.LoggerFactory;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.jfxplace.core.api.application.ApplicationClassloader;
-import com.treilhes.jfxplace.core.api.javafx.JavafxThreadClassloaderDispatcher;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
+import com.treilhes.jfxplace.core.api.javafx.JavaFxWindowOwnerRegistry;
 import com.treilhes.jfxplace.core.api.ui.MainInstanceWindow;
 
 import javafx.stage.Stage;
@@ -54,7 +55,12 @@ public class ScenicViewStarter implements Runnable {
 
     private final EmContext context;
 
-    public ScenicViewStarter(EmContext context) {
+    private final ApplicationInstance instance;
+
+    public ScenicViewStarter(
+            ApplicationInstance instance,
+            EmContext context) {
+        this.instance = instance;
         this.context = context;
     }
 
@@ -63,10 +69,10 @@ public class ScenicViewStarter implements Runnable {
 
         MainInstanceWindow mainInstanceWindow = context.getBean(MainInstanceWindow.class);
         ApplicationClassloader classloader = context.getBean(ApplicationClassloader.class);
-        JavafxThreadClassloaderDispatcher dispatcher = context.getBean(JavafxThreadClassloaderDispatcher.class);
+        JavaFxWindowOwnerRegistry dispatcher = context.getBean(JavaFxWindowOwnerRegistry.class);
 
         classloader.putClassLoader(ScenicView.class.getName(), ScenicView.class.getClassLoader());
-        dispatcher.registerWithNextWindow(classloader, w -> {
+        dispatcher.registerWithNextWindow(instance, w -> {
             return w instanceof Stage s && s.getTitle() != null && s.getTitle().contains("Scenic View");
         });
 

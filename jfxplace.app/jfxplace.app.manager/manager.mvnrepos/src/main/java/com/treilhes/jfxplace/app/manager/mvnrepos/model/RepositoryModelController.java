@@ -39,7 +39,6 @@ import org.slf4j.LoggerFactory;
 import com.treilhes.emc4j.boot.api.context.ApplicationInstance;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 import com.treilhes.emc4j.boot.api.maven.RepositoryManager;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -50,7 +49,6 @@ public class RepositoryModelController {
     private static final Logger logger = LoggerFactory.getLogger(RepositoryModelController.class);
 
     private final RepositoryManager repositoryManager;
-    private final JfxAppPlatform jfxAppPlatform;
     private final ObservableList<Repository> repositories = FXCollections.observableArrayList();
     private final ApplicationInstance instance;
 
@@ -59,11 +57,9 @@ public class RepositoryModelController {
     public RepositoryModelController(
             RepositoryManager repositoryManager,
             ApplicationInstance instance,
-            JfxAppPlatform jfxAppPlatform,
             RepositoryMapper mapper) {
         this.repositoryManager = repositoryManager;
         this.instance = instance;
-        this.jfxAppPlatform = jfxAppPlatform;
         this.mapper = mapper;
     }
 

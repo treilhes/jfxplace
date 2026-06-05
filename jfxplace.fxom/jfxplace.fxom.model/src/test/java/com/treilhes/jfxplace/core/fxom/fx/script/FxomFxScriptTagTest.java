@@ -54,9 +54,8 @@ import com.treilhes.jfxplace.core.fxom.FXOMScript;
 import com.treilhes.jfxplace.core.fxom.collector.FxCollector;
 import com.treilhes.jfxplace.core.fxom.fx.CloneFixture;
 import com.treilhes.jfxplace.core.fxom.fx.IOFixture;
-import com.treilhes.jfxplace.core.fxom.pipeline.DefaultFxmlSerializer;
 import com.treilhes.jfxplace.core.fxom.pipeline.FXOMDocumentFactory;
-import com.treilhes.jfxplace.core.fxom.pipeline.FXOMSerializer;
+import com.treilhes.jfxplace.core.fxom.pipeline.impl.DefaultFxomPipeline;
 
 import javafx.stage.Stage;
 
@@ -65,6 +64,7 @@ import javafx.stage.Stage;
  */
 @ExtendWith(ApplicationExtension.class)
 @SetSystemProperty(key = "javafx.allowjs", value = "true")
+@SetSystemProperty(key = "javafx.version", value = "xxx")// set default to test resource value
 public class FxomFxScriptTagTest {
 
     private static final boolean FAILURE_EXPECTED = true;
@@ -149,8 +149,8 @@ public class FxomFxScriptTagTest {
             script = script.replace("You clicked me!", "You changed me!");
             scripts.get(0).setScript(script);
 
-            FXOMSerializer serializer = new DefaultFxmlSerializer(false, JFX_VERSION, false);
-            String serializedContent = serializer.serialize(fxomDocument);
+            var pipeline = DefaultFxomPipeline.BASIC;
+            String serializedContent = pipeline.serialize(fxomDocument);
 
             assertNotNull(serializedContent);
 

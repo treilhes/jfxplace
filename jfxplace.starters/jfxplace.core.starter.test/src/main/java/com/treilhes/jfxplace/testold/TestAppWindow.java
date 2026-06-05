@@ -36,11 +36,9 @@ package com.treilhes.jfxplace.testold;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import com.treilhes.jfxplace.core.api.i18n.I18N;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.ui.MainInstanceWindow;
 import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlWindowController;
-import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
 import com.treilhes.jfxplace.util.ClassUtils;
 
 import javafx.event.EventHandler;
@@ -50,8 +48,8 @@ public abstract class TestAppWindow extends AbstractFxmlWindowController impleme
 
     private String fxmlContent;
 
-    public TestAppWindow(I18N i18n, ApplicationEvents sceneBuilderManager, IconSetting iconSetting, Class<?> appClass, String fxmlContent) {
-        super(i18n, sceneBuilderManager, iconSetting, ClassUtils.findClassURL(appClass));
+    public TestAppWindow(ApplicationInstance instance, Class<?> appClass, String fxmlContent) {
+        super(instance, ClassUtils.findClassURL(appClass));
         this.fxmlContent = fxmlContent;
     }
 

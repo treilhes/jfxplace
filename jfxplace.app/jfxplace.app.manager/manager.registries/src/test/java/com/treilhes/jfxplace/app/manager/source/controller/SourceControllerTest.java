@@ -34,79 +34,59 @@
 package com.treilhes.jfxplace.app.manager.source.controller;
 
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.ContextConfiguration;
 import org.testfx.api.FxRobot;
 
 import com.treilhes.emc4j.boot.api.maven.RepositoryClient;
-import com.treilhes.emc4j.boot.api.maven.UniqueArtifact;
 import com.treilhes.emc4j.boot.api.registry.RegistryArtifactManager;
 import com.treilhes.emc4j.boot.api.registry.model.RegistryArtifact;
 import com.treilhes.emc4j.boot.api.registry.model.RegistryInfo;
 import com.treilhes.emc4j.boot.api.registry.model.RegistrySourceInfo;
+import com.treilhes.emc4j.test.EmcInject;
+import com.treilhes.emc4j.test.EmcInjectMock;
 import com.treilhes.jfxplace.app.manager.api.ManagerApiExtension;
 import com.treilhes.jfxplace.app.manager.registries.controller.EditSourceItemController;
 import com.treilhes.jfxplace.app.manager.registries.controller.SourceController;
 import com.treilhes.jfxplace.app.manager.registries.controller.SourceItemController;
 import com.treilhes.jfxplace.app.manager.registries.model.SourceModelController;
 import com.treilhes.jfxplace.core.api.ui.controller.menu.ViewMenu;
-import com.treilhes.jfxplace.testold.JfxAppsTest;
-import com.treilhes.jfxplace.testold.StageBuilder;
-import com.treilhes.jfxplace.testold.StageType;
+import com.treilhes.jfxplace.test.JfxPlaceTest;
+import com.treilhes.jfxplace.test.builder.StageBuilder;
+import com.treilhes.jfxplace.test.builder.StageType;
 
 import javafx.scene.control.Button;
 
-@JfxAppsTest
-@ContextConfiguration(classes = { SourceControllerTest.Config.class, SourceController.class, SourceItemController.class,
-        SourceModelController.class, EditSourceItemController.class })
+@JfxPlaceTest(classes = { SourceController.class, SourceItemController.class, SourceModelController.class,
+        EditSourceItemController.class })
 class SourceControllerTest {
 
-    @TestConfiguration
-    static class Config {
+    @EmcInjectMock
+    ViewMenu viewMenu;
 
-        @Bean
-        ViewMenu viewMenuController() {
-            return Mockito.mock(ViewMenu.class);
-        }
-
-        @Bean
-        RegistryArtifactManager registryArtifactManager() {
-            return Mockito.mock(RegistryArtifactManager.class);
-        }
-
-        @Bean
-        RepositoryClient repositoryClient() {
-            return Mockito.mock(RepositoryClient.class);
-        }
-    }
-
-    @Autowired
+    @EmcInjectMock
     RegistryArtifactManager registryArtifactManager;
 
-    @Autowired
+    @EmcInjectMock
     RepositoryClient mavenClient;
 
+    @EmcInject
+    StageBuilder stageBuilder;
+
     @Test
-    void should_load_the_fxml(StageBuilder stageBuilder) {
+    void should_load_the_fxml() {
         var testStage = stageBuilder.controller(SourceController.class).show();
         assertNotNull(testStage.getController().getRoot());
         testStage.close();
     }
 
     @Test
-    void must_load_two_sources(StageBuilder stageBuilder, FxRobot robot) {
+    void must_load_two_sources(FxRobot robot) {
         var b = new AtomicReference<Button>();
 
         var reg1 = new RegistryInfo();
@@ -133,16 +113,6 @@ class SourceControllerTest {
         regSrc2.setRegistryInfo(reg2);
 
         Mockito.when(registryArtifactManager.listRegistrySourceInfo()).thenReturn(Set.of(regSrc1, regSrc2));
-        Mockito.when(mavenClient.getAvailableVersions(any(), any())).thenAnswer((call) -> {
-            var group = call.getArgument(0).toString();
-            var artifact = call.getArgument(1).toString();
-            var artifacts = List.of(
-                    UniqueArtifact.builder().artifact(group, artifact).version("1.0.0").build(),
-                    UniqueArtifact.builder().artifact(group, artifact).version("2.0.0").build(),
-                    UniqueArtifact.builder().artifact(group, artifact).version("3.0.0").build()
-                    );
-            return new ArrayList<>(artifacts);
-        });
 
         var loopForEdit = false;
 

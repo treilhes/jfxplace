@@ -33,24 +33,8 @@
  */
 package com.treilhes.jfxplace.core.api.ui;
 
-import javafx.stage.Stage;
+import com.treilhes.jfxplace.core.api.application.ApplicationWindow;
 
-public interface InstanceWindow {
+public interface InstanceWindow extends ApplicationWindow {
 
-    Stage getStage();
-
-    void closeWindow();
-    void openWindow();
-
-    void setCloseHandler(CloseHandler closeHandler);
-    void setFocusHandler(FocusHandler closeHandler);
-
-    @FunctionalInterface
-    public interface CloseHandler{
-        void onClose();
-    }
-    @FunctionalInterface
-    public interface FocusHandler{
-        void onFocus();
-    }
 }

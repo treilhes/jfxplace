@@ -45,7 +45,7 @@ import com.treilhes.jfxplace.app.manager.store.ui.component.ApplicationItemContr
 import com.treilhes.jfxplace.core.api.i18n.I18N;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationInstanceEvents;
-import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlController;
+import com.treilhes.jfxplace.core.api.ui.controller.AbstractPanelController;
 import com.treilhes.jfxplace.core.api.ui.controller.menu.ViewMenu;
 
 import javafx.beans.binding.Bindings;
@@ -65,7 +65,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
 @ApplicationInstanceSingleton
-public class RootController extends AbstractFxmlController {
+public class RootController extends AbstractPanelController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RootController.class);
 

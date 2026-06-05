@@ -37,7 +37,7 @@ import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototy
 import com.treilhes.jfxplace.core.api.i18n.I18N;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationInstanceEvents;
-import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlController;
+import com.treilhes.jfxplace.core.api.ui.controller.AbstractPanelController;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.MessageLogger;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.MessageLogger.MessageEntry;
 import com.treilhes.jfxplace.fxom.editor.editor.messagelog.MessageLogEntry;
@@ -59,7 +59,7 @@ import javafx.scene.layout.VBox;
  *
  */
 @ApplicationInstancePrototype
-public class MessagePanelController extends AbstractFxmlController {
+public class MessagePanelController extends AbstractPanelController {
 
     private double panelWidth;
 

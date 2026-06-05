@@ -43,7 +43,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
+import com.treilhes.jfxplace.core.api.application.Application;
+import com.treilhes.jfxplace.core.api.javafx.JfxPlaceExecutor;
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
 import com.treilhes.jfxplace.core.fxom.pipeline.FXOMDocumentFactory;
 
@@ -57,10 +58,10 @@ import com.treilhes.jfxplace.core.fxom.pipeline.FXOMDocumentFactory;
 public class DefaultDocumentFactory implements FXOMDocumentFactory {
 
     private static final Logger logger = LoggerFactory.getLogger(DefaultDocumentFactory.class);
-    private final JfxAppPlatform platform;
+    private final JfxPlaceExecutor executor;
 
-    public DefaultDocumentFactory(JfxAppPlatform platform) {
-        this.platform = platform;
+    public DefaultDocumentFactory(Application application) {
+        this.executor = application.getExecutor();
     }
 
     @Override
@@ -77,7 +78,7 @@ public class DefaultDocumentFactory implements FXOMDocumentFactory {
                 return FXOMDocumentFactory.DEFAULT.newDocument(this, fxmlText, location, classLoader, resources, FXOMDocumentFactory.DEFAULT_NORMALIZE);
             };
 
-            var future = platform.callOnFxThreadWithActiveScope(callable);
+            var future = executor.callOnFxThread(callable);
             return future.get();
 
         } catch (ExecutionException e) {

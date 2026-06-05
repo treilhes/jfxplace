@@ -4,8 +4,9 @@ emc4j:
     redirectionsEnabled: true
     redirect:
       - groupId: com.treilhes.jfxplace
-        artifactId: manager.app
-        path: ../../../../manager.app/target/classes
+        artifactId: manager\.(?!registry$)(.*)
+        path: ../../../../manager.$1/target/classes
+        useRegex: true
 
 server:
   port: 8080

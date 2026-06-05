@@ -33,12 +33,10 @@
  */
 package com.treilhes.jfxplace.app.sample.app.init;
 
-import com.treilhes.jfxplace.core.api.i18n.I18N;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.ui.MainInstanceWindow;
 import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlWindowController;
-import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
@@ -47,11 +45,8 @@ import javafx.scene.input.KeyEvent;
 public class SampleUi  extends AbstractFxmlWindowController implements MainInstanceWindow {
 
     // @formatter:off
-    public SampleUi(
-            I18N i18n,
-            ApplicationEvents applicationEvents,
-            IconSetting iconSetting) {
-        super(i18n, applicationEvents, iconSetting, SampleUi.class.getResource("SampleUi.fxml"), false);
+    public SampleUi(ApplicationInstance instance) {
+        super(instance, SampleUi.class.getResource("SampleUi.fxml"), false);
         // @formatter:on
     }
 

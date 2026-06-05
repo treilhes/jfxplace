@@ -57,6 +57,7 @@
         <module>jfxplace.fxom</module>
         <module>jfxplace.starters</module>
         <module>jfxplace.jpms.patches</module>
+        <module>jfxplace.utils</module>
     </modules>
 
     <properties>
@@ -329,6 +330,21 @@
                                         <versionRange>[1.0.0,)</versionRange>
                                         <goals>
                                             <goal>properties</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <execute>
+                                            <runOnConfiguration>true</runOnConfiguration>
+                                        </execute>
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>com.treilhes.jfxplace</groupId>
+                                        <artifactId>jfxplace-helper-plugin</artifactId>
+                                        <versionRange>[0.0.0,)</versionRange>
+                                        <goals>
+                                            <goal>argline</goal>
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>

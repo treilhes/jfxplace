@@ -41,7 +41,6 @@ import com.treilhes.jfxplace.core.fxom.FXOMObject;
 import com.treilhes.jfxplace.core.fxom.FXOMPropertyT;
 import com.treilhes.jfxplace.core.fxom.collector.FxCollector;
 import com.treilhes.jfxplace.core.fxom.util.PrefixedValue;
-import com.treilhes.jfxplace.core.metadata.property.base.SingleValuePropertyMetadata;
 
 /**
  *

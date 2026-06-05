@@ -43,14 +43,14 @@ import java.nio.file.Paths;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
 import com.treilhes.jfxplace.core.api.action.AbstractAction;
 import com.treilhes.jfxplace.core.api.action.ActionExtensionFactory;
-import com.treilhes.jfxplace.core.api.action.ActionFactory;
 import com.treilhes.jfxplace.core.api.action.ActionMeta;
-import com.treilhes.jfxplace.core.api.application.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.application.InstancesManager;
 import com.treilhes.jfxplace.core.api.fs.FileSystem;
 import com.treilhes.jfxplace.core.api.fs.RecentItems;
 import com.treilhes.jfxplace.core.api.fxom.subjects.FxomEvents;
 import com.treilhes.jfxplace.core.api.i18n.I18N;
+import com.treilhes.jfxplace.core.api.instance.ActionFactory;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.ui.MainInstanceWindow;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.InlineEdit;
 import com.treilhes.jfxplace.core.api.ui.dialog.Alert;
@@ -66,7 +66,7 @@ public class SaveAsAction extends AbstractAction {
 
     public static final String MENU_ID = "saveAsMenu";
 
-    private final FxomEvents documentManager;
+    private final FxomEvents fxomEvents;
     private final InlineEdit inlineEdit;
     private final Dialog dialog;
     private final MainInstanceWindow documentWindow;
@@ -75,10 +75,13 @@ public class SaveAsAction extends AbstractAction {
     private final InstancesManager main;
     private final ActionFactory actionFactory;
 
+    private final ApplicationInstance instance;
+
     public SaveAsAction(
             I18N i18n,
             ActionExtensionFactory extensionFactory,
-            FxomEvents documentManager,
+            ApplicationInstance instance,
+            FxomEvents fxomEvents,
             MainInstanceWindow documentWindow,
             InlineEdit inlineEdit,
             Dialog dialog,
@@ -87,7 +90,8 @@ public class SaveAsAction extends AbstractAction {
             InstancesManager main,
             RecentItems recentItems) {
         super(i18n, extensionFactory);
-        this.documentManager = documentManager;
+        this.instance = instance;
+        this.fxomEvents = fxomEvents;
         this.inlineEdit = inlineEdit;
         this.dialog = dialog;
         this.documentWindow = documentWindow;
@@ -176,8 +180,8 @@ public class SaveAsAction extends AbstractAction {
                 }
 
                 // Checks if fxmlFile is the name of an already opened document
-                final ApplicationInstance dwc = main.lookupInstance(newLocation);
-                if (dwc != null && dwc != this) {
+                final var dwc = main.lookupInstance(newLocation);
+                if (dwc != null && dwc != instance) {
                     final Path fxmlPath = Paths.get(fxmlFile.toString());
                     final String fileName = fxmlPath.getFileName().toString();
                     dialog.showErrorAndWait(documentWindow.getStage(), null,
@@ -191,7 +195,7 @@ public class SaveAsAction extends AbstractAction {
                     // TODO(elp)
 
                     // First change the location of the fxom document
-                    FXOMDocument fxomDocument = documentManager.fxomDocument().get();
+                    FXOMDocument fxomDocument = fxomEvents.fxomDocument().get();
                     fxomDocument.setLocation(newLocation);
 
 //                    editor.setFxmlLocation(newLocation);

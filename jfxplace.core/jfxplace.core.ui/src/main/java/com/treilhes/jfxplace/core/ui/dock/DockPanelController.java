@@ -46,7 +46,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.subjects.DockManager;
 import com.treilhes.jfxplace.core.api.subjects.ViewManager;
 import com.treilhes.jfxplace.core.api.subjects.ViewManager.DockRequest;
@@ -85,7 +85,6 @@ public class DockPanelController implements Dock {
 
     private static final Logger logger = LoggerFactory.getLogger(DockPanelController.class);
 
-    private final JfxAppPlatform jfxAppPlatform;
     private final DockManager dockManager;
     private final List<DockType<?>> dockTypes;
     private final LastDockUuidPreference lastDockUuidPreference;
@@ -109,6 +108,8 @@ public class DockPanelController implements Dock {
 
     private final DockActionFactory dockActionFactory;
 
+    private final ApplicationInstance instance;
+
     /**
      * Instantiates a new dock panel controller.
      *
@@ -121,7 +122,7 @@ public class DockPanelController implements Dock {
      */
     // @formatter:off
     public DockPanelController(
-            JfxAppPlatform jfxAppPlatform,
+            ApplicationInstance instance,
             DockManager dockManager,
             ViewManager viewManager,
             LastDockUuidPreference lastDockUuidPreference,
@@ -132,7 +133,7 @@ public class DockPanelController implements Dock {
         // @formatter:on
 
         this.id = UUID.randomUUID();
-        this.jfxAppPlatform= jfxAppPlatform;
+        this.instance = instance;
         this.dockManager = dockManager;
         this.dockActionFactory = dockActionFactory;
         this.lastDockUuidPreference = lastDockUuidPreference;
@@ -239,7 +240,7 @@ public class DockPanelController implements Dock {
             view.parentDockProperty().set(null);
             //viewDeleted(dockContext.getView());
 
-            jfxAppPlatform.runOnFxThreadWithActiveScope(() -> {
+            instance.getExecutor().runOnFxThread(() -> {
                 updateDockView(isMinimized());
             });
         }
@@ -265,7 +266,7 @@ public class DockPanelController implements Dock {
         lastDockUuidPreference.save();
         view.parentDockProperty().set(this);
 
-        jfxAppPlatform.runOnFxThreadWithActiveScope(() -> {
+        instance.getExecutor().runOnFxThread(() -> {
             DockContext initialContext = new DockContext(view, viewAttachment, null, null, null);
             var dockContext = dockTypeProperty().get().computeView(initialContext);
             views.put(view, dockContext);

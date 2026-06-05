@@ -45,7 +45,7 @@ import com.treilhes.jfxplace.app.manager.registries.model.SourceModelController;
 import com.treilhes.jfxplace.core.api.i18n.I18N;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationInstanceEvents;
-import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlController;
+import com.treilhes.jfxplace.core.api.ui.controller.AbstractPanelController;
 
 import javafx.animation.Animation.Status;
 import javafx.animation.RotateTransition;
@@ -63,7 +63,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 @ApplicationInstancePrototype
-public class SourceItemController extends AbstractFxmlController {
+public class SourceItemController extends AbstractPanelController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SourceItemController.class);
 

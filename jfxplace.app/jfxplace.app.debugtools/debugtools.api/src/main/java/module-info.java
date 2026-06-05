@@ -36,6 +36,7 @@ import com.treilhes.jfxplace.app.debugtools.api.DebugtoolsApiExtension;
 
 open module debugtools.api {
     exports com.treilhes.jfxplace.app.debugtools.api;
+    exports com.treilhes.jfxplace.app.debugtools.api.events;
     exports com.treilhes.jfxplace.app.debugtools.api.menu;
     exports com.treilhes.jfxplace.app.debugtools.api.ui;
 

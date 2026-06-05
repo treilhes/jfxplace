@@ -37,17 +37,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
-import java.util.concurrent.BrokenBarrierException;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
 import org.testfx.api.FxRobot;
 
+import com.treilhes.emc4j.test.EmcInject;
+import com.treilhes.emc4j.test.EmcInjectMock;
 import com.treilhes.jfxplace.core.api.ctxmenu.ContextMenu;
 import com.treilhes.jfxplace.core.api.driver.Driver;
 import com.treilhes.jfxplace.core.api.fxom.content.mode.ModeManager;
@@ -61,9 +58,9 @@ import com.treilhes.jfxplace.core.fxom.FXOMDocument;
 import com.treilhes.jfxplace.fxom.editor.controller.WorkspaceController;
 import com.treilhes.jfxplace.fxom.editor.preference.BackgroundImagePreference;
 import com.treilhes.jfxplace.fxom.editor.preference.BackgroundImagePreference.BackgroundImage;
-import com.treilhes.jfxplace.testold.JfxAppsTest;
-import com.treilhes.jfxplace.testold.StageBuilder;
-import com.treilhes.jfxplace.testold.StageType;
+import com.treilhes.jfxplace.test.JfxPlaceTest;
+import com.treilhes.jfxplace.test.builder.StageBuilder;
+import com.treilhes.jfxplace.test.builder.StageType;
 import com.treilhes.jfxplace.util.URLUtils;
 
 import io.reactivex.rxjava3.subjects.PublishSubject;
@@ -71,8 +68,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 
-@JfxAppsTest
-@ContextConfiguration(classes = { WorkspaceControllerTest.Config.class, WorkspaceController.class, FXOMObjectMask.Factory.class })
+@JfxPlaceTest(classes = { WorkspaceController.class, FXOMObjectMask.Factory.class })
 class WorkspaceControllerTest {
 
     private static final String WORKSPACE_CSS = """
@@ -84,58 +80,36 @@ class WorkspaceControllerTest {
             }
             """;
 
-    @TestConfiguration
-    static class Config {
+    @EmcInjectMock
+    ContextMenu contextMenu;
 
-        @Bean
-        ContextMenu contextMenu() {
-            return Mockito.mock(ContextMenu.class);
-        }
+    @EmcInjectMock
+    BackgroundImagePreference backgroundImagePreference;
 
-        @Bean
-        BackgroundImagePreference backgroundImagePreference() {
-            return Mockito.mock(BackgroundImagePreference.class);
-        }
+    @EmcInjectMock
+    Selection selection;
 
-        @Bean
-        Selection selection() {
-            return Mockito.mock(Selection.class);
-        }
+    @EmcInjectMock
+    Content content;
 
-        @Bean
-        Content content() {
-            return Mockito.mock(Content.class);
-        }
+    @EmcInjectMock
+    ModeManager nodeManager;
 
-        @Bean
-        ModeManager nodeManager() {
-            return Mockito.mock(ModeManager.class);
-        }
+    @EmcInjectMock
+    Driver driver;
 
-        @Bean
-        Driver driver() {
-            return Mockito.mock(Driver.class);
-        }
-    }
+    @EmcInject
+    ApplicationEvents applicationEvents;
 
-    @Autowired
-    private ApplicationEvents applicationEvents;
+    @EmcInject
+    FxomEvents instanceEvents;
 
-    @Autowired
-    private FxomEvents instanceEvents;
-
-    @Autowired
-    private ContextMenu contextMenu;
-
-    @Autowired
-    private Content content;
-
-    @Autowired
-    private BackgroundImagePreference backgroundImagePreference;
+    @EmcInject
+    StageBuilder builder;
 
     @Test
     @DirtiesContext
-    void should_load_the_fxml(StageBuilder builder) {
+    void should_load_the_fxml() {
         Mockito.when(backgroundImagePreference.getObservableValue())
         .thenReturn(new SimpleObjectProperty<>(BackgroundImage.BACKGROUND_01));
         Mockito.when(content.contentChanged()).thenReturn(PublishSubject.create());
@@ -147,7 +121,7 @@ class WorkspaceControllerTest {
 
     @Test
     @DirtiesContext
-    void show_ui(StageBuilder builder, FxRobot robot) {
+    void show_ui(FxRobot robot) {
 
         Mockito.when(backgroundImagePreference.getObservableValue())
         .thenReturn(new SimpleObjectProperty<>(BackgroundImage.BACKGROUND_01));
@@ -174,7 +148,7 @@ class WorkspaceControllerTest {
 
     @Test
     @DirtiesContext
-    void should_show_document_null_label(StageBuilder builder, FxRobot robot) throws IOException, InterruptedException, BrokenBarrierException {
+    void should_show_document_null_label(FxRobot robot) throws Exception {
 
         var contentChanged = PublishSubject.<Boolean>create();
 
@@ -204,7 +178,7 @@ class WorkspaceControllerTest {
 
     @Test
     @DirtiesContext
-    void should_show_undisplayable_document_label(StageBuilder builder, FxRobot robot) throws IOException {
+    void should_show_undisplayable_document_label(FxRobot robot) throws IOException {
 
         var contentChanged = PublishSubject.<Boolean>create();
 
@@ -238,7 +212,7 @@ class WorkspaceControllerTest {
 
     @Test
     @DirtiesContext
-    void should_scale_the_content(StageBuilder builder, FxRobot robot) throws IOException {
+    void should_scale_the_content(FxRobot robot) throws IOException {
 
         var contentChanged = PublishSubject.<Boolean>create();
 

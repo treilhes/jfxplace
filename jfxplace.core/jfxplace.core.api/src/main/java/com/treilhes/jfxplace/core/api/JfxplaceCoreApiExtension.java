@@ -37,16 +37,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import com.treilhes.emc4j.boot.api.context.EmContext;
+import com.treilhes.emc4j.boot.api.context.EmContextShutdownHooks;
+import com.treilhes.emc4j.boot.api.context.beans.ExtensionDefinition;
+import com.treilhes.emc4j.boot.api.loader.extension.Extension;
 import com.treilhes.emc4j.boot.api.loader.extension.RootExtension;
-import com.treilhes.emc4j.boot.api.loader.extension.SealedExtension;
 import com.treilhes.jfxplace.core.api.action.ActionExtensionFactory;
-import com.treilhes.jfxplace.core.api.action.ActionFactory;
 import com.treilhes.jfxplace.core.api.application.ApplicationClassloader;
 import com.treilhes.jfxplace.core.api.i18n.I18N;
+import com.treilhes.jfxplace.core.api.javafx.JfxPlaceExecutor;
 import com.treilhes.jfxplace.core.api.javafx.internal.FxmlControllerBeanPostProcessor;
+import com.treilhes.jfxplace.core.api.javafx.internal.JavaFxWindowManager;
+import com.treilhes.jfxplace.core.api.javafx.internal.JavaFxWindowOwnerRegistryImpl;
 import com.treilhes.jfxplace.core.api.javafx.internal.JavafxThreadBootstrapper;
-import com.treilhes.jfxplace.core.api.javafx.internal.JavafxThreadClassloaderDispatcherImpl;
-import com.treilhes.jfxplace.core.api.javafx.internal.JfxAppPlatformImpl;
+import com.treilhes.jfxplace.core.api.javafx.internal.JavafxThreadClassloaderDispatcher;
 import com.treilhes.jfxplace.core.api.job.JobExtensionFactory;
 import com.treilhes.jfxplace.core.api.settings.MavenSetting;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
@@ -60,6 +64,9 @@ import com.treilhes.jfxplace.core.api.ui.controller.dock.DockFactory;
 import com.treilhes.jfxplace.core.api.ui.controller.dock.DockNameHelper;
 import com.treilhes.jfxplace.core.api.ui.controller.dock.ViewController;
 import com.treilhes.jfxplace.core.api.ui.controller.menu.MenuBuilder;
+import com.treilhes.jfxplace.javafx.fxml.patch.PatchLink;
+
+import javafx.application.Platform;
 
 
 public class JfxplaceCoreApiExtension implements RootExtension {
@@ -78,7 +85,7 @@ public class JfxplaceCoreApiExtension implements RootExtension {
 
     @Override
     public UUID getParentId() {
-        return SealedExtension.BOOT_ID;
+        return Extension.BOOT_ID;
     }
 
     @Override
@@ -91,7 +98,9 @@ public class JfxplaceCoreApiExtension implements RootExtension {
         return Arrays.asList(
                 //Selection.class,
                 ActionExtensionFactory.class,
-                ActionFactory.class,
+                com.treilhes.jfxplace.core.api.application.ActionFactory.class,
+                com.treilhes.jfxplace.core.api.instance.ActionFactory.class,
+
                 ApplicationEvents.ApplicationEventsImpl.class,
                 ApplicationInstanceEvents.ApplicationInstanceEventsImpl.class,
                 DockFactory.class,
@@ -100,9 +109,11 @@ public class JfxplaceCoreApiExtension implements RootExtension {
                 FxmlControllerBeanPostProcessor.class,
                 I18N.class,
                 JavafxThreadBootstrapper.class,
+                JavaFxWindowManager.class,
+                JavaFxWindowOwnerRegistryImpl.class,
                 ApplicationClassloader.class,
-                JavafxThreadClassloaderDispatcherImpl.class,
-                JfxAppPlatformImpl.class,
+                JavafxThreadClassloaderDispatcher.class,
+                JfxPlaceExecutor.class,
                 JobExtensionFactory.class,
                 LifecyclePostProcessor.class,
                 MavenSetting.class,
@@ -114,35 +125,22 @@ public class JfxplaceCoreApiExtension implements RootExtension {
         );
     }
 
-//    @Override
-//    public InputStream getLicense() {
-//        // TODO Auto-generated method stub
-//        return null;
-//    }
-//
-//    @Override
-//    public InputStream getDescription() {
-//        // TODO Auto-generated method stub
-//        return null;
-//    }
-//
-//    @Override
-//    public InputStream getLoadingImage() {
-//        // TODO Auto-generated method stub
-//        return null;
-//    }
-//
-//    @Override
-//    public InputStream getIcon() {
-//        // TODO Auto-generated method stub
-//        return null;
-//    }
-//
-//    @Override
-//    public InputStream getIconX2() {
-//        // TODO Auto-generated method stub
-//        return null;
-//    }
+    @Override
+    public void initializeContext(EmContext context, EmContextShutdownHooks shutdownHooks) {
+        shutdownHooks.registerInheritedShutdownHook(c -> {
+            var extensionDef = c.getLocalBean(ExtensionDefinition.class);
+            var extension = extensionDef.getExtension();
+            PatchLink.cleanBeanAdapterGlobalCache(extension.getClass().getModule().getLayer());
+            Platform.runLater(() -> Thread.currentThread().setContextClassLoader(null));
+        });
+
+        shutdownHooks.registerShutdownHook(c -> System.out.println("Shutdown of " + c.getId()));
+    }
+
+    @Override
+    public void finalizeContext(EmContext context) {
+
+    }
 
 
 }

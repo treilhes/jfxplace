@@ -40,16 +40,14 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
-import com.treilhes.jfxplace.core.api.i18n.I18N;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
+import com.treilhes.jfxplace.core.api.preference.DefaultPreferenceGroups.PreferenceGroup;
 import com.treilhes.jfxplace.core.api.preference.ManagedDocumentPreference;
 import com.treilhes.jfxplace.core.api.preference.ManagedGlobalPreference;
 import com.treilhes.jfxplace.core.api.preference.UserPreference;
-import com.treilhes.jfxplace.core.api.preference.DefaultPreferenceGroups.PreferenceGroup;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.ui.InstanceWindow;
 import com.treilhes.jfxplace.core.api.ui.MainInstanceWindow;
 import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlWindowController;
-import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -88,14 +86,11 @@ public class PreferencesWindowController extends AbstractFxmlWindowController {
     private List<UserPreference<?>> documentPreferences;
 
     public PreferencesWindowController(
-            I18N i18n,
-            ApplicationEvents sceneBuilderManager,
-            IconSetting iconSetting,
+            ApplicationInstance instance,
             MainInstanceWindow documentWindowController,
             List<ManagedGlobalPreference> globalPreferences,
             List<ManagedDocumentPreference> documentPreferences) {
-        super(i18n, sceneBuilderManager, iconSetting, PreferencesWindowController.class.getResource("Preferences.fxml"),
-                documentWindowController);
+        super(instance, PreferencesWindowController.class.getResource("Preferences.fxml"), documentWindowController);
         this.ownerWindow = documentWindowController;
 
         this.globalPreferences = globalPreferences.stream()

@@ -43,6 +43,10 @@ import com.treilhes.jfxplace.app.debugtools.app.action.ShowScenicViewAction;
 import com.treilhes.jfxplace.app.debugtools.app.menu.MainMenuProvider;
 import com.treilhes.jfxplace.app.debugtools.app.ui.DebugtoolsUiTemplate;
 import com.treilhes.jfxplace.app.debugtools.app.ui.WindowIconSettings;
+import com.treilhes.jfxplace.app.debugtools.app.ui.view.ContextBeansController;
+import com.treilhes.jfxplace.app.debugtools.app.ui.view.ContextTreeController;
+import com.treilhes.jfxplace.app.debugtools.app.ui.view.OpenApiController;
+import com.treilhes.jfxplace.app.debugtools.app.ui.view.StartupController;
 import com.treilhes.jfxplace.ext.about.api.AboutApi;
 import com.treilhes.jfxplace.ext.scenicview.api.ScenicViewApi;
 
@@ -73,7 +77,12 @@ public class DebugtoolsAppExtension implements OpenExtension  {
                 ShowAboutAction.class,
                 ShowScenicViewAction.class,
                 AboutApi.class,
-                ScenicViewApi.class
+                ScenicViewApi.class,
+
+                ContextTreeController.class,
+                ContextBeansController.class,
+                OpenApiController.class,
+                StartupController.class
                 );
     }
 

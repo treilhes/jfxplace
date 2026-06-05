@@ -44,9 +44,9 @@ import java.util.stream.Collectors;
 import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 import org.springframework.context.annotation.Lazy;
 
-import com.treilhes.emc4j.boot.api.context.annotation.Prototype;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationPrototype;
 import com.treilhes.jfxplace.core.api.action.AbstractActionExtension;
-import com.treilhes.jfxplace.core.api.action.ActionFactory;
+import com.treilhes.jfxplace.core.api.application.ActionFactory;
 import com.treilhes.jfxplace.core.api.lifecycle.InitWithDocument;
 import com.treilhes.jfxplace.core.api.tooltheme.CssPreference;
 import com.treilhes.jfxplace.core.api.tooltheme.CssPreference.CssProperty;
@@ -55,7 +55,7 @@ import com.treilhes.jfxplace.util.URLUtils;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 import io.reactivex.rxjava3.subjects.Subject;
 
-@Prototype
+@ApplicationPrototype
 public class ApplyToolCssPreferencesExtension extends AbstractActionExtension<ApplyToolCssAction>
         implements InitWithDocument {
 

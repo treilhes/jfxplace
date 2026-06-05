@@ -51,10 +51,10 @@ import javafx.stage.Stage;
  */
 @ExtendWith(ApplicationExtension.class)
 @SetSystemProperty(key = "javafx.allowjs", value = "true")
+@SetSystemProperty(key = "javafx.version", value = "xxx")// set default to test resource value
 public class FxomFxDefineTagTest {
 
     private static final boolean FAILURE_EXPECTED = true;
-    private static final String JFX_VERSION = "xxx";
 
     private enum Case {
         ALWAYS_VALID("always_valid.fxml"),

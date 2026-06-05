@@ -121,6 +121,9 @@
                         <javafx.allowjs>true</javafx.allowjs>
                     </systemPropertyVariables>
                     <useModulePath>false</useModulePath>
+                    <argLine>
+                        --add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+                    </argLine>
                 </configuration>
             </plugin>
             <plugin>
@@ -244,7 +247,7 @@
                 </os>
             </activation>
             <properties>
-                <glass.platform>win</glass.platform>
+                <glass.platform>Win</glass.platform>
                 <awt.headless>false</awt.headless>
             </properties>
         </profile>
@@ -258,7 +261,7 @@
                 </os>
             </activation>
             <properties>
-                <glass.platform>mac</glass.platform>
+                <glass.platform>Mac</glass.platform>
                 <awt.headless>false</awt.headless>
             </properties>
         </profile>
@@ -269,20 +272,17 @@
             <activation>
                 <os>
                     <family>Unix</family>
-                    <name>Linux</name>
                 </os>
             </activation>
             <properties>
-                <glass.platform>gtk</glass.platform>
+                <glass.platform>Gtk</glass.platform>
                 <awt.headless>false</awt.headless>
             </properties>
         </profile>
         <profile>
             <id>headless</id>
             <activation>
-                <os>
-                    <family>Windows</family>
-                </os>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <glass.platform>Headless</glass.platform>

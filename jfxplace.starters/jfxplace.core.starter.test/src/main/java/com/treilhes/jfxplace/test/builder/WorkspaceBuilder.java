@@ -137,7 +137,7 @@ public class WorkspaceBuilder {
 
         robot.interact(() -> setup(instance, w + stageSizeDelta * 2, h + stageSizeDelta * 2, docRef));
 
-        return new TestStage<>(stage, instance, docRef.get());
+        return new TestStage<>(context, stage, instance, docRef.get());
     }
 
     private void setup(SubSceneController instance, int width, int height, AtomicReference<FXOMDocument> docRef) {

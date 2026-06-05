@@ -49,14 +49,11 @@ import com.treilhes.jfxplace.core.fxom.FXOMObject;
 import com.treilhes.jfxplace.core.fxom.FXOMProperty;
 import com.treilhes.jfxplace.core.fxom.FXOMPropertyT;
 import com.treilhes.jfxplace.core.fxom.fx.script.FxomFxScriptTagTest;
-import com.treilhes.jfxplace.core.fxom.pipeline.DefaultFxmlSerializer;
 import com.treilhes.jfxplace.core.fxom.pipeline.FXOMDocumentFactory;
-import com.treilhes.jfxplace.core.fxom.pipeline.FXOMSerializer;
+import com.treilhes.jfxplace.core.fxom.pipeline.impl.DefaultFxomPipeline;
 import com.treilhes.jfxplace.core.fxom.util.PropertyName;
 
 public class CloneFixture {
-
-    public static final String JFX_VERSION = "xxx";
 
     public static void testIsCloneable(Object owner, String fileName, boolean failureExpected) {
         try (var stream = owner.getClass().getResourceAsStream(fileName)) {
@@ -68,8 +65,8 @@ public class CloneFixture {
 
             final FXOMDocument newDocument = FXOMNodes.newDocument(fileDocument.getFxomRoot());
 
-            FXOMSerializer serializer = new DefaultFxmlSerializer(false, JFX_VERSION, false);
-            String serializedContent = serializer.serialize(newDocument);
+            var pipeline = DefaultFxomPipeline.BASIC;
+            String serializedContent = pipeline.serialize(newDocument);
             assertNotNull(serializedContent);
             //assertEquals(content.trim(), serializedContent.trim());
 

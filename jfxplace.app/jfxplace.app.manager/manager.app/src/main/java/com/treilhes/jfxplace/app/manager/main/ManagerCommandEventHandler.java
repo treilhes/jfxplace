@@ -38,7 +38,7 @@ private static final Logger logger = LoggerFactory.getLogger(ManagerCommandEvent
 	public void handleOpenCommand(OpenCommandEvent command) {
 		try {
 			applicationActionFactory.lookupUnusedInstance(null, (instance) -> {
-				instance.openWindow();
+				instance.getUi().openWindow();
 			}).perform();
 		} catch (Exception e) {
 			logger.error("Error while executing command", e);
@@ -64,8 +64,7 @@ private static final Logger logger = LoggerFactory.getLogger(ManagerCommandEvent
 
     @Override
     public void handleRestartedCommand(RestartedCommandEvent command) {
-        // TODO Auto-generated method stub
-
+        handleOpenCommand(null);
     }
 
 }

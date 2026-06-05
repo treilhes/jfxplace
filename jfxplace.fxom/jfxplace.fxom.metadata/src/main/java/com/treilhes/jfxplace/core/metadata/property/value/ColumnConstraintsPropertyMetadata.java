@@ -38,11 +38,9 @@ import java.util.Objects;
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
 import com.treilhes.jfxplace.core.fxom.FXOMInstance;
 import com.treilhes.jfxplace.core.fxom.util.PropertyName;
-import com.treilhes.jfxplace.core.metadata.property.base.BooleanPropertyMetadata;
-import com.treilhes.jfxplace.core.metadata.property.base.EnumerationPropertyMetadata;
-import com.treilhes.jfxplace.core.metadata.property.base.DoublePropertyMetadata.ComputedAndPrefSizeDoublePropertyMetadata;
-import com.treilhes.jfxplace.core.metadata.property.base.DoublePropertyMetadata.ComputedSizeDoublePropertyMetadata;
-import com.treilhes.jfxplace.core.metadata.property.base.DoublePropertyMetadata.PercentageDoublePropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.DoublePropertyMetadata.ComputedAndPrefSizeDoublePropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.DoublePropertyMetadata.ComputedSizeDoublePropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.DoublePropertyMetadata.PercentageDoublePropertyMetadata;
 import com.treilhes.jfxplace.util.MathUtils;
 
 import javafx.geometry.HPos;

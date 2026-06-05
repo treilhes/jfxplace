@@ -38,12 +38,12 @@ import java.util.List;
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
 import com.treilhes.jfxplace.core.fxom.FXOMInstance;
 import com.treilhes.jfxplace.core.fxom.util.PropertyName;
-import com.treilhes.jfxplace.core.metadata.property.base.BooleanPropertyMetadata;
-import com.treilhes.jfxplace.core.metadata.property.base.EnumerationPropertyMetadata;
-import com.treilhes.jfxplace.core.metadata.property.base.DoublePropertyMetadata.AngleDoublePropertyMetadata;
-import com.treilhes.jfxplace.core.metadata.property.base.DoublePropertyMetadata.CoordinateDoublePropertyMetadata;
-import com.treilhes.jfxplace.core.metadata.property.base.DoublePropertyMetadata.SizeDoublePropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.BooleanPropertyMetadata;
 import com.treilhes.jfxplace.core.metadata.property.value.ComplexPropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.EnumerationPropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.DoublePropertyMetadata.AngleDoublePropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.DoublePropertyMetadata.CoordinateDoublePropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.DoublePropertyMetadata.SizeDoublePropertyMetadata;
 import com.treilhes.jfxplace.core.metadata.property.value.list.StopListPropertyMetadata;
 
 import javafx.scene.paint.CycleMethod;

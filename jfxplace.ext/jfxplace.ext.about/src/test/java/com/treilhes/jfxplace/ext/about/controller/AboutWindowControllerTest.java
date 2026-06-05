@@ -37,50 +37,38 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.ContextConfiguration;
 import org.testfx.api.FxRobot;
 
-import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
-import com.treilhes.jfxplace.ext.about.controller.AboutWindowController;
-import com.treilhes.jfxplace.testold.JfxAppsTest;
-import com.treilhes.jfxplace.testold.StageBuilder;
-import com.treilhes.jfxplace.testold.StageType;
+import com.treilhes.emc4j.test.EmcInject;
+import com.treilhes.jfxplace.test.JfxPlaceTest;
+import com.treilhes.jfxplace.test.builder.StageBuilder;
+import com.treilhes.jfxplace.test.builder.StageType;
 
-@JfxAppsTest
-@ContextConfiguration(classes = {AboutWindowControllerTest.Config.class ,AboutWindowController.class})
+@JfxPlaceTest(classes = {AboutWindowController.class})
 class AboutWindowControllerTest {
 
-    @TestConfiguration
-    static class Config {
-        @Bean
-        IconSetting iconSetting() {
-            return Mockito.mock(IconSetting.class);
-        }
-    }
-
-    @Autowired
-    IconSetting iconSetting;
+    @EmcInject
+    StageBuilder builder;
 
     @Test
-    void show_ui(StageBuilder builder, FxRobot robot) {
+    void show_ui(FxRobot robot) {
 
-        AboutWindowController controller = builder
+        try (var testStage = builder
             .controller(AboutWindowController.class)
             .setup(StageType.None)
             .size(600, 800)
-            .show().getController();
+            .show()){
 
-        robot.interact(controller::openWindow);
+            var controller = testStage.getController();
 
-        assertTrue(controller.isOpen());
+            robot.interact(controller::openWindow);
 
-        robot.interact(controller::closeWindow);
+            assertTrue(controller.isOpen());
 
-        assertFalse(controller.isOpen());
+            robot.interact(controller::closeWindow);
+
+            assertFalse(controller.isOpen());
+        }
     }
 
 }

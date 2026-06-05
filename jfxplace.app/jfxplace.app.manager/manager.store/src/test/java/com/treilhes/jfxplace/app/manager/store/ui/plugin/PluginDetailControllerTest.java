@@ -50,10 +50,6 @@ import com.treilhes.jfxplace.app.manager.store.TestUtil;
 import com.treilhes.jfxplace.app.manager.store.action.StoreActionFactory;
 import com.treilhes.jfxplace.app.manager.store.model.Plugin;
 import com.treilhes.jfxplace.app.manager.store.ui.component.PluginItemController;
-import com.treilhes.jfxplace.app.manager.store.ui.plugin.PluginDetailController;
-import com.treilhes.jfxplace.app.manager.store.ui.plugin.PluginModel;
-import com.treilhes.jfxplace.app.manager.store.ui.plugin.PluginModelControllerImpl;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
 import com.treilhes.jfxplace.core.api.ui.controller.menu.ViewMenu;
 import com.treilhes.jfxplace.testold.JfxAppsTest;
 import com.treilhes.jfxplace.testold.StageBuilder;
@@ -66,11 +62,6 @@ class PluginDetailControllerTest {
 
     @TestConfiguration
     static class Config {
-
-        @Bean
-        JfxAppPlatform jfxAppPlatform() {
-            return Mockito.mock(JfxAppPlatform.class);
-        }
 
         @Bean
         ViewMenu viewMenuController() {

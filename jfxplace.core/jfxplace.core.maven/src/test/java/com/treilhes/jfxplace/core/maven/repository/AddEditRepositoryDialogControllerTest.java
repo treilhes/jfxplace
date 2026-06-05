@@ -35,47 +35,35 @@ package com.treilhes.jfxplace.core.maven.repository;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.testfx.api.FxRobot;
-import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
 import com.treilhes.emc4j.boot.maven.client.type.Maven;
 import com.treilhes.emc4j.boot.maven.client.type.Nexus;
-import com.treilhes.jfxplace.core.api.i18n.I18N;
+import com.treilhes.emc4j.test.EmcInject;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.maven.MavenClient;
 import com.treilhes.jfxplace.core.api.settings.MavenSetting;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.ui.InstanceWindow;
-import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.MessageLogger;
 import com.treilhes.jfxplace.core.maven.preference.MavenRepositoriesPreferences;
-import com.treilhes.jfxplace.core.maven.repository.AddEditRepositoryDialogController;
+import com.treilhes.jfxplace.test.JfxPlaceTest;
 import com.treilhes.jfxplace.testold.FxmlControllerLoader;
 
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 
-@ExtendWith({ ApplicationExtension.class, MockitoExtension.class })
+@JfxPlaceTest
 class AddEditRepositoryDialogControllerTest {
 
     @Mock
-    private MavenClient mc;
-
-    private ApplicationEvents sbm = new ApplicationEvents.ApplicationEventsImpl();
-
-    private I18N i18n = new I18N(List.of(), true);
-
-    @Mock
-    private IconSetting iconSetting;
+    MavenClient mc;
 
     @Mock
     private MessageLogger messageLogger;
@@ -88,6 +76,9 @@ class AddEditRepositoryDialogControllerTest {
 
     @Mock
     private InstanceWindow owner;
+
+    @EmcInject
+    ApplicationInstance instance;
 
     private Stage stage;
 
@@ -104,7 +95,7 @@ class AddEditRepositoryDialogControllerTest {
     @Test
     void should_load_the_hud_fxml() {
         Mockito.when(mc.repositoryTypes()).thenReturn(Set.of(Nexus.class, Maven.class));
-        Parent ui = FxmlControllerLoader.controller(new AddEditRepositoryDialogController(i18n, mc, sbm, iconSetting,
+        Parent ui = FxmlControllerLoader.controller(new AddEditRepositoryDialogController(instance, mc,
                 messageLogger, mavenSetting, repositoryPreferences, Optional.empty(), owner)).loadFxml();
         assertNotNull(ui);
     }
@@ -115,9 +106,9 @@ class AddEditRepositoryDialogControllerTest {
         Mockito.when(mc.repositoryTypes()).thenReturn(Set.of(Nexus.class, Maven.class));
 
         AddEditRepositoryDialogController dialog = FxmlControllerLoader
-                .controller(new AddEditRepositoryDialogController(i18n, mc, sbm, iconSetting, messageLogger, mavenSetting,
+                .controller(new AddEditRepositoryDialogController(instance, mc, messageLogger, mavenSetting,
                         repositoryPreferences, Optional.empty(), owner))
-                .darkTheme(sbm).load();
+                .darkTheme(instance.getApplication().getEvents()).load();
 
         robot.interact(() -> {
             dialog.openWindow();

@@ -45,12 +45,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.testfx.framework.junit5.ApplicationExtension;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.subjects.DockManager;
 import com.treilhes.jfxplace.core.api.subjects.ViewManager;
 import com.treilhes.jfxplace.core.api.ui.DockActionFactory;
 import com.treilhes.jfxplace.core.api.ui.controller.dock.type.DockType;
-import com.treilhes.jfxplace.core.ui.dock.DockPanelController;
 import com.treilhes.jfxplace.core.ui.dock.preference.DockMinimizedPreference;
 import com.treilhes.jfxplace.core.ui.dock.preference.LastDockDockTypePreference;
 import com.treilhes.jfxplace.core.ui.dock.preference.LastDockUuidPreference;
@@ -65,7 +64,7 @@ class DockPanelControllerTest {
     private DockManager dockManager = new DockManager.DockManagerImpl();
 
     @Mock
-    private JfxAppPlatform platform;
+    private ApplicationInstance instance;
     @Mock
     private EmContext context;
     @Mock
@@ -85,7 +84,7 @@ class DockPanelControllerTest {
         dockTypes = List.of(new DockTypeSplitH(context));
 
         DockPanelController dpc = new DockPanelController(
-            platform,
+            instance,
             dockManager,
             viewManager,
             lastDockUuidPreference,

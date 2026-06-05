@@ -39,10 +39,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
-import com.treilhes.jfxplace.core.api.i18n.I18N;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationInstanceEvents;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlViewController;
 import com.treilhes.jfxplace.core.api.ui.controller.dock.ViewSearch;
 import com.treilhes.jfxplace.core.api.ui.controller.dock.annotation.ViewAttachment;
@@ -67,7 +64,7 @@ public class LogViewerController extends AbstractFxmlViewController {
     public static final String VIEW_NAME = "view.name.log.viewer";
     public static final int MAX_LINES = 10000;
 
-    private final JfxAppPlatform jfxAppPlatform;
+    private final ApplicationInstance instance;
 
     private LogReader logReader = new LogReader();
 
@@ -76,13 +73,10 @@ public class LogViewerController extends AbstractFxmlViewController {
 
 
     public LogViewerController(
-            I18N i18n,
-            JfxAppPlatform jfxAppPlatform,
-            ApplicationEvents scenebuilderManager,
-            ApplicationInstanceEvents documentManager,
+            ApplicationInstance instance,
             ViewMenu viewMenuController) {
-        super(i18n, scenebuilderManager, documentManager, viewMenuController, LogViewerController.class.getResource("LogViewerWindow.fxml"));
-        this.jfxAppPlatform = jfxAppPlatform;
+        super(instance.getApplication().getI18n(), instance.getApplication().getEvents(), instance.getEvents(), viewMenuController, LogViewerController.class.getResource("LogViewerWindow.fxml"));
+        this.instance = instance;
     }
 
     @FXML
@@ -124,7 +118,7 @@ public class LogViewerController extends AbstractFxmlViewController {
         int numNewLines = newLines.size();
         int toDelete = numLines + numNewLines - MAX_LINES;
 
-        jfxAppPlatform.runOnFxThread(() -> {
+        instance.getExecutor().runOnFxThread(() -> {
             if (toDelete > 0) {
                 logs.getItems().remove(0, toDelete);
             }

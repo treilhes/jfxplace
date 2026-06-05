@@ -39,7 +39,7 @@ import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototy
 import com.treilhes.jfxplace.core.fxom.util.PrefixedValue;
 import com.treilhes.jfxplace.core.metadata.property.PropertyMetadata;
 import com.treilhes.jfxplace.core.metadata.property.ValuePropertyMetadata;
-import com.treilhes.jfxplace.core.metadata.property.base.StringPropertyMetadata.I18nStringPropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.StringPropertyMetadata.I18nStringPropertyMetadata;
 import com.treilhes.jfxplace.fxom.editors.api.AbstractPropertyEditor;
 import com.treilhes.jfxplace.fxom.editors.api.EditorContext;
 import com.treilhes.jfxplace.fxom.editors.api.EditorUtils;

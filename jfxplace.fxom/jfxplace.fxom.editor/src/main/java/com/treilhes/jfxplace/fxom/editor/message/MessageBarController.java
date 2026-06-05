@@ -42,7 +42,7 @@ import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSinglet
 import com.treilhes.jfxplace.core.api.i18n.I18N;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationInstanceEvents;
-import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlController;
+import com.treilhes.jfxplace.core.api.ui.controller.AbstractPanelController;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.MessageBar;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.MessageLogger;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.MessageLogger.MessageEntry;
@@ -66,7 +66,7 @@ import javafx.util.Duration;
  *
  */
 @ApplicationInstanceSingleton
-public class MessageBarController extends AbstractFxmlController implements MessageBar{
+public class MessageBarController extends AbstractPanelController implements MessageBar{
 
     private static final Logger logger = LoggerFactory.getLogger(MessageBarController.class);
 

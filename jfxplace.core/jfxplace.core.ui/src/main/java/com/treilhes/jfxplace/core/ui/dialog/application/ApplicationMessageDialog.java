@@ -40,9 +40,8 @@ import java.util.Map;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
-import com.treilhes.jfxplace.core.api.i18n.I18N;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
+import com.treilhes.jfxplace.core.api.application.Application;
+import com.treilhes.jfxplace.core.api.javafx.JfxPlaceExecutor;
 import com.treilhes.jfxplace.core.api.ui.controller.AbstractApplicationUiController;
 import com.treilhes.jfxplace.core.api.ui.dialog.ModalWindow;
 import com.treilhes.jfxplace.core.api.ui.dialog.ModalWindow.ButtonID;
@@ -75,20 +74,16 @@ public class ApplicationMessageDialog extends AbstractApplicationUiController {
     private ObservableList<ApplicationMessage> messages = FXCollections.observableArrayList();
 
     private final EmContext context;
-
-    private final JfxAppPlatform jfxAppPlatform;
+    private final JfxPlaceExecutor runner;
 
     private final ModalWindow modalWindow;
 
     protected ApplicationMessageDialog(
-            JfxAppPlatform jfxAppPlatform,
-            I18N i18n,
-            ApplicationEvents sceneBuilderManager,
-            EmContext context,
+            Application application,
             ModalWindow modalWindow) {
-        super(i18n, sceneBuilderManager, ApplicationMessageDialog.class.getResource("ApplicationMessageDialog.fxml"));
-        this.context = context;
-        this.jfxAppPlatform = jfxAppPlatform;
+        super(application.getI18n(), application.getEvents(), ApplicationMessageDialog.class.getResource("ApplicationMessageDialog.fxml"));
+        this.context = application.getContext();
+        this.runner = application.getExecutor();
         this.modalWindow = modalWindow;
     }
 
@@ -165,7 +160,7 @@ public class ApplicationMessageDialog extends AbstractApplicationUiController {
     }
 
     public void showMessage(ApplicationMessage applicationMessage) {
-        jfxAppPlatform.runOnFxThread(() -> {
+        runner.runOnFxThread(() -> {
             messages.add(applicationMessage);
             modalWindow.show();
         });
@@ -177,7 +172,7 @@ public class ApplicationMessageDialog extends AbstractApplicationUiController {
         assert textArea != null;
         setupListView();
 
-        jfxAppPlatform.runOnFxThread(() -> {
+        runner.runOnFxThread(() -> {
             setupDialog();
             setText(null);
         });

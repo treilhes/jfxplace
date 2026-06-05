@@ -36,184 +36,82 @@ package com.treilhes.jfxplace.app.manager.source.controller;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicReference;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.ContextConfiguration;
 import org.testfx.api.FxRobot;
 
 import com.treilhes.emc4j.boot.api.maven.RepositoryClient;
-import com.treilhes.emc4j.boot.api.maven.UniqueArtifact;
 import com.treilhes.emc4j.boot.api.registry.RegistryArtifactManager;
-import com.treilhes.emc4j.boot.api.registry.model.RegistryArtifact;
-import com.treilhes.emc4j.boot.api.registry.model.RegistryInfo;
-import com.treilhes.emc4j.boot.api.registry.model.RegistrySourceInfo;
+import com.treilhes.emc4j.test.EmcInject;
+import com.treilhes.emc4j.test.EmcInjectMock;
 import com.treilhes.jfxplace.app.manager.api.ManagerApiExtension;
 import com.treilhes.jfxplace.app.manager.registries.controller.EditSourceItemController;
 import com.treilhes.jfxplace.app.manager.registries.model.SourceModelController;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
 import com.treilhes.jfxplace.core.api.ui.controller.menu.ViewMenu;
-import com.treilhes.jfxplace.testold.JfxAppsTest;
-import com.treilhes.jfxplace.testold.StageBuilder;
-import com.treilhes.jfxplace.testold.StageType;
+import com.treilhes.jfxplace.test.JfxPlaceTest;
+import com.treilhes.jfxplace.test.builder.StageBuilder;
+import com.treilhes.jfxplace.test.builder.StageType;
 
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 
-@JfxAppsTest
-@ContextConfiguration(classes = { EditSourceItemControllerTest.Config.class, EditSourceItemController.class, SourceModelController.class })
+@JfxPlaceTest(classes = { EditSourceItemController.class, SourceModelController.class })
 class EditSourceItemControllerTest {
 
-    @TestConfiguration
-    static class Config {
+    @EmcInjectMock
+    ViewMenu viewMenu;
 
-        @Bean
-        JfxAppPlatform jfxAppPlatform() {
-            return Mockito.mock(JfxAppPlatform.class);
-        }
-
-        @Bean
-        ViewMenu viewMenuController() {
-            return Mockito.mock(ViewMenu.class);
-        }
-
-        @Bean
-        RegistryArtifactManager registryArtifactManager() {
-            return Mockito.mock(RegistryArtifactManager.class);
-        }
-
-        @Bean
-        RepositoryClient repositoryClient() {
-            return Mockito.mock(RepositoryClient.class);
-        }
-    }
-
-    @Autowired
+    @EmcInjectMock
     RegistryArtifactManager registryArtifactManager;
 
-    @Autowired
+    @EmcInjectMock
     RepositoryClient mavenClient;
 
+    @EmcInject
+    StageBuilder stageBuilder;
+
     @Test
-    void should_load_the_fxml(StageBuilder stageBuilder) {
+    void should_load_the_fxml() {
         try(var testStage = stageBuilder.controller(EditSourceItemController.class).show()){
             assertNotNull(testStage.getController().getRoot());
         }
     }
 
     @Test
-    void validate_and_version_must_be_disabled_if_groupid_and_artifactid_are_empty(StageBuilder stageBuilder, FxRobot robot) {
-        var testStage = stageBuilder
-                .controller(EditSourceItemController.class)
-                .size(800, 400)
+    void validate_and_version_must_be_disabled_if_groupid_and_artifactid_are_empty(FxRobot robot) {
+        try (var testStage = stageBuilder.controller(EditSourceItemController.class).size(800, 400)
                 .css(ManagerApiExtension.class.getResource("/com/treilhes/jfxplace/app/manager/api/ui/Manager.css"))
-                .setup(StageType.Fill).show();
+                .setup(StageType.Fill).show()) {
 
-        var controller = testStage.getController();
+            var controller = testStage.getController();
 
-        addTestBackground(robot, controller);
+            addTestBackground(robot, controller);
 
-        var validate = robot.lookup("#validate").queryButton();
-        var cancel = robot.lookup("#cancel").queryButton();
-        var versions = robot.lookup("#version").queryAs(ComboBox.class);
+            var validate = robot.lookup("#validate").queryButton();
+            var cancel = robot.lookup("#cancel").queryButton();
+            var versions = robot.lookup("#version").queryAs(ComboBox.class);
 
-        var groupId = robot.lookup("#groupId").queryTextInputControl();
-        var artifactId = robot.lookup("#artifactId").queryTextInputControl();
+            var groupId = robot.lookup("#groupId").queryTextInputControl();
+            var artifactId = robot.lookup("#artifactId").queryTextInputControl();
 
-        assertTrue(validate.isDisabled());
-        assertTrue(versions.isDisabled());
-        assertFalse(cancel.isDisabled());
+            assertTrue(validate.isDisabled());
+            assertTrue(versions.isDisabled());
+            assertFalse(cancel.isDisabled());
 
-        robot.interact(() -> groupId.setText("xxxxxxxxx"));
+            robot.interact(() -> groupId.setText("xxxxxxxxx"));
 
-        assertTrue(validate.isDisabled());
-        assertTrue(versions.isDisabled());
-        assertFalse(cancel.isDisabled());
+            assertTrue(validate.isDisabled());
+            assertTrue(versions.isDisabled());
+            assertFalse(cancel.isDisabled());
 
-        robot.interact(() -> artifactId.setText("yyyyyyyyy"));
+            robot.interact(() -> artifactId.setText("yyyyyyyyy"));
 
-        assertFalse(validate.isDisabled());
-        assertFalse(versions.isDisabled());
-        assertFalse(cancel.isDisabled());
+            assertFalse(validate.isDisabled());
+            assertFalse(versions.isDisabled());
+            assertFalse(cancel.isDisabled());
 
-        testStage.close();
-
-    }
-
-    @Test
-    void should_create_3_rows_with_only_2_lines_with_values(StageBuilder stageBuilder, FxRobot robot) {
-        var b = new AtomicReference<Button>();
-
-        var reg1 = new RegistryInfo();
-        reg1.setUuid(UUID.randomUUID());
-        reg1.setImage(EditSourceItemControllerTest.class.getResource("image1.png"));
-        reg1.setTitle("Scene Builder");
-        reg1.setText(
-                "Scene Builder is an open source tool that allows for drag and drop design of JavaFX user interfaces.");
-        reg1.setVersion("X.X.X");
-
-        var regSrc1 = new RegistrySourceInfo();
-        regSrc1.setArtifact(new RegistryArtifact("reg1.group", "reg1.artifact", null, false, null));
-        regSrc1.setRegistryInfo(reg1);
-
-        var reg2 = new RegistryInfo();
-        reg2.setUuid(UUID.randomUUID());
-        reg2.setImage(EditSourceItemControllerTest.class.getResource("image2.png"));
-        reg2.setTitle("App2");
-        reg2.setText("Description2");
-        reg2.setVersion("X.X.X");
-
-        var regSrc2 = new RegistrySourceInfo();
-        regSrc2.setArtifact(new RegistryArtifact("reg2.group", "reg2.artifact", null, true, null));
-        regSrc2.setRegistryInfo(reg2);
-
-        Mockito.when(registryArtifactManager.listRegistrySourceInfo()).thenReturn(Set.of(regSrc1, regSrc2));
-
-        Mockito.when(mavenClient.getAvailableVersions(any(), any())).thenAnswer((call) -> {
-            var group = call.getArgument(0).toString();
-            var artifact = call.getArgument(1).toString();
-            var artifacts = List.of(
-                    UniqueArtifact.builder().artifact(group, artifact).version("1.0.0").build(),
-                    UniqueArtifact.builder().artifact(group, artifact).version("2.0.0").build(),
-                    UniqueArtifact.builder().artifact(group, artifact).version("3.0.0").build()
-                    );
-            return new ArrayList<>(artifacts);
-        });
-
-
-        var loopForEdit = false;
-
-        do {
-            try(var testStage = stageBuilder
-                    .controller(EditSourceItemController.class)
-                    .size(800, 400)
-                    .css(ManagerApiExtension.class.getResource("/com/treilhes/jfxplace/app/manager/api/ui/Manager.css"))
-                    .setup(StageType.Fill)
-                    .show()){
-
-                var controller = testStage.getController();
-
-                addTestBackground(robot, controller);
-
-                //robot.interact(controller::onShow);
-                // robot.interact(() -> ScenicView.show(controller.getRoot().getScene()));
-
-                System.out.println();
-            }
-        } while (loopForEdit);
+        }
 
     }
-
 
     private void addTestBackground(FxRobot robot, EditSourceItemController controller) {
         robot.interact(() -> controller.getRoot().getScene().getRoot().setStyle(

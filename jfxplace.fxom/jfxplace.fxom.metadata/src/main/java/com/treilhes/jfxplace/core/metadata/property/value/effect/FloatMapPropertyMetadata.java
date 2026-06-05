@@ -36,8 +36,8 @@ package com.treilhes.jfxplace.core.metadata.property.value.effect;
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
 import com.treilhes.jfxplace.core.fxom.FXOMInstance;
 import com.treilhes.jfxplace.core.fxom.util.PropertyName;
-import com.treilhes.jfxplace.core.metadata.property.base.IntegerPropertyMetadata;
 import com.treilhes.jfxplace.core.metadata.property.value.ComplexPropertyMetadata;
+import com.treilhes.jfxplace.core.metadata.property.value.IntegerPropertyMetadata;
 
 import javafx.scene.effect.FloatMap;
 

@@ -36,7 +36,7 @@ package com.treilhes.jfxplace.core.api.subjects;
 import com.treilhes.emc4j.boot.api.context.Application;
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
 import com.treilhes.jfxplace.core.api.application.ApplicationClassloader;
-import com.treilhes.jfxplace.core.api.application.ApplicationInstance;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.tooltheme.ToolStylesheetProvider;
 
 import io.reactivex.rxjava3.subjects.PublishSubject;
@@ -69,18 +69,20 @@ public interface ApplicationEvents {
 
     SubjectItem<Window> newWindow();
 
+    void terminate();
+
     @ApplicationSingleton
     public class ApplicationEventsImpl implements ApplicationEvents {
 
         private final ApplicationSubjects subjects;
-        private final SubjectItem<Boolean> debugMode;
-        private final SubjectItem<ApplicationClassloader> classloader;
+        private SubjectItem<Boolean> debugMode;
+        private SubjectItem<ApplicationClassloader> classloader;
 
-        private final SubjectItem<ToolStylesheetProvider> stylesheetConfig;
-        private final SubjectItem<Application> opened;
-        private final SubjectItem<Application> closed;
-        private final SubjectItem<ApplicationInstance> documentScoped;
-        private final SubjectItem<Window> newWindow;
+        private SubjectItem<ToolStylesheetProvider> stylesheetConfig;
+        private SubjectItem<Application> opened;
+        private SubjectItem<Application> closed;
+        private SubjectItem<ApplicationInstance> documentScoped;
+        private SubjectItem<Window> newWindow;
 
         public ApplicationEventsImpl() {
             subjects = new ApplicationSubjects();
@@ -137,6 +139,27 @@ public interface ApplicationEvents {
         public SubjectItem<Window> newWindow() {
             return newWindow;
         }
+
+        @Override
+        public void terminate() {
+            debugMode.onTerminateDetach();
+            classloader.onTerminateDetach();
+            stylesheetConfig.onTerminateDetach();
+            opened.onTerminateDetach();
+            closed.onTerminateDetach();
+            documentScoped.onTerminateDetach();
+            newWindow.onTerminateDetach();
+
+            subjects.terminate();
+
+            debugMode = null;
+            classloader = null;
+            stylesheetConfig = null;
+            opened = null;
+            closed = null;
+            documentScoped = null;
+            newWindow = null;
+        }
     }
 
     public class ApplicationSubjects extends SubjectManager {
@@ -161,6 +184,29 @@ public interface ApplicationEvents {
             documentScoped = wrap(ApplicationSubjects.class, "documentScoped", ReplaySubject.create(1)); // NOI18N
             classloader = wrap(ApplicationSubjects.class, "classloader", ReplaySubject.create(1)); // NOI18N
             newWindow = wrap(ApplicationSubjects.class, "newWindow", PublishSubject.create()); // NOI18N
+        }
+
+        public void terminate() {
+            opened.onComplete();
+            closed.onComplete();
+            debugMode.onComplete();
+            stylesheetConfig.onComplete();
+            documentOpened.onComplete();
+            documentClosed.onComplete();
+            documentScoped.onComplete();
+            classloader.onComplete();
+            newWindow.onComplete();
+
+            opened = null;
+            closed = null;
+            debugMode = null;
+            stylesheetConfig = null;
+            documentOpened = null;
+            documentClosed = null;
+            documentScoped = null;
+            classloader = null;
+            newWindow = null;
+
         }
 
         public ReplaySubject<ToolStylesheetProvider> getStylesheetConfig() {

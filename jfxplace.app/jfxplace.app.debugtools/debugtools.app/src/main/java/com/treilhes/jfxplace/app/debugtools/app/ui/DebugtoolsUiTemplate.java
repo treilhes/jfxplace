@@ -35,56 +35,57 @@ package com.treilhes.jfxplace.app.debugtools.app.ui;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstanceSingleton;
 import com.treilhes.jfxplace.app.debugtools.api.ui.Docks;
-import com.treilhes.jfxplace.core.api.i18n.I18N;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.ui.MainInstanceWindow;
 import com.treilhes.jfxplace.core.api.ui.controller.AbstractFxmlWindowController;
 import com.treilhes.jfxplace.core.api.ui.controller.dock.Dock;
+import com.treilhes.jfxplace.core.api.ui.controller.dock.Dock.Orientation;
 import com.treilhes.jfxplace.core.api.ui.controller.dock.DockFactory;
 import com.treilhes.jfxplace.core.api.ui.controller.menu.MenuBar;
-import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
-import com.treilhes.jfxplace.core.api.ui.controller.misc.ViewLinks;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 @ApplicationInstanceSingleton
 public class DebugtoolsUiTemplate extends AbstractFxmlWindowController implements MainInstanceWindow {
 
     private final MenuBar menuBar;
+
+    private final Dock leftDock;
     private final Dock centerDock;
-    private final ViewLinks viewLinks;
+    private final Dock rightDock;
+    private final Dock bottomDock;
 
     @FXML
-    private AnchorPane contentHost;
+    private VBox leftHost;
     @FXML
-    private HBox hBox;
-
-
+    private VBox rightHost;
+    @FXML
+    private AnchorPane centerHost;
+    @FXML
+    private VBox bottomHost;
 
     // @formatter:off
     public DebugtoolsUiTemplate(
-            I18N i18n,
-            ApplicationEvents sceneBuilderManager,
-            IconSetting iconSetting,
+            ApplicationInstance instance,
             DockFactory dockFactory,
-            MenuBar menuBar,
-            ViewLinks viewLinks) {
-        super(i18n, sceneBuilderManager, iconSetting, DebugtoolsUiTemplate.class.getResource("DebugtoolsUiTemplate.fxml"), false);
+            MenuBar menuBar) {
+        super(instance, DebugtoolsUiTemplate.class.getResource("DebugtoolsUiTemplate.fxml"), false);
         // @formatter:on
 
         this.menuBar = menuBar;
-        this.viewLinks = viewLinks;
+        this.leftDock = dockFactory.create(Docks.LEFT_DOCK_UUID, "Left");
         this.centerDock = dockFactory.create(Docks.CENTER_DOCK_UUID, "Center");
+        this.rightDock = dockFactory.create(Docks.RIGHT_DOCK_UUID, "Right");
+        this.bottomDock = dockFactory.create(Docks.BOTTOM_DOCK_UUID, "Bottom");
     }
 
     @FXML
     public void initialize() {
-
+        this.bottomDock.setMinimizedOrientation(Orientation.HORIZONTAL);
     }
 
     @Override
@@ -99,14 +100,16 @@ public class DebugtoolsUiTemplate extends AbstractFxmlWindowController implement
         final VBox rootVBox = (VBox) getRoot();
         rootVBox.getChildren().add(0, menuBar.getMenuBar());
 
-        hBox.getChildren().add(0, viewLinks.getRoot());
-
         var content = centerDock.getContent();
         AnchorPane.setTopAnchor(content, 0.0);
         AnchorPane.setRightAnchor(content, 0.0);
         AnchorPane.setBottomAnchor(content, 0.0);
         AnchorPane.setLeftAnchor(content, 0.0);
-        contentHost.getChildren().add(content);
+
+        centerHost.getChildren().add(content);
+        leftHost.getChildren().add(leftDock.getContent());
+        rightHost.getChildren().add(rightDock.getContent());
+        bottomHost.getChildren().add(bottomDock.getContent());
     }
 
     @Override

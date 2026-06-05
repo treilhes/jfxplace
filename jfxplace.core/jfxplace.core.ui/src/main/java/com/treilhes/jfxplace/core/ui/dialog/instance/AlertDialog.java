@@ -36,10 +36,8 @@ package com.treilhes.jfxplace.core.ui.dialog.instance;
 import java.net.URL;
 
 import com.treilhes.emc4j.boot.api.context.annotation.Prototype;
-import com.treilhes.jfxplace.core.api.i18n.I18N;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationInstanceEvents;
+import com.treilhes.jfxplace.core.api.application.Application;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.ui.controller.AbstractInstanceUiController;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
 import com.treilhes.jfxplace.core.api.ui.dialog.Alert;
@@ -68,14 +66,12 @@ public class AlertDialog extends AbstractInstanceUiController implements Alert {
 
     //@formatter:off
     public AlertDialog(
-            JfxAppPlatform jfxAppPlatform,
-            I18N i18n,
-            ApplicationEvents applicationEvents,
-            ApplicationInstanceEvents instanceEvents,
+            Application application,
+            ApplicationInstance instance,
             IconSetting iconSetting,
             ModalWindow modalWindow) {
         //@formatter:on
-        super(i18n, applicationEvents, instanceEvents, AlertDialog.class.getResource("AlertDialog.fxml"));
+        super(application.getI18n(), application.getEvents(), instance.getEvents(), AlertDialog.class.getResource("AlertDialog.fxml"));
         this.modalWindow = modalWindow;
     }
 

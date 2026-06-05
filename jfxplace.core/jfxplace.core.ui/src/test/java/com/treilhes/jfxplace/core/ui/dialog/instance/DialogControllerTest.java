@@ -40,9 +40,8 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.context.annotation.Configuration;
 import org.testfx.api.FxRobot;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
@@ -50,27 +49,22 @@ import com.treilhes.emc4j.boot.api.platform.EmcPlatform;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
 import com.treilhes.jfxplace.core.api.ui.dialog.ModalWindow.ButtonID;
 import com.treilhes.jfxplace.core.ui.dialog.ModalWindowImpl;
-import com.treilhes.jfxplace.core.ui.dialog.instance.AlertDialog;
-import com.treilhes.jfxplace.core.ui.dialog.instance.DialogController;
-import com.treilhes.jfxplace.core.ui.dialog.instance.ErrorDialog;
-import com.treilhes.jfxplace.testold.JfxAppsTest;
+import com.treilhes.jfxplace.test.JfxPlaceTest;
 
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-@JfxAppsTest
-@ContextConfiguration(classes = {
+@JfxPlaceTest(classes = {
         DialogControllerTest.Config.class,
         DialogController.class,
         AlertDialog.class,
         ErrorDialog.class,
         ModalWindowImpl.class
         })
-//FIXME: even when closed the dialog is not removed from the stage, this completely defeat the lookup as we don't have any root to search in
 class DialogControllerTest {
 
-    @TestConfiguration
+    @Configuration
     static class Config {
         @Bean
         IconSetting iconSetting() {

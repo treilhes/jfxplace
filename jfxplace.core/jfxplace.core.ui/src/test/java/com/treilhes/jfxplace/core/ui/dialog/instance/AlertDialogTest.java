@@ -39,20 +39,19 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.ContextConfiguration;
 import org.testfx.api.FxRobot;
 
 import com.treilhes.emc4j.boot.api.context.EmContext;
 import com.treilhes.emc4j.boot.api.platform.EmcPlatform;
+import com.treilhes.emc4j.test.EmcInject;
 import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
 import com.treilhes.jfxplace.core.ui.dialog.ModalWindowImpl;
-import com.treilhes.jfxplace.core.ui.dialog.instance.AlertDialog;
-import com.treilhes.jfxplace.testold.JfxAppsTest;
-import com.treilhes.jfxplace.testold.StageBuilder;
-import com.treilhes.jfxplace.testold.StageType;
+import com.treilhes.jfxplace.test.JfxPlaceTest;
+import com.treilhes.jfxplace.test.builder.StageBuilder;
+import com.treilhes.jfxplace.test.builder.StageType;
 
-@JfxAppsTest
-@ContextConfiguration(classes = { AlertDialogTest.Config.class, AlertDialog.class, ModalWindowImpl.class })
+
+@JfxPlaceTest(classes = { AlertDialogTest.Config.class, AlertDialog.class, ModalWindowImpl.class })
 class AlertDialogTest {
 
 
@@ -71,8 +70,11 @@ class AlertDialogTest {
         }
     }
 
+    @EmcInject
+    StageBuilder builder;
+
     @Test
-    void must_show_the_alert_dialog(StageBuilder builder, FxRobot robot, EmContext context) {
+    void must_show_the_alert_dialog(FxRobot robot, EmContext context) {
         try (var testStage = builder.controller().setup(StageType.Center).size(800, 600).show()) {
 
             AlertDialog alert = context.getBean(AlertDialog.class);
@@ -87,7 +89,7 @@ class AlertDialogTest {
     }
 
     @Test
-    void must_show_the_alert_dialog_message(StageBuilder builder, FxRobot robot, EmContext context) {
+    void must_show_the_alert_dialog_message(FxRobot robot, EmContext context) {
         final String message = "This is an alert message";
         try (var testStage = builder.controller().setup(StageType.Center).size(800, 600).show()) {
 
@@ -106,7 +108,7 @@ class AlertDialogTest {
     }
 
     @Test
-    void must_show_the_alert_dialog_details(StageBuilder builder, FxRobot robot, EmContext context) {
+    void must_show_the_alert_dialog_details(FxRobot robot, EmContext context) {
         final String details = "These are alert details";
         try (var testStage = builder.controller().setup(StageType.Center).size(800, 600).show()) {
 

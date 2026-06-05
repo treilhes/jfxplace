@@ -40,7 +40,6 @@ import java.util.Map;
 import org.springframework.beans.factory.BeanClassLoaderAware;
 
 import com.treilhes.emc4j.boot.api.context.annotation.ApplicationSingleton;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
 import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 
 /**

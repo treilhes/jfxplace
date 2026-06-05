@@ -35,7 +35,7 @@ public class TrayOpenCommandEventHandler implements CommandEventHandler {
     public void handleOpenCommand(OpenCommandEvent command) {
         try {
             applicationActionFactory.lookupUnusedInstance(null, (instance) -> {
-                instance.openWindow();
+                instance.getUi().openWindow();
             }).perform();
         } catch (Exception e) {
             logger.error("Error while executing command", e);

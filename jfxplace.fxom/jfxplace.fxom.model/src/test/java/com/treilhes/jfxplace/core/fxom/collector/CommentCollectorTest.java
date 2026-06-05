@@ -35,20 +35,17 @@ package com.treilhes.jfxplace.core.fxom.collector;
 
 import static org.junit.Assert.assertEquals;
 
-import java.nio.file.Path;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.io.TempDir;
 import org.junitpioneer.jupiter.SetSystemProperty;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
 import com.treilhes.jfxplace.core.fxom.FXOMComment;
 import com.treilhes.jfxplace.core.fxom.FXOMDocument;
-import com.treilhes.jfxplace.core.fxom.collector.CommentCollector;
 import com.treilhes.jfxplace.core.fxom.pipeline.FXOMDocumentFactory;
 
 import javafx.stage.Stage;
@@ -85,9 +82,6 @@ class CommentCollectorTest {
                </children>
             </Pane>
             """;
-
-    @TempDir
-    static Path tempDir;
 
     FXOMDocument fxomDocument;
 

@@ -37,10 +37,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.treilhes.jfxplace.core.api.i18n.I18N;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.javafx.FxmlController;
-import com.treilhes.jfxplace.core.api.subjects.ApplicationEvents;
 import com.treilhes.jfxplace.core.api.ui.InstanceWindow;
-import com.treilhes.jfxplace.core.api.ui.controller.misc.IconSetting;
 
 /**
  *
@@ -53,45 +52,37 @@ public abstract class AbstractFxmlWindowController extends AbstractWindowControl
 
 
     public AbstractFxmlWindowController(
-            I18N i18n,
-            ApplicationEvents applicationEvents,
-            IconSetting iconSetting,
+            ApplicationInstance instance,
             URL fxmlURL) {
-        this(i18n, applicationEvents, iconSetting, fxmlURL, null);
+        this(instance, fxmlURL, null);
     }
 
     public AbstractFxmlWindowController(
-            I18N i18n,
-            ApplicationEvents applicationEvents,
-            IconSetting iconSetting,
+            ApplicationInstance instance,
             URL fxmlURL,
             boolean sizeToScene) {
-        this(i18n, applicationEvents, iconSetting, fxmlURL, null, sizeToScene);
+        this(instance, fxmlURL, null, sizeToScene);
     }
 
     public AbstractFxmlWindowController(
-            I18N i18n,
-            ApplicationEvents applicationEvents,
-            IconSetting iconSetting,
+            ApplicationInstance instance,
             URL fxmlURL,
             InstanceWindow owner) {
-        super(applicationEvents, iconSetting, owner);
+        super(instance, owner);
         assert fxmlURL != null || isFxmlFromStream() : "Check fxml path given to " + getClass().getSimpleName();
         this.fxmlURL = fxmlURL;
-        this.i18n = i18n;
+        this.i18n = instance.getApplication().getI18n();
     }
 
     public AbstractFxmlWindowController(
-            I18N i18n,
-            ApplicationEvents applicationEvents,
-            IconSetting iconSetting,
+            ApplicationInstance instance,
             URL fxmlURL,
             InstanceWindow owner,
             boolean sizeToScene) {
-        super(applicationEvents, iconSetting, owner, sizeToScene);
+        super(instance, owner, sizeToScene);
         assert fxmlURL != null || isFxmlFromStream() : "Check fxml path given to " + getClass().getSimpleName();
         this.fxmlURL = fxmlURL;
-        this.i18n = i18n;
+        this.i18n = instance.getApplication().getI18n();
     }
 
     @Override

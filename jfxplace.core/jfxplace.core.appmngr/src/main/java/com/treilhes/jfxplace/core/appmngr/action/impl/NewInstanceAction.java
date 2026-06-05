@@ -35,16 +35,15 @@ package com.treilhes.jfxplace.core.appmngr.action.impl;
 
 import java.util.function.Consumer;
 
-import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototype;
+import com.treilhes.emc4j.boot.api.context.annotation.ApplicationPrototype;
 import com.treilhes.jfxplace.core.api.action.AbstractAction;
 import com.treilhes.jfxplace.core.api.action.ActionExtensionFactory;
 import com.treilhes.jfxplace.core.api.action.ActionMeta;
-import com.treilhes.jfxplace.core.api.application.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.application.InstancesManager;
 import com.treilhes.jfxplace.core.api.i18n.I18N;
-import com.treilhes.jfxplace.core.api.javafx.JfxAppPlatform;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
 
-@ApplicationInstancePrototype("com.treilhes.jfxplace.core.appmngr.action.impl.NewInstanceAction")
+@ApplicationPrototype("com.treilhes.jfxplace.core.appmngr.action.impl.NewInstanceAction")
 @ActionMeta(
         nameKey = "action.name.save",
         descriptionKey = "action.description.save")
@@ -58,8 +57,7 @@ public class NewInstanceAction extends AbstractAction {
     // @formatter:off
             I18N i18n,
             ActionExtensionFactory extensionFactory,
-            InstancesManager main,
-            JfxAppPlatform jfxAppPlatform) {
+            InstancesManager main) {
     // @formatter:on
         super(i18n, extensionFactory);
         this.main = main;
@@ -74,7 +72,7 @@ public class NewInstanceAction extends AbstractAction {
     public ActionStatus doPerform() {
         final var instance = main.newInstance();
 
-        instance.openWindow();
+        instance.getUi().openWindow();
 
         if (consumer != null) {
             consumer.accept(instance);

@@ -37,8 +37,9 @@ import com.treilhes.emc4j.boot.api.context.annotation.ApplicationInstancePrototy
 import com.treilhes.jfxplace.core.api.action.AbstractAction;
 import com.treilhes.jfxplace.core.api.action.ActionExtensionFactory;
 import com.treilhes.jfxplace.core.api.action.ActionMeta;
-import com.treilhes.jfxplace.core.api.application.ApplicationInstance;
 import com.treilhes.jfxplace.core.api.i18n.I18N;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstance;
+import com.treilhes.jfxplace.core.api.instance.ApplicationInstanceUi;
 import com.treilhes.jfxplace.core.api.ui.MainInstanceWindow;
 
 @ApplicationInstancePrototype("com.treilhes.jfxplace.core.appmngr.action.impl.CloseInstanceAction")
@@ -48,14 +49,17 @@ import com.treilhes.jfxplace.core.api.ui.MainInstanceWindow;
 public class CloseInstanceAction extends AbstractAction {
 
     private final MainInstanceWindow documentWindow;
-    private final ApplicationInstance document;
+    private final ApplicationInstanceUi document;
+    private final ApplicationInstance instance;
 
     public CloseInstanceAction(
             I18N i18n,
+            ApplicationInstance instance,
             ActionExtensionFactory extensionFactory,
-            ApplicationInstance document,
+            ApplicationInstanceUi document,
             MainInstanceWindow documentWindow) {
         super(i18n, extensionFactory);
+        this.instance = instance;
         this.document = document;
         this.documentWindow = documentWindow;
     }
@@ -71,7 +75,6 @@ public class CloseInstanceAction extends AbstractAction {
         // Makes sure that our window is front
         documentWindow.getStage().toFront();
         document.close();
-
 
         return ActionStatus.DONE;
     }

@@ -62,7 +62,7 @@
  * <b>Application Startup</b>:<br/>
  * When the JavaFX application is initially launched<br/>
  * - we set the javafx thread's classloader with a singleton instance of
- * {@link JavafxThreadClassloaderDispatcherImpl}<br/>
+ * {@link JavafxThreadClassloaderDispatcher}<br/>
  * This class is responsible of switching the context class loader according
  * to the focused window<br/>
  * - we set any new window event dispatcher with a singleton instance of
